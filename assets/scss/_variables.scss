@@ -1,17 +1,32 @@
+:root {
+  // colors
+  --black: #000;
+  --white: #fff;
+  --primary: #18181f;
+  // header
+  --headerHeight: 64px;
+  --subHeaderHeight: 44px;
+  --headerColor: var(--white);
+  --borderAtts: 1px solid var(--headerColor);
+  @media screen and (max-width: 480px) {
+    --headerHeight: 60px;
+  }
+}
+
 // ========================================
 // Colors
 // ========================================
-$black	: #000000;
-$white 	: #FFFFFF;
+$black: #000000;
+$white: #ffffff;
 
-$primary : indianred;
+$primary: indianred;
 
 // ========================================
 // Screen sizes
 // ========================================
-$mobile  :		480px;
-$tablet  :		769px;
-$desktop : 		1000px;
-$fullhd  :		1384px;
+$mobile: 480px;
+$tablet: 769px;
+$desktop: 1000px;
+$fullhd: 1384px;
 
 $headerHeight: 80px;

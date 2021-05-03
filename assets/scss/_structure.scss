@@ -3,3 +3,45 @@ body {
     overflow: hidden;
   }
 }
+button {
+  cursor: pointer;
+}
+#navSocials {
+  svg {
+    height: 100%;
+    width: auto;
+    fill: var(--white);
+  }
+}
+
+.nav-enter-active {
+  animation: nav 0.25s;
+}
+.nav-leave-active {
+  animation: nav 0.2s reverse;
+}
+@keyframes nav {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes nava {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
