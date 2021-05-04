@@ -13,6 +13,19 @@
   }
 }
 
+html {
+  &.dark {
+    --headerColor: var(--white);
+    background: var(--primary);
+    color: var(--white);
+  }
+  &.light {
+    --headerColor: var(--primary);
+    background: var(--white);
+    color: var(--primary);
+  }
+}
+
 // ========================================
 // Colors
 // ========================================

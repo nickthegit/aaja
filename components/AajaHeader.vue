@@ -39,12 +39,16 @@ export default {
 header {
   width: 100%;
   height: auto;
-  background: var(--primary);
+  background: transparent;
   border-bottom: var(--borderAtts);
   display: grid;
   grid-template: var(--headerHeight) / auto 1fr auto auto;
   align-items: center;
   color: var(--headerColor);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 999;
   @include breakpoint(mobile) {
     grid-template: var(--headerHeight) var(--subHeaderHeight) / 1fr auto;
   }
