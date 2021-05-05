@@ -14,10 +14,10 @@
 }
 
 html {
+  --headerColor: var(--white);
+  background: var(--primary);
+  color: var(--white);
   &.dark {
-    --headerColor: var(--white);
-    background: var(--primary);
-    color: var(--white);
   }
   &.light {
     --headerColor: var(--primary);
