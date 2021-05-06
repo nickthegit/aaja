@@ -7,22 +7,20 @@
   --headerHeight: 64px;
   --subHeaderHeight: 44px;
   --headerColor: var(--white);
+  // gen atts
+  --globalPadding: 80px;
+  --containerWidth: 1920px;
   --borderAtts: 1px solid var(--headerColor);
+  // fonts
+  --h1Size: 10vw;
+  @media screen and (max-width: 769px) {
+    --globalPadding: 40px;
+    --h1Size: 12vw;
+  }
   @media screen and (max-width: 480px) {
     --headerHeight: 60px;
-  }
-}
-
-html {
-  --headerColor: var(--white);
-  background: var(--primary);
-  color: var(--white);
-  &.dark {
-  }
-  &.light {
-    --headerColor: var(--primary);
-    background: var(--white);
-    color: var(--primary);
+    --globalPadding: 20px;
+    --h1Size: 20vw;
   }
 }
 

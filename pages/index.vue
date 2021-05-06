@@ -1,17 +1,37 @@
 <template>
   <main>
     <article>
-      <nuxt-link to="radio">Radio Station,</nuxt-link><br /><nuxt-link to="bar">
-        Bar</nuxt-link
-      >
-      and
-      <nuxt-link to="label">Record Label</nuxt-link>
+      <h1>
+        <nuxt-link to="radio">Radio Station,</nuxt-link><br /><nuxt-link
+          to="bar"
+        >
+          Bar</nuxt-link
+        >
+        and
+        <nuxt-link to="label">Record Label</nuxt-link>
+      </h1>
     </article>
+    <FullLogo id="home-logo" />
+    <a
+      id="patreon"
+      :href="patreon_link"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <img src="~/assets/img/become-my-patreon.jpg" alt="Become a patreon" />
+    </a>
   </main>
 </template>
 
 <script>
+import FullLogo from '~/assets/img/icons/fullLogo.svg?inline'
 export default {
+  components: { FullLogo },
+  data() {
+    return {
+      patreon_link: 'https://www.patreon.com/',
+    }
+  },
   mounted() {},
   head: {
     htmlAttrs: {
@@ -38,21 +58,14 @@ main {
 }
 article {
   width: 70%;
-  // max-width: 800px;
   text-align: center;
-  font-family: 'FK Screamer Trial';
-  font-size: 10vw;
-  text-transform: uppercase;
   -webkit-text-stroke: 1px var(--white);
   color: transparent;
-  // background: seagreen;
   @include breakpoint(tablet) {
     width: 80%;
-    font-size: 12vw;
   }
   @include breakpoint(mobile) {
     width: 90%;
-    font-size: 20vw;
   }
   a {
     color: var(--white);
@@ -62,5 +75,25 @@ article {
       color: transparent;
     }
   }
+}
+#home-logo {
+  width: 16%;
+  @include breakpoint(tablet) {
+    width: 25%;
+  }
+  @include breakpoint(mobile) {
+    width: 33%;
+  }
+}
+#patreon {
+  width: 175px;
+  position: absolute;
+  display: block;
+  right: 0;
+  bottom: 60px;
+  z-index: 10;
+}
+img {
+  width: 100%;
 }
 </style>

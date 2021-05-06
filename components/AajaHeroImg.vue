@@ -1,0 +1,80 @@
+<template>
+  <picture>
+    <!-- DESKTOP (Landscape) -->
+    <source
+      :srcset="`
+        ${landscapeImgs['400']} 400w,
+        ${landscapeImgs['600']} 600w,
+        ${landscapeImgs['800']} 800w,
+        ${landscapeImgs['1000']} 1000w,
+        ${landscapeImgs['1200']} 1200w,
+        ${landscapeImgs['1400']} 1400w,
+        ${landscapeImgs['1600']} 1600w,
+        ${landscapeImgs['1800']} 1800w,
+        ${landscapeImgs['2000']} 2000w,
+        ${landscapeImgs['2400']} 2400w,
+        ${landscapeImgs['2800']} 2800w,
+        ${landscapeImgs['3000']} 3000w
+      `"
+      media="(orientation: landscape)"
+    />
+    <!-- TABLET & MOBILE (Protrait)-->
+    <source
+      :srcset="`
+        ${portraitImgs['400']} 400w,
+        ${portraitImgs['600']} 600w,
+        ${portraitImgs['800']} 800w,
+        ${portraitImgs['1000']} 1000w,
+        ${portraitImgs['1200']} 1200w,
+        ${portraitImgs['1400']} 1400w,
+        ${portraitImgs['1600']} 1600w,
+        ${portraitImgs['1800']} 1800w,
+      `"
+      media="(orientation: portrait)"
+    />
+    <img :src="landscapeImgs['1200']" :ref="altText" />
+  </picture>
+</template>
+
+<script>
+export default {
+  props: {
+    altText: {
+      type: String,
+      default: 'An Aaja hero image',
+    },
+    landscapeImgs: {
+      type: Object,
+      default: () => ({
+        400: 'https://placehold.co/400x400?text=400x400+Desktop+served+at+400w',
+        600: 'https://placehold.co/600x400?text=600x400+Desktop+served+at+600w',
+        800: 'https://placehold.co/800x400?text=800x400+Desktop+served+at+800w',
+        1000: 'https://placehold.co/1000x400?text=1000x400+Desktop+served+at+1000w',
+        1200: 'https://placehold.co/1200x400?text=1200x400+Desktop+served+at+1200w',
+        1400: 'https://placehold.co/1400x400?text=1400x400+Desktop+served+at+1400w',
+        1600: 'https://placehold.co/1600x400?text=1600x400+Desktop+served+at+1600w',
+        1800: 'https://placehold.co/1800x400?text=1800x400+Desktop+served+at+1800w',
+        2000: 'https://placehold.co/2000x400?text=2000x400+Desktop+served+at+2000w',
+        2400: 'https://placehold.co/2400x400?text=2400x400+Desktop+served+at+2400w',
+        2800: 'https://placehold.co/2800x400?text=2800x400+Desktop+served+at+2800w',
+        3000: 'https://placehold.co/3000x400?text=3000x400+Desktop+served+at+3000w ',
+      }),
+    },
+    portraitImgs: {
+      type: Object,
+      default: () => ({
+        400: 'https://placehold.co/400x400?text=400x400+MOBILE+served+at+400w',
+        600: 'https://placehold.co/600x600?text=600x600+MOBILE+served+at+600w',
+        800: 'https://placehold.co/800x800?text=800x800+MOBILE+served+at+800w',
+        1000: 'https://placehold.co/1000x1000?text10=400x1000+MOBILE+served+at+1000w',
+        1200: 'https://placehold.co/1200x1200?text=1200x1200+MOBILE+served+at+1200w',
+        1400: 'https://placehold.co/1400x1400?text=1400x1400+MOBILE+served+at+1400w',
+        1600: 'https://placehold.co/1600x1600?text=1600x1600+MOBILE+served+at+1600w',
+        1800: 'https://placehold.co/1800x1800?text=1800x1800+MOBILE+served+at+1800w',
+      }),
+    },
+  },
+}
+</script>
+
+<style lang="scss" scoped></style>
