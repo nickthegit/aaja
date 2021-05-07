@@ -13,6 +13,6 @@ export default {}
   width: 100%;
   max-width: var(--containerWidth);
   margin: 0 auto;
-  padding: var(--globalPadding);
+  padding: 0 var(--globalPadding);
 }
 </style>

@@ -3,6 +3,8 @@
   --black: #000;
   --white: #fff;
   --primary: #18181f;
+  --dark: #1f2227;
+
   // header
   --headerHeight: 64px;
   --subHeaderHeight: 44px;
@@ -12,6 +14,8 @@
   --containerWidth: 1920px;
   --borderAtts: 1px solid var(--headerColor);
   // fonts
+  --pSize: 18px;
+  --pLineHeight: 24px;
   --h1Size: 10vw;
   @media screen and (max-width: 769px) {
     --globalPadding: 40px;
