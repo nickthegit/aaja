@@ -56,6 +56,10 @@ header {
 svg {
   width: 100%;
   fill: var(--headerColor);
+  path {
+    fill: var(--headerColor);
+    stroke: var(--headerColor);
+  }
 }
 #brand {
   width: 29px;

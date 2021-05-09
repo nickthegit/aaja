@@ -11,11 +11,7 @@
         />
       </section>
       <aaja-container class="bar__hero-container">
-        <div class="bar__hero-heading">
-          <h1>
-            Aaja Bar<span><Logo /></span>
-          </h1>
-        </div>
+        <aaja-heading>Aaja Bar</aaja-heading>
         <section class="bar__hero-opening">
           <p>Opening Hours</p>
           <p><strong>Wednesday to Saturday - 10:00 - 23:00 </strong></p>
@@ -78,9 +74,10 @@ import AajaContainer from '~/components/AajaContainer.vue'
 import AajaHeroImg from '~/components/AajaHeroImg.vue'
 import Logo from '~/assets/img/icons/logo.svg?inline'
 import AajaImg from '~/components/AajaImg.vue'
+import AajaHeading from '~/components/AajaHeading.vue'
 
 export default {
-  components: { AajaContainer, AajaHeroImg, Logo, AajaImg },
+  components: { AajaContainer, AajaHeroImg, Logo, AajaImg, AajaHeading },
   data() {
     return {
       heroImage: cloudinaryHeroParser(
@@ -130,26 +127,7 @@ export default {
       padding-top: 40px;
       padding-bottom: 40px;
     }
-    &-heading {
-      flex-grow: 1;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      h1 {
-        display: flex;
-        align-items: center;
-        width: 100%;
-      }
-      span {
-        display: inline-block;
-        width: 5vw;
-        margin-left: 1%;
-        svg {
-          width: 100%;
-          fill: var(--white);
-        }
-      }
-    }
+
     &-opening {
       p {
         text-transform: uppercase;
