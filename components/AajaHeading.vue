@@ -20,8 +20,6 @@ div {
   display: flex;
   align-items: center;
   h1 {
-    display: flex;
-    align-items: flex-end;
     width: 100%;
   }
   span {

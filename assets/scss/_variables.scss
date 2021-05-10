@@ -1,6 +1,6 @@
 :root {
   // colors
-  --black: #000;
+  --black: #262626;
   --white: #f2f2f2;
   --primary: #18181f;
   --dark: #1f2227;
@@ -9,22 +9,32 @@
   --headerHeight: 64px;
   --subHeaderHeight: 44px;
   --headerColor: var(--white);
+
   // gen atts
   --globalPadding: 80px;
   --containerWidth: 1920px;
   --borderAtts: 1px solid var(--headerColor);
+  --mainColor: var(--white);
+
   // fonts
   --pSize: 18px;
   --pLineHeight: 24px;
   --h1Size: 10vw;
+  --h2Size: 3vw;
+  --h3Size: 2.8vw;
+
   @media screen and (max-width: 769px) {
     --globalPadding: 40px;
-    --h1Size: 12vw;
+    --h1Size: 10vw;
+    --h2Size: 4.5vw;
+    --h3Size: 4vw;
   }
   @media screen and (max-width: 480px) {
     --headerHeight: 60px;
     --globalPadding: 20px;
-    --h1Size: 20vw;
+    --h1Size: 19vw;
+    --h2Size: 7vw;
+    --h3Size: 7vw;
   }
 }
 

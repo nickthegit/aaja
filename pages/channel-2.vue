@@ -1,16 +1,16 @@
 <template>
-  <main>
-    <section class="channel2__hero">
-      <aaja-container class="channel2__hero-container">
-        <aaja-heading>aaja music <br />record Label</aaja-heading>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.
-        </p>
-      </aaja-container>
-    </section>
+  <main class="light-theme">
+    <aaja-standard-hero>
+      <template v-slot:heading>
+        <aaja-heading>aaja music <br />Channel 2</aaja-heading>
+      </template>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat.
+      </p>
+    </aaja-standard-hero>
     <article>
       <aaja-container class="channel2__content">
         <div class="iframe-wrap">
@@ -43,29 +43,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-main {
-  width: 100%;
-  position: relative;
-  background-image: url('~/assets/img/whitesnake.svg');
-  background-size: auto 100%;
-  background-position: 100% 15px;
-  padding-bottom: var(--globalPadding);
-}
 .channel2__ {
-  &hero {
-    width: 100%;
-    height: auto;
-    min-height: 50vh;
-    display: flex;
-    align-items: center;
-    padding: calc(var(--headerHeight) * 2 + var(--subHeaderHeight)) 0
-      var(--headerHeight) 0;
-    p {
-      width: 100%;
-      max-width: 680px;
-      margin-top: 20px;
-    }
-  }
   &content {
     .iframe-wrap {
       width: 100%;
