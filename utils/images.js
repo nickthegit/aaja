@@ -43,9 +43,8 @@ export const cloudinaryHeroParser = (img_string) => {
 export const cloudinaryImgParser = (
   img_string,
   ratio,
-  // percentageW,
-  ratio_Mobile
-  // percentageW_Mobile
+  ratio_Mobile,
+  extraTransforms
 ) => {
   let defaults = {
     ratio: '2:1',
@@ -75,22 +74,30 @@ export const cloudinaryImgParser = (
   desktopSizes.map((size) => {
     desktop[size] = img_string.replace(
       `upload/v`,
-      `upload/f_auto,w_${size},ar_${r},c_fill,g_auto/v`
+      `upload/f_auto,w_${size},ar_${r},c_fill,g_auto${
+        extraTransforms ? ',' + extraTransforms : ''
+      }/v`
     )
   })
   mobileSizes.map((size) => {
     mobile[size] = img_string.replace(
       `upload/v`,
-      `upload/f_auto,w_${size},ar_${rM},c_fill,g_auto/v`
+      `upload/f_auto,w_${size},ar_${rM},c_fill,g_auto${
+        extraTransforms ? ',' + extraTransforms : ''
+      }/v`
     )
   })
   let desktopBlur = img_string.replace(
     `upload/v`,
-    `upload/f_auto,w_80,e_blur:800,q_10,ar_${r},c_fill,g_auto/v`
+    `upload/f_auto,w_80,e_blur:800,q_10,ar_${r},c_fill,g_auto${
+      extraTransforms ? ',' + extraTransforms : ''
+    }/v`
   )
   let mobileBlur = img_string.replace(
     `upload/v`,
-    `upload/f_auto,w_80,e_blur:800,q_10,ar_${rM},c_fill,g_auto/v`
+    `upload/f_auto,w_80,e_blur:800,q_10,ar_${rM},c_fill,g_auto${
+      extraTransforms ? ',' + extraTransforms : ''
+    }/v`
   )
 
   return { desktop, mobile, desktopBlur, mobileBlur }

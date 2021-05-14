@@ -54,6 +54,11 @@ export default {
     '@nuxtjs/sitemap',
     '@nuxtjs/svg',
   ],
+  pwa: {
+    icon: {
+      fileName: 'app-icon.png',
+    },
+  },
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
