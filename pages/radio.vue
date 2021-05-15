@@ -63,6 +63,7 @@
                 >
                   <aaja-img
                     v-if="!item.onAir"
+                    class="schedule-img"
                     :altText="`Aaja resident - ${item.name}`"
                     :desktopBg="item.img.desktopBlur"
                     :mobileBg="item.img.mobileBlur"
@@ -73,6 +74,7 @@
                   />
                   <aaja-img
                     v-else
+                    class="schedule-img"
                     :altText="`Aaja resident - ${item.name}`"
                     :desktopBg="item.imgLive.desktopBlur"
                     :mobileBg="item.imgLive.mobileBlur"
@@ -1267,6 +1269,39 @@ export default {
   h3 {
     -webkit-text-stroke: 1px var(--black);
     color: transparent;
+    text-transform: uppercase;
+    border-bottom: var(--borderAtts);
+    box-sizing: border-box;
+    border-color: var(--black);
+    padding-bottom: 20px;
+  }
+}
+.schedule-item {
+  width: 100%;
+  margin-top: 20px;
+  padding-bottom: 10px;
+  display: grid;
+  grid-template: auto 1fr / 80px 1fr;
+  align-items: start;
+  column-gap: 15px;
+  row-gap: 5px;
+  border-bottom: var(--borderAtts);
+  box-sizing: border-box;
+  border-color: var(--black);
+  .schedule-img {
+    width: 100%;
+    grid-column: 1 / 2;
+    grid-row: 1 / 3;
+  }
+  p {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    font-size: 16px;
+    margin-bottom: 0px;
+  }
+  h5 {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
     text-transform: uppercase;
   }
 }
