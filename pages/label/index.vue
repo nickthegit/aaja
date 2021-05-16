@@ -28,7 +28,7 @@
             :ratio="[1, 1]"
             :percentageOfViewportWidth="33"
           />
-          <h3>{{ record.title }}</h3>
+          <h4>{{ record.title }}</h4>
         </nuxt-link>
       </aaja-container>
     </article>

@@ -25,6 +25,9 @@
 body,
 p {
   font-family: 'Roboto', sans-serif;
+  strong {
+    font-weight: 600;
+  }
 }
 
 p {
@@ -55,8 +58,14 @@ h2 {
 
 h3 {
   font-size: var(--h3Size);
-  // text-transform: uppercase;
+  text-transform: uppercase;
   line-height: calc(var(--h3Size) - 2%);
+}
+
+h4 {
+  font-size: var(--h4Size);
+  // text-transform: uppercase;
+  line-height: calc(var(--h4Size) - 2%);
 }
 
 h5 {

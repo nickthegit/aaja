@@ -65,6 +65,7 @@
 </template>
 
 <script>
+import { cloudinaryImgParser } from '~/utils/images'
 import AajaSlugHero from '~/components/AajaSlugHero.vue'
 export default {
   components: { AajaSlugHero },

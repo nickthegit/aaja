@@ -128,7 +128,7 @@ export default {
     },
   },
   mounted() {
-    console.log(this.socials[0].icon)
+    // console.log(this.socials[0].icon)
   },
   head() {
     return {

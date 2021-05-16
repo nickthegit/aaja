@@ -4,9 +4,9 @@
       <template v-slot:heading>
         <aaja-heading>aaja music</aaja-heading>
       </template>
-      <h2>
+      <h3>
         Lorem ipsum dolor sit amet consectetuer adipiscing elit sed diam nonummy
-      </h2>
+      </h3>
       <p>
         Aaja Radio is an independent radio station broadcasting from Deptford
         market yard, London. Tune in for daily shows from the misfits, dancers,
@@ -18,7 +18,7 @@
     <article>
       <aaja-container class="about__content">
         <section class="contact-info">
-          <h3>Get in touch</h3>
+          <h4>Get in touch</h4>
           <a href="mailto:info@aajamusic.com">info@aajamusic.com</a>
           <a href="tel:07862 813771">07862 813771</a>
           <address>

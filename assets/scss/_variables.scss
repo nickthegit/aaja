@@ -21,23 +21,26 @@
   --pSize: 18px;
   --pLineHeight: 24px;
   --h1Size: 10vw;
-  --h2Size: 3vw;
-  --h3Size: 2.8vw;
+  --h2Size: 5vw;
+  --h3Size: 3vw;
+  --h4Size: 2.8vw;
   --h5Size: 1.8vw;
 
   @media screen and (max-width: 769px) {
     --globalPadding: 40px;
     --h1Size: 10vw;
-    --h2Size: 4.5vw;
-    --h3Size: 4vw;
+    --h2Size: 7vw;
+    --h3Size: 4.5vw;
+    --h4Size: 4vw;
     --h5Size: 3vw;
   }
   @media screen and (max-width: 480px) {
     --headerHeight: 60px;
     --globalPadding: 20px;
     --h1Size: 19vw;
-    --h2Size: 7vw;
+    --h2Size: 12vw;
     --h3Size: 7vw;
+    --h4Size: 7vw;
     --h5Size: 6.5vw;
   }
 }
