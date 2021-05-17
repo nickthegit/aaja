@@ -138,9 +138,10 @@ export default {
   },
   created() {
     // console.log(this.mixcloudUser)
+    this.$fetch()
   },
   mounted() {
-    this.$fetch()
+    // this.$fetch()
     // console.log('PLAYLISTS', this.latestPlaylists)
   },
 }
