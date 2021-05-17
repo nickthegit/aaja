@@ -38,7 +38,9 @@
     <article>
       <aaja-container class="residents__content">
         <div v-for="(playlist, pIndex) in latestPlaylists" :key="playlist.key">
-          <span>
+          <p v-if="$fetchState.pending">Fetching posts...</p>
+          <p v-else-if="$fetchState.error">Error while fetching posts</p>
+          <span v-else v-html="playlist.embed.html">
             {{ playlist.url }}
           </span>
         </div>
@@ -70,6 +72,18 @@ export default {
       .catch((e) => {
         console.log('ERRORRR:', e)
       })
+    let theEmbeds = await []
+    const dave = await this.latestPlaylists.forEach((playlist) => {
+      let embed
+      let url = `${playlist.url.replace('www', 'api').trim()}embed-json/`
+      const getEmbedCode = this.$axios.$get(url).then((res) => {
+        embed = res
+        theEmbeds.push({ embed, ...playlist })
+      })
+    })
+
+    this.latestPlaylists = theEmbeds
+    console.log('PLAYLISTS Fetch', this.latestPlaylists)
   },
   data() {
     return {
@@ -121,28 +135,13 @@ export default {
         .trim()
       return 'https://' + test
     },
-    playlists() {
-      let frank = []
-      let pl = this.latestPlaylists.map(async (el) => {
-        let url = await `${el.url.replace('www', 'api').trim()}embed-html/`
-        console.log('URL', url)
-        const dave = await this.$axios.$get(url).then(async (res) => {
-          console.log(res)
-        })
-        // return `${el.url.replace('www', 'api').trim()}/embed-html/`
-      })
-
-      return frank
-    },
   },
   created() {
-    console.log(this.mixcloudUser)
+    // console.log(this.mixcloudUser)
   },
   mounted() {
     this.$fetch()
-    setTimeout(() => {
-      console.log('PLAYLISTS', this.playlists)
-    }, 2000)
+    // console.log('PLAYLISTS', this.latestPlaylists)
   },
 }
 </script>
