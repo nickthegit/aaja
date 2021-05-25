@@ -126,14 +126,18 @@ export default {
     mixcloudUser() {
       let raw = this.mixcloudUserRaw
       //www.mixcloud.com/theyesness/
-      let test = raw
+      let parseStr = raw
         .replace('http', '')
         .replace('s://', '')
         .replace('://mixcloud', 'api.mixcloud')
         .replace('://', '')
         .replace('www', 'api')
         .trim()
-      return 'https://' + test
+
+      let str =
+        parseStr.charAt(parseStr.length - 1) === '/' ? parseStr : parseStr + '/'
+
+      return 'https://' + str
     },
   },
   created() {
