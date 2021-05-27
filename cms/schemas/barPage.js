@@ -45,6 +45,7 @@ export default {
           ],
         },
       ],
+      validation: (Rule) => Rule.min(3).max(3),
     },
   ],
 }

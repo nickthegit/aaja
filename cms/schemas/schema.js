@@ -10,8 +10,11 @@ import category from './category'
 import post from './post'
 import author from './author'
 import resident from './resident'
+import ep from './ep'
 import radioPage from './radioPage'
 import barPage from './barPage'
+import labelPage from './labelPage'
+import channel2Page from './channel2Page'
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -26,8 +29,11 @@ export default createSchema({
     author,
     category,
     resident,
+    ep,
     radioPage,
     barPage,
+    labelPage,
+    channel2Page,
     // When added to this list, object types can be used as
     // { type: 'typename' } in other document schemas
     blockContent,
