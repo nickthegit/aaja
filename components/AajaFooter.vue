@@ -46,6 +46,7 @@ import Logo from '~/assets/img/icons/logo.svg?inline'
 import AajaContainer from './AajaContainer.vue'
 export default {
   components: { Logo, AajaContainer },
+  async fetch() {},
   data() {
     return {
       links: [

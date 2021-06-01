@@ -1,6 +1,11 @@
 import S from '@sanity/desk-tool/structure-builder'
 
-// import { MdWebAsset as icon } from 'react-icons/md'
+import { MdContactPhone } from 'react-icons/md'
+import { CgWebsite, CgRecord } from 'react-icons/cg'
+import { FiSettings, FiRadio } from 'react-icons/fi'
+import { BiDrink } from 'react-icons/bi'
+import { GrChannel } from 'react-icons/gr'
+import { RiContactsLine } from 'react-icons/ri'
 
 export default () =>
   S.list()
@@ -9,6 +14,7 @@ export default () =>
       S.listItem()
         .id('website')
         .title('Site')
+        .icon(CgWebsite)
         .child(
           S.list()
             .id('site')
@@ -16,7 +22,7 @@ export default () =>
             .items([
               S.listItem()
                 .title('Site Settings')
-                // .icon(FaGlobeAmericas)
+                .icon(FiSettings)
                 .child(
                   S.editor()
                     .title('Site Settings')
@@ -24,9 +30,10 @@ export default () =>
                     .schemaType('siteSettings')
                     .documentId('siteSettings')
                 ),
+              S.divider(),
               S.listItem()
                 .title('Radio Page')
-                // .icon(FaGlobeAmericas)
+                .icon(FiRadio)
                 .child(
                   S.editor()
                     .title('Radio Page')
@@ -36,7 +43,7 @@ export default () =>
                 ),
               S.listItem()
                 .title('Bar Page')
-                // .icon(FaGlobeAmericas)
+                .icon(BiDrink)
                 .child(
                   S.editor()
                     .title('Bar Page')
@@ -46,7 +53,7 @@ export default () =>
                 ),
               S.listItem()
                 .title('Label Page')
-                // .icon(FaGlobeAmericas)
+                .icon(CgRecord)
                 .child(
                   S.editor()
                     .title('Label Page')
@@ -56,7 +63,7 @@ export default () =>
                 ),
               S.listItem()
                 .title('Channel 2 Page')
-                // .icon(FaGlobeAmericas)
+                .icon(GrChannel)
                 .child(
                   S.editor()
                     .title('Channel 2 Page')
@@ -66,7 +73,7 @@ export default () =>
                 ),
               S.listItem()
                 .title('Contact Page')
-                // .icon(FaGlobeAmericas)
+                .icon(RiContactsLine)
                 .child(
                   S.editor()
                     .title('Contact Page')

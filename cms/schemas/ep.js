@@ -1,6 +1,9 @@
+import { SiDiscogs } from 'react-icons/si'
+
 export default {
   name: 'ep',
   title: 'EP',
+  icon: SiDiscogs,
   type: 'document',
   fields: [
     {

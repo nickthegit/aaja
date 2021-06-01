@@ -1,6 +1,9 @@
+import { RiHeadphoneLine } from 'react-icons/ri'
+
 export default {
   name: 'resident',
   title: 'Resident',
+  icon: RiHeadphoneLine,
   type: 'document',
   fields: [
     {
