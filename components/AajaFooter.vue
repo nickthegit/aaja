@@ -26,7 +26,11 @@
       <section class="footer__follow">
         <p><strong>Follow</strong></p>
         <ul class="footer__follow-menu footer-list">
-          <li v-for="social in socials" :key="social._id" @click="navClose">
+          <li
+            v-for="social in data[0].socials"
+            :key="social._id"
+            @click="navClose"
+          >
             <a :href="social.link" target="_blank" rel="noopener noreferrer">{{
               social.name
             }}</a>
@@ -35,7 +39,7 @@
       </section>
       <section class="footer__contact">
         <p><strong>Get in touch</strong></p>
-        <a href="mailto:info@aajamusic.com">info@aajamusic.com</a>
+        <a :href="`mailto:${data[0].email}`">{{ data[0].email }}</a>
       </section>
     </aaja-container>
   </footer>
@@ -44,11 +48,17 @@
 <script>
 import Logo from '~/assets/img/icons/logo.svg?inline'
 import AajaContainer from './AajaContainer.vue'
+
+import { footerQuery } from '~/utils/queries.js'
+
 export default {
   components: { Logo, AajaContainer },
-  async fetch() {},
+  async fetch() {
+    this.data = await this.$sanity.fetch(footerQuery)
+  },
   data() {
     return {
+      data: '',
       links: [
         {
           name: 'Radio',
@@ -93,39 +103,15 @@ export default {
         //   _id: '17177059915161091',
         // },
       ],
-      socials: [
-        {
-          name: 'Instagram',
-          link: 'https://www.instagram.com/',
-          _id: '5618021099woz6mv0KH',
-        },
-        {
-          name: 'Twitter',
-          link: 'https://www.twitter.com/',
-          _id: '372291896C1K3VoByqeUme4L',
-        },
-        {
-          name: 'Facebook',
-          link: 'https://www.facebook.com/',
-          _id: '217177851gMCgELgBYO6vI1d1',
-        },
-        {
-          name: 'Mixcloud',
-          link: 'https://www.mixcloud.com/',
-          _id: '8850975057QY5WycuOSTATwfvdE',
-        },
-        {
-          name: 'Soundcloud',
-          link: 'https://www.soundcloud.com/',
-          _id: '168493370cp52vCk7JPBnfIM3dMb',
-        },
-      ],
     }
   },
   methods: {
     navClose() {
       this.$store.dispatch('setNavPayload', false)
     },
+  },
+  mounted() {
+    // console.log('FOOTER QUERY: ', this.data[0])
   },
 }
 </script>

@@ -34,7 +34,7 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: [],
+  plugins: ['plugins/sanity-image-builder.js'],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
@@ -43,7 +43,17 @@ export default {
   /*
    ** Nuxt.js dev-modules
    */
-  buildModules: ['@nuxtjs/style-resources', '@nuxtjs/dotenv'],
+  buildModules: [
+    '@nuxtjs/style-resources',
+    '@nuxtjs/dotenv',
+    '@nuxtjs/sanity/module',
+  ],
+  sanity: {
+    projectId: process.env.SANITY_ID,
+    dataset: process.env.SANITY_DATASET,
+    useCdn: process.env.SANITY_CDN,
+    minimal: true,
+  },
   /*
    ** Nuxt.js modules
    */

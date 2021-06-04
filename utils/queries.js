@@ -30,6 +30,14 @@ export const footerQuery = `*[_type == "siteSettings"] {
   ],
 }`
 
+export const radioPageQuery = `*[_type == "radioPage"] {
+	_id,
+	_rev,
+	_type,
+  "community": community[]->,
+  "spotlight": spotlight[]->
+}`
+
 // `*[_type == 'video' && references(*[_type == "category"]._id)] {
 // 		  category,
 //       "_key": _id,

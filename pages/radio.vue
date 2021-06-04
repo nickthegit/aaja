@@ -175,6 +175,8 @@
 <script>
 import { cloudinaryImgParser } from '~/utils/images'
 
+import { radioPageQuery } from '~/utils/queries.js'
+
 import Logo from '~/assets/img/icons/logo.svg?inline'
 import SnakeRoundel from '~/assets/img/radio-snake.svg?inline'
 import sliderArrow from '~/assets/img/icons/sliderArrow.svg?inline'
@@ -189,6 +191,11 @@ export default {
     liveNow,
     AajaContainer,
     Arrow,
+  },
+  async asyncData({ $sanity }) {
+    const data = await $sanity.fetch(radioPageQuery)
+
+    return { radioData: data[0] }
   },
   data() {
     return {
@@ -1288,6 +1295,14 @@ export default {
         },
       },
     }
+  },
+  mounted() {
+    console.log('RADIO PAGE QUERY: ', this.radioData)
+    console.log('urlForSquare', this.$urlForSquare)
+    console.log(
+      'TEST',
+      this.$urlForSquare(this.radioData.community[0].feature_image, true)
+    )
   },
 }
 </script>
