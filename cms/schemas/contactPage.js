@@ -11,7 +11,7 @@ export default {
     {
       name: 'intro',
       title: 'Intro Text',
-      type: 'text',
+      type: 'blockContent',
     },
     {
       name: 'feature_image',

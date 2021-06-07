@@ -5,33 +5,32 @@
         <aaja-heading>aaja music</aaja-heading>
       </template>
       <h3>
-        Lorem ipsum dolor sit amet consectetuer adipiscing elit sed diam nonummy
+        {{ contactData.about.title }}
       </h3>
-      <p>
-        Aaja Radio is an independent radio station broadcasting from Deptford
-        market yard, London. Tune in for daily shows from the misfits, dancers,
-        collectors and selectors that make up our community. Tune in with open
-        ears.
-      </p>
+      <SanityContent :blocks="contactData.about.intro" />
       <p>No playlists, no ads, just the people.</p>
     </aaja-standard-hero>
     <article>
       <aaja-container class="about__content">
         <section class="contact-info">
           <h4>Get in touch</h4>
-          <a href="mailto:info@aajamusic.com">info@aajamusic.com</a>
-          <a href="tel:07862 813771">07862 813771</a>
+          <a :href="`mailto:${contactData.contact.email}`">{{
+            contactData.contact.email
+          }}</a>
+          <a :href="`tel:${contactData.contact.telephome}`">{{
+            contactData.contact.telephome
+          }}</a>
           <address>
-            Arch 2, <br />4 Deptford Market Yard, <br />Deptford <br />SE8 4BX
+            <SanityContent :blocks="contactData.contact.address" />
           </address>
         </section>
         <aaja-img
           class="about-img"
           altText="Aaja DJ booth"
-          :desktopBg="aboutImg.desktopBlur"
-          :mobileBg="aboutImg.mobileBlur"
-          :desktopImgs="aboutImg.desktop"
-          :mobileImgs="aboutImg.mobile"
+          :desktopBg="contactImg.desktopBlur"
+          :mobileBg="contactImg.mobileBlur"
+          :desktopImgs="contactImg.desktop"
+          :mobileImgs="contactImg.mobile"
           :ratio="[3, 2]"
           :percentageOfViewportWidth="70"
         />
@@ -45,6 +44,14 @@ import { cloudinaryImgParser } from '~/utils/images'
 import AajaStandardHero from '~/components/AajaStandardHero.vue'
 export default {
   components: { AajaStandardHero },
+  async asyncData({ $sanity }) {
+    const data = await $sanity.fetch(`{
+  "about":*[_type == "contactPage"][0],
+	"contact": *[_type == "siteSettings"][0] 
+}`)
+
+    return { contactData: data }
+  },
   data() {
     return {
       aboutImg: cloudinaryImgParser(
@@ -52,6 +59,18 @@ export default {
         '3:2'
       ),
     }
+  },
+  computed: {
+    contactImg() {
+      return this.$urlForSquare(
+        this.contactData.about.feature_image,
+        false,
+        false
+      )
+    },
+  },
+  mounted() {
+    console.log(this.contactData)
   },
   head: {
     htmlAttrs: {
@@ -68,6 +87,9 @@ export default {
   grid-template: auto / 30% 1fr;
   gap: 20px;
 }
+h3 {
+  margin-bottom: 30px;
+}
 .contact-info {
   grid-column: 1 / 2;
   padding: calc(var(--globalPadding) / 2) 0;
@@ -77,7 +99,8 @@ export default {
   }
   p,
   a,
-  h3 {
+  h4 {
+    display: block;
     margin-bottom: 30px;
   }
   a {

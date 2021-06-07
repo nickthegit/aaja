@@ -16,7 +16,7 @@ export default {
     {
       name: 'address',
       title: 'Address',
-      type: 'text',
+      type: 'blockContent',
     },
     {
       name: 'instagram',
