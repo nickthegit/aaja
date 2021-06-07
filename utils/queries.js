@@ -46,6 +46,11 @@ export const barPageQuery = `*[_type == "barPage"] {
   opening
 }`
 
+export const labelPageQuery = `*[_type == "labelPage"] {
+  intro,
+  "eps": eps[]->
+}`
+
 // `*[_type == 'video' && references(*[_type == "category"]._id)] {
 // 		  category,
 //       "_key": _id,

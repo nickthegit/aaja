@@ -4,27 +4,22 @@
       <template v-slot:heading>
         <aaja-heading>aaja music <br />record Label</aaja-heading>
       </template>
-      <p>
-        Aaja Radio is an independent radio station broadcasting from Deptford
-        market yard, London. Tune in for daily shows from the misfits, dancers,
-        collectors and selectors that make up our community. Tune in with open
-        ears.
-      </p>
+      <p>{{ labelData.intro }}</p>
     </aaja-standard-hero>
     <article>
       <aaja-container class="record__content">
         <nuxt-link
           class="record__card"
-          v-for="record in records"
+          v-for="record in eps_records"
           :key="record._id"
-          :to="`label/${record.slug}`"
+          :to="`label/${record.slug.current}`"
         >
           <aaja-img
             :altText="`Aaja Record - ${record.title}`"
-            :desktopBg="record.image.desktopBlur"
-            :mobileBg="record.image.mobileBlur"
-            :desktopImgs="record.image.desktop"
-            :mobileImgs="record.image.mobile"
+            :desktopBg="record.img.desktopBlur"
+            :mobileBg="record.img.mobileBlur"
+            :desktopImgs="record.img.desktop"
+            :mobileImgs="record.img.mobile"
             :ratio="[1, 1]"
             :percentageOfViewportWidth="33"
           />
@@ -37,7 +32,14 @@
 
 <script>
 import { cloudinaryImgParser } from '~/utils/images'
+
+import { labelPageQuery } from '~/utils/queries.js'
 export default {
+  async asyncData({ $sanity }) {
+    const data = await $sanity.fetch(labelPageQuery)
+
+    return { labelData: data[0] }
+  },
   data() {
     return {
       records: [
@@ -70,6 +72,18 @@ export default {
         },
       ],
     }
+  },
+  computed: {
+    eps_records() {
+      return this.labelData.eps.map((record) => {
+        let img = this.$urlForSquare(record.feature_image, false, true)
+        return { ...record, img }
+      })
+    },
+  },
+  mounted() {
+    console.log(this.labelData)
+    console.log(this.eps_records)
   },
   head: {
     htmlAttrs: {
