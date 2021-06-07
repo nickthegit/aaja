@@ -4,12 +4,7 @@
       <template v-slot:heading>
         <aaja-heading>aaja music <br />Channel 2</aaja-heading>
       </template>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat.
-      </p>
+      <p>{{ channel2Data.intro }}</p>
     </aaja-standard-hero>
     <article>
       <aaja-container class="channel2__content">
@@ -17,7 +12,7 @@
           <iframe
             width="560"
             height="315"
-            src="https://www.youtube.com/embed/Rm82-k2ox3Y?controls=0"
+            :src="youtubeLink"
             title="YouTube video player"
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -30,9 +25,24 @@
 </template>
 
 <script>
+import getVideoId from 'get-video-id'
 export default {
+  async asyncData({ $sanity }) {
+    const data = await $sanity.fetch(`*[_type == "channel2Page"]`)
+
+    return { channel2Data: data[0] }
+  },
   data() {
     return {}
+  },
+  computed: {
+    youtubeLink() {
+      const { id } = getVideoId(this.channel2Data.youtubeLink)
+      return `https://www.youtube.com/embed/${id}?controls=0`
+    },
+  },
+  mounted() {
+    // console.log(`channel2Data`, this.channel2Data)
   },
   head: {
     htmlAttrs: {

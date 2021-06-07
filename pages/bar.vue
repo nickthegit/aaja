@@ -13,14 +13,22 @@
       <aaja-container class="bar__hero-container">
         <aaja-heading>Aaja Bar</aaja-heading>
         <section class="bar__hero-opening">
-          <p>Opening Hours</p>
-          <p><strong>Wednesday to Saturday - 10:00 - 23:00 </strong></p>
-          <p><strong>Sunday to Tuesday - 10:00 - 22:00</strong></p>
+          <SanityContent :blocks="barData.opening" />
           <div class="button-wrap">
-            <a href="#" target="_blank" rel="noopener noreferrer"
+            <a
+              v-if="barData.booking"
+              :href="barData.booking"
+              target="_blank"
+              rel="noopener noreferrer"
               >Book a table</a
             >
-            <a href="#" target="_blank" rel="noopener noreferrer">View menu</a>
+            <a
+              v-if="barData.menu"
+              :href="barData.menu"
+              target="_blank"
+              rel="noopener noreferrer"
+              >View menu</a
+            >
           </div>
         </section>
       </aaja-container>
@@ -28,39 +36,20 @@
     <article>
       <aaja-container class="bar__content">
         <section class="bar__content-intro">
-          <p>{{ introText }}</p>
+          <p>{{ barData.intro }}</p>
         </section>
         <aaja-img
-          class="bar__content-img-1"
+          v-for="(image, index) in gallery"
+          :key="image._key"
+          :class="`bar__content-img-${index + 1}`"
           altText="Aaja Bar"
-          :desktopBg="img1.desktopBlur"
-          :mobileBg="img1.mobileBlur"
-          :desktopImgs="img1.desktop"
-          :mobileImgs="img1.mobile"
-          :ratio="[31, 15]"
+          :desktopBg="image.desktopBlur"
+          :mobileBg="image.mobileBlur"
+          :desktopImgs="image.desktop"
+          :mobileImgs="image.mobile"
+          :ratio="index === 0 ? [31, 15] : [4, 3]"
           :ratioMobile="[111, 80]"
-        />
-        <aaja-img
-          class="bar__content-img-2"
-          altText="Aaja Bar"
-          :desktopBg="img2.desktopBlur"
-          :mobileBg="img2.mobileBlur"
-          :desktopImgs="img2.desktop"
-          :mobileImgs="img2.mobile"
-          :ratio="[4, 3]"
-          :ratioMobile="[111, 80]"
-          :percentageOfViewportWidth="50"
-        />
-        <aaja-img
-          class="bar__content-img-3"
-          altText="Aaja Bar"
-          :desktopBg="img3.desktopBlur"
-          :mobileBg="img3.mobileBlur"
-          :desktopImgs="img3.desktop"
-          :mobileImgs="img3.mobile"
-          :ratio="[4, 3]"
-          :ratioMobile="[111, 80]"
-          :percentageOfViewportWidth="50"
+          :percentageOfViewportWidth="index != 0 ? 50 : 100"
         />
       </aaja-container>
     </article>
@@ -70,6 +59,8 @@
 <script>
 import { cloudinaryHeroParser, cloudinaryImgParser } from '~/utils/images'
 
+import { barPageQuery } from '~/utils/queries.js'
+
 import AajaContainer from '~/components/AajaContainer.vue'
 import AajaHeroImg from '~/components/AajaHeroImg.vue'
 import Logo from '~/assets/img/icons/logo.svg?inline'
@@ -78,6 +69,11 @@ import AajaHeading from '~/components/AajaHeading.vue'
 
 export default {
   components: { AajaContainer, AajaHeroImg, Logo, AajaImg, AajaHeading },
+  async asyncData({ $sanity }) {
+    const data = await $sanity.fetch(barPageQuery)
+
+    return { barData: data[0] }
+  },
   data() {
     return {
       heroImage: cloudinaryHeroParser(
@@ -102,7 +98,16 @@ export default {
       ),
     }
   },
-  mounted() {},
+  computed: {
+    gallery() {
+      return this.barData.images.map((img) => {
+        return { ...this.$urlForSquare(img, false, false), _key: img._key }
+      })
+    },
+  },
+  mounted() {
+    // console.log(this.gallery)
+  },
 }
 </script>
 

@@ -12,7 +12,7 @@ export default {
       name: 'youtubeLink',
       title: 'Youtube Link',
       type: 'string',
-      description: 'eg. https://www.youtube.com/embed/Rm82-k2ox3Y?controls=0',
+      description: 'eg. https://www.youtube.com/watch?v=fjqyyg1fLYM',
     },
   ],
 }

@@ -17,10 +17,14 @@
           class="spotlight-slider-container"
           :sliderOptions="spotlightSliderOptions"
         >
-          <div class="swiper-slide" v-for="slide in spotlight" :key="slide._id">
+          <div
+            class="swiper-slide"
+            v-for="slide in spotlights"
+            :key="slide._id"
+          >
             <div class="spotlight-slide-wrap">
               <aaja-img
-                :altText="`Aaja Resident - ${slide.slug}`"
+                :altText="`Aaja Resident - ${slide.slug.current}`"
                 :desktopBg="slide.img.desktopBlur"
                 :mobileBg="slide.img.mobileBlur"
                 :desktopImgs="slide.img.desktop"
@@ -139,15 +143,15 @@
               </template>
               <div
                 class="swiper-slide"
-                v-for="slide in featured"
+                v-for="slide in community"
                 :key="slide._id"
               >
                 <div class="featured-artist-card">
                   <div class="featured-artist-card-copy-warp">
                     <h5>Featured</h5>
                     <h3>{{ slide.name }}</h3>
-                    <p>{{ slide.bio }}</p>
-                    <nuxt-link :to="`/residents/${slide.slug}`"
+                    <p v-if="slide.short_bio">{{ slide.short_bio }}</p>
+                    <nuxt-link :to="`/residents/${slide.slug.current}`"
                       >Listen to a show <span><arrow /></span
                     ></nuxt-link>
                   </div>
@@ -1296,13 +1300,32 @@ export default {
       },
     }
   },
+  computed: {
+    spotlights() {
+      let spotlight = this.radioData.spotlight.map((slide) => {
+        let imgSource = slide.spotlight_image
+          ? slide.spotlight_image
+          : slide.feature_image
+        let img = this.$urlForSquare(imgSource, false, true)
+        return { ...slide, img }
+      })
+      return spotlight
+    },
+    community() {
+      let community = this.radioData.community.map((slide) => {
+        let imgSource = slide.community_image
+          ? slide.community_image
+          : slide.feature_image
+        let img = this.$urlForSquare(imgSource, false, true)
+        return { ...slide, img }
+      })
+      return community
+    },
+  },
   mounted() {
-    console.log('RADIO PAGE QUERY: ', this.radioData)
-    console.log('urlForSquare', this.$urlForSquare)
-    console.log(
-      'TEST',
-      this.$urlForSquare(this.radioData.community[0].feature_image, true)
-    )
+    // console.log('RADIO PAGE QUERY: ', this.radioData)
+    // console.log('SPOTLIGHTS', this.community)
+    // this.$urlForSquare(this.radioData.community[0].feature_image, true)
   },
 }
 </script>

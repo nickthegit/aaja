@@ -38,6 +38,14 @@ export const radioPageQuery = `*[_type == "radioPage"] {
   "spotlight": spotlight[]->
 }`
 
+export const barPageQuery = `*[_type == "barPage"] {
+  booking,
+  images,
+  intro,
+  "menu": menu.asset->url,
+  opening
+}`
+
 // `*[_type == 'video' && references(*[_type == "category"]._id)] {
 // 		  category,
 //       "_key": _id,

@@ -6,7 +6,7 @@ export default {
     {
       name: 'opening',
       title: 'Opening Hours',
-      type: 'text',
+      type: 'blockContent',
     },
     {
       name: 'booking',
