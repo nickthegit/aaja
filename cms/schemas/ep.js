@@ -39,6 +39,13 @@ export default {
       title: 'Text',
       type: 'blockContent',
     },
+    {
+      name: 'link',
+      title: 'Link to Mixcloud URL',
+      type: 'string',
+      description:
+        'Should look like this https://www.mixcloud.com/AAJAdeptford/earnshaw-mellow-music-episode-004/',
+    },
   ],
   preview: {
     select: {

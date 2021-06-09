@@ -51,6 +51,55 @@ export const labelPageQuery = `*[_type == "labelPage"] {
   "eps": eps[]->
 }`
 
+export const residentSlugPageQuery = (
+  slug
+) => `*[_type == "resident" && slug.current == "${slug}"][0] {
+  _id,
+  _rev,
+  bio,
+  feature_image,
+  mixcloud_url,
+  soundcloud_url,
+  name,
+  short_bio,
+  slot,
+  slug,
+  spotlight_image,
+  website,
+  "socials": [
+    {
+    	"icon": "Facebook",
+      "slug": 'facebook',
+			"link": coalesce(socials.facebook, false),
+      "_id" : _id + 'facebook'
+  	},
+    {
+    	"icon": "Instagram",
+      "slug": 'instagram',      
+			"link": coalesce(socials.instagram, false),
+      "_id" : _id + 'instagram'
+  	},
+    {
+    	"icon": "Mixcloud",
+      "slug": 'mixcloud',      
+			"link": coalesce(mixcloud_url, false),
+      "_id" : _id + 'mixcloud'
+  	},
+    {
+    	"icon": "Twitter",
+      "slug": 'twitter',      
+			"link": coalesce(socials.twitter, false),
+      "_id" : _id + 'twitter'
+  	},
+    {
+    	"name": "Soundcloud",
+      "slug": 'soundcloud',      
+			"link": coalesce(soundcloud_url, false),
+      "_id" : _rev + 'soundcloud'
+  	}  
+  ]
+}`
+
 // `*[_type == 'video' && references(*[_type == "category"]._id)] {
 // 		  category,
 //       "_key": _id,

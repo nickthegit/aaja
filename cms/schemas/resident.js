@@ -58,6 +58,13 @@ export default {
         'To show latest playlists - e.g. should look like this: https://www.mixcloud.com/theyesness/',
     },
     {
+      title: 'Soundcloud url',
+      name: 'soundcloud_url',
+      type: 'string',
+      description:
+        'To show latest playlists - e.g. should look like this: https://soundcloud.com/theyesness',
+    },
+    {
       title: 'Socials',
       name: 'socials',
       type: 'object',

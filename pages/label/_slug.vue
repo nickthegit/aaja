@@ -1,61 +1,17 @@
 <template>
   <main>
-    <aaja-slug-hero breadcrumbDestination="label">
-      <template v-slot:subheading>Aaja 003</template>
-      <template v-slot:heading>Everson - grass is greener</template>
+    <aaja-slug-hero breadcrumbDestination="label" :heroImage="epData.img">
+      <template v-slot:subheading>{{ epData.name }}</template>
+      <template v-slot:heading>{{ epData.title }}</template>
     </aaja-slug-hero>
     <article>
       <aaja-container class="record-item__content">
         <section class="record-item__copy">
-          <p>
-            AAJA003 we're pleased to gather 4 friends and artists in their own
-            right for a diverse, inaugural 4-track Various Artists EP.
-          </p>
-
-          <p>
-            Commencing proceedings on the A1, 'Abzent Mindz' by In:State & Guili
-            lets rip. Following their recent 12" on Not An Animal, this
-            ever-giving cross-European collaboration churns out something that
-            is both functional and emotional.
-          </p>
-
-          <p>
-            For A2, whilst this might be the start of his production journey,
-            Ady Toledano is a permanent fixture on Berlin's queer club scene and
-            we're excited to share his latest production. Regularly spinning at
-            Cocktail D'Amore, Buttons at About:Blank & Riot,Toledano delivers
-            'Rare Earth'. A deep, ceremonial journey best suited for those late
-            night, deep in the rave moments and let's be honest, mornings.
-          </p>
-
-          <p>
-            Flipping the 12" over for B1.The third track of the EP is produced
-            by Everson. One of the co-founders of Aaja teases sample-work in an
-            out of a grinding, tool style track bridging busy, UK influenced
-            percussion and influence with slower, sledging techno.
-          </p>
-
-          ​
-
-          <p>
-            Finally, Alex Richards finishes off the VA with 'Platform' on the
-            B2. His words about the track... 'messing about making noises'.
-            Richards lends the compilation a superlative, building and stripped
-            back tune. Suited equally to the early doors as it is the early
-            mornings.
-          </p>
+          <SanityContent :blocks="epData.text" />
         </section>
-        <aside>
-          <iframe
-            width="100%"
-            height="120"
-            src="https://www.mixcloud.com/widget/iframe/?hide_cover=1&hide_artwork=1&feed=%2FAAJAdeptford%2Fearnshaw-mellow-music-episode-004%2F"
-            frameborder="0"
-          ></iframe>
-          <a
-            href="https://www.mixcloud.com"
-            target="_blank"
-            rel="noopener noreferrer"
+        <aside v-if="epData.link">
+          <span v-html="epData.embed.html"></span>
+          <a :href="epData.link" target="_blank" rel="noopener noreferrer"
             >Buy now</a
           >
         </aside>
@@ -69,6 +25,53 @@ import { cloudinaryImgParser } from '~/utils/images'
 import AajaSlugHero from '~/components/AajaSlugHero.vue'
 export default {
   components: { AajaSlugHero },
+  async asyncData({ $urlForSquare, $sanity, params, $axios }) {
+    const data = await $sanity.fetch(
+      `*[_type == "ep" && slug.current == "${params.slug}"][0]`
+    )
+
+    let url, embed
+    if (data.link) {
+      url = await data.link
+
+      let parseUrl = await url
+        .replace('http', '')
+        .replace('s://', '')
+        .replace('://mixcloud', 'api.mixcloud')
+        .replace('://', '')
+        .replace('www', 'api')
+        .trim()
+
+      url =
+        (await parseUrl.charAt(parseUrl.length - 1)) === '/'
+          ? parseUrl
+          : parseUrl + '/'
+
+      url = (await 'https://') + url
+
+      url = await `${url.replace('www', 'api').trim()}embed-json?color=02ff1a`
+
+      await $axios.$get(url).then((res) => {
+        embed = res
+        console.log(res)
+      })
+    }
+    // let url = await 'https://www.mixcloud.com/AAJAdeptford/earnshaw-mellow-music-episode-004/',
+
+    let img = await $urlForSquare(data.feature_image, false, true)
+
+    return { epData: { ...data, img, embed } }
+  },
+  data() {
+    return {
+      record:
+        'https://www.mixcloud.com/AAJAdeptford/earnshaw-mellow-music-episode-004/',
+    }
+  },
+  computed: {},
+  mounted() {
+    console.log('EP_DATA', this.epData)
+  },
   head: {
     htmlAttrs: {
       class: 'light',
@@ -95,11 +98,15 @@ export default {
   }
 }
 aside {
-  iframe {
-    background: var(--primary);
+  span {
+    display: block;
+    width: 100%;
     position: sticky;
+    background: var(--primary);
     top: 20px;
     width: 100%;
+  }
+  iframe {
   }
   a {
     display: inline-block;

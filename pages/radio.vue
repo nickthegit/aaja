@@ -22,18 +22,20 @@
             v-for="slide in spotlights"
             :key="slide._id"
           >
-            <div class="spotlight-slide-wrap">
-              <aaja-img
-                :altText="`Aaja Resident - ${slide.slug.current}`"
-                :desktopBg="slide.img.desktopBlur"
-                :mobileBg="slide.img.mobileBlur"
-                :desktopImgs="slide.img.desktop"
-                :mobileImgs="slide.img.mobile"
-                :ratio="[1, 1]"
-                :percentageOfViewportWidth="15"
-                :percentageOfViewportWidthMobile="49"
-              />
-            </div>
+            <nuxt-link :to="`/residents/${slide.slug.current}`">
+              <div class="spotlight-slide-wrap">
+                <aaja-img
+                  :altText="`Aaja Resident - ${slide.slug.current}`"
+                  :desktopBg="slide.img.desktopBlur"
+                  :mobileBg="slide.img.mobileBlur"
+                  :desktopImgs="slide.img.desktop"
+                  :mobileImgs="slide.img.mobile"
+                  :ratio="[1, 1]"
+                  :percentageOfViewportWidth="15"
+                  :percentageOfViewportWidthMobile="49"
+                />
+              </div>
+            </nuxt-link>
           </div>
           <template v-slot:sliderButtons>
             <div class="slider-btns-wrap">

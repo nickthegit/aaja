@@ -3,26 +3,26 @@
     <aaja-slug-hero
       class="resident-hero"
       breadcrumbDestination="radio"
-      :heroImage="heroImg"
+      :heroImage="residentData.feature_image ? heroImage : {}"
     >
       <template v-slot:subheading>Residents</template>
-      <template v-slot:heading>The Yesness</template>
-      <p class="timeslot">
-        <strong> First Tuesday of every month - 8-10pm </strong>
+      <template v-slot:heading v-if="residentData.name">{{
+        residentData.name
+      }}</template>
+      <p class="timeslot" v-if="residentData.slot">
+        <strong>{{ residentData.slot }}</strong>
       </p>
-      <p>
-        The Yesness, founded in 2010 and known for there parties across London
-        bring there eclectic selection from the dancefloor to the Aaja radio
-        waves on the first Tuesday of every month. Hosted by Paulorder and J.nix
-        no genre is of the table. Tune in to hear anything from house and garage
-        to drum and bass and footwork and everything in between.
-      </p>
-      <a href="http://theyesness.com" target="_blank" rel="noopener noreferrer"
-        >theyesness.com</a
+      <p v-if="residentData.bio">{{ residentData.bio }}</p>
+      <a
+        v-if="residentData.website"
+        :href="residentData.website"
+        target="_blank"
+        rel="noopener noreferrer"
+        >{{ residentData.website }}</a
       >
       <ul class="resident-socials">
         <li
-          v-for="social in socials"
+          v-for="social in getSocials"
           :key="social._id"
           :class="social.icon.slug"
         >
@@ -51,12 +51,22 @@
 
 <script>
 import { cloudinaryImgParser } from '~/utils/images'
+
+import { residentSlugPageQuery } from '~/utils/queries.js'
+
+import { extract } from 'oembed-parser'
+
 const instagram = require('simple-icons/icons/instagram')
 const twitter = require('simple-icons/icons/twitter')
 const facebook = require('simple-icons/icons/facebook')
 const mixcloud = require('simple-icons/icons/mixcloud')
 const soundcloud = require('simple-icons/icons/soundcloud')
 export default {
+  async asyncData({ params, $sanity }) {
+    const data = await $sanity.fetch(residentSlugPageQuery(params.slug))
+
+    return { residentData: data }
+  },
   async fetch() {
     this.latestPlaylists = await this.$axios
       .$get(this.mixcloudUser + 'feed/?limit=5')
@@ -120,6 +130,13 @@ export default {
           _id: 'GzavMN',
         },
       ],
+      socialIcons: {
+        instagram,
+        facebook,
+        twitter,
+        mixcloud,
+        soundcloud,
+      },
     }
   },
   computed: {
@@ -139,6 +156,16 @@ export default {
 
       return 'https://' + str
     },
+    heroImage() {
+      return this.$urlForSquare(this.residentData.feature_image, false, true)
+    },
+    getSocials() {
+      return this.residentData.socials
+        .filter((social) => social.link)
+        .map((social) => {
+          return { ...social, icon: this.socialIcons[social.slug] }
+        })
+    },
   },
   created() {
     // console.log(this.mixcloudUser)
@@ -147,6 +174,18 @@ export default {
   mounted() {
     // this.$fetch()
     // console.log('PLAYLISTS', this.latestPlaylists)
+    // console.log('residentData', this.residentData)
+    // console.log('getSocials', this.getSocials)
+
+    const url = 'https://www.youtube.com/watch?v=8jPQjjsBbIc'
+
+    extract(url)
+      .then((oembed) => {
+        console.log(oembed)
+      })
+      .catch((err) => {
+        console.trace('Error::', err)
+      })
   },
 }
 </script>
