@@ -70,7 +70,7 @@ export default {
   },
   computed: {},
   mounted() {
-    console.log('EP_DATA', this.epData)
+    // console.log('EP_DATA', this.epData)
   },
   head: {
     htmlAttrs: {

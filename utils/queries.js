@@ -1,3 +1,38 @@
+export const headerQuery = `*[_type == "siteSettings"][0] {
+  "socials": [
+    {
+    	"icon": "Facebook",
+      "slug": 'facebook',
+			"link": coalesce(facebook, false),
+      "_id" : _rev + 'facebook'
+  	},
+    {
+    	"icon": "Instagram",
+      "slug": 'instagram', 
+			"link": coalesce(instagram, false),
+      "_id" : _rev + 'instagram'
+  	},
+    {
+    	"icon": "Mixcloud",
+      "slug": 'mixcloud',
+			"link": coalesce(mixcloud, false),
+      "_id" : _rev + 'mixcloud'
+  	},
+    {
+    	"icon": "Twitter",
+      "slug": 'twitter', 
+			"link": coalesce(twitter, false),
+      "_id" : _rev + 'twitter'
+  	},
+    {
+    	"name": "Soundcloud",
+      "slug": 'soundcloud',      
+			"link": coalesce(soundcloud, false),
+      "_id" : _rev + 'soundcloud'
+  	}  
+  ],
+}`
+
 export const footerQuery = `*[_type == "siteSettings"] {
   "_id": _rev,
   "email": coalesce(email, false),

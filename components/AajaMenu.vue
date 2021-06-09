@@ -19,7 +19,7 @@
         </ul>
         <ul id="navSocials">
           <li
-            v-for="social in socials"
+            v-for="social in getSocials"
             :key="social._id"
             :class="social.icon.slug"
           >
@@ -39,6 +39,8 @@
 <script>
 import Close from '~/assets/img/icons/close.svg?inline'
 
+import { headerQuery } from '~/utils/queries.js'
+
 const instagram = require('simple-icons/icons/instagram')
 const twitter = require('simple-icons/icons/twitter')
 const facebook = require('simple-icons/icons/facebook')
@@ -47,8 +49,12 @@ const soundcloud = require('simple-icons/icons/soundcloud')
 
 export default {
   components: { Close },
+  async fetch() {
+    this.data = await this.$sanity.fetch(headerQuery)
+  },
   data() {
     return {
+      data: '',
       socials: [
         {
           icon: instagram,
@@ -120,6 +126,13 @@ export default {
           _id: '15161091',
         },
       ],
+      socialIcons: {
+        instagram,
+        facebook,
+        twitter,
+        mixcloud,
+        soundcloud,
+      },
     }
   },
   methods: {
@@ -127,8 +140,17 @@ export default {
       this.$store.dispatch('setNavPayload', false)
     },
   },
+  computed: {
+    getSocials() {
+      return this.data.socials
+        .filter((social) => social.link)
+        .map((social) => {
+          return { ...social, icon: this.socialIcons[social.slug] }
+        })
+    },
+  },
   mounted() {
-    // console.log(this.socials[0].icon)
+    console.log('DATA HEAD', this.data)
   },
   head() {
     return {
