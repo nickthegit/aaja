@@ -47,6 +47,7 @@
       </aaja-container>
     </article>
     <article class="radio__schedule">
+      <aaja-schedule />
       <aaja-container>
         <section class="schedule-title-bar title-bar">
           <h2>
@@ -189,6 +190,7 @@ import sliderArrow from '~/assets/img/icons/sliderArrow.svg?inline'
 import liveNow from '~/assets/img/live_now.svg?inline'
 import AajaContainer from '~/components/AajaContainer.vue'
 import Arrow from '~/assets/img/icons/arrow.svg?inline'
+import AajaSchedule from '~/components/AajaSchedule.vue'
 export default {
   components: {
     SnakeRoundel,
@@ -197,6 +199,7 @@ export default {
     liveNow,
     AajaContainer,
     Arrow,
+    AajaSchedule,
   },
   async asyncData({ $sanity }) {
     const data = await $sanity.fetch(radioPageQuery)
@@ -1257,8 +1260,7 @@ export default {
           _id: 'Xbb2TW5yIbeLkYIDbRR',
           slug: 'house-early',
           name: 'House Early',
-          bio:
-            'DJ, Producer and Label boss Gaucho plays club tracks, Jungle, Breaks and unreleased bits from the Trule catalogue.',
+          bio: 'DJ, Producer and Label boss Gaucho plays club tracks, Jungle, Breaks and unreleased bits from the Trule catalogue.',
           img: cloudinaryImgParser(
             'https://res.cloudinary.com/nickjohn/image/upload/v1620809594/Aaja/spotlight_placeholder.jpg',
             '1:1'
@@ -1268,8 +1270,7 @@ export default {
           _id: 'BNJSOnwSGKQeN6',
           slug: 'wonderful-construction',
           name: 'Wonderful Construction',
-          bio:
-            'DJ, Producer and Label boss Gaucho plays club tracks, Jungle, Breaks and unreleased bits from the Trule catalogue.',
+          bio: 'DJ, Producer and Label boss Gaucho plays club tracks, Jungle, Breaks and unreleased bits from the Trule catalogue.',
           img: cloudinaryImgParser(
             'https://res.cloudinary.com/nickjohn/image/upload/v1620809594/Aaja/spotlight_placeholder.jpg',
             '1:1'
@@ -1279,8 +1280,7 @@ export default {
           _id: '9ePrbA',
           slug: 'burst-curve',
           name: 'Burst Curve',
-          bio:
-            'DJ, Producer and Label boss Gaucho plays club tracks, Jungle, Breaks and unreleased bits from the Trule catalogue.',
+          bio: 'DJ, Producer and Label boss Gaucho plays club tracks, Jungle, Breaks and unreleased bits from the Trule catalogue.',
           img: cloudinaryImgParser(
             'https://res.cloudinary.com/nickjohn/image/upload/v1620809594/Aaja/spotlight_placeholder.jpg',
             '1:1'

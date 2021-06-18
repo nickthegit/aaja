@@ -67,6 +67,16 @@ button {
 }
 
 // ANIMATION
+
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.5s;
+}
+.page-enter,
+.page-leave-to {
+  opacity: 0;
+}
+
 .img-in-enter-active,
 .img-in-leave-active {
   transition: opacity 0.5s;
