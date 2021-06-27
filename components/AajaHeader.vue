@@ -6,8 +6,7 @@
     </nuxt-link>
     <div id="radio-sound-wrap">
       <div id="radio-widget__wrapper">
-        Radio widget / Radio widget / Radio widget / Radio widget / Radio widget
-        / Radio widget
+        <aaja-radio-widget />
       </div>
       <button id="toggle-sound">
         <Speaker />
@@ -25,8 +24,9 @@ import Logo from '~/assets/img/icons/logo.svg?inline'
 import FullLogo from '~/assets/img/icons/fullLogo.svg?inline'
 import Speaker from '~/assets/img/icons/speaker.svg?inline'
 import Hamburger from '~/assets/img/icons/hamburger.svg?inline'
+import AajaRadioWidget from './AajaRadioWidget.vue'
 export default {
-  components: { Speaker, Logo, FullLogo, Hamburger },
+  components: { Speaker, Logo, FullLogo, Hamburger, AajaRadioWidget },
   methods: {
     navOpen() {
       this.$store.dispatch('setNavPayload', true)
@@ -89,6 +89,8 @@ svg {
   grid-row: 1 / 2;
   grid-column: 2 / 4;
   display: flex;
+  align-items: center;
+  height: 100%;
   @include breakpoint(mobile) {
     border-top: var(--borderAtts);
     grid-row: 2 / 3;
@@ -97,13 +99,12 @@ svg {
 }
 #radio-widget__wrapper {
   flex-grow: 2;
-  height: 100%;
-  background: rgba(white, 0.3);
+  position: relative;
 }
 #toggle-sound {
-  width: 45px;
-  height: 40px;
-  padding: 0 10px;
+  width: 60px;
+  height: calc(var(--headerHeight) / 2);
+  padding: 0 15px;
   background: transparent;
   border: none;
   box-sizing: border-box;

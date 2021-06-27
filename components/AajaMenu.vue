@@ -110,7 +110,7 @@ export default {
         {
           name: 'Shop',
           slug: 'shop',
-          external_link: 'https://www.aajamusic.com/shop',
+          external_link: 'https://aajamusic.myshopify.com/',
           _id: '70082206',
         },
         {
