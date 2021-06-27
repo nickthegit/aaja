@@ -18,11 +18,7 @@
           </li>
         </ul>
         <ul id="navSocials">
-          <li
-            v-for="social in getSocials"
-            :key="social._id"
-            :class="social.icon.slug"
-          >
+          <li v-for="social in getSocials" :key="social._id" :class="social.icon.slug">
             <a
               :href="social.link"
               target="_blank"
@@ -122,7 +118,7 @@ export default {
         {
           name: 'Become a patron',
           slug: 'become-a-patron',
-          external_link: 'https://www.patreon.com/',
+          external_link: 'https://www.patreon.com/aajadeptford',
           _id: '15161091',
         },
       ],

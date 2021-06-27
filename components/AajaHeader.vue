@@ -8,7 +8,7 @@
       <div id="radio-widget__wrapper">
         <aaja-radio-widget />
       </div>
-      <button id="toggle-sound">
+      <button id="toggle-sound" @click="toggleSound" :class="muted ? 'muted' : ''">
         <Speaker />
       </button>
     </div>
@@ -27,9 +27,26 @@ import Hamburger from '~/assets/img/icons/hamburger.svg?inline'
 import AajaRadioWidget from './AajaRadioWidget.vue'
 export default {
   components: { Speaker, Logo, FullLogo, Hamburger, AajaRadioWidget },
+  data() {
+    return {
+      muted: false,
+    }
+  },
   methods: {
     navOpen() {
       this.$store.dispatch('setNavPayload', true)
+    },
+    toggleSound() {
+      const radio = this.$el.querySelector('#radio')
+      if (radio) {
+        if (radio.muted) {
+          radio.muted = false
+          this.muted = false
+        } else {
+          radio.muted = true
+          this.muted = true
+        }
+      }
     },
   },
 }
@@ -110,6 +127,19 @@ svg {
   box-sizing: border-box;
   border-left: var(--borderAtts);
   border-right: var(--borderAtts);
+  opacity: 1;
+  svg {
+    .lines {
+      opacity: 1;
+    }
+  }
+  &.muted {
+    svg {
+      .lines {
+        opacity: 0.2;
+      }
+    }
+  }
   &:hover {
     opacity: 0.7;
   }
