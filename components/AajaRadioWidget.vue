@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="online" v-if="liveInfo.onAir">
-      <audio id="radio" src="//sourcefabric.out.airtime.pro:8000//sourcefabric_b"></audio>
+      <audio id="radio" :src="stationMetadata.stream_data.s1.url"></audio>
       <button class="playBtn" @click="playPause">
         <svg
           v-if="!playing"
@@ -79,7 +79,7 @@ export default {
           .json()
           .catch((e) => error.log('Error with fetching radio widget stationMetadata data::', e))
     )
-    console.log(this.liveInfo)
+    console.log(this.stationMetadata)
   },
   data() {
     return {
