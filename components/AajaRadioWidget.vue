@@ -1,8 +1,11 @@
 <template>
   <section>
-    <div class="online">
-      <button class="playBtn">
+    <div class="online" v-if="liveInfo.onAir">
+      <audio id="radio" src="http://sourcefabric.out.airtime.pro:8000//sourcefabric_b"></audio>
+      <button class="playBtn" @click="playPause">
         <svg
+          v-if="!playing"
+          class="playIcon"
           width="13"
           height="20"
           viewBox="0 0 13 20"
@@ -18,20 +21,100 @@
             stroke-linejoin="round"
           />
         </svg>
+        <svg v-else class="pauseIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 531 824">
+          <path
+            d="M119 824H67c-37 0-67-30-67-67V67C0 30 30 0 67 0h52c37 0 68 30 68 67v690c0 37-31 67-68 67zm345 0h-53c-37 0-67-30-67-67V67c0-37 30-67 67-67h53c37 0 67 30 67 67v690c0 37-30 67-67 67z"
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+          />
+        </svg>
       </button>
       <div class="now-next">
-        <p class="now">Harvey - 14:00 - 16:00</p>
-        <span></span>
-        <p class="next">Coming up next: Handclap - 16:00 - 18:00</p>
+        <p class="now" v-if="liveInfo.current">
+          {{ liveInfo.current.name }} - {{ liveInfo.current.starttime }} -
+          {{ liveInfo.current.endtime }}
+        </p>
+        <span v-if="liveInfo.next"></span>
+        <p class="next" v-if="liveInfo.next">
+          Coming up next: {{ liveInfo.next.name }} - {{ liveInfo.next.starttime }} -
+          {{ liveInfo.next.endtime }}
+        </p>
       </div>
     </div>
   </section>
 </template>
 
 <script>
+import { format, formatISO, parseISO } from 'date-fns'
 export default {
+  async fetch() {
+    let createDateInstance = (date) => parseISO(formatISO(new Date([date].toString())))
+    this.liveInfo = await fetch('http://sourcefabric.airtime.pro/api/live-info-v2').then(
+      (response) =>
+        response
+          .json()
+          .then((data) => {
+            let shows = data.shows
+            let current = shows.current
+            let next = shows.next[0]
+            let onAir
+            if (current) {
+              current.starttime = format(createDateInstance(current.starts), 'HH:mm')
+              current.endtime = format(createDateInstance(current.ends), 'HH:mm')
+              if (next) {
+                next.starttime = format(createDateInstance(next.starts), 'HH:mm')
+                next.endtime = format(createDateInstance(next.ends), 'HH:mm')
+              }
+              onAir = true
+            } else {
+              onAir = false
+            }
+            return { current, next, onAir }
+          })
+          .catch((e) => error.log('Error with fetching radio widget liveInfo data::', e))
+    )
+    this.stationMetadata = await fetch('http://aajamusic.airtime.pro/api/station-metadata').then(
+      (response) =>
+        response
+          .json()
+          .catch((e) => error.log('Error with fetching radio widget stationMetadata data::', e))
+    )
+    console.log(this.liveInfo)
+  },
+  data() {
+    return {
+      playing: false,
+      onAir: true,
+      now: 'Harvey - 14:00 - 16:00',
+      next: 'Handclap - 16:00 - 18:00',
+      liveInfo: {},
+      stationMetadata: '',
+    }
+  },
+  methods: {
+    playPause() {
+      const radio = this.$el.querySelector('#radio')
+      if (radio.paused) {
+        radio.play()
+        this.playing = true
+      } else {
+        radio.pause()
+        this.playing = false
+      }
+    },
+  },
   mounted() {
+    const radio = this.$el.querySelector('#radio')
+    if (radio) {
+      radio.onpause = (event) => {
+        this.playing = false
+      }
+      radio.onplay = (event) => {
+        this.playing = true
+      }
+    }
     // http://sourcefabric.airtime.pro/api/live-info-v2
+    // http://aajamusic.airtime.pro/api/station-metadata
   },
 }
 </script>
@@ -57,10 +140,15 @@ section {
   padding: 0 15px;
   svg {
     width: 100%;
+    fill: var(--mainColor);
+    stroke: var(--mainColor);
   }
   path {
     fill: var(--mainColor);
     stroke: var(--mainColor);
+  }
+  .pauseIcon {
+    width: 12px;
   }
 }
 .now-next {
@@ -76,7 +164,7 @@ section {
     display: block;
     height: calc(var(--headerHeight) / 2);
     width: 1px;
-    border: 1px solid var(--mainColor);
+    border-left: 1px solid var(--mainColor);
     margin: 0 20px;
   }
   @include breakpoint(tablet-mobile) {
