@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="online" v-if="liveInfo.onAir">
-      <audio id="radio" src="http://sourcefabric.out.airtime.pro:8000//sourcefabric_b"></audio>
+      <audio id="radio" src="//sourcefabric.out.airtime.pro:8000//sourcefabric_b"></audio>
       <button class="playBtn" @click="playPause">
         <svg
           v-if="!playing"
