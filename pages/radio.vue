@@ -17,11 +17,7 @@
           class="spotlight-slider-container"
           :sliderOptions="spotlightSliderOptions"
         >
-          <div
-            class="swiper-slide"
-            v-for="slide in spotlights"
-            :key="slide._id"
-          >
+          <div class="swiper-slide" v-for="slide in spotlights" :key="slide._id">
             <nuxt-link :to="`/residents/${slide.slug.current}`">
               <div class="spotlight-slide-wrap">
                 <aaja-img
@@ -47,69 +43,7 @@
       </aaja-container>
     </article>
     <article class="radio__schedule">
-      <aaja-schedule />
-      <aaja-container>
-        <section class="schedule-title-bar title-bar">
-          <h2>
-            Schedule<span><Logo /></span>
-          </h2>
-        </section>
-        <slider-container
-          class="schedule-slider-container"
-          :sliderOptions="scheduleSliderOptions"
-        >
-          <template v-slot:sliderButtons>
-            <div class="slider-btns-wrap">
-              <div class="slider-button-prev schedule-prev">
-                <slider-arrow />
-              </div>
-              <div class="slider-button-next schedule-next">
-                <slider-arrow />
-              </div>
-            </div>
-          </template>
-          <div class="swiper-slide" v-for="slide in schedule" :key="slide._id">
-            <div class="schedule-slide-wrap">
-              <h3>{{ slide.label }}</h3>
-              <div class="schedule-table">
-                <div
-                  class="schedule-item"
-                  v-for="item in slide.schedule"
-                  :key="item._id"
-                >
-                  <aaja-img
-                    v-if="!item.onAir"
-                    class="schedule-img"
-                    :altText="`Aaja resident - ${item.name}`"
-                    :desktopBg="item.img.desktopBlur"
-                    :mobileBg="item.img.mobileBlur"
-                    :desktopImgs="item.img.desktop"
-                    :mobileImgs="item.img.mobile"
-                    :ratio="[1, 1]"
-                    :percentageOfViewportWidth="20"
-                  />
-                  <aaja-img
-                    v-else
-                    class="schedule-img"
-                    :altText="`Aaja resident - ${item.name}`"
-                    :desktopBg="item.imgLive.desktopBlur"
-                    :mobileBg="item.imgLive.mobileBlur"
-                    :desktopImgs="item.imgLive.desktop"
-                    :mobileImgs="item.imgLive.mobile"
-                    :ratio="[1, 1]"
-                    :percentageOfViewportWidth="20"
-                  />
-                  <p>
-                    {{ item.time.from }} - {{ item.time.to
-                    }}<span v-if="item.onAir"><live-now /></span>
-                  </p>
-                  <h5>{{ item.name }}</h5>
-                </div>
-              </div>
-            </div>
-          </div>
-        </slider-container>
-      </aaja-container>
+      <aaja-schedule :theData="theData"/>
     </article>
     <article class="featured">
       <aaja-container>
@@ -122,10 +56,9 @@
           <section class="featured-copy">
             <h3>Meet the family</h3>
             <p>
-              Aaja is a global family of music lovers. We strive to broadcast
-              diverse and unique music that excites, inspires and moves you.
-              Aaja is where eclecticism is celebrated and niche music takes
-              centre stage. It’s where passionate people, not algorithms, play
+              Aaja is a global family of music lovers. We strive to broadcast diverse and unique
+              music that excites, inspires and moves you. Aaja is where eclecticism is celebrated
+              and niche music takes centre stage. It’s where passionate people, not algorithms, play
               exceptional music that is hard to find anywhere else.
             </p>
           </section>
@@ -144,11 +77,7 @@
                   </div>
                 </div>
               </template>
-              <div
-                class="swiper-slide"
-                v-for="slide in community"
-                :key="slide._id"
-              >
+              <div class="swiper-slide" v-for="slide in community" :key="slide._id">
                 <div class="featured-artist-card">
                   <div class="featured-artist-card-copy-warp">
                     <h5>Featured</h5>
@@ -180,6 +109,17 @@
 </template>
 
 <script>
+import slugify from 'slugify'
+import {
+  format,
+  formatISO,
+  isToday,
+  isTomorrow,
+  parseISO,
+  isPast,
+  differenceInDays,
+} from 'date-fns'
+
 import { cloudinaryImgParser } from '~/utils/images'
 
 import { radioPageQuery } from '~/utils/queries.js'
@@ -203,8 +143,68 @@ export default {
   },
   async asyncData({ $sanity }) {
     const data = await $sanity.fetch(radioPageQuery)
+    const theData = await fetch('https://aajamusic.airtime.pro/api/week-info')
+      .then((response) => response.json())
+      .then(async (data) => {
+        // ** /////
+        // ** /////
+        // ** /////
+        let thisData = await data
+        let createDateInstance = (date) => parseISO(formatISO(new Date([date].toString())))
+        let schedule = await []
+        await delete thisData.AIRTIME_API_VERSION
+        // ** for
+        for (const item of Object.entries(thisData)) {
+          let theDate = item[1][0].starts
+          let parsedDate = createDateInstance(theDate)
+          let label = parsedDate
+          if (isToday(label)) {
+            label = 'Today'
+          } else if (isTomorrow(label)) {
+            label = 'Tomorrow'
+          } else {
+            label = format(label, 'EEEE')
+          }
+          let mainID = slugify([theDate].toString()) + slugify([item[0]].toString())
+          schedule.push({
+            date: theDate,
+            label,
+            _id: mainID,
+            schedule: [...item[1]].map((day) => {
+              let theSlug = slugify([day.name].toString())
+              let timeFrom = format(createDateInstance(day.start_timestamp), 'HH:mm')
+              let timeTo = format(createDateInstance(day.end_timestamp), 'HH:mm')
+              return {
+                onAir: false,
+                time: {
+                  from: timeFrom,
+                  to: timeTo,
+                },
+                name: day.name,
+                _id: theSlug,
+                img: false,
+              }
+            }),
+          })
+        }
+        // ** filter
+        schedule = await schedule.filter(
+          (item) =>
+            item.label === 'Today' ||
+            (!isPast(parseISO(item.date)) && differenceInDays(parseISO(item.date), new Date()) < 6)
+        )
 
-    return { radioData: data[0] }
+        // ** return
+        return schedule
+        // ** /////
+        // ** /////
+        // ** /////
+      })
+      .then((data) => data)
+      .catch((e) => error.log('Error with fetching the data::', e))
+
+
+    return { radioData: data[0], theData }
   },
   data() {
     return {
@@ -1235,26 +1235,6 @@ export default {
           ],
         },
       ],
-      scheduleSliderOptions: {
-        loop: false,
-        slidesPerView: 1,
-        slidesPerGroup: 1,
-        grabCursor: true,
-        spaceBetween: 0,
-        breakpoints: {
-          // when window width is >= 480px
-          481: {
-            slidesPerView: 3,
-            slidesPerGroup: 1,
-            spaceBetween: 40,
-          },
-        },
-        // Navigation arrows
-        navigation: {
-          nextEl: '.schedule-next',
-          prevEl: '.schedule-prev',
-        },
-      },
       featured: [
         {
           _id: 'Xbb2TW5yIbeLkYIDbRR',
@@ -1305,9 +1285,7 @@ export default {
   computed: {
     spotlights() {
       let spotlight = this.radioData.spotlight.map((slide) => {
-        let imgSource = slide.spotlight_image
-          ? slide.spotlight_image
-          : slide.feature_image
+        let imgSource = slide.spotlight_image ? slide.spotlight_image : slide.feature_image
         let img = this.$urlForSquare(imgSource, false, true)
         return { ...slide, img }
       })
@@ -1315,9 +1293,7 @@ export default {
     },
     community() {
       let community = this.radioData.community.map((slide) => {
-        let imgSource = slide.community_image
-          ? slide.community_image
-          : slide.feature_image
+        let imgSource = slide.community_image ? slide.community_image : slide.feature_image
         let img = this.$urlForSquare(imgSource, false, true)
         return { ...slide, img }
       })
@@ -1325,6 +1301,7 @@ export default {
     },
   },
   mounted() {
+    // console.log('THEDATA YEAHH', this.theData);
     // console.log('RADIO PAGE QUERY: ', this.radioData)
     // console.log('SPOTLIGHTS', this.community)
     // this.$urlForSquare(this.radioData.community[0].feature_image, true)
@@ -1521,7 +1498,6 @@ export default {
     grid-template: auto auto auto / 100%;
   }
 }
-
 .featured-title-bar {
   grid-column: 1 / 3;
   grid-row: 1 / 2;
@@ -1530,7 +1506,6 @@ export default {
     grid-row: 1 / 2;
   }
 }
-
 .featured-copy {
   grid-column: 1 / 2;
   grid-row: 2 / 3;
@@ -1544,7 +1519,6 @@ export default {
     grid-row: 2 / 3;
   }
 }
-
 .featured-artist-card-wrap {
   grid-column: 2 / 3;
   grid-row: 2 / 3;
@@ -1553,7 +1527,6 @@ export default {
     grid-row: 3 / 4;
   }
 }
-
 .featured-artist-card {
   background: var(--white);
   color: var(--black);

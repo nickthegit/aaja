@@ -67,7 +67,10 @@ export default {
   },
   mounted() {
     let vm = this
-    var mySwiper = new Swiper(vm.$el, vm.sliderOptions)
+    this.$nextTick(() => {
+
+      var mySwiper = new Swiper(vm.$el, vm.sliderOptions)
+    })
   },
 }
 </script>

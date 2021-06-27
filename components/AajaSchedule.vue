@@ -1,61 +1,213 @@
 <template>
-  <div>sf</div>
+  <aaja-container>
+    <section class="schedule-title-bar title-bar">
+      <h2>
+        Schedule<span><Logo /></span>
+      </h2>
+    </section>
+    <slider-container class="schedule-slider-container" :sliderOptions="scheduleSliderOptions">
+      <template v-slot:sliderButtons>
+        <div class="slider-btns-wrap">
+          <div class="slider-button-prev schedule-prev">
+            <slider-arrow />
+          </div>
+          <div class="slider-button-next schedule-next">
+            <slider-arrow />
+          </div>
+        </div>
+      </template>
+      <div class="swiper-slide" v-for="slide in theData" :key="slide._id">
+        <div class="schedule-slide-wrap">
+          <h3>{{ slide.label }}</h3>
+          <div class="schedule-table">
+            <div class="schedule-item" v-for="item in slide.schedule" :key="item._id">
+              <!-- <aaja-img
+                    v-if="!item.onAir"
+                    class="schedule-img"
+                    :altText="`Aaja resident - ${item.name}`"
+                    :desktopBg="item.img.desktopBlur"
+                    :mobileBg="item.img.mobileBlur"
+                    :desktopImgs="item.img.desktop"
+                    :mobileImgs="item.img.mobile"
+                    :ratio="[1, 1]"
+                    :percentageOfViewportWidth="20"
+                  />
+                  <aaja-img
+                    v-else
+                    class="schedule-img"
+                    :altText="`Aaja resident - ${item.name}`"
+                    :desktopBg="item.imgLive.desktopBlur"
+                    :mobileBg="item.imgLive.mobileBlur"
+                    :desktopImgs="item.imgLive.desktop"
+                    :mobileImgs="item.imgLive.mobile"
+                    :ratio="[1, 1]"
+                    :percentageOfViewportWidth="20"
+                  /> -->
+              <p>
+                {{ item.time.from }} - {{ item.time.to }}<span v-if="item.onAir"><live-now /></span>
+              </p>
+              <h5>{{ item.name }}</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </slider-container>
+  </aaja-container>
 </template>
 
 <script>
-// var slugify = require('slugify')
-import slugify from 'slugify'
-import { format, compareAsc, getTime, formatISO } from 'date-fns'
+import Logo from '~/assets/img/icons/logo.svg?inline'
+import sliderArrow from '~/assets/img/icons/sliderArrow.svg?inline'
+import liveNow from '~/assets/img/live_now.svg?inline'
+import AajaContainer from '~/components/AajaContainer.vue'
+
 export default {
-  async fetch() {
-    fetch('https://aajamusic.airtime.pro/api/week-info')
-      .then((response) => response.json())
-      .then((data) => (this.theData = data))
+  components: {
+    Logo,
+    sliderArrow,
+    liveNow,
+    AajaContainer,
   },
-  data() {
-    return {
-      theData: '',
+  props: {
+    theData: {
+      type: Array
     }
   },
-  mounted() {
-    setTimeout(() => {
-      console.log('this.theData', this.theData)
-      let schedule = []
-      for (const item of Object.entries(this.theData)) {
-        let mainID =
-          slugify([item[1][0].starts].toString()) +
-          slugify([item[0]].toString())
-        schedule.push({
-          date: item[1][0].starts,
-          label: item[0],
-          _id: mainID,
-          schedule: [...item[1]].map((day) => {
-            let theSlug = slugify([day.name].toString())
-            let timeFrom = formatISO(new Date([day.start_timestamp].toString()))
-            console.log('timeFrom', timeFrom)
-            console.log('timeFromOriginal', day.start_timestamp)
-            return {
-              onAir: false,
-              time: {
-                from: day.start_timestamp,
-                to: day.end_timestamp,
-              },
-              name: day.name,
-              _id: theSlug,
-              img: false,
-            }
-          }),
-        })
-        console.log(item)
-      }
-      // let dave = this.theData.map((el) => {
-      //   return { ...el[0].start_timestamp }
-      // })
-
-      console.log('schedule', schedule)
-    }, 3000)
+  data() {
+    return {   
+      scheduleSliderOptions: {
+        loop: false,
+        slidesPerView: 1,
+        slidesPerGroup: 1,
+        grabCursor: true,
+        spaceBetween: 0,
+        breakpoints: {
+          // when window width is >= 480px
+          481: {
+            slidesPerView: 3,
+            slidesPerGroup: 1,
+            spaceBetween: 40,
+          },
+        },
+        // Navigation arrows
+        navigation: {
+          nextEl: '.schedule-next',
+          prevEl: '.schedule-prev',
+        },
+      },
+    }
   },
+  mounted() {},
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.slider-btns-wrap {
+  position: relative;
+  padding: 20px 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  div {
+    display: block;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    &.swiper-button-disabled {
+      opacity: 0.3;
+    }
+    svg {
+      width: 100%;
+    }
+  }
+  .slider-button-prev {
+    transform: rotate(180deg);
+    margin-right: 20px;
+  }
+}
+.schedule-slider-container {
+  .slider-btns-wrap {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    padding: 0;
+  }
+}
+.radio__schedule {
+  background: var(--white);
+  color: var(--black);
+  padding: var(--globalPadding) 0;
+}
+.title-bar {
+  margin-bottom: 20px;
+  span {
+    height: var(--h2Size);
+    display: inline-block;
+    vertical-align: middle;
+    svg {
+      height: 100%;
+      margin-left: 10px;
+      fill: var(--white);
+    }
+  }
+}
+.schedule-title-bar {
+  span {
+    svg {
+      fill: var(--black);
+    }
+  }
+}
+.schedule-slide-wrap {
+  h3 {
+    -webkit-text-stroke: 1px var(--black);
+    color: transparent;
+    text-transform: uppercase;
+    border-bottom: var(--borderAtts);
+    box-sizing: border-box;
+    border-color: var(--black);
+    padding-bottom: 20px;
+  }
+}
+.schedule-item {
+  width: 100%;
+  margin-top: 20px;
+  padding-bottom: 10px;
+  display: grid;
+  grid-template: auto 1fr / minmax(auto, 0px) 1fr;
+  align-items: start;
+  column-gap: 15px;
+  row-gap: 5px;
+  border-bottom: var(--borderAtts);
+  box-sizing: border-box;
+  border-color: var(--black);
+  .schedule-img {
+    width: 100%;
+    grid-column: 1 / 2;
+    grid-row: 1 / 3;
+  }
+  p {
+    width: 100%;
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    font-size: 16px;
+    margin-bottom: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    span {
+      display: block;
+      width: 60px;
+      svg {
+        width: 100%;
+      }
+    }
+  }
+  h5 {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    text-transform: uppercase;
+  }
+}
+</style>
