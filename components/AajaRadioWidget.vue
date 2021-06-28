@@ -49,7 +49,7 @@ import { format, formatISO, parseISO } from 'date-fns'
 export default {
   async fetch() {
     let createDateInstance = (date) => parseISO(formatISO(new Date([date].toString())))
-    this.liveInfo = await fetch('http://sourcefabric.airtime.pro/api/live-info-v2').then(
+    this.liveInfo = await fetch(`http://${this.station}.airtime.pro/api/live-info-v2`).then(
       (response) =>
         response
           .json()
@@ -73,11 +73,12 @@ export default {
           })
           .catch((e) => error.log('Error with fetching radio widget liveInfo data::', e))
     )
-    this.stationMetadata = await fetch('http://aajamusic.airtime.pro/api/station-metadata').then(
-      (response) =>
-        response
-          .json()
-          .catch((e) => error.log('Error with fetching radio widget stationMetadata data::', e))
+    this.stationMetadata = await fetch(
+      `http://${this.station}.airtime.pro/api/station-metadata`
+    ).then((response) =>
+      response
+        .json()
+        .catch((e) => error.log('Error with fetching radio widget stationMetadata data::', e))
     )
     console.log(this.stationMetadata)
   },
@@ -89,6 +90,8 @@ export default {
       next: 'Handclap - 16:00 - 18:00',
       liveInfo: {},
       stationMetadata: '',
+      // station: 'aajamusic'
+      station: 'sourcefabric',
     }
   },
   methods: {
