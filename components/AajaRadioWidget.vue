@@ -29,6 +29,27 @@
           />
         </svg>
       </button>
+      <div class="on_air">
+        <svg
+          version="1.1"
+          id="Layer_1"
+          xmlns="http://www.w3.org/2000/svg"
+          x="0"
+          y="0"
+          viewBox="0 0 47.7 15"
+          xml:space="preserve"
+        >
+          <style>
+            .st0 {
+              fill: #fd5c5c;
+            }
+          </style>
+          <path
+            class="st0"
+            d="M15 9.1c0 3.7 1.4 5.4 3.5 5.4S22 12.8 22 9.1V5.9C22 2.2 20.7.5 18.5.5 16.4.5 15 2.2 15 5.9v3.2zm2.9-6.2c0-.4.2-.6.5-.6s.5.2.5.6V12c0 .4-.1.6-.5.6-.3 0-.5-.2-.5-.6V2.9zM22.4.7v13.6h2.4l-.2-6.9h.2l1.3 6.9h2.5V.7h-2.4l.2 6.9h-.2L24.9.7h-2.5zm9.6 0l-1.2 13.4v.2H33l.2-3.3h1l.2 3.3H37v-.2L35.8.7H32zm1.4 8.2l.3-4.8h.2l.3 4.8h-.8zM37.5.7v13.6h2.7V.7h-2.7zm3.3 0v13.6h2.6V8.8c.5 0 .7.4.7 1.1l.1 2.3c0 .9.1 1.6.3 2.1H47v-.2c-.2-.4-.3-.9-.3-2.1v-1.3c0-1.5-.3-2.2-1.3-2.8v-.2c1-.6 1.6-1.6 1.6-3.2v-.3C47 2 45.6.7 43.4.7h-2.6zm2.6 1.7h.2c.4 0 .7.3.7 1.2v2.2c0 .9-.3 1.3-.7 1.3h-.2V2.4z"
+          />
+        </svg>
+      </div>
       <div class="now-next">
         <p class="now" v-if="liveInfo.current">
           {{ liveInfo.current.name }} - {{ liveInfo.current.starttime }} -
@@ -90,8 +111,8 @@ export default {
       next: 'Handclap - 16:00 - 18:00',
       liveInfo: {},
       stationMetadata: '',
-      // station: 'aajamusic'
       station: 'sourcefabric',
+      // station: 'aajamusic'
     }
   },
   methods: {
@@ -135,12 +156,27 @@ section {
   display: flex;
   align-items: center;
 }
+.on_air {
+  width: auto;
+  height: 18px;
+  display: block;
+  svg {
+    height: 100%;
+    position: relative;
+    left: -10px;
+    path {
+      fill: var(--mainColor);
+    }
+  }
+  @include breakpoint(mobile) {
+    height: 15px;
+  }
+}
 .playBtn {
   background: none;
   border: none;
-  width: 55px;
+  width: 30px;
   box-sizing: border-box;
-  padding: 0 15px;
   svg {
     width: 100%;
     fill: var(--mainColor);
@@ -158,6 +194,7 @@ section {
   flex-grow: 2;
   display: flex;
   align-items: center;
+  margin-left: 10px;
   p {
     display: inline-block;
     margin-bottom: 0;
