@@ -70,7 +70,7 @@ import { format, formatISO, parseISO } from 'date-fns'
 export default {
   async fetch() {
     let createDateInstance = (date) => parseISO(formatISO(new Date([date].toString())))
-    this.liveInfo = await fetch(`http://${this.station}.airtime.pro/api/live-info-v2`).then(
+    this.liveInfo = await fetch(`https://${this.station}.airtime.pro/api/live-info-v2`).then(
       (response) =>
         response
           .json()
@@ -95,7 +95,7 @@ export default {
           .catch((e) => error.log('Error with fetching radio widget liveInfo data::', e))
     )
     this.stationMetadata = await fetch(
-      `http://${this.station}.airtime.pro/api/station-metadata`
+      `https://${this.station}.airtime.pro/api/station-metadata`
     ).then((response) =>
       response
         .json()
