@@ -101,6 +101,7 @@ export const residentSlugPageQuery = (
   slug,
   spotlight_image,
   website,
+  "soundcloud_embed" : coalesce(soundcloud_embed, false),
   "socials": [
     {
     	"icon": "Facebook",

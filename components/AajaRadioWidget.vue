@@ -111,8 +111,8 @@ export default {
       next: 'Handclap - 16:00 - 18:00',
       liveInfo: {},
       stationMetadata: '',
-      station: 'sourcefabric',
-      // station: 'aajamusic'
+      // station: 'sourcefabric',
+      station: 'aajamusic',
     }
   },
   methods: {

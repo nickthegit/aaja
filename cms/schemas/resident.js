@@ -42,8 +42,7 @@ export default {
       title: 'Slot',
       name: 'slot',
       type: 'string',
-      description:
-        'Describe a regular slot - e.g. "First Tuesday of every month - 8-10pm"',
+      description: 'Describe a regular slot - e.g. "First Tuesday of every month - 8-10pm"',
     },
     {
       title: 'Website',
@@ -81,8 +80,14 @@ export default {
       options: {
         hotspot: true,
       },
+      description: 'Image which will be used when resident is in the spotlight on the radio page.',
+    },
+    {
+      title: 'Soundcloud Playlist Embed',
+      name: 'soundcloud_embed',
+      type: 'string',
       description:
-        'Image which will be used when resident is in the spotlight on the radio page.',
+        'The embed code provided by soundcloud, hit "share" on the playlist in soundcloud, then navigate to "Embed", then copy the iframe code which looks like this: <iframe width="100%" height="300" scrolling="no" framebo... Then paste it here.',
     },
   ],
   preview: {
