@@ -9,7 +9,7 @@ export default {
    ** Nuxt target
    ** See https://nuxtjs.org/api/configuration-target
    */
-  target: 'static', // also could ber server
+  target: 'server', // also could ber server
   /*
    ** Headers of the page
    ** See https://nuxtjs.org/api/configuration-head
@@ -43,11 +43,7 @@ export default {
   /*
    ** Nuxt.js dev-modules
    */
-  buildModules: [
-    '@nuxtjs/style-resources',
-    '@nuxtjs/dotenv',
-    '@nuxtjs/sanity/module',
-  ],
+  buildModules: ['@nuxtjs/style-resources', '@nuxtjs/dotenv', '@nuxtjs/sanity/module'],
   sanity: {
     projectId: process.env.SANITY_ID,
     dataset: process.env.SANITY_DATASET,
