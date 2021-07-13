@@ -146,7 +146,7 @@ export default {
     },
   },
   mounted() {
-    console.log('DATA HEAD', this.data)
+    // console.log('DATA HEAD', this.data)
   },
   head() {
     return {

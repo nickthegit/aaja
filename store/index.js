@@ -1,5 +1,5 @@
 export const state = () => ({
-  navState: false
+  navState: false,
 })
 
 export const mutations = {
@@ -8,17 +8,20 @@ export const mutations = {
   },
   toggleNavPayload(state, payload) {
     state.navState = payload
-  }
+  },
 }
 
 export const actions = {
   async nuxtServerInit({ dispatch }) {
-    // await dispatch('core/load')
+    await dispatch('fetchRadio')
+  },
+  fetchRadio() {
+    console.log('HELLO THERE')
   },
   setNav({ commit }) {
     commit('toggleNav')
   },
   setNavPayload({ commit }, payload) {
     commit('toggleNavPayload', payload)
-  }
+  },
 }

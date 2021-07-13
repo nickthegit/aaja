@@ -14,12 +14,8 @@
       <aaja-container class="about__content">
         <section class="contact-info">
           <h4>Get in touch</h4>
-          <a :href="`mailto:${contactData.contact.email}`">{{
-            contactData.contact.email
-          }}</a>
-          <a :href="`tel:${contactData.contact.telephome}`">{{
-            contactData.contact.telephome
-          }}</a>
+          <a :href="`mailto:${contactData.contact.email}`">{{ contactData.contact.email }}</a>
+          <a :href="`tel:${contactData.contact.telephome}`">{{ contactData.contact.telephome }}</a>
           <address>
             <SanityContent :blocks="contactData.contact.address" />
           </address>
@@ -62,15 +58,11 @@ export default {
   },
   computed: {
     contactImg() {
-      return this.$urlForSquare(
-        this.contactData.about.feature_image,
-        false,
-        false
-      )
+      return this.$urlForSquare(this.contactData.about.feature_image, false, false)
     },
   },
   mounted() {
-    console.log(this.contactData)
+    // console.log(this.contactData)
   },
   head: {
     htmlAttrs: {

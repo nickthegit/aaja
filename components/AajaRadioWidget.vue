@@ -101,7 +101,7 @@ export default {
         .json()
         .catch((e) => error.log('Error with fetching radio widget stationMetadata data::', e))
     )
-    console.log(this.stationMetadata)
+    // console.log(this.stationMetadata)
   },
   data() {
     return {
@@ -126,17 +126,21 @@ export default {
         this.playing = false
       }
     },
+    listenerPlayPause() {
+      const radio = this.$el.querySelector('#radio')
+      if (radio) {
+        radio.onpause = (event) => {
+          this.playing = false
+        }
+        radio.onplay = (event) => {
+          this.playing = true
+        }
+      }
+    },
   },
   mounted() {
-    const radio = this.$el.querySelector('#radio')
-    if (radio) {
-      radio.onpause = (event) => {
-        this.playing = false
-      }
-      radio.onplay = (event) => {
-        this.playing = true
-      }
-    }
+    this.$fetch()
+    this.listenerPlayPause()
     // http://sourcefabric.airtime.pro/api/live-info-v2
     // http://aajamusic.airtime.pro/api/station-metadata
   },

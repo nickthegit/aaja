@@ -11,9 +11,7 @@
         </section>
         <aside v-if="epData.link">
           <span v-html="epData.embed.html"></span>
-          <a :href="epData.link" target="_blank" rel="noopener noreferrer"
-            >Buy now</a
-          >
+          <a :href="epData.link" target="_blank" rel="noopener noreferrer">Buy now</a>
         </aside>
       </aaja-container>
     </article>
@@ -26,9 +24,7 @@ import AajaSlugHero from '~/components/AajaSlugHero.vue'
 export default {
   components: { AajaSlugHero },
   async asyncData({ $urlForSquare, $sanity, params, $axios }) {
-    const data = await $sanity.fetch(
-      `*[_type == "ep" && slug.current == "${params.slug}"][0]`
-    )
+    const data = await $sanity.fetch(`*[_type == "ep" && slug.current == "${params.slug}"][0]`)
 
     let url, embed
     if (data.link) {
@@ -42,10 +38,7 @@ export default {
         .replace('www', 'api')
         .trim()
 
-      url =
-        (await parseUrl.charAt(parseUrl.length - 1)) === '/'
-          ? parseUrl
-          : parseUrl + '/'
+      url = (await parseUrl.charAt(parseUrl.length - 1)) === '/' ? parseUrl : parseUrl + '/'
 
       url = (await 'https://') + url
 
@@ -53,7 +46,7 @@ export default {
 
       await $axios.$get(url).then((res) => {
         embed = res
-        console.log(res)
+        // console.log(res)
       })
     }
     // let url = await 'https://www.mixcloud.com/AAJAdeptford/earnshaw-mellow-music-episode-004/',
@@ -64,8 +57,7 @@ export default {
   },
   data() {
     return {
-      record:
-        'https://www.mixcloud.com/AAJAdeptford/earnshaw-mellow-music-episode-004/',
+      record: 'https://www.mixcloud.com/AAJAdeptford/earnshaw-mellow-music-episode-004/',
     }
   },
   computed: {},

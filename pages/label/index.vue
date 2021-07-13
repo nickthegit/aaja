@@ -82,8 +82,8 @@ export default {
     },
   },
   mounted() {
-    console.log(this.labelData)
-    console.log(this.eps_records)
+    // console.log(this.labelData)
+    // console.log(this.eps_records)
   },
   head: {
     htmlAttrs: {

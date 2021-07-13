@@ -43,7 +43,7 @@
       </aaja-container>
     </article>
     <article class="radio__schedule">
-      <aaja-schedule :theData="theData"/>
+      <aaja-schedule :theData="theData" />
     </article>
     <article class="featured">
       <aaja-container>
@@ -103,6 +103,15 @@
             </slider-container>
           </section>
         </div>
+      </aaja-container>
+    </article>
+    <article class="archive">
+      <aaja-container>
+        <section class="archive-title-bar title-bar">
+          <h2>
+            Archive<span><Logo /></span>
+          </h2>
+        </section>
       </aaja-container>
     </article>
   </main>
@@ -202,7 +211,6 @@ export default {
       })
       .then((data) => data)
       .catch((e) => error.log('Error with fetching the data::', e))
-
 
     return { radioData: data[0], theData }
   },
@@ -1582,6 +1590,18 @@ export default {
           fill: var(--black);
         }
       }
+    }
+  }
+}
+.archive {
+  background: var(--white);
+  color: var(--black);
+  padding: var(--globalPadding) 0;
+}
+.archive-title-bar {
+  span {
+    svg {
+      fill: var(--black);
     }
   }
 }

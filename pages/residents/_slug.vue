@@ -164,7 +164,7 @@ export default {
   mounted() {
     // this.$fetch()
     // console.log('PLAYLISTS', this.latestPlaylists)
-    console.log('residentData', this.residentData)
+    // console.log('residentData', this.residentData)
     // console.log('getSocials', this.getSocials)
   },
 }
