@@ -92,14 +92,16 @@ export default {
             }
             return { current, next, onAir }
           })
-          .catch((e) => error.log('Error with fetching radio widget liveInfo data::', e))
+          .catch((e) => {
+            console.log('Error with fetching radio widget liveInfo data::', e)
+          })
     )
     this.stationMetadata = await fetch(
       `https://${this.station}.airtime.pro/api/station-metadata`
     ).then((response) =>
-      response
-        .json()
-        .catch((e) => error.log('Error with fetching radio widget stationMetadata data::', e))
+      response.json().catch((e) => {
+        console.log('Error with fetching radio widget stationMetadata data::', e)
+      })
     )
     // console.log(this.stationMetadata)
   },
@@ -138,8 +140,11 @@ export default {
       }
     },
   },
+  created() {
+    // this.$fetch()
+  },
   mounted() {
-    this.$fetch()
+    // this.$fetch()
     this.listenerPlayPause()
     // http://sourcefabric.airtime.pro/api/live-info-v2
     // http://aajamusic.airtime.pro/api/station-metadata

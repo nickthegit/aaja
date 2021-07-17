@@ -167,8 +167,69 @@ export default {
     AajaSchedule,
     AajaArtistCard,
   },
-  async asyncData({ $sanity }) {
+  async asyncData({ $sanity, $axios }) {
     const data = await $sanity.fetch(radioPageQuery)
+    // const theData = await $axios
+    //   .$get('https://aajamusic.airtime.pro/api/week-info')
+    //   .then(async (data) => {
+    //     // ** /////
+    //     // ** /////
+    //     // ** /////
+    //     let thisData = await data
+    //     let createDateInstance = (date) => parseISO(formatISO(new Date([date].toString())))
+    //     let schedule = await []
+    //     await delete thisData.AIRTIME_API_VERSION
+    //     // ** for
+    //     for (const item of Object.entries(thisData)) {
+    //       let theDate = item[1][0].starts
+    //       let parsedDate = createDateInstance(theDate)
+    //       let label = parsedDate
+    //       if (isToday(label)) {
+    //         label = 'Today'
+    //       } else if (isTomorrow(label)) {
+    //         label = 'Tomorrow'
+    //       } else {
+    //         label = format(label, 'EEEE')
+    //       }
+    //       let mainID = slugify([theDate].toString()) + slugify([item[0]].toString())
+    //       schedule.push({
+    //         date: theDate,
+    //         label,
+    //         _id: mainID,
+    //         schedule: [...item[1]].map((day) => {
+    //           let theSlug = slugify([day.name].toString())
+    //           let timeFrom = format(createDateInstance(day.start_timestamp), 'HH:mm')
+    //           let timeTo = format(createDateInstance(day.end_timestamp), 'HH:mm')
+    //           return {
+    //             onAir: false,
+    //             time: {
+    //               from: timeFrom,
+    //               to: timeTo,
+    //             },
+    //             name: day.name,
+    //             _id: theSlug,
+    //             img: false,
+    //           }
+    //         }),
+    //       })
+    //     }
+    //     // ** filter
+    //     schedule = await schedule.filter(
+    //       (item) =>
+    //         item.label === 'Today' ||
+    //         (!isPast(parseISO(item.date)) && differenceInDays(parseISO(item.date), new Date()) < 6)
+    //     )
+
+    //     // ** return
+    //     return schedule
+    //     // ** /////
+    //     // ** /////
+    //     // ** /////
+    //   })
+    //   .then((data) => data)
+    //   .catch((e) => {
+    //   console.log('Error with fetching the data AXIOS::', e)
+    // })
     const theData = await fetch('https://aajamusic.airtime.pro/api/week-info')
       .then((response) => response.json())
       .then(async (data) => {
@@ -227,7 +288,9 @@ export default {
         // ** /////
       })
       .then((data) => data)
-      .catch((e) => error.log('Error with fetching the data::', e))
+      .catch((e) => {
+        console.log('Error with fetching the data with FETCH::', e)
+      })
     const residentAll = await $sanity.fetch(residentAllQuery)
 
     return { radioData: data[0], theData, residentAll }
@@ -1335,7 +1398,7 @@ export default {
     },
   },
   mounted() {
-    console.log('THEDATA YEAHH', this.residentAll)
+    // console.log('THEDATA YEAHH', this.ip)
     // console.log('RADIO PAGE QUERY: ', this.radioData)
     // console.log('SPOTLIGHTS', this.community)
     // this.$urlForSquare(this.radioData.community[0].feature_image, true)
