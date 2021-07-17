@@ -112,6 +112,21 @@
             Archive<span><Logo /></span>
           </h2>
         </section>
+        <section class="archive-artist-card-wrap">
+          <aaja-artist-card
+            v-for="resident in residentAll"
+            :key="resident._id"
+            :artistLink="resident.slug"
+            :artistImage="
+              resident.image
+                ? $urlFor(resident.image).size(600)
+                : `https://placehold.co/600x400?text=${resident.slug}`
+            "
+            :imageAltText="`Image of Aaja Resident ${resident.name}`"
+            :artistName="resident.name"
+            :sortBio="resident.short_bio | cutBio"
+          />
+        </section>
       </aaja-container>
     </article>
   </main>
@@ -131,7 +146,7 @@ import {
 
 import { cloudinaryImgParser } from '~/utils/images'
 
-import { radioPageQuery } from '~/utils/queries.js'
+import { radioPageQuery, residentAllQuery } from '~/utils/queries.js'
 
 import Logo from '~/assets/img/icons/logo.svg?inline'
 import SnakeRoundel from '~/assets/img/radio-snake.svg?inline'
@@ -140,6 +155,7 @@ import liveNow from '~/assets/img/live_now.svg?inline'
 import AajaContainer from '~/components/AajaContainer.vue'
 import Arrow from '~/assets/img/icons/arrow.svg?inline'
 import AajaSchedule from '~/components/AajaSchedule.vue'
+import AajaArtistCard from '~/components/AajaArtistCard.vue'
 export default {
   components: {
     SnakeRoundel,
@@ -149,6 +165,7 @@ export default {
     AajaContainer,
     Arrow,
     AajaSchedule,
+    AajaArtistCard,
   },
   async asyncData({ $sanity }) {
     const data = await $sanity.fetch(radioPageQuery)
@@ -211,8 +228,9 @@ export default {
       })
       .then((data) => data)
       .catch((e) => error.log('Error with fetching the data::', e))
+    const residentAll = await $sanity.fetch(residentAllQuery)
 
-    return { radioData: data[0], theData }
+    return { radioData: data[0], theData, residentAll }
   },
   data() {
     return {
@@ -1308,8 +1326,16 @@ export default {
       return community
     },
   },
+  filters: {
+    cutBio: function (value) {
+      if (!value) return false
+      value = value.toString()
+      if (value.length < 114) return value
+      return value.slice(0, 118) + '...'
+    },
+  },
   mounted() {
-    // console.log('THEDATA YEAHH', this.theData);
+    console.log('THEDATA YEAHH', this.residentAll)
     // console.log('RADIO PAGE QUERY: ', this.radioData)
     // console.log('SPOTLIGHTS', this.community)
     // this.$urlForSquare(this.radioData.community[0].feature_image, true)
@@ -1488,6 +1514,7 @@ export default {
 }
 .featured {
   padding: var(--globalPadding) 0;
+  background: var(--dark);
   .slider-btns-wrap {
     path,
     circle {
@@ -1594,15 +1621,31 @@ export default {
   }
 }
 .archive {
-  background: var(--white);
-  color: var(--black);
+  background: transparent;
+  color: var(--white);
   padding: var(--globalPadding) 0;
 }
 .archive-title-bar {
   span {
     svg {
-      fill: var(--black);
+      fill: var(--white);
     }
+  }
+}
+.archive-artist-card-wrap {
+  width: 100%;
+  display: grid;
+  grid-template: auto / 1fr 1fr 1fr 1fr;
+  gap: 40px;
+  @media screen and (max-width: 1024px) {
+    grid-template: auto / 1fr 1fr 1fr;
+  }
+  @include breakpoint(tablet) {
+    grid-template: auto / 1fr 1fr;
+  }
+  @include breakpoint(mobile) {
+    grid-template: auto / 1fr;
+    gap: 20px;
   }
 }
 </style>

@@ -92,7 +92,7 @@ export const residentSlugPageQuery = (
   _id,
   _rev,
   bio,
-  feature_image,
+  "feature_image": coalesce(feature_image, spotlight_image, false),
   mixcloud_url,
   soundcloud_url,
   name,
@@ -134,6 +134,14 @@ export const residentSlugPageQuery = (
       "_id" : _rev + 'soundcloud'
   	}  
   ]
+}`
+
+export const residentAllQuery = `*[_type == "resident"] | order(name asc) {
+  _id,
+  "short_bio": coalesce(short_bio, bio, false),
+  "slug": slug.current,
+	"image": coalesce(feature_image, spotlight_image, false),
+  name,
 }`
 
 // `*[_type == 'video' && references(*[_type == "category"]._id)] {
