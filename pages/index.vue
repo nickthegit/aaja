@@ -60,7 +60,9 @@ article {
   }
   a {
     color: var(--white);
-    text-decoration: none;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
     &:hover {
       -webkit-text-stroke: 1px var(--white);
       color: transparent;
