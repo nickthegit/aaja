@@ -124,6 +124,7 @@ button {
   flex-grow: 2;
   display: flex;
   align-items: flex-end;
+  padding-left: 0;
   &:hover {
     opacity: 0.7;
   }

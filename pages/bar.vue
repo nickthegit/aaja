@@ -17,16 +17,12 @@
           <div class="button-wrap">
             <a
               v-if="barData.booking"
-              :href="barData.booking"
+              :href="'mailto:' + barData.booking"
               target="_blank"
               rel="noopener noreferrer"
               >Book a table</a
             >
-            <a
-              v-if="barData.menu"
-              :href="barData.menu"
-              target="_blank"
-              rel="noopener noreferrer"
+            <a v-if="barData.menu" :href="barData.menu" target="_blank" rel="noopener noreferrer"
               >View menu</a
             >
           </div>

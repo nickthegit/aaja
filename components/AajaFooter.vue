@@ -16,9 +16,7 @@
                 rel="noopener noreferrer"
                 >{{ link.name }}</a
               >
-              <nuxt-link v-else :to="`/${link.slug}`">{{
-                link.name
-              }}</nuxt-link>
+              <nuxt-link v-else :to="`/${link.slug}`">{{ link.name }}</nuxt-link>
             </li>
           </ul>
         </nav>
@@ -26,14 +24,8 @@
       <section class="footer__follow">
         <p><strong>Follow</strong></p>
         <ul class="footer__follow-menu footer-list">
-          <li
-            v-for="social in data[0].socials"
-            :key="social._id"
-            @click="navClose"
-          >
-            <a :href="social.link" target="_blank" rel="noopener noreferrer">{{
-              social.name
-            }}</a>
+          <li v-for="social in data[0].socials" :key="social._id" @click="navClose">
+            <a :href="social.link" target="_blank" rel="noopener noreferrer">{{ social.name }}</a>
           </li>
         </ul>
       </section>
@@ -87,7 +79,7 @@ export default {
         {
           name: 'Shop',
           slug: 'shop',
-          external_link: 'https://www.aajamusic.com/shop',
+          external_link: 'https://aajamusic.myshopify.com/collections/all',
           _id: '20695671470082206',
         },
         {

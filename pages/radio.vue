@@ -4,7 +4,7 @@
       <aaja-container class="radio__hero-container">
         <div class="radio__heading">
           <aaja-heading>Aaja Radio<br />on air</aaja-heading>
-          <p>Listen live or dig into our music archive of radio and mixes</p>
+          <p>Listen live or explore our music archive</p>
         </div>
         <snake-roundel id="snake_roundel" />
       </aaja-container>
@@ -1423,6 +1423,7 @@ export default {
   padding-top: var(--headerHeight) !important;
   @include breakpoint(mobile) {
     grid-template: auto / 45% 1fr;
+    padding-top: 0 !important;
   }
   svg {
     width: 100%;
@@ -1435,6 +1436,7 @@ export default {
     text-transform: uppercase;
     @include breakpoint(mobile) {
       width: 60%;
+      padding-top: 10px;
     }
   }
 }
@@ -1451,10 +1453,12 @@ export default {
     align-self: end;
     padding-bottom: var(--globalPadding);
     width: 200%;
+    bottom: 70px;
+    position: relative;
   }
 }
 .radio__spotlight {
-  background: var(--light);
+  background: #dcdcdc;
   color: var(--black);
   padding: var(--globalPadding) 0;
   h2 {

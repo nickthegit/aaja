@@ -115,4 +115,7 @@ export default {
     padding: 20px;
   }
 }
+h4 {
+  padding-top: 20px;
+}
 </style>
