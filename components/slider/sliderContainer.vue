@@ -28,6 +28,10 @@ Swiper.use([Navigation, Pagination])
 import 'swiper/swiper-bundle.css'
 export default {
   props: {
+    initalSlide: {
+      type: [Number, String],
+      default: 6,
+    },
     sliderOptions: {
       type: Object,
       default: () => ({
@@ -68,8 +72,8 @@ export default {
   mounted() {
     let vm = this
     this.$nextTick(() => {
-
       var mySwiper = new Swiper(vm.$el, vm.sliderOptions)
+      mySwiper.slideTo(vm.initalSlide, 300)
     })
   },
 }

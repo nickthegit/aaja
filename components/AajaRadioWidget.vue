@@ -1,7 +1,7 @@
 <template>
   <section>
-    <div class="online" v-if="liveInfo.onAir">
-      <audio id="radio" :src="stationMetadata.stream_data.s1.url"></audio>
+    <div class="online" v-if="radioInfo.onAir">
+      <audio id="radio" :src="s1Stream"></audio>
       <button class="playBtn" @click="playPause">
         <svg
           v-if="!playing"
@@ -51,14 +51,14 @@
         </svg>
       </div>
       <div class="now-next">
-        <p class="now" v-if="liveInfo.current">
-          {{ liveInfo.current.name }} - {{ liveInfo.current.starttime }} -
-          {{ liveInfo.current.endtime }}
+        <p class="now" v-if="radioInfo.current">
+          {{ radioInfo.current.name }} - {{ formatTime(radioInfo.current.starts) }} -
+          {{ formatTime(radioInfo.current.ends) }}
         </p>
-        <span v-if="liveInfo.next"></span>
-        <p class="next" v-if="liveInfo.next">
-          Coming up next: {{ liveInfo.next.name }} - {{ liveInfo.next.starttime }} -
-          {{ liveInfo.next.endtime }}
+        <span v-if="radioInfo.next"></span>
+        <p class="next" v-if="radioInfo.next">
+          Coming up next: {{ radioInfo.next.name }} - {{ formatTime(radioInfo.next.starts) }} -
+          {{ formatTime(radioInfo.next.ends) }}
         </p>
       </div>
     </div>
@@ -66,66 +66,32 @@
 </template>
 
 <script>
-import { format, formatISO, parseISO } from 'date-fns'
+import { format, toDate, parseISO } from 'date-fns'
 export default {
-  async fetch() {
-    let createDateInstance = (date) => parseISO(formatISO(new Date([date].toString())))
-    this.liveInfo = await fetch(`https://${this.station}.airtime.pro/api/live-info-v2`).then(
-      (response) =>
-        response
-          .json()
-          .then((data) => {
-            let shows = data.shows
-            let current = shows.current
-            let next = shows.next[0]
-            let onAir
-            if (current) {
-              current.starttime = format(createDateInstance(current.starts), 'HH:mm')
-              current.endtime = format(createDateInstance(current.ends), 'HH:mm')
-              if (next) {
-                next.starttime = format(createDateInstance(next.starts), 'HH:mm')
-                next.endtime = format(createDateInstance(next.ends), 'HH:mm')
-              }
-              onAir = true
-            } else {
-              onAir = false
-            }
-            return { current, next, onAir }
-          })
-          .catch((e) => {
-            console.log('Error with fetching radio widget liveInfo data::', e)
-          })
-    )
-    this.stationMetadata = await fetch(
-      `https://${this.station}.airtime.pro/api/station-metadata`
-    ).then((response) =>
-      response.json().catch((e) => {
-        console.log('Error with fetching radio widget stationMetadata data::', e)
-      })
-    )
-    // console.log(this.stationMetadata)
-  },
   data() {
     return {
       playing: false,
-      onAir: true,
-      now: 'Harvey - 14:00 - 16:00',
-      next: 'Handclap - 16:00 - 18:00',
-      liveInfo: {},
-      stationMetadata: '',
-      // station: 'sourcefabric',
-      station: 'aajamusic',
     }
+  },
+  computed: {
+    radioInfo() {
+      return this.$store.getters.radioInfo
+    },
+    s1Stream() {
+      return this.$store.getters.s1Stream
+    },
   },
   methods: {
     playPause() {
       const radio = this.$el.querySelector('#radio')
-      if (radio.paused) {
-        radio.play()
-        this.playing = true
-      } else {
-        radio.pause()
-        this.playing = false
+      if (radio) {
+        if (radio.paused) {
+          radio.play()
+          this.playing = true
+        } else {
+          radio.pause()
+          this.playing = false
+        }
       }
     },
     listenerPlayPause() {
@@ -139,15 +105,24 @@ export default {
         }
       }
     },
-  },
-  created() {
-    // this.$fetch()
+    formatTime(val) {
+      if (!val) {
+        return
+      }
+      let formattedDate = format(toDate(parseISO(val)), 'HH:mm')
+      return formattedDate
+    },
   },
   mounted() {
-    // this.$fetch()
-    this.listenerPlayPause()
-    // http://sourcefabric.airtime.pro/api/live-info-v2
-    // http://aajamusic.airtime.pro/api/station-metadata
+    // console.log('State', this.$store.state)
+    // console.log('StoreGetters', this.$store.getters)
+
+    setInterval(() => {
+      this.$store.dispatch('fetchRadio')
+    }, 60 * 1000)
+    this.$nextTick(() => {
+      this.listenerPlayPause()
+    })
   },
 }
 </script>

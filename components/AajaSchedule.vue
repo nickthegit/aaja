@@ -5,7 +5,11 @@
         Schedule<span><Logo /></span>
       </h2>
     </section>
-    <slider-container class="schedule-slider-container" :sliderOptions="scheduleSliderOptions">
+    <slider-container
+      class="schedule-slider-container"
+      :sliderOptions="scheduleSliderOptions"
+      :initalSlide="startingIndex"
+    >
       <template v-slot:sliderButtons>
         <div class="slider-btns-wrap">
           <div class="slider-button-prev schedule-prev">
@@ -16,7 +20,7 @@
           </div>
         </div>
       </template>
-      <div class="swiper-slide" v-for="slide in theData" :key="slide._id">
+      <div class="swiper-slide" v-for="slide in schedule" :key="slide._id">
         <div class="schedule-slide-wrap">
           <h3>{{ slide.label }}</h3>
           <div class="schedule-table">
@@ -68,19 +72,23 @@ export default {
     liveNow,
     AajaContainer,
   },
-  props: {
-    theData: {
-      type: Array
-    }
+  computed: {
+    schedule() {
+      return this.$store.getters['schedule/schedule']
+    },
+    startingIndex() {
+      return this.schedule.findIndex((item) => item.label == 'Today')
+    },
   },
   data() {
-    return {   
+    return {
       scheduleSliderOptions: {
         loop: false,
         slidesPerView: 1,
         slidesPerGroup: 1,
         grabCursor: true,
         spaceBetween: 0,
+        initialSlide: this.startingIndex || 0,
         breakpoints: {
           // when window width is >= 480px
           481: {

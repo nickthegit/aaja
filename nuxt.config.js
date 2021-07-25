@@ -92,6 +92,9 @@ export default {
   generate: {
     fallback: true,
   },
+  server: {
+    port: 5454, // default: 3000
+  },
   /*
    ** Build configuration
    ** See https://nuxtjs.org/api/configuration-build/
