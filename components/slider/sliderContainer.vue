@@ -30,7 +30,7 @@ export default {
   props: {
     initalSlide: {
       type: [Number, String],
-      default: 6,
+      default: 0,
     },
     sliderOptions: {
       type: Object,
