@@ -9,6 +9,7 @@
       class="schedule-slider-container"
       :sliderOptions="scheduleSliderOptions"
       :initalSlide="startingIndex"
+      v-if="schduleFetched"
     >
       <template v-slot:sliderButtons>
         <div class="slider-btns-wrap">
@@ -103,9 +104,16 @@ export default {
           prevEl: '.schedule-prev',
         },
       },
+      schduleFetched: false,
     }
   },
-  mounted() {},
+  async created() {
+    await this.$store.dispatch('schedule/fetchSchedule')
+    this.schduleFetched = await true
+  },
+  mounted() {
+    // console.log(this.$store)
+  },
 }
 </script>
 

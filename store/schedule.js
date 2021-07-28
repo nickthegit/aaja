@@ -20,6 +20,7 @@ export const actions = {
       .catch((e) => {
         console.log('Error with fetching Schedule data in the store::', e)
       })
+    console.log('schdule dispatch')
 
     commit('updateScheduleReq', scheduleData)
   },

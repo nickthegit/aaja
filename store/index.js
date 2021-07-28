@@ -33,7 +33,7 @@ export const actions = {
       .catch((e) => {
         console.log('Error with fetching radio widget liveInfo data in the store::', e)
       })
-
+    console.log('fetch radio')
     commit('updateReqData', reqData)
   },
   async fetchRLiveStreamURI({ commit }) {

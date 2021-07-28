@@ -113,6 +113,9 @@ export default {
       return formattedDate
     },
   },
+  created() {
+    this.$store.dispatch('fetchRadio')
+  },
   mounted() {
     // console.log('State', this.$store.state)
     // console.log('StoreGetters', this.$store.getters)
