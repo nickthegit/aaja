@@ -113,18 +113,13 @@ export default {
       return formattedDate
     },
   },
-  created() {
-    this.$store.dispatch('fetchRadio')
-  },
   mounted() {
-    // console.log('State', this.$store.state)
-    // console.log('StoreGetters', this.$store.getters)
-
     setInterval(() => {
       this.$store.dispatch('fetchRadio')
     }, 60 * 1000)
     this.$nextTick(() => {
       this.listenerPlayPause()
+      this.$store.dispatch('fetchRadio')
     })
   },
 }

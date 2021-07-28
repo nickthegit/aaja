@@ -1267,8 +1267,8 @@ export default {
   mounted() {
     // console.log('THEDATA YEAHH', this.ip)
     // console.log('RADIO PAGE QUERY: ', this.radioData)
-    console.log('SCHEDULEYY', this.$store.state.schedule)
-    console.log('SCHEDULEYY Getters', this.$store.getters['schedule/schedule'])
+    // console.log('SCHEDULEYY', this.$store.state.schedule)
+    // console.log('SCHEDULEYY Getters', this.$store.getters['schedule/schedule'])
     // this.$urlForSquare(this.radioData.community[0].feature_image, true)
   },
 }
