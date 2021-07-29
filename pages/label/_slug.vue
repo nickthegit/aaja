@@ -10,7 +10,7 @@
           <SanityContent :blocks="epData.text" />
         </section>
         <aside v-if="epData.link">
-          <span v-html="epData.embed.html"></span>
+          <!-- <span v-html="epData.embed.html"></span> -->
           <a :href="epData.link" target="_blank" rel="noopener noreferrer">Buy now</a>
         </aside>
       </aaja-container>
@@ -27,33 +27,33 @@ export default {
     const data = await $sanity.fetch(`*[_type == "ep" && slug.current == "${params.slug}"][0]`)
 
     let url, embed
-    if (data.link) {
-      url = await data.link
+    // if (data.link) {
+    //   url = await data.link
 
-      let parseUrl = await url
-        .replace('http', '')
-        .replace('s://', '')
-        .replace('://mixcloud', 'api.mixcloud')
-        .replace('://', '')
-        .replace('www', 'api')
-        .trim()
+    //   let parseUrl = await url
+    //     .replace('http', '')
+    //     .replace('s://', '')
+    //     .replace('://mixcloud', 'api.mixcloud')
+    //     .replace('://', '')
+    //     .replace('www', 'api')
+    //     .trim()
 
-      url = (await parseUrl.charAt(parseUrl.length - 1)) === '/' ? parseUrl : parseUrl + '/'
+    //   url = (await parseUrl.charAt(parseUrl.length - 1)) === '/' ? parseUrl : parseUrl + '/'
 
-      url = (await 'https://') + url
+    //   url = (await 'https://') + url
 
-      url = await `${url.replace('www', 'api').trim()}embed-json?color=02ff1a`
+    //   url = await `${url.replace('www', 'api').trim()}embed-json?color=02ff1a`
 
-      await $axios.$get(url).then((res) => {
-        embed = res
-        // console.log(res)
-      })
-    }
+    //   await $axios.$get(url).then((res) => {
+    //     embed = res
+    //     // console.log(res)
+    //   })
+    // }
     // let url = await 'https://www.mixcloud.com/AAJAdeptford/earnshaw-mellow-music-episode-004/',
 
     let img = await $urlForSquare(data.feature_image, false, true)
 
-    return { epData: { ...data, img, embed } }
+    return { epData: { ...data, img } }
   },
   data() {
     return {

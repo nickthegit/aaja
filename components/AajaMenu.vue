@@ -209,7 +209,7 @@ ul {
   li {
     width: 100%;
     overflow: hidden;
-    border-bottom: var(--borderAtts);
+    border-bottom: 1px solid var(--white);
   }
   a {
     height: 75px;
