@@ -90,6 +90,7 @@ export default {
         grabCursor: true,
         spaceBetween: 0,
         initialSlide: this.startingIndex || 0,
+        autoHeight: true, //enable auto height
         breakpoints: {
           // when window width is >= 480px
           481: {

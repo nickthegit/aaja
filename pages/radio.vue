@@ -105,30 +105,7 @@
         </div>
       </aaja-container>
     </article>
-    <article class="archive">
-      <aaja-container>
-        <section class="archive-title-bar title-bar">
-          <h2>
-            Archive<span><Logo /></span>
-          </h2>
-        </section>
-        <section class="archive-artist-card-wrap">
-          <aaja-artist-card
-            v-for="resident in residentAll"
-            :key="resident._id"
-            :artistLink="resident.slug"
-            :artistImage="
-              resident.image
-                ? $urlFor(resident.image).size(600)
-                : `https://placehold.co/600x400?text=${resident.slug}`
-            "
-            :imageAltText="`Image of Aaja Resident ${resident.name}`"
-            :artistName="resident.name"
-            :sortBio="resident.short_bio | cutBio"
-          />
-        </section>
-      </aaja-container>
-    </article>
+    <aaja-archive />
   </main>
 </template>
 
@@ -145,6 +122,7 @@ import AajaContainer from '~/components/AajaContainer.vue'
 import Arrow from '~/assets/img/icons/arrow.svg?inline'
 import AajaSchedule from '~/components/AajaSchedule.vue'
 import AajaArtistCard from '~/components/AajaArtistCard.vue'
+import AajaArchive from '~/components/AajaArchive.vue'
 export default {
   components: {
     SnakeRoundel,
@@ -155,6 +133,7 @@ export default {
     Arrow,
     AajaSchedule,
     AajaArtistCard,
+    AajaArchive,
   },
   async asyncData({ $sanity, $axios }) {
     const data = await $sanity.fetch(radioPageQuery)
@@ -1267,7 +1246,6 @@ export default {
   mounted() {
     // console.log('THEDATA YEAHH', this.ip)
     // console.log('RADIO PAGE QUERY: ', this.radioData)
-    // console.log('SCHEDULEYY', this.$store.state.schedule)
     // console.log('SCHEDULEYY Getters', this.$store.getters['schedule/schedule'])
     // this.$urlForSquare(this.radioData.community[0].feature_image, true)
   },

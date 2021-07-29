@@ -26,6 +26,8 @@ export const actions = {
     await dispatch('fetchRLiveStreamURI')
     // * schedule
     await dispatch('schedule/scheduleServerInit')
+    // * archive
+    await dispatch('archive/archiveServerInit')
   },
   async fetchRadio({ commit }) {
     const reqData = await this.$axios
@@ -33,7 +35,7 @@ export const actions = {
       .catch((e) => {
         console.log('Error with fetching radio widget liveInfo data in the store::', e)
       })
-    console.log('fetch radio')
+    // console.log('fetch radio')
     commit('updateReqData', reqData)
   },
   async fetchRLiveStreamURI({ commit }) {
