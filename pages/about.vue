@@ -8,7 +8,6 @@
         {{ contactData.about.title }}
       </h3>
       <SanityContent :blocks="contactData.about.intro" />
-      <p>No playlists, no ads, just the people.</p>
     </aaja-standard-hero>
     <article>
       <aaja-container class="about__content">
