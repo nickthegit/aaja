@@ -19,6 +19,11 @@
           <address>
             <SanityContent :blocks="contactData.contact.address" />
           </address>
+          <br />
+          <p>
+            <strong>Show applications</strong> <br />
+            <a :href="`mailto:snakey@aajamusic.com`">snakey@aajamusic.com</a>
+          </p>
         </section>
         <aaja-img
           class="about-img"

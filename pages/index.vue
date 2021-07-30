@@ -2,15 +2,15 @@
   <main>
     <article>
       <h1>
-        <nuxt-link to="radio">Radio Station,</nuxt-link><br /><nuxt-link to="bar"> Bar</nuxt-link>
+        <nuxt-link to="radio">Radio Station</nuxt-link><br /><nuxt-link to="bar"> Bar</nuxt-link>
         and
         <nuxt-link to="label">Record Label</nuxt-link>
       </h1>
     </article>
     <FullLogo id="home-logo" />
-    <a id="patreon" :href="patreon_link" target="_blank" rel="noopener noreferrer">
+    <!-- <a id="patreon" :href="patreon_link" target="_blank" rel="noopener noreferrer">
       <img src="~/assets/img/become-my-patreon.jpg" alt="Become a patreon" />
-    </a>
+    </a> -->
   </main>
 </template>
 

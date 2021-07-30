@@ -115,12 +115,12 @@ export default {
           external_link: null,
           _id: '81566496',
         },
-        {
-          name: 'Become a patron',
-          slug: 'become-a-patron',
-          external_link: 'https://www.patreon.com/aajadeptford',
-          _id: '15161091',
-        },
+        // {
+        //   name: 'Become a patron',
+        //   slug: 'become-a-patron',
+        //   external_link: 'https://www.patreon.com/aajadeptford',
+        //   _id: '15161091',
+        // },
       ],
       socialIcons: {
         instagram,
