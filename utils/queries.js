@@ -91,7 +91,7 @@ export const residentSlugPageQuery = (
 ) => `*[_type == "resident" && slug.current == "${slug}"][0] {
   _id,
   _rev,
-  bio,
+  "bio": coalesce(bioText, false),
   "feature_image": coalesce(feature_image, spotlight_image, false),
   mixcloud_url,
   soundcloud_url,

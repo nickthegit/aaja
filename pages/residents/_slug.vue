@@ -10,7 +10,8 @@
       <p class="timeslot" v-if="residentData.slot">
         <strong>{{ residentData.slot }}</strong>
       </p>
-      <p v-if="residentData.bio">{{ residentData.bio }}</p>
+      <SanityContent :blocks="residentData.bio" v-if="residentData.bio" />
+      <!-- <p v-if="residentData.bio">{{ residentData.bio }}</p> -->
       <a
         v-if="residentData.website"
         :href="residentData.website"

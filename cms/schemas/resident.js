@@ -31,6 +31,12 @@ export default {
     {
       name: 'bio',
       title: 'Bio',
+      type: 'text',
+      hidden: true,
+    },
+    {
+      name: 'bioText',
+      title: 'Bio',
       type: 'blockContent',
     },
     {

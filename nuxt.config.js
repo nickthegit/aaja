@@ -48,7 +48,6 @@ export default {
     projectId: process.env.SANITY_ID,
     dataset: process.env.SANITY_DATASET,
     useCdn: process.env.SANITY_CDN,
-    minimal: true,
   },
   /*
    ** Nuxt.js modules
