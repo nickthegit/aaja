@@ -145,9 +145,7 @@ export default {
         })
     },
   },
-  mounted() {
-    // console.log('DATA HEAD', this.data)
-  },
+  mounted() {},
   head() {
     return {
       bodyAttrs: {

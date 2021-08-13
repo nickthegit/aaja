@@ -1281,12 +1281,7 @@ export default {
       return value.slice(0, 118) + '...'
     },
   },
-  mounted() {
-    // console.log('THEDATA YEAHH', this.ip)
-    // console.log('RADIO PAGE QUERY: ', this.radioData)
-    // console.log('SCHEDULEYY Getters', this.$store.getters['schedule/schedule'])
-    // this.$urlForSquare(this.radioData.community[0].feature_image, true)
-  },
+  mounted() {},
 }
 </script>
 
