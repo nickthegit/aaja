@@ -1,4 +1,4 @@
-import { createSEOMeta } from './utils/seo'
+// import { createSEOMeta } from './utils/seo'
 
 export default {
   /*
@@ -16,14 +16,6 @@ export default {
    */
   head: {
     title: 'Aaja Radio',
-    meta: [
-      ...createSEOMeta({
-        title: 'Aaja Radio',
-        description: 'Aaja Radio',
-        image: '[Insert_NarutoDose_Image_URL]',
-        url: process.env.HOST_NAME,
-      }),
-    ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
   /*
@@ -48,7 +40,6 @@ export default {
     '@nuxtjs/dotenv',
     '@nuxtjs/sanity/module',
     '@nuxtjs/axios',
-    '@nuxtjs/pwa',
     '@nuxtjs/svg',
     '@nuxtjs/sitemap',
     '@layer0/nuxt/module',
@@ -62,6 +53,7 @@ export default {
    ** Nuxt.js modules
    */
   modules: [
+    '@nuxtjs/pwa',
     // Doc: https://axios.nuxtjs.org/usage
   ],
   pwa: {

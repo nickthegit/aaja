@@ -12,19 +12,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@nuxt/core": "^2.15.4"
+    "@nuxt/core": "^2.15.4",
+    "@nuxtjs/pwa": "^3.3.5"
   },
   "devDependencies": {
     "@nuxtjs/sitemap": "^2.4.0",
-    "@nuxtjs/pwa": "^3.3.5",
     "@nuxtjs/svg": "^0.1.12",
     "@nuxtjs/axios": "^5.13.1",
-    "@layer0/cli": "^3.16.3",
-    "@layer0/core": "^3.16.3",
-    "@layer0/devtools": "^3.16.3",
-    "@layer0/nuxt": "^3.16.3",
-    "@layer0/prefetch": "^3.16.3",
-    "@layer0/vue": "^3.16.3",
     "@nuxtjs/dotenv": "^1.4.1",
     "eslint-config-prettier": "^6.12.0",
     "eslint-plugin-prettier": "^3.1.4",
