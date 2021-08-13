@@ -42,7 +42,6 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/svg',
     '@nuxtjs/sitemap',
-    '@layer0/nuxt/module',
   ],
   sanity: {
     projectId: process.env.SANITY_ID,

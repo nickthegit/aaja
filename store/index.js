@@ -32,6 +32,9 @@ export const actions = {
   async fetchRadio({ commit }) {
     const reqData = await this.$axios
       .$get('https://aajamusic.airtime.pro/api/live-info-v2')
+      .then((data) => {
+        return data
+      })
       .catch((e) => {
         console.log('Error with fetching radio widget liveInfo data in the store::', e)
       })
@@ -41,6 +44,9 @@ export const actions = {
   async fetchRLiveStreamURI({ commit }) {
     const stationMetaData = await this.$axios
       .$get('https://aajamusic.airtime.pro/api/station-metadata')
+      .then((data) => {
+        return data
+      })
       .catch((e) => {
         console.log('Error with fetching radio widget Metadat data in the store::', e)
       })
