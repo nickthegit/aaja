@@ -16,6 +16,7 @@
     "@nuxtjs/style-resources": "^1.0.0",
     "@nuxtjs/svg": "^0.1.12",
     "@nuxtjs/vercel-builder": "^0.21.3",
+    "@sanity/client": "^2.14.0",
     "@sanity/image-url": "^0.140.22",
     "date-fns": "^2.22.1",
     "esm": "^3.2.25",
@@ -32,6 +33,7 @@
     "vue-types": "^2.0.3"
   },
   "devDependencies": {
+    "@layer0/nuxt": "^3.16.3",
     "@nuxtjs/dotenv": "^1.4.1",
     "eslint-config-prettier": "^6.12.0",
     "eslint-plugin-prettier": "^3.1.4",

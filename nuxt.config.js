@@ -58,6 +58,7 @@ export default {
     '@nuxtjs/pwa',
     '@nuxtjs/sitemap',
     '@nuxtjs/svg',
+    '@layer0/nuxt/module',
   ],
   pwa: {
     icon: {
