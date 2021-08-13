@@ -43,7 +43,16 @@ export default {
   /*
    ** Nuxt.js dev-modules
    */
-  buildModules: ['@nuxtjs/style-resources', '@nuxtjs/dotenv', '@nuxtjs/sanity/module'],
+  buildModules: [
+    '@nuxtjs/style-resources',
+    '@nuxtjs/dotenv',
+    '@nuxtjs/sanity/module',
+    '@nuxtjs/axios',
+    '@nuxtjs/pwa',
+    '@nuxtjs/svg',
+    '@nuxtjs/sitemap',
+    '@layer0/nuxt/module',
+  ],
   sanity: {
     projectId: process.env.SANITY_ID,
     dataset: process.env.SANITY_DATASET,
@@ -54,11 +63,6 @@ export default {
    */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios',
-    '@nuxtjs/pwa',
-    '@nuxtjs/sitemap',
-    '@nuxtjs/svg',
-    '@layer0/nuxt/module',
   ],
   pwa: {
     icon: {

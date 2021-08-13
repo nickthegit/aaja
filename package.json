@@ -1,20 +1,38 @@
 {
-  "name": "aaja",
-  "version": "0.1.0",
-  "private": true,
   "scripts": {
+    "layer0:dev": "layer0 dev",
+    "layer0:build": "layer0 build",
+    "layer0:deploy": "layer0 deploy",
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate"
   },
+  "name": "aaja",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "@nuxtjs/axios": "^5.13.1",
-    "@nuxtjs/pwa": "^3.3.5",
-    "@nuxtjs/sanity": "^0.9.4",
+    "@nuxt/core": "^2.15.4"
+  },
+  "devDependencies": {
     "@nuxtjs/sitemap": "^2.4.0",
-    "@nuxtjs/style-resources": "^1.0.0",
+    "@nuxtjs/pwa": "^3.3.5",
     "@nuxtjs/svg": "^0.1.12",
+    "@nuxtjs/axios": "^5.13.1",
+    "@layer0/cli": "^3.16.3",
+    "@layer0/core": "^3.16.3",
+    "@layer0/devtools": "^3.16.3",
+    "@layer0/nuxt": "^3.16.3",
+    "@layer0/prefetch": "^3.16.3",
+    "@layer0/vue": "^3.16.3",
+    "@nuxtjs/dotenv": "^1.4.1",
+    "eslint-config-prettier": "^6.12.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "^2.1.2",
+    "sass": "^1.27.0",
+    "sass-loader": "^10.0.3",
+    "@nuxtjs/sanity": "^0.9.4",
+    "@nuxtjs/style-resources": "^1.0.0",
     "@nuxtjs/vercel-builder": "^0.21.3",
     "@sanity/client": "^2.14.0",
     "@sanity/image-url": "^0.140.22",
@@ -31,14 +49,5 @@
     "vue-intersection-observer": "^0.1.7",
     "vue-mailchimp-subscribe": "^1.1.0",
     "vue-types": "^2.0.3"
-  },
-  "devDependencies": {
-    "@layer0/nuxt": "^3.16.3",
-    "@nuxtjs/dotenv": "^1.4.1",
-    "eslint-config-prettier": "^6.12.0",
-    "eslint-plugin-prettier": "^3.1.4",
-    "prettier": "^2.1.2",
-    "sass": "^1.27.0",
-    "sass-loader": "^10.0.3"
   }
 }
