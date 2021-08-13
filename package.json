@@ -18,6 +18,7 @@
     "@nuxtjs/vercel-builder": "^0.21.3",
     "@sanity/image-url": "^0.140.22",
     "date-fns": "^2.22.1",
+    "esm": "^3.2.25",
     "get-video-id": "^3.2.0",
     "gsap": "file:gsap-bonus.tgz",
     "nuxt": "^2.15.4",
