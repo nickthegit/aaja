@@ -115,13 +115,13 @@ export default {
     },
   },
   mounted() {
-    // setInterval(() => {
-    //   this.$store.dispatch('fetchRadio')
-    // }, 60 * 1000)
-    // this.$nextTick(() => {
-    //   this.listenerPlayPause()
-    //   this.$store.dispatch('fetchRadio')
-    // })
+    setInterval(() => {
+      this.$store.dispatch('fetchRadio')
+    }, 60 * 1000)
+    this.$nextTick(() => {
+      this.listenerPlayPause()
+      this.$store.dispatch('fetchRadio')
+    })
   },
 }
 </script>
