@@ -1,4 +1,14 @@
 // import { createSEOMeta } from './utils/seo'
+const query = `*[_type == "resident"] | order(name asc) {
+  "slug": slug.current,
+}`
+const sanityClient = require('@sanity/client')
+const client = sanityClient({
+  projectId: process.env.SANITY_ID,
+  dataset: process.env.SANITY_DATASET,
+  apiVersion: '2021-08-18',
+  useCdn: process.env.SANITY_CDN,
+})
 
 export default {
   /*
@@ -9,7 +19,7 @@ export default {
    ** Nuxt target
    ** See https://nuxtjs.org/api/configuration-target
    */
-  target: 'server', // also could ber server
+  target: 'static', // also could ber server
   /*
    ** Headers of the page
    ** See https://nuxtjs.org/api/configuration-head
@@ -86,7 +96,14 @@ export default {
   },
   generate: {
     fallback: true,
-    interval: 1200,
+    interval: 2000,
+    routes() {
+      return client.fetch(query).then((residents) => {
+        return residents.map((resident) => {
+          return '/residents/' + resident.slug
+        })
+      })
+    },
   },
   server: {
     port: 5454, // default: 3000
