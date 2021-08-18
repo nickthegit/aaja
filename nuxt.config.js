@@ -86,6 +86,7 @@ export default {
   },
   generate: {
     fallback: true,
+    interval: 1200,
   },
   server: {
     port: 5454, // default: 3000
