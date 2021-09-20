@@ -63,11 +63,21 @@ export default {
    */
   modules: [
     '@nuxtjs/pwa',
+    '@nuxtjs/sentry',
     // Doc: https://axios.nuxtjs.org/usage
   ],
   pwa: {
     icon: {
       fileName: 'app-icon.png',
+    },
+  },
+  sentry: {
+    dsn: 'https://4a98917a38354151a9a5a6bd8f5045f7@o1007382.ingest.sentry.io/5970188', // Enter your project's DSN here
+    // Additional Module Options go here
+    // https://sentry.nuxtjs.org/sentry/options
+    config: {
+      // Add native Sentry config here
+      // https://docs.sentry.io/platforms/javascript/guides/vue/configuration/options/
     },
   },
   /*

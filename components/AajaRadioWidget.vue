@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div class="online" v-if="radioInfo.onAir">
+    <div class="online">
       <audio id="radio" :src="s1Stream"></audio>
       <button class="playBtn" @click="playPause">
         <svg

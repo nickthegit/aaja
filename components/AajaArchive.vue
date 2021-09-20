@@ -83,8 +83,8 @@ export default {
     await this.$store.dispatch('archive/fetchResidents')
   },
   mounted() {
-    console.log('STORREEEYYY', this.$store.getters['archive/residentsLetters'])
-    console.log('residents', this.residents)
+    // console.log('STORREEEYYY', this.$store.getters['archive/residentsLetters'])
+    // console.log('residents', this.residents)
   },
 }
 </script>
