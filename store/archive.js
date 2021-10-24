@@ -23,7 +23,7 @@ export const actions = {
 export const getters = {
   residentsLetters: (state) => {
     let arrayOfFirstLetters = state.residentsReq.map((resident) => {
-      return resident.name.charAt(0)
+      return resident.name.charAt(0).toUpperCase()
     })
     let arrayRemoveDuplicates = arrayOfFirstLetters
       .filter((letter, index) => {

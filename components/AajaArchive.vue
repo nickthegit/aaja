@@ -57,13 +57,33 @@ export default {
     }
   },
   computed: {
+    // residentsLetters() {
+    //   return this.$store.getters['archive/residentsLetters']
+    // },
+    hasDigits() {
+      const residentsLetters = this.$store.getters['archive/residentsLetters']
+      const hasDigits = residentsLetters.filter((i) => +i === +i)
+      return hasDigits
+    },
     residentsLetters() {
-      return this.$store.getters['archive/residentsLetters']
+      const residentsLetters = this.$store.getters['archive/residentsLetters']
+      if (this.hasDigits.length > 0) {
+        const removeNumbers = residentsLetters.filter((i) => +i != +i)
+        removeNumbers.unshift('#')
+        return removeNumbers
+      } else {
+        return residentsLetters
+      }
     },
     residents() {
-      return this.$store.state.archive.residentsReq.filter(
-        (resident) => resident.name.charAt(0).toUpperCase() === this.letterSelected
-      )
+      const residents = this.$store.state.archive.residentsReq
+      if (this.letterSelected === '&num;' || this.letterSelected === '#') {
+        return residents.filter((resident) => +resident.name.charAt(0) === +resident.name.charAt(0))
+      } else {
+        return residents.filter(
+          (resident) => resident.name.charAt(0).toUpperCase() === this.letterSelected
+        )
+      }
     },
   },
   methods: {
@@ -85,6 +105,8 @@ export default {
   mounted() {
     // console.log('STORREEEYYY', this.$store.getters['archive/residentsLetters'])
     // console.log('residents', this.residents)
+
+    console.log('TEST', this.residentsLetters)
   },
 }
 </script>
