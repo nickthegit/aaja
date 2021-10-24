@@ -82,6 +82,7 @@ export default {
   display: grid;
   grid-template: auto / 30% 1fr;
   gap: 20px;
+  grid-gap: 20px;
 }
 h3 {
   margin-bottom: 30px;

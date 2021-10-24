@@ -123,6 +123,7 @@ export default {
   display: grid;
   grid-template: auto / 1fr 1fr 1fr 1fr;
   gap: 40px;
+  grid-gap: 40px;
   @media screen and (max-width: 1024px) {
     grid-template: auto / 1fr 1fr 1fr;
   }
@@ -132,6 +133,7 @@ export default {
   @include breakpoint(mobile) {
     grid-template: auto / 1fr;
     gap: 20px;
+    grid-gap: 20px;
   }
 }
 .res-filter {

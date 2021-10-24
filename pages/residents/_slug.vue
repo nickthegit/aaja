@@ -181,6 +181,7 @@ export default {
   display: flex;
   align-items: center;
   gap: 20px;
+  flex-gap: 20px;
   margin-top: 40px;
   li {
     width: 30px;

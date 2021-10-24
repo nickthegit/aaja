@@ -57,12 +57,10 @@ export default {
   width: 100%;
   height: auto;
   min-height: 50vh;
-  padding: calc(var(--headerHeight) + var(--subHeaderHeight)) 0
-    var(--headerHeight) 0;
+  padding: calc(var(--headerHeight) + var(--subHeaderHeight)) 0 var(--headerHeight) 0;
   position: relative;
   @include breakpoint(mobile) {
-    padding: calc(var(--headerHeight) * 1.5 + var(--subHeaderHeight)) 0
-      var(--headerHeight) 0;
+    padding: calc(var(--headerHeight) * 1.5 + var(--subHeaderHeight)) 0 var(--headerHeight) 0;
   }
 }
 .breadcrumb {
@@ -93,6 +91,7 @@ export default {
   display: grid;
   grid-template: auto / 1fr 33%;
   gap: 8vw;
+  grid-gap: 8vw;
   @include breakpoint(mobile) {
     grid-template: auto / 100%;
   }

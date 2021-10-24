@@ -144,6 +144,7 @@ export default {
       .button-wrap {
         display: flex;
         gap: 20px;
+        flex-gap: 20px;
         margin-top: 30px;
       }
       a {

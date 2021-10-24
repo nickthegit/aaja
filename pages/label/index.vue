@@ -99,6 +99,7 @@ export default {
   display: grid;
   grid-template: auto / 1fr 1fr 1fr;
   gap: calc(var(--globalPadding) / 2);
+  grid-gap: calc(var(--globalPadding) / 2);
   @include breakpoint(mobile) {
     grid-template: auto / 100%;
   }

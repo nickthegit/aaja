@@ -77,6 +77,7 @@ export default {
   display: grid;
   grid-template: auto / 1fr 33%;
   gap: 40px;
+  grid-gap: 40px;
   @include breakpoint(mobile) {
     grid-template: auto / 100%;
   }
