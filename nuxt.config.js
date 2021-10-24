@@ -2,6 +2,54 @@
 const query = `*[_type == "resident"] | order(name asc) {
   "slug": slug.current,
 }`
+const query2 = `*[_type == "resident"] | order(name asc) {
+  _id,
+  _rev,
+  "bio": coalesce(bioText, false),
+  "feature_image": coalesce(feature_image, spotlight_image, false),
+  mixcloud_url,
+  soundcloud_url,
+  name,
+  short_bio,
+  slot,
+  slug,
+  "slug2": slug.current,
+  spotlight_image,
+  website,
+  "soundcloud_embed" : coalesce(soundcloud_embed, false),
+  "socials": [
+    {
+    	"icon": "Facebook",
+      "slug": 'facebook',
+			"link": coalesce(socials.facebook, false),
+      "_id" : _id + 'facebook'
+  	},
+    {
+    	"icon": "Instagram",
+      "slug": 'instagram',      
+			"link": coalesce(socials.instagram, false),
+      "_id" : _id + 'instagram'
+  	},
+    {
+    	"icon": "Mixcloud",
+      "slug": 'mixcloud',      
+			"link": coalesce(mixcloud_url, false),
+      "_id" : _id + 'mixcloud'
+  	},
+    {
+    	"icon": "Twitter",
+      "slug": 'twitter',      
+			"link": coalesce(socials.twitter, false),
+      "_id" : _id + 'twitter'
+  	},
+    {
+    	"name": "Soundcloud",
+      "slug": 'soundcloud',      
+			"link": coalesce(soundcloud_url, false),
+      "_id" : _rev + 'soundcloud'
+  	}  
+  ]
+}`
 const sanityClient = require('@sanity/client')
 const client = sanityClient({
   projectId: process.env.SANITY_ID,
@@ -106,11 +154,11 @@ export default {
   },
   generate: {
     fallback: true,
-    interval: 2000,
+    interval: 1000,
     routes() {
-      return client.fetch(query).then((residents) => {
+      return client.fetch(query2).then((residents) => {
         return residents.map((resident) => {
-          return '/residents/' + resident.slug
+          return '/residents/' + resident.slug2
         })
       })
     },

@@ -54,9 +54,17 @@ const facebook = require('simple-icons/icons/facebook')
 const mixcloud = require('simple-icons/icons/mixcloud')
 const soundcloud = require('simple-icons/icons/soundcloud')
 export default {
-  async asyncData({ params, $sanity }) {
-    const data = await $sanity.fetch(residentSlugPageQuery(params.slug))
+  async asyncData({ params, $sanity, payload }) {
+    // if (payload) {
+    //   console.log('PAYLOAD', payload.slug)
+    //   return { residentData: payload }
+    // } else {
+    //   // user: await backend.fetchUser(params.id)
+    //   const data = await $sanity.fetch(residentSlugPageQuery(params.slug))
+    //   return { residentData: data }
+    // }
 
+    const data = await $sanity.fetch(residentSlugPageQuery(params.slug))
     return { residentData: data }
   },
   // async fetch() {

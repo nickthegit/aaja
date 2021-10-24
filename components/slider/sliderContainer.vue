@@ -27,6 +27,11 @@ Swiper.use([Navigation, Pagination])
 // import Swiper styles
 import 'swiper/swiper-bundle.css'
 export default {
+  data() {
+    return {
+      mySwiper: null,
+    }
+  },
   props: {
     initalSlide: {
       type: [Number, String],
@@ -71,10 +76,24 @@ export default {
   },
   mounted() {
     let vm = this
-    this.$nextTick(() => {
-      var mySwiper = new Swiper(vm.$el, vm.sliderOptions)
-      mySwiper.slideTo(vm.initalSlide, 300)
+    this.mySwiper = new Swiper(vm.$el, {
+      ...vm.sliderOptions,
+      on: {
+        afterInit: function () {
+          vm.$emit('init', this)
+        },
+        update: () => {
+          console.log('swiper updated')
+        },
+      },
     })
+    console.log('this.mySwiper ', this.mySwiper)
+    // this.mySwiper.slideTo(vm.initalSlide, 300)
+  },
+  destroyed() {
+    if (this.mySwiper) {
+      // this.mySwiper.destroy()
+    }
   },
 }
 </script>

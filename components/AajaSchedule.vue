@@ -9,7 +9,9 @@
       class="schedule-slider-container"
       :sliderOptions="scheduleSliderOptions"
       :initalSlide="startingIndex"
-      v-if="schduleFetched"
+      v-if="scheduleFetched"
+      ref="swiper"
+      @init="swiperInit($event)"
     >
       <template v-slot:sliderButtons>
         <div class="slider-btns-wrap">
@@ -61,12 +63,71 @@
 </template>
 
 <script>
+import { format, isToday, isTomorrow, parseISO, toDate } from 'date-fns'
+
 import Logo from '~/assets/img/icons/logo.svg?inline'
 import sliderArrow from '~/assets/img/icons/sliderArrow.svg?inline'
 import liveNow from '~/assets/img/live_now.svg?inline'
 import AajaContainer from '~/components/AajaContainer.vue'
 
 export default {
+  async fetch() {
+    this.schedule = await this.$axios
+      .$get('https://aajamusic.airtime.pro/api/week-info')
+      .then((res) => {
+        delete res.AIRTIME_API_VERSION
+        let schedule = []
+        function formatTime(val) {
+          if (!val) {
+            return
+          }
+          let formattedDate = format(toDate(parseISO(val)), 'HH:mm')
+          return formattedDate
+        }
+        function getRandomInt(min, max) {
+          min = Math.ceil(min)
+          max = Math.floor(max)
+          return Math.floor(Math.random() * (max - min) + min) //The maximum is exclusive and the minimum is inclusive
+        }
+
+        for (const item of Object.entries(res)) {
+          if (item[1].length > 0) {
+            let theDate = toDate(parseISO(item[1][0].start_timestamp))
+            let label
+            if (isToday(theDate)) {
+              label = 'Today'
+            } else if (isTomorrow(theDate)) {
+              label = 'Tomorrow'
+            } else {
+              label = format(theDate, 'EEEE')
+            }
+            schedule.push({
+              date: theDate,
+              label,
+              _id: getRandomInt(54123, 98465),
+              schedule: [...item[1]].map((day) => {
+                return {
+                  onAir: false,
+                  time: {
+                    from: formatTime(day.start_timestamp, 'HH:mm'),
+                    to: formatTime(day.end_timestamp, 'HH:mm'),
+                  },
+                  name: day.name,
+                  _id: getRandomInt(34623, 346346),
+                  img: false,
+                }
+              }),
+            })
+          }
+        }
+        this.scheduleFetched = true
+        return schedule
+      })
+      .catch((e) => {
+        console.error()
+        'Error with fetching Schedule data in schedule component', e
+      })
+  },
   components: {
     Logo,
     sliderArrow,
@@ -74,10 +135,10 @@ export default {
     AajaContainer,
   },
   computed: {
-    schedule() {
-      return this.$store.getters['schedule/schedule']
-    },
     startingIndex() {
+      if (!this.schedule) {
+        return
+      }
       return this.schedule.findIndex((item) => item.label == 'Today')
     },
   },
@@ -91,6 +152,7 @@ export default {
         spaceBetween: 0,
         initialSlide: this.startingIndex || 0,
         autoHeight: true, //enable auto height
+
         breakpoints: {
           // when window width is >= 480px
           481: {
@@ -105,15 +167,25 @@ export default {
           prevEl: '.schedule-prev',
         },
       },
-      schduleFetched: false,
+      scheduleFetched: false,
+      swiperInitinitiated: false,
+      schedule: null,
+      swiperInstance: null,
     }
   },
-  async created() {
-    await this.$store.dispatch('schedule/fetchSchedule')
-    this.schduleFetched = await true
+  mounted() {},
+  watch: {
+    scheduleFetched: function (newBoolean, oldBoolean) {
+      if (newBoolean && this.swiperInstance) {
+        this.swiperInstance.update()
+      }
+    },
   },
-  mounted() {
-    // console.log(this.$store)
+  methods: {
+    swiperInit(instance) {
+      this.swiperInstance = instance
+      this.swiperInitinitiated = true
+    },
   },
 }
 </script>

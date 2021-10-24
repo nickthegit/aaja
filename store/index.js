@@ -24,8 +24,6 @@ export const actions = {
     // console.log('liveInfo', liveInfo)
     await dispatch('fetchRadio')
     await dispatch('fetchRLiveStreamURI')
-    // * schedule
-    await dispatch('schedule/scheduleServerInit')
     // * archive
     await dispatch('archive/archiveServerInit')
   },
