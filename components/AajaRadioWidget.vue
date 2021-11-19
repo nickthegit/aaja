@@ -16,7 +16,7 @@
     <div class="channel channel-1">
       <audio id="radio" :src="s1Stream"></audio>
       <h2>CH 1</h2>
-      <button class="playBtn" @click="playPause">
+      <button class="playBtn" @click="playPause(1)">
         <svg
           v-if="!playing"
           class="playIcon"
@@ -53,11 +53,11 @@
     </div>
     <span class="separator"></span>
     <div class="channel channel-2">
-      <audio id="radio" :src="s1Stream"></audio>
+      <audio id="radio2" :src="s2Stream"></audio>
       <h2>CH 2</h2>
-      <button class="playBtn" @click="playPause">
+      <button class="playBtn" @click="playPause(2)">
         <svg
-          v-if="!playing"
+          v-if="!playing2"
           class="playIcon"
           width="13"
           height="20"
@@ -100,6 +100,7 @@ export default {
   data() {
     return {
       playing: false,
+      playing2: false,
     }
   },
   computed: {
@@ -109,28 +110,60 @@ export default {
     s1Stream() {
       return this.$store.getters.s1Stream
     },
+    s2Stream() {
+      return this.$store.getters.s2Stream
+    },
   },
   methods: {
-    playPause() {
+    playPause(val) {
       const radio = this.$el.querySelector('#radio')
-      if (radio) {
-        if (radio.paused) {
-          radio.play()
-          this.playing = true
-        } else {
-          radio.pause()
-          this.playing = false
+      const radio2 = this.$el.querySelector('#radio2')
+      if (val === 1) {
+        if (radio) {
+          if (radio2) {
+            radio2.pause()
+          }
+          if (radio.paused) {
+            radio.play()
+            this.playing = true
+          } else {
+            radio.pause()
+            this.playing = false
+          }
+        }
+      }
+      if (val === 2) {
+        if (radio2) {
+          if (radio) {
+            radio.pause()
+          }
+          if (radio2.paused) {
+            radio2.play()
+            this.playing2 = true
+          } else {
+            radio2.pause()
+            this.playing2 = false
+          }
         }
       }
     },
     listenerPlayPause() {
       const radio = this.$el.querySelector('#radio')
+      const radio2 = this.$el.querySelector('#radio2')
       if (radio) {
         radio.onpause = (event) => {
           this.playing = false
         }
         radio.onplay = (event) => {
           this.playing = true
+        }
+      }
+      if (radio2) {
+        radio2.onpause = (event) => {
+          this.playing2 = false
+        }
+        radio2.onplay = (event) => {
+          this.playing2 = true
         }
       }
     },
@@ -151,7 +184,7 @@ export default {
       this.$store.dispatch('fetchRadio')
     })
 
-    console.log(this.$store.state)
+    console.log(this.$store.state.stationMeta)
   },
 }
 </script>
@@ -237,6 +270,11 @@ section {
   }
   .channel {
     padding: 0 40px;
+  }
+  .now-wrapper {
+    p {
+      font-size: 1.8vmin;
+    }
   }
 }
 

@@ -74,4 +74,10 @@ export const getters = {
     }
     return state.stationMeta.stream_data.s1.url
   },
+  s2Stream: (state) => {
+    if (!state.stationMeta.stream_data.s2.url) {
+      return 'https://aajamusic.out.airtime.pro/aajamusic_b'
+    }
+    return state.stationMeta.stream_data.s2.url
+  },
 }
