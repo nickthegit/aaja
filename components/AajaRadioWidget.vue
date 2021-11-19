@@ -1,7 +1,21 @@
 <template>
   <section>
-    <div class="online">
+    <div class="on_air">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 954 414"
+        style="enable-background: new 0 0 954 414"
+        xml:space="preserve"
+      >
+        <path
+          d="M4.1 254.3c0 109.4 41.4 159.6 103.5 159.6S211 363.7 211 254.3v-94.6C211 50.4 172.6.1 107.6.1 45.5.1 4.1 50.4 4.1 159.7v94.6zM89.8 71.1c0-11.8 5.9-17.7 14.8-17.7s14.8 5.9 14.8 17.7v269c0 11.8-3 17.7-14.8 17.7-8.9 0-14.8-5.9-14.8-17.7v-269zM222.9 6v402h70.9l-5.9-204h5.9l38.4 204h73.9V6h-70.9l5.9 204h-5.9L296.8 6h-73.9zm283.7 0-35.5 396.1v5.9h65l5.9-97.5h29.6l5.9 97.5h76.9v-5.9L618.9 6H506.6zM548 248.4l8.9-141.9h5.9l8.9 141.9H548zM669.2 6v402H749V6h-79.8zm97.5 0v402h76.9V245.5c14.8 0 20.7 11.8 20.7 32.5l3 68c0 26.6 3 47.3 8.9 62.1H950v-5.9c-5.9-11.8-8.9-26.6-8.9-62.1v-38.4c0-44.3-8.9-65-38.4-82.8V213c29.6-17.7 47.3-47.3 47.3-94.6v-8.9C950 44.5 908.6 6 843.6 6h-76.9zm76.9 50.3h5.9c11.8 0 20.7 8.9 20.7 35.5v65c0 26.6-8.9 38.4-20.7 38.4h-5.9V56.3z"
+        />
+      </svg>
+    </div>
+    <span class="separator end"></span>
+    <div class="channel channel-1">
       <audio id="radio" :src="s1Stream"></audio>
+      <h2>CH 1</h2>
       <button class="playBtn" @click="playPause">
         <svg
           v-if="!playing"
@@ -29,40 +43,54 @@
           />
         </svg>
       </button>
-      <div class="on_air">
-        <svg
-          version="1.1"
-          id="Layer_1"
-          xmlns="http://www.w3.org/2000/svg"
-          x="0"
-          y="0"
-          viewBox="0 0 47.7 15"
-          xml:space="preserve"
-        >
-          <style>
-            .st0 {
-              fill: #fd5c5c;
-            }
-          </style>
-          <path
-            class="st0"
-            d="M15 9.1c0 3.7 1.4 5.4 3.5 5.4S22 12.8 22 9.1V5.9C22 2.2 20.7.5 18.5.5 16.4.5 15 2.2 15 5.9v3.2zm2.9-6.2c0-.4.2-.6.5-.6s.5.2.5.6V12c0 .4-.1.6-.5.6-.3 0-.5-.2-.5-.6V2.9zM22.4.7v13.6h2.4l-.2-6.9h.2l1.3 6.9h2.5V.7h-2.4l.2 6.9h-.2L24.9.7h-2.5zm9.6 0l-1.2 13.4v.2H33l.2-3.3h1l.2 3.3H37v-.2L35.8.7H32zm1.4 8.2l.3-4.8h.2l.3 4.8h-.8zM37.5.7v13.6h2.7V.7h-2.7zm3.3 0v13.6h2.6V8.8c.5 0 .7.4.7 1.1l.1 2.3c0 .9.1 1.6.3 2.1H47v-.2c-.2-.4-.3-.9-.3-2.1v-1.3c0-1.5-.3-2.2-1.3-2.8v-.2c1-.6 1.6-1.6 1.6-3.2v-.3C47 2 45.6.7 43.4.7h-2.6zm2.6 1.7h.2c.4 0 .7.3.7 1.2v2.2c0 .9-.3 1.3-.7 1.3h-.2V2.4z"
-          />
-        </svg>
-      </div>
-      <div class="now-next">
+      <div class="now-wrapper">
         <p class="now" v-if="radioInfo.current">
           {{ radioInfo.current.name }} - {{ formatTime(radioInfo.current.starts) }} -
           {{ formatTime(radioInfo.current.ends) }}
         </p>
-        <!-- test commit -->
-        <span v-if="radioInfo.next"></span>
-        <p class="next" v-if="radioInfo.next">
-          Coming up next: {{ radioInfo.next.name }} - {{ formatTime(radioInfo.next.starts) }} -
-          {{ formatTime(radioInfo.next.ends) }}
-        </p>
+        <p v-else>-</p>
       </div>
     </div>
+    <span class="separator"></span>
+    <div class="channel channel-2">
+      <audio id="radio" :src="s1Stream"></audio>
+      <h2>CH 2</h2>
+      <button class="playBtn" @click="playPause">
+        <svg
+          v-if="!playing"
+          class="playIcon"
+          width="13"
+          height="20"
+          viewBox="0 0 13 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M12.0313 9.54242C12.4727 9.93966 12.4727 10.6318 12.0313 11.029L3.09757 19.0694C2.45405 19.6485 1.42861 19.1918 1.42861 18.3261L1.42861 2.24536C1.42861 1.37959 2.45405 0.922898 3.09757 1.50207L12.0313 9.54242Z"
+            fill="white"
+            stroke="#262626"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <svg v-else class="pauseIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 531 824">
+          <path
+            d="M119 824H67c-37 0-67-30-67-67V67C0 30 30 0 67 0h52c37 0 68 30 68 67v690c0 37-31 67-68 67zm345 0h-53c-37 0-67-30-67-67V67c0-37 30-67 67-67h53c37 0 67 30 67 67v690c0 37-30 67-67 67z"
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+          />
+        </svg>
+      </button>
+      <div class="now-wrapper">
+        <p class="now" v-if="radioInfo.current">
+          {{ radioInfo.current.name }} - {{ formatTime(radioInfo.current.starts) }} -
+          {{ formatTime(radioInfo.current.ends) }}
+        </p>
+        <p v-else>-</p>
+      </div>
+    </div>
+    <span class="separator end"></span>
   </section>
 </template>
 
@@ -122,6 +150,8 @@ export default {
       this.listenerPlayPause()
       this.$store.dispatch('fetchRadio')
     })
+
+    console.log(this.$store.state)
   },
 }
 </script>
@@ -133,20 +163,14 @@ section {
   display: flex;
   align-items: center;
 }
-.online {
-  width: 100%;
-  position: relative;
-  display: flex;
-  align-items: center;
-}
 .on_air {
   width: auto;
-  height: 18px;
+  height: calc(var(--headerHeight) / 3);
+  // height: 20px;
   display: block;
   svg {
     height: 100%;
     position: relative;
-    left: -10px;
     path {
       fill: var(--mainColor);
     }
@@ -155,13 +179,31 @@ section {
     height: 15px;
   }
 }
+.separator {
+  display: block;
+  height: calc(var(--headerHeight) / 2);
+  width: 1px;
+  border-left: 1px solid var(--mainColor);
+  margin: 0 20px;
+}
+.channel {
+  flex-grow: 2;
+  display: flex;
+  align-items: center;
+  h2 {
+    font-size: 2.6vmin;
+    margin-bottom: -0.3vmin;
+    white-space: nowrap;
+  }
+}
 .playBtn {
   background: none;
   border: none;
-  width: 30px;
+  height: calc(var(--headerHeight) / 3);
   box-sizing: border-box;
+  margin: 0 10px;
   svg {
-    width: 100%;
+    height: 100%;
     fill: var(--mainColor);
     stroke: var(--mainColor);
   }
@@ -173,33 +215,70 @@ section {
     width: 12px;
   }
 }
-.now-next {
-  flex-grow: 2;
+
+.now-wrapper {
   display: flex;
   align-items: center;
-  margin-left: 10px;
   p {
     display: inline-block;
     margin-bottom: 0;
     text-transform: uppercase;
+    font-size: 2.2vmin;
   }
-  span {
-    display: block;
-    height: calc(var(--headerHeight) / 2);
-    width: 1px;
-    border-left: 1px solid var(--mainColor);
-    margin: 0 20px;
+}
+
+@media only screen and (max-width: 1000px) {
+  .separator.end,
+  .on_air {
+    display: none;
   }
-  @include breakpoint(tablet-mobile) {
-    .next,
-    span {
-      display: none;
+  section {
+    padding: 0;
+  }
+  .channel {
+    padding: 0 40px;
+  }
+}
+
+@include breakpoint(tablet-mobile) {
+  .separator {
+    display: none;
+  }
+  section {
+    flex-wrap: wrap;
+  }
+  .channel {
+    width: 100%;
+    h2 {
+      font-size: 24px;
     }
   }
-  @include breakpoint(mobile) {
+  .channel-2 {
+    border-top: var(--borderAtts);
+  }
+  .now-wrapper {
     p {
-      font-size: 75%;
+      font-size: 18px;
     }
   }
 }
+@include breakpoint(mobile) {
+  .channel {
+    padding: 0 20px;
+    h2 {
+      font-size: 18px;
+      margin-bottom: -3px;
+    }
+  }
+  .now-wrapper {
+    p {
+      font-size: 14px;
+    }
+  }
+}
+//
+//
+//
+
+// @include breakpoint(tablet-mobile)
 </style>

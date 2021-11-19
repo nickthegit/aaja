@@ -8,9 +8,9 @@
       <div id="radio-widget__wrapper">
         <aaja-radio-widget />
       </div>
-      <button id="toggle-sound" @click="toggleSound" :class="muted ? 'muted' : ''">
+      <!-- <button id="toggle-sound" @click="toggleSound" :class="muted ? 'muted' : ''">
         <Speaker />
-      </button>
+      </button> -->
     </div>
     <button id="menu" @click="navOpen">
       <span>MENU</span>
@@ -67,7 +67,9 @@ header {
   left: 0;
   z-index: 999;
   @include breakpoint(mobile) {
-    grid-template: var(--headerHeight) var(--subHeaderHeight) / 1fr auto;
+  }
+  @media only screen and (max-width: 1000px) {
+    grid-template: var(--headerHeight) auto / 1fr auto;
   }
 }
 svg {
@@ -81,7 +83,7 @@ svg {
 #brand {
   width: 29px;
   height: auto;
-  margin: 0 40px;
+  margin: 0 30px 0 40px;
   display: block;
   grid-row: 1 / 2;
   grid-column: 1 / 2;
@@ -109,9 +111,11 @@ svg {
   align-items: center;
   height: 100%;
   @include breakpoint(mobile) {
+  }
+  @media only screen and (max-width: 1000px) {
     border-top: var(--borderAtts);
     grid-row: 2 / 3;
-    grid-column: 1 / 3;
+    grid-column: 1 / 5;
   }
 }
 #radio-widget__wrapper {
@@ -153,7 +157,7 @@ svg {
   height: 30px;
   color: var(--headerColor);
   padding: 0;
-  margin: 0 30px;
+  margin: 0 30px 0 10px;
   background: transparent;
   border: none;
   grid-row: 1 / 2;

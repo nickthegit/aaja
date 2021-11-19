@@ -79,16 +79,4 @@ export const getters = {
 
     return schedule
   },
-  // radioInfo: (state) => {
-  //   let current = state.reqData.shows.current ? state.reqData.shows.current : false
-  //   let next = state.reqData.shows.next[0] ? state.reqData.shows.next[0] : false
-  //   let onAir = state.reqData.shows.current ? true : false
-  //   return { current, next, onAir }
-  // },
-  // s1Stream: (state) => {
-  //   if (!state.stationMeta.stream_data.s1.url) {
-  //     return 'https://aajamusic.out.airtime.pro/aajamusic_a'
-  //   }
-  //   return state.stationMeta.stream_data.s1.url
-  // },
 }
