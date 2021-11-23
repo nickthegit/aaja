@@ -48,6 +48,9 @@
           {{ radioInfo.current.name }} - {{ formatTime(radioInfo.current.starts) }} -
           {{ formatTime(radioInfo.current.ends) }}
         </p>
+        <p v-else-if="radioInfo.next">
+          Coming up: {{ radioInfo.next.name }} - {{ formatTime(radioInfo.next.starts) }}
+        </p>
         <p v-else>-</p>
       </div>
     </div>
@@ -83,9 +86,12 @@
         </svg>
       </button>
       <div class="now-wrapper">
-        <p class="now" v-if="radioInfo.current">
-          {{ radioInfo.current.name }} - {{ formatTime(radioInfo.current.starts) }} -
-          {{ formatTime(radioInfo.current.ends) }}
+        <p class="now" v-if="radioInfo2.current">
+          {{ radioInfo2.current.name }} - {{ formatTime(radioInfo2.current.starts) }} -
+          {{ formatTime(radioInfo2.current.ends) }}
+        </p>
+        <p v-else-if="radioInfo2.next">
+          Coming up: {{ radioInfo2.next.name }} - {{ formatTime(radioInfo2.next.starts) }}
         </p>
         <p v-else>-</p>
       </div>
@@ -106,6 +112,9 @@ export default {
   computed: {
     radioInfo() {
       return this.$store.getters.radioInfo
+    },
+    radioInfo2() {
+      return this.$store.getters.radioInfo2
     },
     s1Stream() {
       return this.$store.getters.s1Stream
@@ -178,13 +187,14 @@ export default {
   mounted() {
     setInterval(() => {
       this.$store.dispatch('fetchRadio')
+      this.$store.dispatch('fetchRadio2')
     }, 60 * 1000)
     this.$nextTick(() => {
       this.listenerPlayPause()
       this.$store.dispatch('fetchRadio')
+      this.$store.dispatch('fetchRadio2')
     })
-
-    console.log(this.$store.state.stationMeta)
+    // console.log(this.$store.state.stationMeta)
   },
 }
 </script>
