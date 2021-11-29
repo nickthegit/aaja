@@ -3,7 +3,7 @@
     class="schedule-slider-container"
     :sliderOptions="scheduleSliderOptions"
     :initalSlide="startingIndex"
-    v-if="schduleFetched"
+    v-if="schduleFetched && selected"
   >
     <template v-slot:sliderButtons>
       <div class="slider-btns-wrap">
@@ -20,28 +20,6 @@
         <h3>{{ slide.label }}</h3>
         <div class="schedule-table">
           <div class="schedule-item" v-for="item in slide.schedule" :key="item._id">
-            <!-- <aaja-img
-                    v-if="!item.onAir"
-                    class="schedule-img"
-                    :altText="`Aaja resident - ${item.name}`"
-                    :desktopBg="item.img.desktopBlur"
-                    :mobileBg="item.img.mobileBlur"
-                    :desktopImgs="item.img.desktop"
-                    :mobileImgs="item.img.mobile"
-                    :ratio="[1, 1]"
-                    :percentageOfViewportWidth="20"
-                  />
-                  <aaja-img
-                    v-else
-                    class="schedule-img"
-                    :altText="`Aaja resident - ${item.name}`"
-                    :desktopBg="item.imgLive.desktopBlur"
-                    :mobileBg="item.imgLive.mobileBlur"
-                    :desktopImgs="item.imgLive.desktop"
-                    :mobileImgs="item.imgLive.mobile"
-                    :ratio="[1, 1]"
-                    :percentageOfViewportWidth="20"
-                  /> -->
             <p>
               {{ item.time.from }} - {{ item.time.to }}<span v-if="item.onAir"><live-now /></span>
             </p>
@@ -62,9 +40,15 @@ export default {
     sliderArrow,
     liveNow,
   },
+  props: {
+    selected: {
+      type: Boolean,
+      default: false,
+    },
+  },
   computed: {
     schedule() {
-      return this.$store.getters['schedule/schedule']
+      return this.$store.getters['schedule/schedule2']
     },
     startingIndex() {
       return this.schedule.findIndex((item) => item.label == 'Today')
@@ -98,7 +82,7 @@ export default {
     }
   },
   async created() {
-    await this.$store.dispatch('schedule/fetchSchedule')
+    await this.$store.dispatch('schedule/fetchSchedule2')
     this.schduleFetched = await true
   },
   mounted() {
