@@ -44,10 +44,17 @@
         </svg>
       </button>
       <div class="now-wrapper">
-        <p class="now" v-if="radioInfo.current">
-          {{ radioInfo.current.name }} - {{ formatTime(radioInfo.current.starts) }} -
-          {{ formatTime(radioInfo.current.ends) }}
-        </p>
+        <p
+          class="now"
+          v-if="radioInfo.current"
+          v-html="
+            radioInfo.current.name +
+            ' - ' +
+            formatTime(radioInfo.current.starts) +
+            ' - ' +
+            formatTime(radioInfo.current.ends)
+          "
+        ></p>
         <p v-else-if="radioInfo.next">
           Coming up: {{ radioInfo.next.name }} - {{ formatTime(radioInfo.next.starts) }}
         </p>
@@ -86,10 +93,17 @@
         </svg>
       </button>
       <div class="now-wrapper">
-        <p class="now" v-if="radioInfo2.current">
-          {{ radioInfo2.current.name }} - {{ formatTime(radioInfo2.current.starts) }} -
-          {{ formatTime(radioInfo2.current.ends) }}
-        </p>
+        <p
+          class="now"
+          v-if="radioInfo2.current"
+          v-html="
+            radioInfo2.current.name +
+            ' - ' +
+            formatTime(radioInfo2.current.starts) +
+            ' - ' +
+            formatTime(radioInfo2.current.ends)
+          "
+        ></p>
         <p v-else-if="radioInfo2.next">
           Coming up: {{ radioInfo2.next.name }} - {{ formatTime(radioInfo2.next.starts) }}
         </p>
