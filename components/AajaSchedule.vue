@@ -49,6 +49,7 @@ export default {
     margin-bottom: 30px;
     display: block;
     color: var(--primary);
+    background: transparent;
     &.active {
       -webkit-text-stroke: 1px var(--primary);
       color: transparent;
