@@ -145,12 +145,10 @@ export default {
     transpile: ['gsap'],
     extend(config, { isDev, isClient }) {
       // ..
-      config.module.rules.push({
-        node: {
-          net: 'empty',
-          http2: 'empty',
-        },
-      })
+      config.node = {
+        net: 'empty',
+        http2: 'empty',
+      }
 
       // Sets webpack's mode to development if `isDev` is true.
     },
