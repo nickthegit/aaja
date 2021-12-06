@@ -64,7 +64,7 @@ export default {
   modules: [
     '@nuxtjs/pwa',
     '@nuxtjs/sentry',
-    '@nuxtjs/redirect-module',
+    // '@nuxtjs/redirect-module',
 
     // Doc: https://axios.nuxtjs.org/usage
     [
@@ -98,7 +98,7 @@ export default {
       // https://docs.sentry.io/platforms/javascript/guides/vue/configuration/options/
     },
   },
-  redirect: [{ from: '^/chat', to: 'https://rumbletalk.com/client/chat.php?!oT!EN9:' }],
+  // redirect: [{ from: '^/chat', to: 'https://rumbletalk.com/client/chat.php?!oT!EN9:' }],
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
