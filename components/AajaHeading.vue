@@ -21,6 +21,19 @@ div {
   align-items: center;
   h1 {
     width: 100%;
+    div {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      p,
+      h1 {
+        width: 100%;
+        font-size: var(--h1Size);
+        text-transform: uppercase;
+        line-height: calc(var(--h1Size) - 10%);
+        font-family: 'FK Screamer Trial';
+      }
+    }
   }
   span {
     display: inline-block;

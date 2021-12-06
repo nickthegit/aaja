@@ -105,8 +105,7 @@ export default {
   mounted() {
     // console.log('STORREEEYYY', this.$store.getters['archive/residentsLetters'])
     // console.log('residents', this.residents)
-
-    console.log('TEST', this.residentsLetters)
+    // console.log('TEST', this.residentsLetters)
   },
 }
 </script>

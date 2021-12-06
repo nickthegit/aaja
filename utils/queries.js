@@ -66,14 +66,22 @@ export const footerQuery = `*[_type == "siteSettings"] {
 }`
 
 export const radioPageQuery = `*[_type == "radioPage"] {
-	_id,
+  _id,
 	_rev,
 	_type,
   "community": community[]->,
-  "spotlight": spotlight[]->
+  "spotlight": spotlight[]->,
+  "heading": coalesce(heading, "Aaja Radio<br />on air", false),
+  "subHeading": coalesce(subHeading, "Listen live or explore our music archive", false),
+  "communityHeading": coalesce(communityHeading, "aaja community", false),
+	"communityTitle": coalesce(communityTitle, "Meet the family", false),
+  "communityText": coalesce(communityText, false),
+  "spotlightHeading": coalesce(spotlightHeading, "Spotlight", false),
+  "spotlightSubHeading": coalesce(spotlightSubHeading, "Updated weekly, dip into our recommended sounds", false),
 }`
 
 export const barPageQuery = `*[_type == "barPage"] {
+  "heading": coalesce(heading, "aaja music record Label", false),
   booking,
   images,
   intro,
@@ -82,8 +90,21 @@ export const barPageQuery = `*[_type == "barPage"] {
 }`
 
 export const labelPageQuery = `*[_type == "labelPage"] {
+  "heading": coalesce(heading, "Aaja Bar", false),
   intro,
   "eps": eps[]->
+}`
+
+export const homePageQuery = `*[_type == "homePage"] {
+  _id,
+  "homeNewsBanner": homeNewsBanner[] {
+    _key,
+    "content":  coalesce(content, false),
+    "date":  coalesce(date, false),
+    feature_image,
+    title,
+    "feature_image_mobile":  coalesce(feature_image_mobile,feature_image, false),
+  }
 }`
 
 export const residentSlugPageQuery = (

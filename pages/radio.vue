@@ -42,16 +42,18 @@
             /></svg
         ></a>
         <div class="radio__heading">
-          <aaja-heading>Aaja Radio<br />on air</aaja-heading>
-          <p>Listen live or explore our music archive</p>
+          <aaja-heading-block>
+            <SanityContent :blocks="radioData.heading" />
+          </aaja-heading-block>
+          <p>{{ radioData.subHeading }}</p>
         </div>
         <snake-roundel id="snake_roundel" />
       </aaja-container>
     </section>
     <article class="radio__spotlight">
       <aaja-container>
-        <h3>Spotlight</h3>
-        <p>Updated weekly, dip into our recommended sounds</p>
+        <h3>{{ radioData.spotlightHeading }}</h3>
+        <p>{{ radioData.spotlightSubHeading }}</p>
         <slider-container
           class="spotlight-slider-container"
           :sliderOptions="spotlightSliderOptions"
@@ -89,16 +91,12 @@
         <div class="featured-container">
           <section class="featured-title-bar title-bar">
             <h2>
-              aaja community<span><Logo /></span>
+              {{ radioData.communityHeading }}<span><Logo /></span>
             </h2>
           </section>
           <section class="featured-copy">
-            <h3>Meet the family</h3>
-            <p>
-              AAJA Music is a grassroots music space, hub & platform situated in Deptford, SE8. It’s
-              resident hosts make up a multi genre and subject DIY broadcasting powerhouse. Learn
-              more about them and hear their previous shows below.
-            </p>
+            <h3>{{ radioData.communityTitle }}</h3>
+            <SanityContent :blocks="radioData.communityText" />
           </section>
           <section class="featured-artist-card-wrap">
             <slider-container
@@ -1281,7 +1279,9 @@ export default {
       return value.slice(0, 118) + '...'
     },
   },
-  mounted() {},
+  mounted() {
+    console.log('RADATA:', this.radioData)
+  },
 }
 </script>
 

@@ -11,7 +11,9 @@
         />
       </section>
       <aaja-container class="bar__hero-container">
-        <aaja-heading>Aaja Bar</aaja-heading>
+        <aaja-heading-block>
+          <SanityContent :blocks="barData.heading" />
+        </aaja-heading-block>
         <section class="bar__hero-opening">
           <SanityContent :blocks="barData.opening" />
           <div class="button-wrap">

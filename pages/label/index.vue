@@ -2,7 +2,9 @@
   <main class="light-theme">
     <aaja-standard-hero>
       <template v-slot:heading>
-        <aaja-heading>aaja music <br />record Label</aaja-heading>
+        <aaja-heading-block>
+          <SanityContent :blocks="labelData.heading" />
+        </aaja-heading-block>
       </template>
       <p>{{ labelData.intro }}</p>
     </aaja-standard-hero>

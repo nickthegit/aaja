@@ -5,7 +5,7 @@ import { CgWebsite, CgRecord } from 'react-icons/cg'
 import { FiSettings, FiRadio } from 'react-icons/fi'
 import { BiDrink } from 'react-icons/bi'
 import { GrChannel } from 'react-icons/gr'
-import { RiContactsLine } from 'react-icons/ri'
+import { RiContactsLine, RiHome4Line } from 'react-icons/ri'
 
 export default () =>
   S.list()
@@ -31,6 +31,16 @@ export default () =>
                     .documentId('siteSettings')
                 ),
               S.divider(),
+              S.listItem()
+                .title('Home Page')
+                .icon(RiHome4Line)
+                .child(
+                  S.editor()
+                    .title('Home Page')
+                    .id('homePage')
+                    .schemaType('homePage')
+                    .documentId('homePage')
+                ),
               S.listItem()
                 .title('Radio Page')
                 .icon(FiRadio)
@@ -90,6 +100,7 @@ export default () =>
         (listItem) =>
           ![
             'siteSettings',
+            'homePage',
             'radioPage',
             'barPage',
             'labelPage',

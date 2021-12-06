@@ -4,6 +4,11 @@ export default {
   type: 'document',
   fields: [
     {
+      name: 'heading',
+      title: 'Page Heading',
+      type: 'blockContentBare',
+    },
+    {
       name: 'title',
       title: 'Title Text',
       type: 'text',

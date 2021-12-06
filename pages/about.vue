@@ -2,7 +2,9 @@
   <main class="light-theme">
     <aaja-standard-hero>
       <template v-slot:heading>
-        <aaja-heading>aaja music</aaja-heading>
+        <aaja-heading-block>
+          <SanityContent :blocks="contactData.about.heading" />
+        </aaja-heading-block>
       </template>
       <h3>
         {{ contactData.about.title }}
@@ -21,7 +23,9 @@
           <br />
           <p>
             <strong>Show applications</strong> <br />
-            <a :href="`mailto:snakey@aajamusic.com`">snakey@aajamusic.com</a>
+            <a :href="`mailto:${contactData.contact.showEmail}`">{{
+              contactData.contact.showEmail
+            }}</a>
           </p>
         </section>
         <aaja-img

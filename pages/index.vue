@@ -10,36 +10,40 @@
         <FullLogo id="home-logo" />
       </div>
     </article>
-    <aaja-container>
-      <slider-home-container v-if="sliderReady" class="slider-container">
-        <div class="swiper-slide">
+    <aaja-container v-if="homeData.length > 0">
+      <slider-home-container
+        v-if="sliderReady"
+        class="slider-container"
+        :length-of-items="homeData.length"
+      >
+        <div class="swiper-slide" v-for="slide in homeData" :key="slide._key">
           <figure class="img-wrap">
             <picture>
               <!-- DESKTOP (desktop) -->
               <source
                 :srcset="`
-                https://picsum.photos/400/200?random=1 400w,
-                https://picsum.photos/600/300?random=2 600w,
-                https://picsum.photos/800/400?random=3 800w,
-                https://picsum.photos/1000/500?random=4 1000w,
-                https://picsum.photos/1200/600?random=5 1200w,
-                https://picsum.photos/1400/700?random=6 1400w,
-                https://picsum.photos/1600/800?random=7 1600w,
-                https://picsum.photos/1800/900?random=8 1800w,
-                https://picsum.photos/2000/1000?random=9 2000w,
-                https://picsum.photos/2400/1200?random=10 2400w,
-                https://picsum.photos/2800/1400?random=11 2800w,
-                https://picsum.photos/3000/1500?random=12 3000w
+                ${$urlFor(slide.feature_image).width(400).height(200).fit('crop')} 400w,
+                ${$urlFor(slide.feature_image).width(600).height(300).fit('crop')} 600w,
+                ${$urlFor(slide.feature_image).width(800).height(400).fit('crop')}  800w,
+                ${$urlFor(slide.feature_image).width(1000).height(500).fit('crop')}  1000w,
+                ${$urlFor(slide.feature_image).width(1200).height(600).fit('crop')}  1200w,
+                ${$urlFor(slide.feature_image).width(1400).height(700).fit('crop')}  1400w,
+                ${$urlFor(slide.feature_image).width(1600).height(800).fit('crop')}  1600w,
+                ${$urlFor(slide.feature_image).width(1800).height(900).fit('crop')}  1800w,
+                ${$urlFor(slide.feature_image).width(2000).height(1000).fit('crop')}  2000w,
+                ${$urlFor(slide.feature_image).width(2400).height(1200).fit('crop')}  2400w,
+                ${$urlFor(slide.feature_image).width(2800).height(1400).fit('crop')}  2800w,
+                ${$urlFor(slide.feature_image).width(3000).height(1500).fit('crop')}  3000w
             `"
                 sizes="100vw"
                 media="(min-width: 481px)"
               />
               <source
                 :srcset="`
-                https://picsum.photos/400/400?random=6 400w,
-                https://picsum.photos/600/600?random=7 600w,
-                https://picsum.photos/800/800?random=8 800w,
-                https://picsum.photos/1000/1000?random=9 1000w,
+                ${$urlFor(slide.feature_image).width(400).height(400).fit('crop')} 400w,
+                ${$urlFor(slide.feature_image).width(600).height(600).fit('crop')} 600w,
+                ${$urlFor(slide.feature_image).width(800).height(800).fit('crop')} 800w,
+                ${$urlFor(slide.feature_image).width(1000).height(1000).fit('crop')} 1000w,
             `"
                 sizes="100vw"
                 media="(max-width: 480px)"
@@ -48,25 +52,12 @@
             </picture>
           </figure>
           <article class="info-wrap">
-            <time>27/08/21</time>
-            <h3>The Yesness</h3>
+            <time v-if="slide.date">{{ slide.date }}</time>
+            <h3>{{ slide.title }}</h3>
             <section class="copy">
-              <p>
-                All roads lead to Aaja on Friday 27th August to celbrate the Yesness on there 10th
-                year. Join Paul Order, J.Nix and Andy J for that post-work drink, before they knock
-                it up a notch later in the evening.
-              </p>
-              <p>
-                <a href="https://ra.co/theyesness" target="_blank" rel="noopener noreferrer"
-                  >ra.co/theyesness</a
-                >
-              </p>
+              <SanityContent v-if="slide.content" :blocks="slide.content" />
             </section>
           </article>
-        </div>
-        <div class="swiper-slide">
-          <div class="img-wrap"></div>
-          <div class="info-wrap">paragraph 2</div>
         </div>
       </slider-home-container>
     </aaja-container>
@@ -77,9 +68,15 @@
 </template>
 
 <script>
+import { homePageQuery } from '~/utils/queries.js'
 import FullLogo from '~/assets/img/icons/fullLogo.svg?inline'
 
 export default {
+  async asyncData({ $sanity }) {
+    const data = await $sanity.fetch(homePageQuery)
+
+    return { homeData: data[0].homeNewsBanner }
+  },
   components: { FullLogo },
   data() {
     return {
@@ -89,6 +86,7 @@ export default {
   },
   mounted() {
     this.sliderReady = true
+    console.log('HOME DATA', this.homeData)
   },
   head: {
     htmlAttrs: {

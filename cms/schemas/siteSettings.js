@@ -9,6 +9,11 @@ export default {
       type: 'string',
     },
     {
+      name: 'showEmail',
+      title: 'Show applications Email',
+      type: 'string',
+    },
+    {
       name: 'telephome',
       title: 'Telephome',
       type: 'string',

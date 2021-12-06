@@ -6,7 +6,7 @@
       <!-- Slides -->
       <slot></slot>
     </div>
-    <div class="control-wrapper" :style="`top: ${fromTopLength}px`">
+    <div class="control-wrapper" :style="`top: ${fromTopLength}px`" v-if="lengthOfItems > 1">
       <div class="swiper-button-prev">
         <sliderArrow />
       </div>
@@ -30,6 +30,10 @@ import 'swiper/swiper-bundle.css'
 export default {
   components: { sliderArrow },
   props: {
+    lengthOfItems: {
+      type: [Number, String],
+      default: 1,
+    },
     initalSlide: {
       type: [Number, String],
       default: 0,
