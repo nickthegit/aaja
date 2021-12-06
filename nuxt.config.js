@@ -148,6 +148,9 @@ export default {
       config.node = {
         net: 'empty',
         http2: 'empty',
+        dns: 'empty',
+        fs: 'empty',
+        tls: 'empty',
       }
 
       // Sets webpack's mode to development if `isDev` is true.
