@@ -65,6 +65,22 @@ export default {
     '@nuxtjs/pwa',
     '@nuxtjs/sentry',
     // Doc: https://axios.nuxtjs.org/usage
+    [
+      'nuxt-social-meta',
+      {
+        url: 'https://aajamusic.com/',
+        title: 'Aaja Music',
+        site_name: 'Aaja Music',
+        description:
+          'Aaja is a full spectrum music bar, record label, live streaming and event space located in an old railway arch in the heart of Deptford, London.',
+        img: 'https://aajamusic.com/Aaja-hero.jpg',
+        img_size: { width: '1200', height: '671' },
+        locale: 'en_GB',
+        twitter: '@aajamusic',
+        twitter_card: 'summary_large_image',
+        theme_color: '#theme-color',
+      },
+    ],
   ],
   pwa: {
     icon: {
