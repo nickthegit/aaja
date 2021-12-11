@@ -127,7 +127,6 @@ main {
     width: 80%;
   }
   @include breakpoint(mobile) {
-    padding-top: 100px;
     width: 90%;
   }
   a {

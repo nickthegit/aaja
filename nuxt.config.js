@@ -28,10 +28,10 @@ export default {
     title: 'Aaja Radio',
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'preload', href: 'https://aajamusic.out.airtime.pro/aajamusic_a', as: 'audio' },
-      { rel: 'preload', href: 'https://aajamusic.out.airtime.pro/aajamusic_b', as: 'audio' },
-      { rel: 'preload', href: 'https://aaja2.out.airtime.pro/aaja2_a', as: 'audio' },
-      { rel: 'preload', href: 'https://aaja2.out.airtime.pro/aaja2_b', as: 'audio' },
+      { rel: 'preload', href: 'https://aajamusic.out.airtime.pro/aajamusic_a', type: 'audio' },
+      { rel: 'preload', href: 'https://aajamusic.out.airtime.pro/aajamusic_b', type: 'audio' },
+      { rel: 'preload', href: 'https://aaja2.out.airtime.pro/aaja2_a', type: 'audio' },
+      { rel: 'preload', href: 'https://aaja2.out.airtime.pro/aaja2_b', type: 'audio' },
     ],
   },
   /*
@@ -58,15 +58,11 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/svg',
     '@nuxtjs/sitemap',
-    '@nuxtjs/device',
   ],
   sanity: {
     projectId: process.env.SANITY_ID,
     dataset: process.env.SANITY_DATASET,
     useCdn: process.env.SANITY_CDN,
-  },
-  device: {
-    refreshOnResize: true,
   },
   /*
    ** Nuxt.js modules

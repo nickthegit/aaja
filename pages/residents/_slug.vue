@@ -1,6 +1,6 @@
 <template>
   <main>
-    <aaja-slug-hero
+    <AajaSlugHero
       class="resident-hero"
       breadcrumbDestination="radio"
       :heroImage="residentData.feature_image ? heroImage : {}"
@@ -29,24 +29,20 @@
           ></a>
         </li>
       </ul>
-    </aaja-slug-hero>
+    </AajaSlugHero>
     <article>
-      <aaja-container
+      <AajaContainer
         class="residents__content"
         v-if="residentData.soundcloud_embed"
         v-html="residentData.soundcloud_embed"
       >
-      </aaja-container>
+      </AajaContainer>
     </article>
   </main>
 </template>
 
 <script>
-import { cloudinaryImgParser } from '~/utils/images'
-
 import { residentSlugPageQuery } from '~/utils/queries.js'
-
-import { extract } from 'oembed-parser'
 
 const instagram = require('simple-icons/icons/instagram')
 const twitter = require('simple-icons/icons/twitter')
@@ -59,42 +55,11 @@ export default {
 
     return { residentData: data }
   },
-  // async fetch() {
-  //   this.latestPlaylists = await this.$axios
-  //     .$get(this.mixcloudUser + 'feed/?limit=5')
-  //     .then((response) => response)
-  //     .then(async (res) => {
-  //       return res.data.map((playlist) => {
-  //         return {
-  //           url: `${playlist.cloudcasts[0].url}`,
-  //           key: `${playlist.key}`,
-  //         }
-  //       })
-  //     })
-  //     .catch((e) => {
-  //       console.log('ERRORRR:', e)
-  //     })
-  //   let theEmbeds = await []
-  //   const dave = await this.latestPlaylists.forEach((playlist) => {
-  //     let embed
-  //     let url = `${playlist.url.replace('www', 'api').trim()}embed-json/`
-  //     const getEmbedCode = this.$axios.$get(url).then((res) => {
-  //       embed = res
-  //       theEmbeds.push({ embed, ...playlist })
-  //     })
-  //   })
 
-  //   this.latestPlaylists = theEmbeds
-  //   console.log('PLAYLISTS Fetch', this.latestPlaylists)
-  // },
   data() {
     return {
       latestPlaylists: null,
       mixcloudUserRaw: 'https://www.mixcloud.com/theyesness/',
-      heroImg: cloudinaryImgParser(
-        'https://res.cloudinary.com/nickjohn/image/upload/v1620559265/Aaja/the_yesness.jpg',
-        '1:1'
-      ),
       socials: [
         {
           icon: instagram,
@@ -158,15 +123,9 @@ export default {
         })
     },
   },
-  created() {
-    // console.log(this.mixcloudUser)
-    // this.$fetch()
-  },
+  created() {},
   mounted() {
-    // this.$fetch()
-    // console.log('PLAYLISTS', this.latestPlaylists)
-    // console.log('residentData', this.residentData)
-    // console.log('getSocials', this.getSocials)
+    console.log(this.residentData)
   },
 }
 </script>
@@ -204,6 +163,11 @@ export default {
 article {
   padding-bottom: 40px;
   iframe {
+  }
+}
+main {
+  @include breakpoint(mobile) {
+    margin-top: 100px !important;
   }
 }
 </style>

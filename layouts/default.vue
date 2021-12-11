@@ -1,9 +1,9 @@
 <template>
   <div>
-    <aaja-header />
-    <aaja-menu />
+    <AajaHeader />
+    <AajaMenu />
     <Nuxt />
-    <aaja-footer />
+    <AajaFooter />
     <!-- <main-footer /> -->
   </div>
 </template>
