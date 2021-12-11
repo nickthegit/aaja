@@ -326,7 +326,7 @@ section {
 }
 @include breakpoint(mobile) {
   .channel {
-    padding: 0 20px;
+    padding: 5px 20px;
     h2 {
       font-size: 18px;
       margin-bottom: -3px;

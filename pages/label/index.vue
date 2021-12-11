@@ -86,6 +86,7 @@ export default {
   mounted() {
     // console.log(this.labelData)
     // console.log(this.eps_records)
+    console.log('is mobile?', this.$isMobile)
   },
   head: {
     htmlAttrs: {

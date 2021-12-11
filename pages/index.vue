@@ -40,10 +40,10 @@
               />
               <source
                 :srcset="`
-                ${$urlFor(slide.feature_image).width(400).height(400).fit('crop')} 400w,
-                ${$urlFor(slide.feature_image).width(600).height(600).fit('crop')} 600w,
-                ${$urlFor(slide.feature_image).width(800).height(800).fit('crop')} 800w,
-                ${$urlFor(slide.feature_image).width(1000).height(1000).fit('crop')} 1000w,
+                ${$urlFor(slide.feature_image_mobile).width(400).height(400).fit('crop')} 400w,
+                ${$urlFor(slide.feature_image_mobile).width(600).height(600).fit('crop')} 600w,
+                ${$urlFor(slide.feature_image_mobile).width(800).height(800).fit('crop')} 800w,
+                ${$urlFor(slide.feature_image_mobile).width(1000).height(1000).fit('crop')} 1000w,
             `"
                 sizes="100vw"
                 media="(max-width: 480px)"
@@ -86,7 +86,6 @@ export default {
   },
   mounted() {
     this.sliderReady = true
-    console.log('HOME DATA', this.homeData)
   },
   head: {
     htmlAttrs: {

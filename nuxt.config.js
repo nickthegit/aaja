@@ -52,11 +52,15 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/svg',
     '@nuxtjs/sitemap',
+    '@nuxtjs/device',
   ],
   sanity: {
     projectId: process.env.SANITY_ID,
     dataset: process.env.SANITY_DATASET,
     useCdn: process.env.SANITY_CDN,
+  },
+  device: {
+    refreshOnResize: true,
   },
   /*
    ** Nuxt.js modules
