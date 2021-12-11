@@ -25,13 +25,22 @@ export default {
    ** See https://nuxtjs.org/api/configuration-head
    */
   head: {
-    title: 'Aaja Radio',
+    title: 'Aaja Music',
+    meta: [
+      // hid is used as unique identifier. Do not use `vmid` for it as it will not work
+      {
+        hid: 'description',
+        name: 'description',
+        content:
+          'Aaja is a full spectrum music bar, record label, live streaming and event space located in an old railway arch in the heart of Deptford, London.',
+      },
+    ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'preload', href: 'https://aajamusic.out.airtime.pro/aajamusic_a', type: 'audio' },
-      { rel: 'preload', href: 'https://aajamusic.out.airtime.pro/aajamusic_b', type: 'audio' },
-      { rel: 'preload', href: 'https://aaja2.out.airtime.pro/aaja2_a', type: 'audio' },
-      { rel: 'preload', href: 'https://aaja2.out.airtime.pro/aaja2_b', type: 'audio' },
+      { rel: 'preload', href: 'https://aajamusic.out.airtime.pro/aajamusic_a', as: 'audio' },
+      { rel: 'preload', href: 'https://aajamusic.out.airtime.pro/aajamusic_b', as: 'audio' },
+      { rel: 'preload', href: 'https://aaja2.out.airtime.pro/aaja2_a', as: 'audio' },
+      { rel: 'preload', href: 'https://aaja2.out.airtime.pro/aaja2_b', as: 'audio' },
     ],
   },
   /*

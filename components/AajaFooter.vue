@@ -58,12 +58,12 @@ export default {
           external_link: null,
           _id: '89035162262743512',
         },
-        {
-          name: 'Channel 2',
-          slug: 'channel-2',
-          external_link: null,
-          _id: '85447217114896539',
-        },
+        // {
+        //   name: 'Channel 2',
+        //   slug: 'channel-2',
+        //   external_link: null,
+        //   _id: '85447217114896539',
+        // },
         {
           name: 'Bar',
           slug: 'bar',
