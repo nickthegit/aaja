@@ -14,7 +14,7 @@
     </div>
     <span class="separator end"></span>
     <div class="channel channel-1">
-      <audio id="radio" :src="s1Stream"></audio>
+      <audio id="radio" :src="s1Stream" preload="auto"></audio>
       <h2>CH 1</h2>
       <button class="playBtn" @click="playPause(1)">
         <svg
@@ -63,7 +63,7 @@
     </div>
     <span class="separator"></span>
     <div class="channel channel-2">
-      <audio id="radio2" :src="s2Stream"></audio>
+      <audio id="radio2" :src="s2Stream" preload="auto"></audio>
       <h2>CH 2</h2>
       <button class="playBtn" @click="playPause(2)">
         <svg

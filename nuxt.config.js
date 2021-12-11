@@ -26,7 +26,13 @@ export default {
    */
   head: {
     title: 'Aaja Radio',
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'preload', href: 'https://aajamusic.out.airtime.pro/aajamusic_a', as: 'audio' },
+      { rel: 'preload', href: 'https://aajamusic.out.airtime.pro/aajamusic_b', as: 'audio' },
+      { rel: 'preload', href: 'https://aaja2.out.airtime.pro/aaja2_a', as: 'audio' },
+      { rel: 'preload', href: 'https://aaja2.out.airtime.pro/aaja2_b', as: 'audio' },
+    ],
   },
   /*
    ** Global CSS
