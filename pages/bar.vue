@@ -127,7 +127,7 @@ export default {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      padding-top: 40px;
+      padding-top: 80px;
       padding-bottom: 40px;
     }
 

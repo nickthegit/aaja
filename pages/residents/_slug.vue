@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="radio-dj">
     <AajaSlugHero
       class="resident-hero"
       breadcrumbDestination="radio"
@@ -165,7 +165,7 @@ article {
   iframe {
   }
 }
-main {
+.radio-dj {
   @include breakpoint(mobile) {
     margin-top: 100px !important;
   }
