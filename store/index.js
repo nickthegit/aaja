@@ -67,6 +67,7 @@ export const actions = {
     const stationMetaData = await this.$axios
       .$get('https://aajamusic.airtime.pro/api/station-metadata')
       .then((data) => {
+        console.log(data)
         return data
       })
       .catch((e) => {
