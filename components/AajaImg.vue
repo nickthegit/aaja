@@ -114,7 +114,7 @@ export default {
   data() {
     return {
       isMobile: null,
-      showing: false,
+      showing: true,
     }
   },
   computed: {

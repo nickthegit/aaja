@@ -15,11 +15,12 @@ export default {
    ** Nuxt rendering mode
    ** See https://nuxtjs.org/api/configuration-mode
    */
+  ssr: false,
   /*
    ** Nuxt target
    ** See https://nuxtjs.org/api/configuration-target
    */
-  target: 'static', // also could ber server
+  target: 'server', // also could ber server
   /*
    ** Headers of the page
    ** See https://nuxtjs.org/api/configuration-head
@@ -42,6 +43,9 @@ export default {
       { rel: 'preload', href: 'https://aaja2.out.airtime.pro/aaja2_a', as: 'audio' },
       { rel: 'preload', href: 'https://aaja2.out.airtime.pro/aaja2_b', as: 'audio' },
     ],
+  },
+  router: {
+    mode: 'hash',
   },
   /*
    ** Global CSS
