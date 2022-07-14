@@ -1,32 +1,28 @@
 <template>
-  <observer @on-change="onChange">
-    <transition name="img-in">
-      <nuxt-link v-if="showing" :to="`/residents/${artistLink}`" class="archive-card">
-        <article>
-          <div class="img-wrap">
-            <img
-              :src="artistImage ? artistImage : 'https://placehold.co/600x400'"
-              :alt="imageAltText"
-            />
-          </div>
-          <h2>{{ artistName }}</h2>
-          <p v-if="sortBio">{{ sortBio }}</p>
-          <button>
-            Listen to a show <span><arrow /></span>
-          </button>
-        </article>
-      </nuxt-link>
-    </transition>
-  </observer>
+  <transition name="img-in">
+    <nuxt-link v-if="showing" :to="`/residents/${artistLink}`" class="archive-card">
+      <article>
+        <div class="img-wrap">
+          <img
+            :src="artistImage ? artistImage : 'https://placehold.co/600x400'"
+            :alt="imageAltText"
+          />
+        </div>
+        <h2>{{ artistName }}</h2>
+        <p v-if="sortBio">{{ sortBio }}</p>
+        <button>
+          Listen to a show <span><arrow /></span>
+        </button>
+      </article>
+    </nuxt-link>
+  </transition>
 </template>
 
 <script>
 import Arrow from '~/assets/img/icons/arrow.svg?inline'
-import Observer from 'vue-intersection-observer'
 export default {
   components: {
     Arrow,
-    Observer,
   },
   props: {
     artistLink: {
@@ -49,19 +45,10 @@ export default {
   },
   data() {
     return {
-      showing: false,
+      showing: true,
     }
   },
-  methods: {
-    onChange(entry, unobserve) {
-      let vm = this
-      // After loading Cancel monitoring, optimise performance
-      if (entry.isIntersecting) {
-        unobserve()
-        vm.showing = true
-      }
-    },
-  },
+  methods: {},
 }
 </script>
 

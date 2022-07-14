@@ -6,12 +6,11 @@
       paddingBottom: padBottom,
     }"
   >
-    <observer @on-change="onChange">
-      <transition name="img-in">
-        <picture v-if="showing">
-          <!-- DESKTOP (desktop) -->
-          <source
-            :srcset="`
+    <transition name="img-in">
+      <picture v-if="showing">
+        <!-- DESKTOP (desktop) -->
+        <source
+          :srcset="`
               ${desktopImgs['400']} 400w,
               ${desktopImgs['600']} 600w,
               ${desktopImgs['800']} 800w,
@@ -25,12 +24,12 @@
               ${desktopImgs['2800']} 2800w,
               ${desktopImgs['3000']} 3000w
             `"
-            :sizes="`${percentageOfViewportWidth}vw`"
-            media="(min-width: 481px)"
-          />
-          <!-- TABLET & MOBILE (Protrait)-->
-          <source
-            :srcset="`
+          :sizes="`${percentageOfViewportWidth}vw`"
+          media="(min-width: 481px)"
+        />
+        <!-- TABLET & MOBILE (Protrait)-->
+        <source
+          :srcset="`
               ${mobileImgs['400']} 400w,
               ${mobileImgs['600']} 600w,
               ${mobileImgs['800']} 800w,
@@ -40,23 +39,19 @@
               ${mobileImgs['1600']} 1600w,
               ${mobileImgs['1800']} 1800w,
             `"
-            :sizes="`${percentageOfViewportWidthMobile}vw`"
-            media="(max-width: 480px)"
-          />
-          <img :src="desktopImgs['1200']" :ref="altText" />
-        </picture>
-      </transition>
-    </observer>
+          :sizes="`${percentageOfViewportWidthMobile}vw`"
+          media="(max-width: 480px)"
+        />
+        <img :src="desktopImgs['1200']" :ref="altText" />
+      </picture>
+    </transition>
   </div>
 </template>
 
 <script>
-import Observer from 'vue-intersection-observer'
 import LogoVue from './Logo.vue'
 export default {
-  components: {
-    Observer,
-  },
+  components: {},
   props: {
     altText: {
       type: String,
@@ -79,13 +74,11 @@ export default {
     },
     desktopBg: {
       type: String,
-      default:
-        'https://placehold.co/40x40/green/white?text=40x40+PLACEHOLDER-desktop',
+      default: 'https://placehold.co/40x40/green/white?text=40x40+PLACEHOLDER-desktop',
     },
     mobileBg: {
       type: String,
-      default:
-        'https://placehold.co/40x40/orange/white?text=40x40+PLACEHOLDER-mobile',
+      default: 'https://placehold.co/40x40/orange/white?text=40x40+PLACEHOLDER-mobile',
     },
     desktopImgs: {
       type: Object,
@@ -135,16 +128,7 @@ export default {
       return `${num}%`
     },
   },
-  methods: {
-    onChange(entry, unobserve) {
-      let vm = this
-      // After loading Cancel monitoring, optimise performance
-      if (entry.isIntersecting) {
-        unobserve()
-        vm.showing = true
-      }
-    },
-  },
+  methods: {},
   created() {
     if (process.client) {
       let vm = this

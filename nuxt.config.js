@@ -19,7 +19,7 @@ export default {
    ** Nuxt target
    ** See https://nuxtjs.org/api/configuration-target
    */
-  target: 'server', // also could ber server
+  target: 'static', // also could ber server
   /*
    ** Headers of the page
    ** See https://nuxtjs.org/api/configuration-head
@@ -140,7 +140,7 @@ export default {
   },
   generate: {
     fallback: true,
-    interval: 2000,
+    interval: 5000,
     routes() {
       return client.fetch(query).then((residents) => {
         return residents.map((resident) => {

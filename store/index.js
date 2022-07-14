@@ -67,7 +67,7 @@ export const actions = {
     const stationMetaData = await this.$axios
       .$get('https://aajamusic.airtime.pro/api/station-metadata')
       .then((data) => {
-        console.log(data)
+        // console.log(data)
         return data
       })
       .catch((e) => {
@@ -98,27 +98,35 @@ export const actions = {
 
 export const getters = {
   radioInfo: (state) => {
-    let current = state.reqData.shows.current ? state.reqData.shows.current : false
-    let next = state.reqData.shows.next[0] ? state.reqData.shows.next[0] : false
-    let onAir = state.reqData.shows.current ? true : false
+    let current = state.reqData?.shows?.current ? state.reqData?.shows?.current : false
+    let next = state.reqData?.shows?.next[0] ? state.reqData?.shows?.next[0] : false
+    let onAir = state.reqData?.shows?.current ? true : false
     return { current, next, onAir }
   },
   radioInfo2: (state) => {
-    let current = state.reqData2.shows.current ? state.reqData2.shows.current : false
-    let next = state.reqData2.shows.next[0] ? state.reqData2.shows.next[0] : false
-    let onAir = state.reqData2.shows.current ? true : false
+    let current = state.reqData2?.shows?.current ? state.reqData2?.shows?.current : false
+    let next = state.reqData2?.shows?.next[0] ? state.reqData2?.shows?.next[0] : false
+    let onAir = state.reqData2?.shows?.current ? true : false
     return { current, next, onAir }
   },
   s1Stream: (state) => {
-    if (!state.stationMeta.stream_data.s1.url) {
+    if (state.stationMeta?.stream_data) {
+      if (!state.stationMeta.stream_data.s1.url) {
+        return 'https://aajamusic.out.airtime.pro/aajamusic_a'
+      }
+      return state.stationMeta.stream_data.s1.url
+    } else {
       return 'https://aajamusic.out.airtime.pro/aajamusic_a'
     }
-    return state.stationMeta.stream_data.s1.url
   },
   s2Stream: (state) => {
-    if (!state.stationMeta2.stream_data.s1.url) {
+    if (state.stationMeta?.stream_data) {
+      if (!state.stationMeta2.stream_data.s1.url) {
+        return 'https://aajamusic.out.airtime.pro/aajamusic_b'
+      }
+      return state.stationMeta2.stream_data.s2.url
+    } else {
       return 'https://aajamusic.out.airtime.pro/aajamusic_b'
     }
-    return state.stationMeta2.stream_data.s2.url
   },
 }

@@ -86,7 +86,7 @@ export default {
   },
   mounted() {
     this.sliderReady = true
-    console.log('New')
+    // console.log('New')
   },
   head: {
     htmlAttrs: {

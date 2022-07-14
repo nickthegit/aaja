@@ -5,12 +5,11 @@
       backgroundImage: `url(${isPortrait ? portraitBg : landscapeBg})`,
     }"
   >
-    <observer @on-change="onChange">
-      <transition name="img-in">
-        <picture v-if="showing">
-          <!-- DESKTOP (Landscape) -->
-          <source
-            :srcset="`
+    <transition name="img-in">
+      <picture v-if="showing">
+        <!-- DESKTOP (Landscape) -->
+        <source
+          :srcset="`
         ${landscapeImgs['400']} 400w,
         ${landscapeImgs['600']} 600w,
         ${landscapeImgs['800']} 800w,
@@ -24,11 +23,11 @@
         ${landscapeImgs['2800']} 2800w,
         ${landscapeImgs['3000']} 3000w
       `"
-            media="(orientation: landscape)"
-          />
-          <!-- TABLET & MOBILE (Protrait)-->
-          <source
-            :srcset="`
+          media="(orientation: landscape)"
+        />
+        <!-- TABLET & MOBILE (Protrait)-->
+        <source
+          :srcset="`
         ${portraitImgs['400']} 400w,
         ${portraitImgs['600']} 600w,
         ${portraitImgs['800']} 800w,
@@ -38,21 +37,17 @@
         ${portraitImgs['1600']} 1600w,
         ${portraitImgs['1800']} 1800w,
       `"
-            media="(orientation: portrait)"
-          />
-          <img :src="landscapeImgs['1200']" :ref="altText" />
-        </picture>
-      </transition>
-    </observer>
+          media="(orientation: portrait)"
+        />
+        <img :src="landscapeImgs['1200']" :ref="altText" />
+      </picture>
+    </transition>
   </div>
 </template>
 
 <script>
-import Observer from 'vue-intersection-observer'
+// import Observer from 'vue-intersection-observer'
 export default {
-  components: {
-    Observer,
-  },
   props: {
     altText: {
       type: String,
@@ -60,13 +55,11 @@ export default {
     },
     landscapeBg: {
       type: String,
-      default:
-        'https://placehold.co/40x40/green/white?text=40x40+PLACEHOLDER-LANDSCAPE',
+      default: 'https://placehold.co/40x40/green/white?text=40x40+PLACEHOLDER-LANDSCAPE',
     },
     portraitBg: {
       type: String,
-      default:
-        'https://placehold.co/40x40/orange/white?text=40x40+PLACEHOLDER-PORTRAIT',
+      default: 'https://placehold.co/40x40/orange/white?text=40x40+PLACEHOLDER-PORTRAIT',
     },
     landscapeImgs: {
       type: Object,
@@ -102,18 +95,18 @@ export default {
   data() {
     return {
       isPortrait: null,
-      showing: false,
+      showing: true,
     }
   },
   methods: {
-    onChange(entry, unobserve) {
-      let vm = this
-      // After loading Cancel monitoring, optimise performance
-      if (entry.isIntersecting) {
-        unobserve()
-        vm.showing = true
-      }
-    },
+    // onChange(entry, unobserve) {
+    //   let vm = this
+    //   // After loading Cancel monitoring, optimise performance
+    //   if (entry.isIntersecting) {
+    //     unobserve()
+    //     vm.showing = true
+    //   }
+    // },
   },
   created() {
     if (process.client) {
