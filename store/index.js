@@ -121,12 +121,12 @@ export const getters = {
   },
   s2Stream: (state) => {
     if (state.stationMeta?.stream_data) {
-      if (!state.stationMeta2.stream_data.s1.url) {
-        return 'https://aajamusic.out.airtime.pro/aajamusic_b'
+      if (!state.stationMeta2.stream_data.s2.url) {
+        return 'https://aaja2.out.airtime.pro/aaja2_a'
       }
       return state.stationMeta2.stream_data.s2.url
     } else {
-      return 'https://aajamusic.out.airtime.pro/aajamusic_b'
+      return 'https://aaja2.out.airtime.pro/aaja2_a'
     }
   },
 }
