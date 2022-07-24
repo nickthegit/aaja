@@ -1,6 +1,8 @@
 <template>
   <article class="archive">
-    <aaja-container>
+    <p v-if="$fetchState.pending">Fetching Aechive...</p>
+    <p v-else-if="$fetchState.error">An error occurred getting archive data</p>
+    <aaja-container v-else>
       <section class="archive-title-bar title-bar">
         <h2>
           Archive<span><Logo /></span>
@@ -46,37 +48,54 @@
 </template>
 
 <script>
+import { residentAllQuery } from '~/utils/queries.js'
 import Logo from '~/assets/img/icons/logo.svg?inline'
 export default {
   components: {
     Logo,
   },
+  async fetch() {
+    this.data = await this.$sanity.fetch(residentAllQuery)
+  },
+
   data() {
     return {
+      data: null,
+      residentsLetters: [
+        '#',
+        'A',
+        'B',
+        'C',
+        'D',
+        'E',
+        'F',
+        'G',
+        'H',
+        'I',
+        'J',
+        'K',
+        'L',
+        'M',
+        'N',
+        'O',
+        'P',
+        'Q',
+        'R',
+        'S',
+        'T',
+        'U',
+        'V',
+        'W',
+        'X',
+        'Y',
+        'Z',
+      ],
       letterSelected: 'A',
     }
   },
   computed: {
-    // residentsLetters() {
-    //   return this.$store.getters['archive/residentsLetters']
-    // },
-    hasDigits() {
-      const residentsLetters = this.$store.getters['archive/residentsLetters']
-      const hasDigits = residentsLetters.filter((i) => +i === +i)
-      return hasDigits
-    },
-    residentsLetters() {
-      const residentsLetters = this.$store.getters['archive/residentsLetters']
-      if (this.hasDigits.length > 0) {
-        const removeNumbers = residentsLetters.filter((i) => +i != +i)
-        removeNumbers.unshift('#')
-        return removeNumbers
-      } else {
-        return residentsLetters
-      }
-    },
     residents() {
-      const residents = this.$store.state.archive.residentsReq
+      const residents = this.data
       if (this.letterSelected === '&num;' || this.letterSelected === '#') {
         return residents.filter((resident) => +resident.name.charAt(0) === +resident.name.charAt(0))
       } else {
@@ -98,14 +117,6 @@ export default {
       if (value.length < 114) return value
       return value.slice(0, 118) + '...'
     },
-  },
-  async created() {
-    await this.$store.dispatch('archive/fetchResidents')
-  },
-  mounted() {
-    // console.log('STORREEEYYY', this.$store.getters['archive/residentsLetters'])
-    // console.log('residents', this.residents)
-    // console.log('TEST', this.residentsLetters)
   },
 }
 </script>

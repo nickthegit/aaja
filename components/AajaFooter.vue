@@ -1,6 +1,9 @@
 <template>
   <footer>
-    <aaja-container class="footer__container">
+    <p v-if="$fetchState.pending">Fetching footer...</p>
+    <p v-else-if="$fetchState.error">An error occurred getting footer data</p>
+
+    <aaja-container v-else class="footer__container">
       <section class="footer__logo">
         <logo />
       </section>
@@ -101,6 +104,9 @@ export default {
     navClose() {
       this.$store.dispatch('setNavPayload', false)
     },
+  },
+  created() {
+    // this.fetch()
   },
   mounted() {
     // console.log('FOOTER QUERY: ', this.data[0])

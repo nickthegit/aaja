@@ -1,22 +1,10 @@
-// import { createSEOMeta } from './utils/seo'
-const query = `*[_type == "resident"] | order(name asc) {
-  "slug": slug.current,
-}`
-const sanityClient = require('@sanity/client')
-const client = sanityClient({
-  projectId: process.env.SANITY_ID,
-  dataset: process.env.SANITY_DATASET,
-  apiVersion: '2021-08-18',
-  useCdn: process.env.SANITY_CDN,
-})
-
 export default {
   ssr: false,
   /*
    ** Nuxt target
    ** See https://nuxtjs.org/api/configuration-target
    */
-  target: 'server', // also could ber server
+  target: 'static', // also could ber server
   /*
    ** Headers of the page
    ** See https://nuxtjs.org/api/configuration-head
@@ -40,9 +28,9 @@ export default {
       { rel: 'preload', href: 'https://aaja2.out.airtime.pro/aaja2_b', as: 'audio' },
     ],
   },
-  router: {
-    mode: 'hash',
-  },
+  // router: {
+  //   mode: 'hash',
+  // },
   /*
    ** Global CSS
    */
@@ -140,14 +128,15 @@ export default {
   },
   generate: {
     fallback: true,
-    interval: 5000,
-    routes() {
-      return client.fetch(query).then((residents) => {
-        return residents.map((resident) => {
-          return '/residents/' + resident.slug
-        })
-      })
-    },
+    interval: 500,
+    exclude: ['/residents/**'],
+    // routes() {
+    //   return client.fetch(query).then((residents) => {
+    //     return residents.map((resident) => {
+    //       return '/residents/' + resident.slug
+    //     })
+    //   })
+    // },
   },
   /*
    ** Build configuration
