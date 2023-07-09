@@ -3,6 +3,7 @@
     <AajaHeader />
     <AajaMenu />
     <Nuxt />
+    <AajaButtonPopup />
     <AajaFooter />
     <!-- <main-footer /> -->
   </div>
