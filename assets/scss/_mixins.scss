@@ -29,3 +29,29 @@
         @content;
     }
 }
+
+@keyframes shake {
+  0% {
+    transform: translateX(0)
+  }
+  1% {
+    transform: translateX(-4px)
+  }
+  2% {
+    transform: translateX(0)
+  }
+  3% {
+    transform: translateX(4px)
+  }
+  4% {
+    transform: translateX(0)
+  }
+  100% {
+    transform: translateX(0)
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
