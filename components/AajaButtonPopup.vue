@@ -29,7 +29,7 @@ export default {
 .button-popup {
     display: block;
     position: fixed;
-    z-index: 1;
+    z-index: 2147483647;
     width: auto;
     height: auto;
 
