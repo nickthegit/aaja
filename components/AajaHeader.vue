@@ -153,7 +153,7 @@ svg {
 }
 #menu {
   font-size: 30px;
-  font-family: 'FK Screamer Trial';
+  font-family: 'FK Screamer';
   height: 30px;
   color: var(--headerColor);
   padding: 0;

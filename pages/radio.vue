@@ -1334,6 +1334,9 @@ export default {
   }
 }
 .radio__heading {
+  p {
+    margin-top: 20px;
+  }
   @include breakpoint(mobile) {
     grid-row: 1 / 2;
     grid-column: 1 / 3;

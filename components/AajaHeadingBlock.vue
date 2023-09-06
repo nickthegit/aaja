@@ -45,7 +45,7 @@ div {
     font-size: var(--h1Size);
     text-transform: uppercase;
     line-height: calc(var(--h1Size) - 10%);
-    font-family: 'FK Screamer Trial';
+    font-family: 'FK Screamer';
     margin-bottom: 0;
     &:nth-last-child(2) {
       width: auto;
