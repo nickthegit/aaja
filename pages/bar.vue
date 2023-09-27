@@ -115,11 +115,11 @@ export default {
     &-img {
       width: 100%;
       height: 100vh;
-      position: relative;
+      position: absolute;
       z-index: 1;
     }
     &-container {
-      position: absolute;
+      position: relative;
       top: 0;
       left: 0;
       z-index: 2;
@@ -127,7 +127,7 @@ export default {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      padding-top: 80px;
+      padding-top: var(--headerHeight);
       padding-bottom: 40px;
     }
 

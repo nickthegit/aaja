@@ -62,9 +62,7 @@ header {
   grid-template: var(--headerHeight) / auto 1fr auto auto;
   align-items: center;
   color: var(--headerColor);
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: relative;
   z-index: 999;
   @include breakpoint(mobile) {
   }

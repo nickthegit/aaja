@@ -46,9 +46,9 @@ main {
     background-position: 100% 15px;
     padding-bottom: var(--globalPadding);
   }
-  @include breakpoint(mobile) {
-    margin-top: 40px;
-  }
+  // @include breakpoint(mobile) {
+  //   margin-top: 90px;
+  // }
 }
 p,
 h2 {
