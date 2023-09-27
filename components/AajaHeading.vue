@@ -31,7 +31,7 @@ div {
         font-size: var(--h1Size);
         text-transform: uppercase;
         line-height: calc(var(--h1Size) - 10%);
-        font-family: 'FK Screamer Trial';
+        font-family: 'FK Screamer';
       }
     }
   }

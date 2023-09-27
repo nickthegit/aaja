@@ -215,7 +215,7 @@ ul {
     align-items: center;
     justify-content: flex-start;
     width: 100%;
-    font-family: FK Screamer Trial;
+    font-family: FK Screamer;
     font-style: normal;
     font-weight: bold;
     font-size: 32px;

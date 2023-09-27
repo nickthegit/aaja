@@ -146,7 +146,7 @@ main {
 }
 #home-logo {
   width: 20%;
-  margin-top: 10px;
+  margin-top: 25px;
   @include breakpoint(tablet) {
     width: 25%;
   }
@@ -196,7 +196,7 @@ img {
     text-align: center;
     padding: 0 20px;
     time {
-      font-family: 'FK Screamer Trial';
+      font-family: 'FK Screamer';
       font-size: var(--h5Size);
       display: block;
       margin-bottom: 15px;

@@ -7,9 +7,9 @@
 // }
 
 @font-face {
-  font-family: 'FK Screamer Trial';
-  src: url('~/assets/fonts/FKScreamerTrial-Bold.woff2') format('woff2'),
-    url('~/assets/fonts/FKScreamerTrial-Bold.woff') format('woff');
+  font-family: 'FK Screamer';
+  src: url('~/assets/fonts/FKScreamer-Upright.woff2') format('woff2'),
+    url('~/assets/fonts/FKScreamer-Upright.woff') format('woff');
   font-weight: bold;
   font-style: normal;
   font-display: block;
@@ -41,7 +41,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'FK Screamer Trial';
+  font-family: 'FK Screamer';
 }
 
 h1 {
