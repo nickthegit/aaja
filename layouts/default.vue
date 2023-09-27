@@ -3,7 +3,8 @@
     <AajaHeader />
     <AajaMenu />
     <Nuxt />
-    <AajaButtonPopup />
+    <!-- TODO: link this to the CRM for temporary events -->
+    <!-- <AajaButtonPopup /> -->
     <AajaFooter />
     <!-- <main-footer /> -->
   </div>
