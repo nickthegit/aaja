@@ -113,6 +113,7 @@ export default () =>
             'homePage',
             'radioPage',
             'barPage',
+            'festivalPage',
             'labelPage',
             'channel2Page',
             'contactPage',
