@@ -1,11 +1,11 @@
 import S from '@sanity/desk-tool/structure-builder'
 
-import { MdContactPhone } from 'react-icons/md'
 import { CgWebsite, CgRecord } from 'react-icons/cg'
 import { FiSettings, FiRadio } from 'react-icons/fi'
 import { BiDrink } from 'react-icons/bi'
 import { GrChannel } from 'react-icons/gr'
 import { RiContactsLine, RiHome4Line } from 'react-icons/ri'
+import { GiPartyPopper } from 'react-icons/gi'
 
 export default () =>
   S.list()
@@ -60,6 +60,16 @@ export default () =>
                     .id('barPage')
                     .schemaType('barPage')
                     .documentId('barPage')
+                ),
+              S.listItem()
+                .title('Festival Page')
+                .icon(GiPartyPopper)
+                .child(
+                  S.editor()
+                    .title('Festival Page')
+                    .id('festivalPage')
+                    .schemaType('festivalPage')
+                    .documentId('festivalPage')
                 ),
               S.listItem()
                 .title('Label Page')
