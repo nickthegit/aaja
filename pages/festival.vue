@@ -2,8 +2,9 @@
   <main>
     <section class="festival__hero">
       <section class="festival__hero-img">
-        <aaja-hero-img altText="Aaja festival Hero image" :landscapeBg="heroImage.landscapeBlur"
-          :portraitBg="heroImage.portraitBlur" :landscapeImgs="heroImage.landscape" :portraitImgs="heroImage.portrait" />
+        <!-- <img :src="hero" altText="Aaja festival Hero image"> -->
+        <aaja-hero-img altText="Aaja festival Hero image" :landscapeBg="hero.landscapeBlur"
+          :portraitBg="hero.portraitBlur" :landscapeImgs="hero.landscape" :portraitImgs="hero.portrait" />
       </section>
       <aaja-container class="festival__hero-header">
         <aaja-heading-block>
@@ -27,7 +28,7 @@
           v-bind:useFrameFill="useFrameFill"
         >
         <div v-for="(image, index) in gallery" :key="image._key" :class="`item`">
-          <img class="test" :src="image.desktop['1200']">
+          <img :src="image.desktop['1200']">
         </div>
        </frame-grid>
       </aaja-container>
@@ -51,17 +52,16 @@ export default {
   components: { AajaContainer, AajaHeroImg, Logo, AajaImg, AajaHeading,FrameGrid },
   async asyncData({ $sanity }) {
     const festivalData = await $sanity.fetch(festivalPageQuery)
+
     return { festivalData: festivalData[0] }
   },
   data() {
     return {
       isMobile: false,
 
-      heroImage: cloudinaryHeroParser(
-        'https://cdn.sanity.io/images/ycpbe8x2/production/d5c60da420f671deaaf2ea796374a58bc26d1263-1440x1080.jpg'
-      ),
-      introText:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
+      // heroImage: cloudinaryHeroParser(
+      //   'https://cdn.sanity.io/images/ycpbe8x2/production/d5c60da420f671deaaf2ea796374a58bc26d1263-1440x1080.jpg'
+      // ),
       gap: 5,
       defaultDirection: "end",
       rectSize: 0,
@@ -75,7 +75,9 @@ export default {
   computed: {
 
     hero() {
-      console.log(this.festivalData.images)
+      const image = this.$urlForSquare(this.festivalData.festivalHero,false, false);
+      const parsedImage = cloudinaryHeroParser(image.desktop['1200']);
+      return parsedImage
     },
     gallery() {
       return this.festivalData.images.map((img) => {
@@ -183,16 +185,6 @@ export default {
     &-images {
       padding-top: var(--globalPadding);
     }
-
-    &-intro {
-      width: 100%;
-      max-width: 800px;
-      text-align: center;
-      grid-row: 1 / 2;
-      grid-column: 1 / 3;
-      padding-bottom: var(--globalPadding);
-    }
-
   }
 }
 

@@ -4,20 +4,20 @@ export default {
   type: 'document',
   fields: [
     {
+      title: 'Page Header',
       name: 'heading',
-      title: 'Page Heading',
       type: 'blockContentBare',
     },
     {
-      name: 'subHeading',
-      title: 'Festival page Sub header',
-      type: 'text',
-      rows: 4,
+      title: 'Page Header hero image',
+      name: 'festivalHero',
+      type: 'image'
     },
     {
-      name: 'festivalHero',
-      title: 'Festival header hero',
-      type: 'image',
+      title: 'Festival Images header',
+      name: 'subHeading',
+      type: 'text',
+      rows: 4,
     },
     {
       title: 'Images',
