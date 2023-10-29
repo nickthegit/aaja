@@ -79,7 +79,6 @@ export default {
     },
     gallery() {
       return this.festivalData.images.map((img) => {
-        console.log(this.$urlForSquare(img, false, true))
         return { ...this.$urlForSquare(img, false, true), _key: img._key }
       })
     },
