@@ -80,6 +80,12 @@ export default {
           _id: '77126813159547019',
         },
         {
+          name: 'Festival',
+          slug: 'festival',
+          external_link: null,
+          _id: '1489651315',
+        },
+        {
           name: 'Shop',
           slug: 'shop',
           external_link: 'https://aajamusic.myshopify.com/collections/all',
