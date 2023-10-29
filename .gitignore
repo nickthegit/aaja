@@ -93,3 +93,6 @@ sw.*
 /cms/production-export-2021-07-30t15-40-08-143z/*
 # Layer0 generated build directory
 .layer0
+
+# TODO: temporary fix as it currently breaks CI
+.yarn.lock

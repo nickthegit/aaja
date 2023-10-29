@@ -28,16 +28,25 @@
           v-bind:useFrameFill="useFrameFill"
         >
         <div v-for="(image, index) in gallery" :key="image._key" :class="`item`">
-          <img :src="image.desktop['1200']">
+          <img :src="image.desktop['1800']" @click="showMultiple(gallery, index)">
         </div>
        </frame-grid>
+        <vue-easy-lightbox
+          :visible="visibleRef"
+          :imgs="imgsRef"
+          :index="indexRef"
+          @hide="onHide"
+        />
       </aaja-container>
     </article>
   </main>
 </template>
 
 <script>
+import {ref} from 'vue';
 import { FrameGrid } from "@egjs/vue-grid";
+import VueEasyLightbox, { useEasyLightbox }  from 'vue-easy-lightbox/dist/vue-easy-lightbox.esm.min.js'
+// import 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.css'
 
 import { cloudinaryHeroParser } from '~/utils/images'
 import { festivalPageQuery } from '~/utils/queries.js'
@@ -49,7 +58,7 @@ import AajaHeading from '~/components/AajaHeading.vue'
 
 
 export default {
-  components: { AajaContainer, AajaHeroImg, Logo, AajaImg, AajaHeading,FrameGrid },
+  components: { AajaContainer, AajaHeroImg, Logo, AajaImg, AajaHeading,FrameGrid, VueEasyLightbox },
   async asyncData({ $sanity }) {
     const festivalData = await $sanity.fetch(festivalPageQuery)
 
@@ -72,8 +81,29 @@ export default {
       mobileGrid: [[1,1,2,2], [1,1,2,2]]
     }
   },
-  computed: {
+  setup() {
+    const visibleRef = ref(false)
+    const indexRef = ref(0);
+    const imgsRef = ref([])
 
+    const showMultiple = (images, index) => {
+      imgsRef.value = images.map(image=> image.desktop['1800']);
+      indexRef.value = index;
+      onShow();
+    }
+    const onHide = () => visibleRef.value = false;
+    const onShow = () => visibleRef.value = true;
+
+    return {
+      visibleRef,
+      indexRef,
+      imgsRef,
+      // showSingle,
+      showMultiple,
+      onHide
+    }
+  },
+  computed: {
     hero() {
       const image = this.$urlForSquare(this.festivalData.festivalHero,false, false);
       const parsedImage = cloudinaryHeroParser(image.desktop['1200']);
@@ -81,7 +111,8 @@ export default {
     },
     gallery() {
       return this.festivalData.images.map((img) => {
-        return { ...this.$urlForSquare(img, false, true), _key: img._key }
+        const parsedImage = this.$urlForSquare(img, false, true)
+        return { ...parsedImage, _key: img._key }
       })
     },
   },
@@ -184,12 +215,15 @@ export default {
 
     &-images {
       padding-top: var(--globalPadding);
+      .grid-container .item img {
+        height:100%;
+        width: 100%;
+      }
+      .vel-img-modal.vel-img-modal {
+        background: rgba(0,0,0,0.95);
+      }
     }
   }
 }
 
-.grid-container .item img {
-  height:100%;
-  width: 100%;
- }
 </style>
