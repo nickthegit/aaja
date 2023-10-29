@@ -10,9 +10,14 @@ export default {
     },
     {
       name: 'subHeading',
-      title: 'Festival page Sub Heading',
+      title: 'Festival page Sub header',
       type: 'text',
       rows: 4,
+    },
+    {
+      name: 'festivalHero',
+      title: 'Festival header hero',
+      type: 'image',
     },
     {
       title: 'Images',

@@ -7,24 +7,14 @@
       <nav @click.stop>
         <ul id="navMenu">
           <li v-for="link in links" :key="link._id" @click="navClose">
-            <a
-              v-if="link.external_link"
-              :href="link.external_link"
-              target="_blank"
-              rel="noopener noreferrer"
-              >{{ link.name }}</a
-            >
+            <a v-if="link.external_link" :href="link.external_link" target="_blank" rel="noopener noreferrer">{{ link.name
+            }}</a>
             <nuxt-link v-else :to="`/${link.slug}`">{{ link.name }}</nuxt-link>
           </li>
         </ul>
         <ul id="navSocials">
           <li v-for="social in getSocials" :key="social._id" :class="social.icon.slug">
-            <a
-              :href="social.link"
-              target="_blank"
-              rel="noopener noreferrer"
-              v-html="social.icon.svg"
-            ></a>
+            <a :href="social.link" target="_blank" rel="noopener noreferrer" v-html="social.icon.svg"></a>
           </li>
         </ul>
       </nav>
@@ -85,12 +75,6 @@ export default {
           external_link: null,
           _id: '62743512',
         },
-        // {
-        //   name: 'Channel 2',
-        //   slug: 'channel-2',
-        //   external_link: null,
-        //   _id: '14896539',
-        // },
         {
           name: 'Bar',
           slug: 'bar',
@@ -102,6 +86,12 @@ export default {
           slug: 'label',
           external_link: null,
           _id: '59547019',
+        },
+        {
+          name: 'Festival',
+          slug: 'festival',
+          external_link: null,
+          _id: '148965131',
         },
         {
           name: 'Shop',
@@ -145,7 +135,7 @@ export default {
         })
     },
   },
-  mounted() {},
+  mounted() { },
   head() {
     return {
       bodyAttrs: {
@@ -165,10 +155,12 @@ aside {
   position: fixed;
   z-index: 999999;
 }
+
 svg {
   width: 100%;
   fill: var(--headerColor);
 }
+
 #closeMenu {
   width: 40px;
   height: 40px;
@@ -178,10 +170,12 @@ svg {
   top: 20px;
   z-index: 2;
   border: none;
+
   &:hover {
     opacity: 0.7;
   }
 }
+
 nav {
   width: 100%;
   height: 100%;
@@ -194,21 +188,25 @@ nav {
   display: flex;
   flex-direction: column;
   justify-content: center;
+
   @include breakpoint(mobile) {
     padding-left: 20px;
   }
 }
+
 ul {
   width: 100%;
   position: relative;
   z-index: 1;
 }
+
 #navMenu {
   li {
     width: 100%;
     overflow: hidden;
     border-bottom: 1px solid var(--white);
   }
+
   a {
     height: 75px;
     display: flex;
@@ -222,33 +220,40 @@ ul {
     text-transform: uppercase;
     color: var(--white);
     text-decoration: none;
+
     &:hover,
     &.nuxt-link-active,
     &:active,
     &:focus {
       opacity: 0.7;
     }
+
     @include breakpoint(mobile) {
       height: 56px;
       font-size: 24px;
     }
   }
 }
+
 #navSocials {
   display: flex;
   align-items: center;
   gap: 20px;
   flex-gap: 20px;
   margin-top: 40px;
+
   li {
     width: 30px;
+
     &.mixcloud {
       width: 60px;
     }
+
     &.soundcloud {
       width: 40px;
     }
   }
+
   a {
     width: 100%;
     display: block;

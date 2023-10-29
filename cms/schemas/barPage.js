@@ -37,6 +37,7 @@ export default {
           type: 'image',
           options: {
             hotspot: true, // <-- Defaults to false
+            storeOriginalFilename: true,
           },
           fields: [
             {
