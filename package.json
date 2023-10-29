@@ -9,6 +9,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@egjs/vue-grid": "^1.14.2",
     "@nuxt/core": "^2.15.4",
     "@nuxtjs/pwa": "^3.3.5",
     "@nuxtjs/redirect-module": "^0.3.1",

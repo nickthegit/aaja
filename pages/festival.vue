@@ -17,56 +17,59 @@
           <p>{{ festivalData.subHeading }}</p>
         </div>
       </aaja-container>
-      <aaja-container class="festival__content">
-        <aaja-img v-for="(image, index) in gallery" :key="image._key" :class="`festival__content-img-${index + 1}`"
-          altText="Creekside Festival" :desktopBg="image.desktopBlur" :mobileBg="image.mobileBlur"
-          :desktopImgs="image.desktop" :mobileImgs="image.mobile" :ratio="index === 0 ? [31, 15] : [4, 3]"
-          :ratioMobile="[111, 80]" :percentageOfViewportWidth="index != 0 ? 50 : 100" />
+      <aaja-container class="festival__content-images">
+        <frame-grid
+          class="grid-container container "
+          v-bind:gap="gap"
+          v-bind:defaultDirection="defaultDirection"
+          v-bind:frame="isMobile ? mobileGrid : desktopGrid"
+          v-bind:rectSize="rectSize"
+          v-bind:useFrameFill="useFrameFill"
+        >
+        <div v-for="(image, index) in gallery" :key="image._key" :class="`item`">
+          <img class="test" :src="image.desktop['1200']">
+        </div>
+       </frame-grid>
       </aaja-container>
     </article>
   </main>
 </template>
 
 <script>
-import { cloudinaryHeroParser, cloudinaryImgParser } from '~/utils/images'
+import { FrameGrid } from "@egjs/vue-grid";
 
+import { cloudinaryHeroParser } from '~/utils/images'
 import { festivalPageQuery } from '~/utils/queries.js'
-
 import AajaContainer from '~/components/AajaContainer.vue'
 import AajaHeroImg from '~/components/AajaHeroImg.vue'
 import Logo from '~/assets/img/icons/logo.svg?inline'
 import AajaImg from '~/components/AajaImg.vue'
 import AajaHeading from '~/components/AajaHeading.vue'
 
+
 export default {
-  components: { AajaContainer, AajaHeroImg, Logo, AajaImg, AajaHeading },
+  components: { AajaContainer, AajaHeroImg, Logo, AajaImg, AajaHeading,FrameGrid },
   async asyncData({ $sanity }) {
     const festivalData = await $sanity.fetch(festivalPageQuery)
-    console.log(festivalData[0].images)
     return { festivalData: festivalData[0] }
   },
   data() {
     return {
+      isMobile: false,
+
       heroImage: cloudinaryHeroParser(
         'https://cdn.sanity.io/images/ycpbe8x2/production/d5c60da420f671deaaf2ea796374a58bc26d1263-1440x1080.jpg'
       ),
       introText:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
-      img1: cloudinaryImgParser(
-        'https://res.cloudinary.com/nickjohn/image/upload/v1620501076/Aaja/bar_view1.jpg',
-        '31:15',
-        '111:80'
-      ),
-      img2: cloudinaryImgParser(
-        'https://res.cloudinary.com/nickjohn/image/upload/v1620501056/Aaja/bar_view2.jpg',
-        '4:3',
-        '111:80'
-      ),
-      img3: cloudinaryImgParser(
-        'https://res.cloudinary.com/nickjohn/image/upload/v1620501038/Aaja/on_air.jpg',
-        '4:3',
-        '111:80'
-      ),
+      gap: 5,
+      defaultDirection: "end",
+      rectSize: 0,
+      useFrameFill: true,
+      autoResize: true,
+      useRoundedSize	: true,
+      desktopGrid:  [[1, 1, 2, 3], [1, 1, 4, 5], [6, 7, 8, 8], [9, 10, 8, 8]],
+      mobileGrid: [[1,1,2,2], [1,1,2,2]]
     }
   },
   computed: {
@@ -76,12 +79,32 @@ export default {
     },
     gallery() {
       return this.festivalData.images.map((img) => {
-        return { ...this.$urlForSquare(img, false, false), _key: img._key }
+        console.log(this.$urlForSquare(img, false, true))
+        return { ...this.$urlForSquare(img, false, true), _key: img._key }
       })
     },
   },
+  created() {
+    if (process.client) {
+      let vm = this
+      const mediaQuery = window.matchMedia('(max-width: 480px)')
+      function handleTabletChange(e) {
+        vm.isMobile = e.matches
+      }
+      mediaQuery.addListener(handleTabletChange)
+      handleTabletChange(mediaQuery)
+    }
+  },
   mounted() {
-    // console.log(this.gallery)
+    if (process.client) {
+      let vm = this
+      const mediaQuery = window.matchMedia('(max-width: 480px)')
+      function handleTabletChange(e) {
+        vm.isMobile = e.matches
+      }
+      mediaQuery.addListener(handleTabletChange)
+      handleTabletChange(mediaQuery)
+    }
   },
 }
 </script>
@@ -128,7 +151,6 @@ export default {
       .button-wrap {
         display: flex;
         gap: 20px;
-        flex-gap: 20px;
         margin-top: 30px;
       }
 
@@ -153,14 +175,14 @@ export default {
   }
 
   &content {
-    display: grid;
-    grid-template: auto auto auto / 50% 50%;
-    justify-items: center;
-    padding-top: var(--globalPadding);
-    padding-bottom: var(--globalPadding);
+    display: block;
 
     &-header {
-      padding-top: var(--globalPadding)
+      padding-top: var(--globalPadding);
+    }
+
+    &-images {
+      padding-top: var(--globalPadding);
     }
 
     &-intro {
@@ -172,53 +194,11 @@ export default {
       padding-bottom: var(--globalPadding);
     }
 
-    img {
-      width: 100%;
-    }
-
-    picture {
-      width: 100%;
-      position: relative;
-      box-sizing: border-box;
-    }
-
-    &-img-1 {
-      grid-row: 2 / 3;
-      grid-column: 1 / 3;
-      margin-bottom: calc(var(--globalPadding) / 2);
-    }
-
-    &-img-2,
-    &-img-3 {
-      grid-row: 3 / 4;
-      width: calc(100% - 20px);
-
-      @include breakpoint(mobile) {
-        width: 100%;
-        margin-bottom: calc(var(--globalPadding) / 2);
-      }
-    }
-
-    &-img-2 {
-      grid-column: 1 / 2;
-      margin-right: 20px;
-
-      @include breakpoint(mobile) {
-        margin-right: 0;
-        grid-column: 1 / 3;
-      }
-    }
-
-    &-img-3 {
-      grid-column: 2 / 3;
-      margin-left: 20px;
-
-      @include breakpoint(mobile) {
-        margin-left: 0;
-        grid-column: 1 / 3;
-        grid-row: 4 / 5;
-      }
-    }
   }
 }
+
+.grid-container .item img {
+  height:100%;
+  width: 100%;
+ }
 </style>
