@@ -19,33 +19,23 @@
         </div>
       </aaja-container>
       <aaja-container class="festival__content-images">
-        <frame-grid
-          class="grid-container container "
-          v-bind:gap="gap"
-          v-bind:defaultDirection="defaultDirection"
-          v-bind:frame="isMobile ? mobileGrid : desktopGrid"
-          v-bind:rectSize="rectSize"
-          v-bind:useFrameFill="useFrameFill"
-        >
-        <div v-for="(image, index) in gallery" :key="image._key" :class="`item`">
-          <img :src="image.desktop['1800']" @click="showMultiple(gallery, index)">
-        </div>
-       </frame-grid>
-        <vue-easy-lightbox
-          :visible="visibleRef"
-          :imgs="imgsRef"
-          :index="indexRef"
-          @hide="onHide"
-        />
+        <frame-grid class="grid-container container " v-bind:gap="gap" v-bind:defaultDirection="defaultDirection"
+          v-bind:frame="isMobile ? mobileGrid : desktopGrid" v-bind:rectSize="rectSize"
+          v-bind:useFrameFill="useFrameFill">
+          <div v-for="(image, index) in gallery" :key="image._key" :class="`item`">
+            <img :src="image.desktop['1800']" @click="showMultiple(gallery, index)">
+          </div>
+        </frame-grid>
+        <vue-easy-lightbox :visible="visibleRef" :imgs="imgsRef" :index="indexRef" @hide="onHide" />
       </aaja-container>
     </article>
   </main>
 </template>
 
 <script>
-import {ref} from 'vue';
+import { ref } from 'vue';
 import { FrameGrid } from "@egjs/vue-grid";
-import VueEasyLightbox, { useEasyLightbox }  from 'vue-easy-lightbox/dist/vue-easy-lightbox.esm.min.js'
+import VueEasyLightbox, { useEasyLightbox } from 'vue-easy-lightbox/dist/vue-easy-lightbox.esm.min.js'
 // import 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.css'
 
 import { cloudinaryHeroParser } from '~/utils/images'
@@ -58,7 +48,7 @@ import AajaHeading from '~/components/AajaHeading.vue'
 
 
 export default {
-  components: { AajaContainer, AajaHeroImg, Logo, AajaImg, AajaHeading,FrameGrid, VueEasyLightbox },
+  components: { AajaContainer, AajaHeroImg, Logo, AajaImg, AajaHeading, FrameGrid, VueEasyLightbox },
   async asyncData({ $sanity }) {
     const festivalData = await $sanity.fetch(festivalPageQuery)
 
@@ -76,9 +66,9 @@ export default {
       rectSize: 0,
       useFrameFill: true,
       autoResize: true,
-      useRoundedSize	: true,
-      desktopGrid:  [[1, 1, 2, 3], [1, 1, 4, 5], [6, 7, 8, 8], [9, 10, 8, 8]],
-      mobileGrid: [[1,1,2,2], [1,1,2,2]]
+      useRoundedSize: true,
+      desktopGrid: [[1, 1, 2, 3], [1, 1, 4, 5], [6, 7, 8, 8], [9, 10, 8, 8]],
+      mobileGrid: [[1, 1, 2, 2], [1, 1, 2, 2]]
     }
   },
   setup() {
@@ -87,7 +77,7 @@ export default {
     const imgsRef = ref([])
 
     const showMultiple = (images, index) => {
-      imgsRef.value = images.map(image=> image.desktop['1800']);
+      imgsRef.value = images.map(image => image.desktop['1800']);
       indexRef.value = index;
       onShow();
     }
@@ -105,12 +95,12 @@ export default {
   },
   computed: {
     hero() {
-      const image = this.$urlForSquare(this.festivalData.festivalHero,false, false);
+      const image = this.$urlForSquare(this.festivalData.festivalHero, false, false);
       const parsedImage = cloudinaryHeroParser(image.desktop['1200']);
       return parsedImage
     },
     gallery() {
-      return this.festivalData.images.map((img) => {
+      return this.festivalData.images?.map((img) => {
         const parsedImage = this.$urlForSquare(img, false, true)
         return { ...parsedImage, _key: img._key }
       })
@@ -215,15 +205,16 @@ export default {
 
     &-images {
       padding-top: var(--globalPadding);
+
       .grid-container .item img {
-        height:100%;
+        height: 100%;
         width: 100%;
       }
+
       .vel-img-modal.vel-img-modal {
-        background: rgba(0,0,0,0.95);
+        background: rgba(0, 0, 0, 0.95);
       }
     }
   }
 }
-
 </style>
