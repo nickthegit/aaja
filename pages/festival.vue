@@ -35,8 +35,7 @@
 <script>
 import { ref } from 'vue';
 import { FrameGrid } from "@egjs/vue-grid";
-import VueEasyLightbox, { useEasyLightbox } from 'vue-easy-lightbox/dist/vue-easy-lightbox.esm.min.js'
-// import 'vue-easy-lightbox/dist/external-css/vue-easy-lightbox.css'
+import VueEasyLightbox from 'vue-easy-lightbox/dist/vue-easy-lightbox.esm.min.js'
 
 import { cloudinaryHeroParser } from '~/utils/images'
 import { festivalPageQuery } from '~/utils/queries.js'
