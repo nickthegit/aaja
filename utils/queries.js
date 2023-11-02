@@ -8,7 +8,7 @@ export const headerQuery = `*[_type == "siteSettings"][0] {
   	},
     {
     	"icon": "Instagram",
-      "slug": 'instagram', 
+      "slug": 'instagram',
 			"link": coalesce(instagram, false),
       "_id" : _rev + 'instagram'
   	},
@@ -20,16 +20,16 @@ export const headerQuery = `*[_type == "siteSettings"][0] {
   	},
     {
     	"icon": "Twitter",
-      "slug": 'twitter', 
+      "slug": 'twitter',
 			"link": coalesce(twitter, false),
       "_id" : _rev + 'twitter'
   	},
     {
     	"name": "Soundcloud",
-      "slug": 'soundcloud',      
+      "slug": 'soundcloud',
 			"link": coalesce(soundcloud, false),
       "_id" : _rev + 'soundcloud'
-  	}  
+  	}
   ],
 }`
 
@@ -61,7 +61,7 @@ export const footerQuery = `*[_type == "siteSettings"] {
     	"name": "Soundcloud",
 			"link": coalesce(soundcloud, false),
       "_id" : _rev + 'soundcloud'
-  	}  
+  	}
   ],
 }`
 
@@ -88,6 +88,14 @@ export const barPageQuery = `*[_type == "barPage"] {
   "menu": menu.asset->url,
   opening
 }`
+
+export const festivalPageQuery = `*[_type == "festivalPage"] {
+  "heading": coalesce(heading, "Creekside Festival!", false),
+  subHeading,
+  festivalHero,
+  images
+}`
+
 
 export const labelPageQuery = `*[_type == "labelPage"] {
   "heading": coalesce(heading, "Aaja Bar", false),
@@ -132,28 +140,28 @@ export const residentSlugPageQuery = (
   	},
     {
     	"icon": "Instagram",
-      "slug": 'instagram',      
+      "slug": 'instagram',
 			"link": coalesce(socials.instagram, false),
       "_id" : _id + 'instagram'
   	},
     {
     	"icon": "Mixcloud",
-      "slug": 'mixcloud',      
+      "slug": 'mixcloud',
 			"link": coalesce(mixcloud_url, false),
       "_id" : _id + 'mixcloud'
   	},
     {
     	"icon": "Twitter",
-      "slug": 'twitter',      
+      "slug": 'twitter',
 			"link": coalesce(socials.twitter, false),
       "_id" : _id + 'twitter'
   	},
     {
     	"name": "Soundcloud",
-      "slug": 'soundcloud',      
+      "slug": 'soundcloud',
 			"link": coalesce(soundcloud_url, false),
       "_id" : _rev + 'soundcloud'
-  	}  
+  	}
   ]
 }`
 

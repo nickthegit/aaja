@@ -29,6 +29,7 @@ div {
   span {
     display: inline-block;
     width: 5vw;
+    margin-top: auto;
     margin-left: 2%;
     align-self: flex-start;
     svg {

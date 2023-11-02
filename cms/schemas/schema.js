@@ -12,6 +12,7 @@ import ep from './ep'
 import homePage from './homePage'
 import radioPage from './radioPage'
 import barPage from './barPage'
+import festivalPage from './festivalPage'
 import labelPage from './labelPage'
 import channel2Page from './channel2Page'
 import contactPage from './contactPage'
@@ -31,6 +32,7 @@ export default createSchema({
     homePage,
     radioPage,
     barPage,
+    festivalPage,
     labelPage,
     channel2Page,
     contactPage,

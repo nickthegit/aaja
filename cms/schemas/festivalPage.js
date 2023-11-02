@@ -1,35 +1,27 @@
 export default {
-  name: 'barPage',
-  title: 'Bar Page',
+  name: 'festivalPage',
+  title: 'Festival Page',
   type: 'document',
   fields: [
     {
+      title: 'Page Header',
       name: 'heading',
-      title: 'Page Heading',
       type: 'blockContentBare',
     },
     {
-      name: 'opening',
-      title: 'Opening Hours',
-      type: 'blockContent',
+      title: 'Page Header hero image',
+      name: 'festivalHero',
+      type: 'image'
     },
     {
-      name: 'booking',
-      title: 'Booking URL',
-      type: 'string',
-    },
-    {
-      name: 'menu',
-      title: 'Menu PDF',
-      type: 'file',
-    },
-    {
-      name: 'intro',
-      title: 'Intro Text',
+      title: 'Festival Images header',
+      name: 'subHeading',
       type: 'text',
+      rows: 4,
     },
     {
       title: 'Images',
+      description: 'Drag and drop images from folder to add several at once.',
       name: 'images',
       type: 'array',
       of: [
@@ -37,7 +29,6 @@ export default {
           type: 'image',
           options: {
             hotspot: true, // <-- Defaults to false
-            storeOriginalFilename: true,
           },
           fields: [
             {
@@ -51,7 +42,7 @@ export default {
           ],
         },
       ],
-      validation: (Rule) => Rule.min(3).max(3),
+      // validation: (Rule) => Rule.min(3).max(3),
     },
   ],
 }
