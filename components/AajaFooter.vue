@@ -12,13 +12,8 @@
         <nav>
           <ul class="footer__navigate-menu footer-list">
             <li v-for="link in links" :key="link._id" @click="navClose">
-              <a
-                v-if="link.external_link"
-                :href="link.external_link"
-                target="_blank"
-                rel="noopener noreferrer"
-                >{{ link.name }}</a
-              >
+              <a v-if="link.external_link" :href="link.external_link" target="_blank" rel="noopener noreferrer">{{
+                link.name }}</a>
               <nuxt-link v-else :to="`/${link.slug}`">{{ link.name }}</nuxt-link>
             </li>
           </ul>
@@ -85,12 +80,12 @@ export default {
           external_link: null,
           _id: '1489651315',
         },
-        {
-          name: 'Shop',
-          slug: 'shop',
-          external_link: 'https://aajamusic.myshopify.com/collections/all',
-          _id: '20695671470082206',
-        },
+        // {
+        //   name: 'Shop',
+        //   slug: 'shop',
+        //   external_link: 'https://aajamusic.myshopify.com/collections/all',
+        //   _id: '20695671470082206',
+        // },
         {
           name: 'About',
           slug: 'about',
@@ -127,50 +122,62 @@ footer {
   background: var(--dark);
   color: var(--white);
 }
+
 .footer__container {
   width: 100%;
   height: auto;
   display: grid;
   grid-template: auto / 10% 30% 30% 30%;
+
   @include breakpoint(tablet) {
     grid-template: auto / 50% 50%;
   }
+
   @include breakpoint(mobile) {
     grid-template: auto / 100%;
   }
 }
+
 section {
   width: 100%;
   padding-right: 15%;
+
   @include breakpoint(tablet-mobile) {
     margin-bottom: 40px;
   }
 }
+
 .footer__logo {
   svg {
     width: 60%;
+
     @include breakpoint(tablet-mobile) {
       width: 20%;
     }
   }
 }
+
 .footer-list {
   width: 100%;
   display: grid;
   grid-template: auto auto / 1fr 1fr 1fr;
 }
+
 p {
   margin-bottom: 15px;
+
   strong {
     font-weight: 600;
   }
 }
+
 a {
   color: var(--white);
   text-decoration: none;
   display: block;
   margin-bottom: 15px;
   padding-right: 5px;
+
   &:hover {
     opacity: 0.7;
   }
@@ -179,5 +186,4 @@ a {
 svg {
   width: 100%;
   fill: var(--white);
-}
-</style>
+}</style>

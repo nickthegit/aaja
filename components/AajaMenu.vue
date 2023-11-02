@@ -93,12 +93,12 @@ export default {
           external_link: null,
           _id: '148965131',
         },
-        {
-          name: 'Shop',
-          slug: 'shop',
-          external_link: 'https://aajamusic.myshopify.com/collections/all',
-          _id: '70082206',
-        },
+        // {
+        //   name: 'Shop',
+        //   slug: 'shop',
+        //   external_link: 'https://aajamusic.myshopify.com/collections/all',
+        //   _id: '70082206',
+        // },
         {
           name: 'About',
           slug: 'about',
