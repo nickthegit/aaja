@@ -16,3 +16,6 @@ Now you can do the following things:
 ```cd cms```
 ```npm run build```
 ```npm run start```
+
+### DEPLOY TO PROD
+```sanity deploy```
