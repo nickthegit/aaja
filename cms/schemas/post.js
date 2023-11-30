@@ -10,7 +10,7 @@ export default {
     },
     {
       name: 'slug',
-      title: 'Slug',
+      title: 'Slug (url name, i.e. /live-events/xav-on-a-bike)',
       type: 'slug',
       options: {
         source: 'title',

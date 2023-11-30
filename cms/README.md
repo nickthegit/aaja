@@ -10,7 +10,6 @@ Now you can do the following things:
 - [Join the community Slack](https://slack.sanity.io/?utm_source=readme)
 - [Extend and build plugins](https://www.sanity.io/docs/content-studio/extending?utm_source=readme)
 
-
 ### GETTING STARTED
 
 ```cd cms```
@@ -19,3 +18,8 @@ Now you can do the following things:
 
 ### DEPLOY TO PROD
 ```sanity deploy```
+
+### TIPS
+
+Component types and API is there:
+https://www.sanity.io/docs/schema-types

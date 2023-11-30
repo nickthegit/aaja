@@ -82,14 +82,14 @@ export default () =>
                     .documentId('labelPage')
                 ),
               S.listItem()
-                .title('Channel 2 Page')
+                .title('Live Events Landing Page')
                 .icon(GrChannel)
                 .child(
                   S.editor()
-                    .title('Channel 2 Page')
-                    .id('channel2Page')
-                    .schemaType('channel2Page')
-                    .documentId('channel2Page')
+                    .title('Live Events Landing Page')
+                    .id('liveEventsLandingPage')
+                    .schemaType('liveEventsLandingPage')
+                    .documentId('liveEventsLandingPage')
                 ),
               S.listItem()
                 .title('Contact Page')
@@ -115,7 +115,7 @@ export default () =>
             'barPage',
             'festivalPage',
             'labelPage',
-            'channel2Page',
+            'liveEventsLandingPage',
             'contactPage',
           ].includes(listItem.getId())
       ),

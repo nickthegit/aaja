@@ -23,3 +23,7 @@ change root file ```Sampleenv``` to ```.env```
     npm run build
 
     npm run start
+
+### Misc
+
+Vue cheatsheet: https://github.com/murraco/vue-cheatsheet

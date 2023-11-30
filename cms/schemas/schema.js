@@ -14,9 +14,10 @@ import radioPage from './radioPage'
 import barPage from './barPage'
 import festivalPage from './festivalPage'
 import labelPage from './labelPage'
-import channel2Page from './channel2Page'
+import liveEventsLandingPage from './liveEventsLandingPage'
 import contactPage from './contactPage'
 import siteSettings from './siteSettings'
+import liveEvents from './liveEvents'
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -34,12 +35,13 @@ export default createSchema({
     barPage,
     festivalPage,
     labelPage,
-    channel2Page,
     contactPage,
     siteSettings,
     // When added to this list, object types can be used as
     // { type: 'typename' } in other document schemas
     blockContent,
     blockContentBare,
+    liveEvents,
+    liveEventsLandingPage,
   ]),
 })
