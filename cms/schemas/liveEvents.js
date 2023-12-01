@@ -12,8 +12,14 @@ export default {
       type: 'string',
     },
     {
-      name: 'eventDateTime',
+      name: 'eventDate',
       title: 'Event Date',
+      type: 'date',
+    },
+    {
+      name: 'eventDateTime',
+      title: 'Event Date & time',
+      description: 'NOTE: fill in this one if you have a confirmed time for the event, otherwise just use the date one above. Both are optional.',
       type: 'datetime',
     },
     {
