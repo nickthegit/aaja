@@ -1,7 +1,7 @@
 import { RiCalendarTodoFill } from "react-icons/ri";
 
 export default {
-  name: 'live-events',
+  name: 'liveEvents',
   title: 'Live Events',
   icon: RiCalendarTodoFill,
   type: 'document',
