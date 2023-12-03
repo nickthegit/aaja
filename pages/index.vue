@@ -3,11 +3,11 @@
     <article class="home-hero">
       <div>
         <h1>
-          <nuxt-link to="radio">Radio Station</nuxt-link><br /><nuxt-link to="bar"> Bar</nuxt-link>
+          <nuxt-link to="radio"><span class="flicker-mid">R</span>adio St<span class="flicker-slow">at</span>io<span class="flicker-fast">n</span></nuxt-link><br /><nuxt-link to="bar"> B<span class="flicker-slow">a</span>r</nuxt-link>&nbsp;
 
-          <nuxt-link to="label">Record Label</nuxt-link>
+          <nuxt-link to="label" class="flicker-slow"><span  class="flicker-fast">R</span>ecord La<span class="flicker-mid">be</span>l</nuxt-link>
           <br>and
-          <nuxt-link to="festival">Festival</nuxt-link>
+          <nuxt-link to="festival" >F<span class="flicker-mid">est</span>ival</nuxt-link>
         </h1>
         <FullLogo id="home-logo" />
       </div>
@@ -60,6 +60,7 @@
 <script>
 import { homePageQuery } from '~/utils/queries.js'
 import FullLogo from '~/assets/img/icons/fullLogo.svg?inline'
+import '~/assets/scss/_mixins.scss';
 
 export default {
   async asyncData({ $sanity }) {
@@ -87,6 +88,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 main {
   width: 100%;
   min-height: 100vh;
@@ -104,6 +106,9 @@ main {
   @include breakpoint(mobile) {
     background-size: 100% auto;
   }
+}
+body{
+  background: #000;
 }
 
 .home-hero {
@@ -125,6 +130,17 @@ main {
   @include breakpoint(mobile) {
     width: 90%;
   }
+  .flicker-slow {
+   animation: flicker 16s linear alternate infinite;
+  }
+
+  .flicker-mid {
+    animation: flicker 8s linear alternate infinite;
+  }
+
+  .flicker-fast {
+    animation: flicker 5s linear alternate infinite;
+  }
 
   a {
     color: var(--white);
@@ -134,7 +150,8 @@ main {
 
     &:hover {
       -webkit-text-stroke: 1px var(--white);
-      color: transparent;
+      color: transparent !important;
+     span { animation:none;}
     }
   }
 
