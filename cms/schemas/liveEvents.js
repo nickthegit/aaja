@@ -1,7 +1,7 @@
 import { RiCalendarTodoFill } from "react-icons/ri";
 
 export default {
-  name: 'live-events',
+  name: 'liveEvents',
   title: 'Live Events',
   icon: RiCalendarTodoFill,
   type: 'document',
@@ -12,8 +12,14 @@ export default {
       type: 'string',
     },
     {
-      name: 'eventDateTime',
+      name: 'eventDate',
       title: 'Event Date',
+      type: 'date',
+    },
+    {
+      name: 'eventDateTime',
+      title: 'Event Date & time',
+      description: 'NOTE: fill in this one if you have a confirmed time for the event, otherwise just use the date one above. Both are optional.',
       type: 'datetime',
     },
     {
@@ -33,6 +39,11 @@ export default {
       type: 'text',
     },
     {
+      name: "ctaTitle",
+      title: 'Button Title',
+      type: 'string',
+    },
+    {
       name: 'feature_image',
       title: 'Feature Image (the bigger the better as its a splash, always compress before uploading though)',
       type: 'image',
@@ -49,10 +60,16 @@ export default {
       ]
     },
     {
-      name: 'audioLink',
-      title: 'Audio Link',
+      name: 'eventLink',
+      title: 'Event Link',
       type: 'string',
-      description: 'eg. https://aaja2.out.airtime.pro/aaja2_a',
+      description: 'eg. https://ra.com/event/1531',
+    },
+    {
+      name: 'liveStreamingLink',
+      title: 'Live Streaming Link',
+      type: 'string',
+      description: 'Experimental, might not work. eg. https://aaja2.out.airtime.pro/aaja2_a',
     },
   ],
   preview: {

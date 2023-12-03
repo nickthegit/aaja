@@ -115,6 +115,22 @@ export const homePageQuery = `*[_type == "homePage"] {
   }
 }`
 
+export const liveEventSlugPageQuery = (slug) => `*[_type == "liveEvents" && slug.current == "${slug}"][0] {
+    _id,
+    _rev,
+    "feature_image": coalesce(feature_image, false),
+    name,
+    slot,
+    slug,
+    intro,
+    eventLink,
+    ctaTitle,
+    liveStreamingLink,
+    eventDate,
+    eventDateTime
+  }`
+
+
 export const residentSlugPageQuery = (
   slug
 ) => `*[_type == "resident" && slug.current == "${slug}"][0] {
