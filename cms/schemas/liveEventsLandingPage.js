@@ -8,5 +8,10 @@ export default {
       title: 'Intro Text',
       type: 'text',
     },
+    {
+      name: 'list',
+      title: 'List of Events?',
+      type: 'block',
+    },
   ],
 }
