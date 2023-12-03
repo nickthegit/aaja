@@ -1,6 +1,8 @@
 <template>
   <main class="light-theme">
-    <img>
+    <aaja-hero-img class="live-event__hero-image" v-if="event.feature_image" altText="Aaja Bar Hero image"
+      :landscapeBg="heroImage.landscapeBlur" :portraitBg="heroImage.portraitBlur" :landscapeImgs="heroImage.landscape"
+      :portraitImgs="heroImage.portrait" />
     <section class="slug__live-event">
       <aaja-container class="breadcrumb-container">
         <nuxt-link :to="`/live-events`" class="breadcrumb"><span>
@@ -8,15 +10,6 @@
           </span>Back to Events</nuxt-link>
       </aaja-container>
       <aaja-standard-hero>
-        <!-- <section class="bar__hero-img">
-        <aaja-hero-img
-          altText="Aaja Bar Hero image"
-          :landscapeBg="heroImage.landscapeBlur"
-          :portraitBg="heroImage.portraitBlur"
-          :landscapeImgs="heroImage.landscape"
-          :portraitImgs="heroImage.portrait"
-        />
-      </section> -->
         <template v-slot:heading>
           <aaja-heading>aaja music <span class="lowercase">x</span> <br /> {{ event.name }}
           </aaja-heading>
@@ -43,10 +36,11 @@
 </template>
 
 <script>
-import { format } from 'date-fns'
-import getVideoId from 'get-video-id'
-import { liveEventSlugPageQuery } from '~/utils/queries.js'
-import Arrow from '~/assets/img/icons/arrow.svg?inline'
+import { format } from 'date-fns';
+import { liveEventSlugPageQuery } from '~/utils/queries.js';
+import Arrow from '~/assets/img/icons/arrow.svg?inline';
+import { cloudinaryHeroParser } from '~/utils/images'
+
 
 export default {
   components: { Arrow },
@@ -57,7 +51,6 @@ export default {
   async asyncData({ $sanity, params }) {
     try {
       const data = await $sanity.fetch(liveEventSlugPageQuery(params.slug))
-      console.log(data)
       return { event: data }
     } catch {
       // return navigateTo('/live-events', { redirectCode: 301 })
@@ -65,14 +58,16 @@ export default {
   },
   data() {
     return {
-      image: "https://cdn.sanity.io/images/ycpbe8x2/production/5ef93f3a2fd27d1945cdf6b968d3b3b8fd44e78e-5600x3200.jpg"
+      // test: console.log("GOTYA", this.event)
     }
   },
   computed: {
-    youtubeLink() {
-      const { id } = getVideoId(this.channel2Data.youtubeLink)
-      return `https://www.youtube.com/embed/${id}?controls=0`
-    },
+    heroImage() {
+      console.log("GOTYA", this.event)
+      const image = this.$urlForSquare(this.event.feature_image);
+      const parsedImage = cloudinaryHeroParser(image.desktop['1200']);
+      return parsedImage
+    }
   },
   methods: {
     formatDate(date) {
@@ -91,9 +86,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.live-event__hero-image {
+  opacity: 0.4;
+}
+
 main {
   width: 100%;
   overflow: scroll;
+  background: linear-gradient(175deg, rgba(255, 255, 255, 0) 30%, var(--white) 100%);
 }
 
 .slug__live-event {
@@ -123,6 +123,7 @@ main {
 
   section {
     flex: 1 1 80%;
+    font-weight: 500;
   }
 
   aside {
