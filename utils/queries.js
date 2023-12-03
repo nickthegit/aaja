@@ -118,12 +118,15 @@ export const homePageQuery = `*[_type == "homePage"] {
 export const liveEventSlugPageQuery = (slug) => `*[_type == "liveEvents" && slug.current == "${slug}"][0] {
     _id,
     _rev,
-    "feature_image": coalesce(feature_image, spotlight_image, false),
+    "feature_image": coalesce(feature_image, false),
     name,
     slot,
     slug,
     intro,
-    audioLink,
+    eventLink,
+    ctaTitle,
+    liveStreamingLink,
+    eventDate,
     eventDateTime
   }`
 

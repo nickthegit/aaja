@@ -39,6 +39,11 @@ export default {
       type: 'text',
     },
     {
+      name: "ctaTitle",
+      title: 'Button Title',
+      type: 'string',
+    },
+    {
       name: 'feature_image',
       title: 'Feature Image (the bigger the better as its a splash, always compress before uploading though)',
       type: 'image',
@@ -55,10 +60,16 @@ export default {
       ]
     },
     {
-      name: 'audioLink',
-      title: 'Audio Link',
+      name: 'eventLink',
+      title: 'Event Link',
       type: 'string',
-      description: 'eg. https://aaja2.out.airtime.pro/aaja2_a',
+      description: 'eg. https://ra.com/event/1531',
+    },
+    {
+      name: 'liveStreamingLink',
+      title: 'Live Streaming Link',
+      type: 'string',
+      description: 'Experimental, might not work. eg. https://aaja2.out.airtime.pro/aaja2_a',
     },
   ],
   preview: {
