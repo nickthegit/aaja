@@ -50,6 +50,12 @@ export default {
       description: 'colors there: https://www.w3.org/wiki/CSS/Properties/color/keywords - its usually 1 word, i.e. blue',
     },
     {
+      name: 'textColor',
+      title: 'Text color',
+      type: 'string',
+      description: 'colors there: https://www.w3.org/wiki/CSS/Properties/color/keywords - its usually 1 word, i.e. blue',
+    },
+    {
       name: 'feature_image',
       title: 'Feature Image (the bigger the better as its a splash, always compress before uploading though)',
       type: 'image',

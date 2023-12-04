@@ -1,5 +1,5 @@
 <template>
-  <main class="light-theme">
+  <main class="light-theme" :style="styleObject">
     <aaja-hero-img class="live-event__hero-image" v-if="eventData.feature_image" altText="Aaja Bar Hero image"
       :landscapeBg="heroImage.landscapeBlur" :portraitBg="heroImage.portraitBlur" :landscapeImgs="heroImage.landscape"
       :portraitImgs="heroImage.portrait" />
@@ -10,7 +10,7 @@
           </span>Back to Events</nuxt-link>
       </aaja-container>
       <aaja-standard-hero>
-        <template v-slot:heading>
+        <template v-slot:heading :style="textColor.color">
           <aaja-heading>aaja music <span class="lowercase">x</span> <br /> {{ eventData.name }}
           </aaja-heading>
         </template>
@@ -57,9 +57,12 @@ export default {
   components: { Arrow },
   async asyncData({ $sanity, params }) {
     const data = await $sanity.fetch(liveEventSlugPageQuery(params.slug))
+    const backgroundColor = !data.feature_image && data?.backgroundColor ? data.backgroundColor : '';
+    const color = !data.feature_image && data?.textColor ? data?.textColor : '';
     return {
       eventData: data,
-      styleObject: { backgroundColor: data.backgroundColor }
+      styleObject: { backgroundColor },
+      textColor: { color }
     }
   },
   data() {
@@ -119,6 +122,16 @@ export default {
 <style lang="scss" scoped>
 .live-event__hero-image {
   opacity: 0.4;
+
+  &:after {
+    content: '';
+    background: linear-gradient(175deg, rgba(255, 255, 255, 0) 30%, var(--white) 100%);
+    height: 100%;
+    width: 100%;
+    display: block;
+    position: absolute;
+    top: 0;
+  }
 }
 
 main {
