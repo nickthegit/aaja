@@ -6,12 +6,7 @@ export default {
     {
       name: 'intro',
       title: 'Intro Text',
-      type: 'text',
-    },
-    {
-      name: 'list',
-      title: 'List of Events?',
-      type: 'block',
+      type: 'blockContent',
     },
   ],
 }
