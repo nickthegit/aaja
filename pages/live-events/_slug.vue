@@ -121,16 +121,17 @@ export default {
 
 <style lang="scss" scoped>
 .live-event__hero-image {
-  opacity: 0.4;
+  opacity: 0.5;
 
   &:after {
     content: '';
-    background: linear-gradient(175deg, rgba(255, 255, 255, 0) 30%, var(--white) 100%);
     height: 100%;
     width: 100%;
     display: block;
     position: absolute;
     top: 0;
+    background: linear-gradient(175deg, rgba(255, 255, 255, 0) 30%, var(--white) 100%);
+    backdrop-filter: blur(2px);
   }
 }
 
