@@ -3,11 +3,10 @@
     <article class="home-hero">
       <div>
         <h1>
-          <nuxt-link to="radio"><span class="flicker-mid">R</span>adio St<span class="flicker-slow">at</span>io<span class="flicker-fast">n</span></nuxt-link><br /><nuxt-link to="bar"> B<span class="flicker-slow">a</span>r</nuxt-link>&nbsp;
-
-          <nuxt-link to="label" class="flicker-slow"><span  class="flicker-fast">R</span>ecord La<span class="flicker-mid">be</span>l</nuxt-link>
-          <br>and
-          <nuxt-link to="festival" >F<span class="flicker-mid">est</span>ival</nuxt-link>
+          <nuxt-link to="radio">Radio Station</nuxt-link><br /><nuxt-link to="bar">
+            Bar</nuxt-link>&nbsp;
+          <nuxt-link to="label">Record Label</nuxt-link>
+          <br>and&nbsp;<nuxt-link to="festival">Festival</nuxt-link>
         </h1>
         <FullLogo id="home-logo" />
       </div>
@@ -20,23 +19,23 @@
               <!-- DESKTOP (desktop) -->
               <source :srcset="`
                 ${$urlFor(slide.feature_image).width(400).height(200).fit('crop')} 400w,
-                                                                                                    ${$urlFor(slide.feature_image).width(600).height(300).fit('crop')} 600w,
-                                                                                                    ${$urlFor(slide.feature_image).width(800).height(400).fit('crop')}  800w,
-                                                                                                    ${$urlFor(slide.feature_image).width(1000).height(500).fit('crop')}  1000w,
-                                                                                                    ${$urlFor(slide.feature_image).width(1200).height(600).fit('crop')}  1200w,
-                                                                                                    ${$urlFor(slide.feature_image).width(1400).height(700).fit('crop')}  1400w,
-                                                                                                    ${$urlFor(slide.feature_image).width(1600).height(800).fit('crop')}  1600w,
-                                                                                                    ${$urlFor(slide.feature_image).width(1800).height(900).fit('crop')}  1800w,
-                                                                                                    ${$urlFor(slide.feature_image).width(2000).height(1000).fit('crop')}  2000w,
-                                                                                                    ${$urlFor(slide.feature_image).width(2400).height(1200).fit('crop')}  2400w,
-                                                                                                    ${$urlFor(slide.feature_image).width(2800).height(1400).fit('crop')}  2800w,
-                                                                                                    ${$urlFor(slide.feature_image).width(3000).height(1500).fit('crop')}  3000w
+                                                                                                                                                                                                                                                                                          ${$urlFor(slide.feature_image).width(600).height(300).fit('crop')} 600w,
+                                                                                                                                                                                                                                                                                          ${$urlFor(slide.feature_image).width(800).height(400).fit('crop')}  800w,
+                                                                                                                                                                                                                                                                                          ${$urlFor(slide.feature_image).width(1000).height(500).fit('crop')}  1000w,
+                                                                                                                                                                                                                                                                                          ${$urlFor(slide.feature_image).width(1200).height(600).fit('crop')}  1200w,
+                                                                                                                                                                                                                                                                                          ${$urlFor(slide.feature_image).width(1400).height(700).fit('crop')}  1400w,
+                                                                                                                                                                                                                                                                                          ${$urlFor(slide.feature_image).width(1600).height(800).fit('crop')}  1600w,
+                                                                                                                                                                                                                                                                                          ${$urlFor(slide.feature_image).width(1800).height(900).fit('crop')}  1800w,
+                                                                                                                                                                                                                                                                                          ${$urlFor(slide.feature_image).width(2000).height(1000).fit('crop')}  2000w,
+                                                                                                                                                                                                                                                                                          ${$urlFor(slide.feature_image).width(2400).height(1200).fit('crop')}  2400w,
+                                                                                                                                                                                                                                                                                          ${$urlFor(slide.feature_image).width(2800).height(1400).fit('crop')}  2800w,
+                                                                                                                                                                                                                                                                                          ${$urlFor(slide.feature_image).width(3000).height(1500).fit('crop')}  3000w
             `" sizes="100vw" media="(min-width: 481px)" />
               <source :srcset="`
                 ${$urlFor(slide.feature_image_mobile).width(400).height(400).fit('crop')} 400w,
-                                                                                                    ${$urlFor(slide.feature_image_mobile).width(600).height(600).fit('crop')} 600w,
-                                                                                                    ${$urlFor(slide.feature_image_mobile).width(800).height(800).fit('crop')} 800w,
-                                                                                                    ${$urlFor(slide.feature_image_mobile).width(1000).height(1000).fit('crop')} 1000w,
+                                                                                                                                                                                                                                                                                          ${$urlFor(slide.feature_image_mobile).width(600).height(600).fit('crop')} 600w,
+                                                                                                                                                                                                                                                                                          ${$urlFor(slide.feature_image_mobile).width(800).height(800).fit('crop')} 800w,
+                                                                                                                                                                                                                                                                                          ${$urlFor(slide.feature_image_mobile).width(1000).height(1000).fit('crop')} 1000w,
             `" sizes="100vw" media="(max-width: 480px)" />
               <img src="https://picsum.photos/1200/600?random=2" ref="altText" />
             </picture>
@@ -88,7 +87,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 main {
   width: 100%;
   min-height: 100vh;
@@ -107,7 +105,8 @@ main {
     background-size: 100% auto;
   }
 }
-body{
+
+body {
   background: #000;
 }
 
@@ -130,8 +129,9 @@ body{
   @include breakpoint(mobile) {
     width: 90%;
   }
+
   .flicker-slow {
-   animation: flicker 16s linear alternate infinite;
+    animation: flicker 16s linear alternate infinite;
   }
 
   .flicker-mid {
@@ -151,7 +151,10 @@ body{
     &:hover {
       -webkit-text-stroke: 1px var(--white);
       color: transparent !important;
-     span { animation:none;}
+
+      span {
+        animation: none;
+      }
     }
   }
 

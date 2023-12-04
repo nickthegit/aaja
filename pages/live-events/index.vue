@@ -7,7 +7,7 @@
       <p>{{ eventsPage.intro }}</p>
       <div v-for="event in events">
         <nuxt-link :to="`/live-events/${event.slug.current}`">
-          {{ event.name }}
+          {{ formatDate(event) + event.name }}
         </nuxt-link>
       </div>
     </aaja-standard-hero>
@@ -21,6 +21,8 @@
 
 <script>
 import getVideoId from 'get-video-id'
+import { format } from 'date-fns';
+
 export default {
   // Fetch
   async asyncData({ $sanity }) {
@@ -42,12 +44,13 @@ export default {
   },
   methods: {
     // helper functions
-    formatDate(date) {
-      return format(new Date(date), "d MMMM yyyy")
+    formatDate(event) {
+      if (event?.eventDateTime)
+        return format(new Date(event?.eventDateTime), "d MMMM yyyy @ HH:mm") + ' - '
+      else if (event?.eventDate)
+        return format(new Date(event?.eventDate), "d MMMM yyyy") + ' - '
+      else return ''
     },
-    formatDateTime(date) {
-      return format(new Date(date), "d MMMM yyyy - HH:mm")
-    }
   },
   mounted() {
     // console.log(`channel2Data`, this.channel2Data)
