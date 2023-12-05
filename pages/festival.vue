@@ -7,7 +7,7 @@
           :portraitBg="hero.portraitBlur" :landscapeImgs="hero.landscape" :portraitImgs="hero.portrait" />
       </section>
       <aaja-container class="festival__hero-header">
-        <aaja-heading-block>
+        <aaja-heading-block :isFestival=true>
           <SanityContent :blocks="festivalData.heading" />
         </aaja-heading-block>
       </aaja-container>
@@ -129,6 +129,22 @@ export default {
   },
 }
 </script>
+
+
+<style lang="scss">
+   .festival-logo {
+    width: auto !important;
+    flex: 1 0 100%;
+    margin-left: 0 !important;
+
+    &__image{
+        width: var(--h1Size);
+        margin-top: 13px;
+        filter: grayscale(1);
+    }
+  }
+
+ </style>
 
 <style lang="scss" scoped>
 .festival__ {
