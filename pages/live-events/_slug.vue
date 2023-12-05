@@ -11,7 +11,7 @@
       </aaja-container>
       <aaja-standard-hero>
         <template v-slot:heading :style="textColor.color">
-          <aaja-heading>aaja music <span class="lowercase">x</span> <br /> {{ eventData.name }}
+          <aaja-heading>{{ eventData.name }}
           </aaja-heading>
         </template>
         <h2 v-if="eventData.eventDateTime">{{ formatDateTime }}</h2>
