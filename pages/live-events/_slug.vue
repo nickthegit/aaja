@@ -22,6 +22,7 @@
       <aaja-container class="live-event__container">
         <section>
           <SanityContent v-if="eventData.intro" :blocks="eventData.intro" />
+
         </section>
         <aside v-if="eventData.eventLink">
           <a :href="eventData.eventLink" target="_blank" rel="noopener noreferrer">{{ eventLinkCtaLabel }} </a>
@@ -40,6 +41,11 @@
                 fill-rule="evenodd" clip-rule="evenodd" />
             </svg>
           </button>
+          <iframe v-if="eventData.iframeLink" id="myIframe"
+            src="https://www.youtube-nocookie.com/embed/jfKfPfyJRdk?si=bXEUfWEKM3pzDjdq&amp;controls=0"
+            title="YouTube video player" frameborder="0" autoplay="1" start
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>
         </aside>
       </aaja-container>
       <aaja-container v-if="eventData.liveStreamingLink">
@@ -193,6 +199,8 @@ main {
     flex-wrap: wrap;
     align-items: flex-start;
     align-content: flex-start;
+    gap: 30px;
+
 
     a,
     button {
@@ -207,8 +215,8 @@ main {
       font-size: 14px;
       line-height: 22px;
       letter-spacing: 1px;
-      margin-top: 30px;
       text-align: center;
+      border: none;
 
       &:hover {
         opacity: 0.7;
@@ -221,8 +229,9 @@ main {
 
       &.playBtn {
         display: flex;
-        justify-content: space-evenly;
+        justify-content: center;
         transition-duration: 0.2s;
+        gap: 20px;
 
         .playIcon,
         .pauseIcon {
@@ -238,6 +247,9 @@ main {
         }
       }
 
+      iframe {
+        width: 100%;
+      }
 
     }
   }

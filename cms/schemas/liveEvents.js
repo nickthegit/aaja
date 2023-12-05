@@ -90,9 +90,15 @@ export default {
     },
     {
       name: 'liveStreamingLink',
-      title: 'Live Streaming Link',
+      title: 'Audio Streaming Link',
       type: 'string',
       description: 'Experimental, might not work. eg. https://aaja2.out.airtime.pro/aaja2_a',
+    },
+    {
+      name: 'iframeLink',
+      title: 'Iframe Link',
+      type: 'string',
+      description: 'Experimental, might not work. eg. i.e. https://www.youtube.com/embed/jfKfPfyJRdk?si=bXEUfWEKM3pzDjdq&controls=0',
     },
   ],
   preview: {
