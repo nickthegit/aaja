@@ -57,8 +57,9 @@ import { cloudinaryHeroParser } from '~/utils/images'
 
 export default {
   components: { Arrow },
-  async asyncData({ $sanity, params }) {
+  async asyncData({ $sanity, params, app }) {
     const data = await $sanity.fetch(liveEventSlugPageQuery(params.slug))
+    if (!data.slug?.current) app.router.push({ path: '/live-events' })
     const backgroundColor = !data.feature_image && data?.backgroundColor ? data.backgroundColor : '';
     const color = !data.feature_image && data?.textColor ? data?.textColor : '';
     return {
