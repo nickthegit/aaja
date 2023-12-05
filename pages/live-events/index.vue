@@ -45,7 +45,9 @@ export default {
   methods: {
     // helper functions
     formatDate(event) {
-      if (event?.eventDateTime)
+      if (event?.eventDateText) {
+        return event?.eventDateText + ' - '
+      } else if (event?.eventDateTime)
         return format(new Date(event?.eventDateTime), "d MMMM yyyy @ HH:mm") + ' - '
       else if (event?.eventDate)
         return format(new Date(event?.eventDate), "d MMMM yyyy") + ' - '

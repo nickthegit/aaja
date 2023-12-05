@@ -14,8 +14,10 @@
           <aaja-heading>{{ eventData.name }}
           </aaja-heading>
         </template>
-        <h2 v-if="eventData.eventDateTime">{{ formatDateTime }}</h2>
-        <h2 v-else-if="eventData.eventDate">{{ formatDate }}</h2>
+        <h2 v-if="eventData.eventDateText">{{ eventData.eventDateText }}</h2>
+        <!-- <h2 v-else-if="eventData.eventDateTime">{{ formatDateTime }}</h2>
+        <h2 v-else-if="eventData.eventDate">{{ formatDate }}</h2> -->
+        <h4 v-if="eventData.eventLocation"> {{ eventData.eventLocation }}</h4>
       </aaja-standard-hero>
       <aaja-container class="live-event__container">
         <section>
@@ -152,6 +154,12 @@ main {
   }
 }
 
+.subheading {
+  h2 {
+    margin-bottom: 13px;
+  }
+}
+
 .live-event__container {
   display: flex;
   gap: 4vw;
@@ -237,7 +245,7 @@ main {
   display: inline-block;
   text-decoration: underline;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: bold;
   color: var(--mainColor);
 
 
