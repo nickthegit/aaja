@@ -22,6 +22,7 @@
       <aaja-container class="live-event__container">
         <section>
           <SanityContent v-if="eventData.intro" :blocks="eventData.intro" />
+
         </section>
         <aside v-if="eventData.eventLink">
           <a :href="eventData.eventLink" target="_blank" rel="noopener noreferrer">{{ eventLinkCtaLabel }} </a>
@@ -40,6 +41,10 @@
                 fill-rule="evenodd" clip-rule="evenodd" />
             </svg>
           </button>
+          <iframe v-if="eventData.iframeLink" id="myIframe" :src="eventData.iframeLink" title="YouTube video player"
+            frameborder="0" autoplay="1" start
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>
         </aside>
       </aaja-container>
       <aaja-container v-if="eventData.liveStreamingLink">
@@ -85,9 +90,6 @@ export default {
     formatDateTime() {
       return format(new Date(this.eventData.eventDateTime), "d MMMM yyyy - HH:mm")
     },
-    formatDateTime() {
-      return format(new Date(this.eventData.eventDateTime), "d MMMM yyyy - HH:mm")
-    },
     audioCtaLabel() {
       return this.playing ? 'Pause' : 'Play'
     },
@@ -122,7 +124,28 @@ export default {
 }
 </script>
 
+<style lang="scss">
+.slug__live-event {
+  .standard__hero {
+    .subheading {
+      display: flex;
+      max-width: unset;
+      width: 100%;
+
+      h2 {
+        margin-bottom: 13px;
+      }
+    }
+  }
+}
+</style>
+
 <style lang="scss" scoped>
+main {
+  width: 100%;
+  overflow: scroll;
+}
+
 .live-event__hero-image {
   opacity: 0.5;
 
@@ -138,11 +161,6 @@ export default {
   }
 }
 
-main {
-  width: 100%;
-  overflow: scroll;
-}
-
 .slug__live-event {
   width: 100%;
   height: auto;
@@ -150,14 +168,8 @@ main {
   padding: calc(var(--headerHeight) + var(--subHeaderHeight)) 0 var(--headerHeight) 0;
   position: relative;
 
-  @include breakpoint(mobile) {
+  @include breakpoint(tablet-mobile) {
     padding: calc(var(--headerHeight) * 1.5 + var(--subHeaderHeight)) 0 var(--headerHeight) 0;
-  }
-}
-
-.subheading {
-  h2 {
-    margin-bottom: 13px;
   }
 }
 
@@ -187,6 +199,8 @@ main {
     flex-wrap: wrap;
     align-items: flex-start;
     align-content: flex-start;
+    gap: 30px;
+
 
     a,
     button {
@@ -201,8 +215,8 @@ main {
       font-size: 14px;
       line-height: 22px;
       letter-spacing: 1px;
-      margin-top: 30px;
       text-align: center;
+      border: none;
 
       &:hover {
         opacity: 0.7;
@@ -215,8 +229,9 @@ main {
 
       &.playBtn {
         display: flex;
-        justify-content: space-evenly;
+        justify-content: center;
         transition-duration: 0.2s;
+        gap: 20px;
 
         .playIcon,
         .pauseIcon {
@@ -232,6 +247,9 @@ main {
         }
       }
 
+      iframe {
+        width: 100%;
+      }
 
     }
   }
@@ -239,38 +257,38 @@ main {
 
 .breadcrumb-container {
   padding-top: 20px;
-}
 
-.breadcrumb {
-  margin-bottom: 30px;
-  display: inline-block;
-  text-decoration: underline;
-  font-size: 16px;
-  font-weight: bold;
-  color: var(--mainColor);
+  .breadcrumb {
+    margin-bottom: 30px;
+    display: inline-block;
+    text-decoration: underline;
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--mainColor);
 
 
-  &:hover {
-    opacity: 0.7;
+    &:hover {
+      opacity: 0.7;
+
+      span {
+        transform: translateX(-5px);
+      }
+    }
 
     span {
-      transform: translateX(-5px);
-    }
-  }
+      display: inline-block;
+      width: 17px;
+      vertical-align: middle;
+      margin-right: 10px;
+      transform: translateX(0);
+      transition: 0.2s transform ease-in;
 
-  span {
-    display: inline-block;
-    width: 17px;
-    vertical-align: middle;
-    margin-right: 10px;
-    transform: translateX(0);
-    transition: 0.2s transform ease-in;
+      svg {
+        width: 100%;
 
-    svg {
-      width: 100%;
-
-      path {
-        fill: var(--mainColor);
+        path {
+          fill: var(--mainColor);
+        }
       }
     }
   }
