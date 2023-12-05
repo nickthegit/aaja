@@ -26,7 +26,6 @@ export default {
 
 <style lang="scss" scoped>
 .festival-logo {
-  /* width: auto !important; */
   margin-top: 25px;
   &__image {
       width:calc(var(--h1Size) - 20px);
