@@ -107,9 +107,6 @@ export default {
         this.playing = true;
       };
     },
-    // setTheme() {
-    //   this.styleObject.backgroundColor = this.eventData.backgroundColor
-    // }
   },
   mounted() {
 
@@ -133,6 +130,7 @@ export default {
 
       h2 {
         flex: 1 0 100%;
+        font-size: 4vw;
         margin-bottom: 13px;
       }
     }
