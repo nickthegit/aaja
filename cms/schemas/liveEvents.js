@@ -89,7 +89,7 @@ export default {
       description: 'eg. https://ra.com/event/1531',
     },
     {
-      name: 'liveStreamingLink',
+      name: 'audioStreamingLink',
       title: 'Audio Streaming Link',
       type: 'string',
       description: 'Experimental, might not work. eg. https://aaja2.out.airtime.pro/aaja2_a',
