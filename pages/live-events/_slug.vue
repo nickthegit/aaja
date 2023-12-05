@@ -41,8 +41,8 @@
                 fill-rule="evenodd" clip-rule="evenodd" />
             </svg>
           </button>
-          <iframe v-if="eventData.liveStreamingLink" id="myIframe" :src="eventData.liveStreamingLink"
-            title="YouTube video player" frameborder="0" autoplay="1" start
+          <iframe v-if="eventData.iframeLink" id="myIframe" :src="eventData.iframeLink" title="YouTube video player"
+            frameborder="0" autoplay="1" start
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen></iframe>
         </aside>
