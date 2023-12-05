@@ -26,8 +26,8 @@
         </section>
         <aside v-if="eventData.eventLink">
           <a :href="eventData.eventLink" target="_blank" rel="noopener noreferrer">{{ eventLinkCtaLabel }} </a>
-          <audio id="audio" :src="eventData.liveStreamingLink" preload="auto"></audio>
-          <button class="playBtn" @click="playPause" v-if="eventData.liveStreamingLink">
+          <audio id="audio" :src="eventData.audioStreamingLink" preload="auto"></audio>
+          <button class="playBtn" @click="playPause" v-if="eventData.audioStreamingLink">
             {{ audioCtaLabel }}
             <svg v-if="!playing" class="playIcon" width="13" height="20" viewBox="0 0 13 20" fill="none"
               xmlns="http://www.w3.org/2000/svg">
@@ -41,13 +41,11 @@
                 fill-rule="evenodd" clip-rule="evenodd" />
             </svg>
           </button>
-          <iframe v-if="eventData.iframeLink" id="myIframe" :src="eventData.iframeLink" title="YouTube video player"
-            frameborder="0" autoplay="1" start
+          <iframe v-if="eventData.liveStreamingLink" id="myIframe" :src="eventData.liveStreamingLink"
+            title="YouTube video player" frameborder="0" autoplay="1" start
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen></iframe>
         </aside>
-      </aaja-container>
-      <aaja-container v-if="eventData.liveStreamingLink">
       </aaja-container>
     </section>
   </main>
@@ -129,10 +127,12 @@ export default {
   .standard__hero {
     .subheading {
       display: flex;
+      flex-wrap: wrap;
       max-width: unset;
-      width: 100%;
+      width: 100% !important;
 
       h2 {
+        flex: 1 0 100%;
         margin-bottom: 13px;
       }
     }
