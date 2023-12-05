@@ -41,9 +41,8 @@
                 fill-rule="evenodd" clip-rule="evenodd" />
             </svg>
           </button>
-          <iframe v-if="eventData.iframeLink" id="myIframe"
-            src="https://www.youtube-nocookie.com/embed/jfKfPfyJRdk?si=bXEUfWEKM3pzDjdq&amp;controls=0"
-            title="YouTube video player" frameborder="0" autoplay="1" start
+          <iframe v-if="eventData.iframeLink" id="myIframe" :src="eventData.iframeLink" title="YouTube video player"
+            frameborder="0" autoplay="1" start
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen></iframe>
         </aside>
