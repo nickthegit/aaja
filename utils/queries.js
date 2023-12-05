@@ -128,7 +128,9 @@ export const liveEventSlugPageQuery = (slug) => `*[_type == "liveEvents" && slug
     backgroundColor,
     liveStreamingLink,
     eventDate,
-    eventDateTime
+    eventDateTime,
+    eventDateText,
+    eventLocation
   }`
 
 

@@ -40,7 +40,7 @@ export default {
     },
   },
   watch: { // Like useEffect
-    firstName: (value, oldValue) => { /* ... */ }
+    // firstName: (value, oldValue) => { /* ... */ }
   },
   methods: {
     // helper functions

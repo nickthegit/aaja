@@ -84,9 +84,6 @@ export default {
     formatDateTime() {
       return format(new Date(this.eventData.eventDateTime), "d MMMM yyyy - HH:mm")
     },
-    formatDateTime() {
-      return format(new Date(this.eventData.eventDateTime), "d MMMM yyyy - HH:mm")
-    },
     audioCtaLabel() {
       return this.playing ? 'Pause' : 'Play'
     },
@@ -149,12 +146,16 @@ main {
   padding: calc(var(--headerHeight) + var(--subHeaderHeight)) 0 var(--headerHeight) 0;
   position: relative;
 
-  @include breakpoint(mobile) {
+  @include breakpoint(tablet-mobile) {
     padding: calc(var(--headerHeight) * 1.5 + var(--subHeaderHeight)) 0 var(--headerHeight) 0;
   }
 }
 
 .subheading {
+  max-width: unset;
+  width: 100%;
+  display: flex;
+
   h2 {
     margin-bottom: 13px;
   }
