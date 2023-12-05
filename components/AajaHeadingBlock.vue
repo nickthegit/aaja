@@ -2,7 +2,7 @@
   <div>
     <slot></slot>
     <span v-if="isFestival" class="festival-logo">
-       <img class="festival-logo__image" src="~/assets/img/button.png"/>
+       <img class="festival-logo__image" src="~/assets/img/creekside-transparent.png"/>
     </span>
     <span v-else> <Logo /> </span>
   </div>
@@ -25,6 +25,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.festival-logo {
+  /* width: auto !important; */
+  margin-top: 25px;
+  &__image {
+      width:calc(var(--h1Size) - 20px);
+      margin: auto;
+      filter: grayscale(1);
+  }
+}
+
 div {
   flex-grow: 1;
   width: 100%;
@@ -46,6 +56,9 @@ div {
 
     @include breakpoint(mobile) {
       width: 10vw;
+    }
+    .festival-logo__image{
+      filter:brightness(0) grayscale(1) invert(1)
     }
   }
 

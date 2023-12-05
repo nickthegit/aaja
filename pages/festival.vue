@@ -131,20 +131,10 @@ export default {
 </script>
 
 
-<style lang="scss">
-   .festival-logo {
-    width: auto !important;
-    flex: 1 0 100%;
-    margin-left: 0 !important;
+<!-- <style lang="scss">
 
-    &__image{
-        width: var(--h1Size);
-        margin-top: 13px;
-        filter: grayscale(1);
-    }
-  }
 
- </style>
+ </style> -->
 
 <style lang="scss" scoped>
 .festival__ {
@@ -159,6 +149,7 @@ export default {
 
     &-header {
       position: absolute;
+      flex: 1 0 auto;
       top: 0;
       left: 0;
       z-index: 2;
