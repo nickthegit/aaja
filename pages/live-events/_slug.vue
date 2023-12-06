@@ -134,7 +134,7 @@ export default {
       h2 {
         flex: 1 0 100%;
         margin-bottom: 13px;
-        width: 4vw;
+        font-size: calc(var(--h2Size) - 1vw);
       }
     }
   }
