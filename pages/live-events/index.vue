@@ -70,4 +70,10 @@ main {
   width: 100%;
   overflow: scroll;
 }
+
+.subheading {
+  li {
+    list-style-type: disc;
+  }
+}
 </style>
