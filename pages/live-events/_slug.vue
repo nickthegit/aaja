@@ -135,6 +135,10 @@ export default {
         flex: 1 0 100%;
         margin-bottom: 13px;
         font-size: calc(var(--h2Size) - 1vw);
+
+        @include breakpoint(mobile) {
+          font-size: calc(var(--h2Size) - 3vw);
+        }
       }
     }
   }
