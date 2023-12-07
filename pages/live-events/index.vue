@@ -4,7 +4,7 @@
       <template v-slot:heading>
         <aaja-heading>aaja music <br />Live Events</aaja-heading>
       </template>
-      <p>{{ eventsPage.intro }}</p>
+      <SanityContent v-if="eventsPage.intro" :blocks="eventsPage.intro" />
       <div v-for="event in events">
         <nuxt-link :to="`/live-events/${event.slug.current}`">
           {{ formatDate(event) + event.name }}
