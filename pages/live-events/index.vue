@@ -2,7 +2,7 @@
   <main class="light-theme">
     <aaja-standard-hero>
       <template v-slot:heading>
-        <aaja-heading>aaja <br />Live Events</aaja-heading>
+        <aaja-heading>Live Events</aaja-heading>
       </template>
       <SanityContent v-if="eventsPage.intro" :blocks="eventsPage.intro" />
       <div v-for="event in events">
