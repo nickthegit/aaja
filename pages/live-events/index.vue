@@ -1,6 +1,12 @@
 <template>
-  <main class="light-theme">
+  <main class="dark-theme">
+    <section class="bar__hero-img">
+      <aaja-hero-img class="live-event__hero-image" v-if="eventsPage.feature_image" altText="Aaja Events Hero image"
+        :landscapeBg="heroImage.landscapeBlur" :portraitBg="heroImage.portraitBlur" :landscapeImgs="heroImage.landscape"
+        :portraitImgs="heroImage.portrait" />
+    </section>
     <aaja-standard-hero>
+
       <template v-slot:heading>
         <aaja-heading>Live Events</aaja-heading>
       </template>
@@ -22,6 +28,7 @@
 <script>
 import getVideoId from 'get-video-id'
 import { format } from 'date-fns';
+import { cloudinaryHeroParser } from '~/utils/images'
 
 export default {
   // Fetch
@@ -30,13 +37,16 @@ export default {
     const events = await $sanity.fetch(`*[_type == "liveEvents"]`)
     return { eventsPage: data, events }
   },
-
   computed: {
     // Like useMemo
     // Return cached values until dependencies change (i.e. this.fooBar)
     youtubeLink() {
       const { id } = getVideoId(this.channel2Data.youtubeLink)
       return `https://www.youtube.com/embed/${id}?controls=0`
+    },
+    heroImage() {
+      const image = this.$urlForSquare(this.eventsPage.feature_image);
+      return cloudinaryHeroParser(image.desktop['1200']);
     },
   },
   watch: { // Like useEffect

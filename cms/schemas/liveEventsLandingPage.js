@@ -8,5 +8,21 @@ export default {
       title: 'Intro Text',
       type: 'blockContent',
     },
+    {
+      name: 'feature_image',
+      title: 'Background Image',
+      type: 'image',
+      options: {
+        hotspot: true,
+        storeOriginalFilename: true,
+      },
+      fields: [
+        {
+          name: 'caption',
+          type: 'string',
+          title: 'Caption',
+        },
+      ]
+    },
   ],
 }
