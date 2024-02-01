@@ -55,14 +55,14 @@
         </svg>
       </button>
       <div class="now-wrapper">
-        <p class="now" v-if="nowRadioInfo2.current" v-html="nowRadioInfo2.current.name +
+        <p class="now" v-if="nowRadioInfo2.current" v-html="nowRadioInfo2.current.title +
           ' - ' +
-          formatTime(nowRadioInfo2.current.starts) +
+          formatTime(nowRadioInfo2.current.start) +
           ' - ' +
-          formatTime(nowRadioInfo2.current.ends)
+          formatTime(nowRadioInfo2.current.end)
           "></p>
         <p v-else-if="nowRadioInfo2.next">
-          Coming up: {{ nowRadioInfo2.next.name }} - {{ formatTime(nowRadioInfo2.next.starts) }}
+          Coming up: {{ nowRadioInfo2.next.title }} - {{ formatTime(nowRadioInfo2.next.start) }}
         </p>
         <p v-else>-</p>
       </div>

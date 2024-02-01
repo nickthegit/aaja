@@ -22,19 +22,18 @@ export const mutations = {
 }
 
 export const actions = {
-  // async nuxtServerInit({ dispatch }, context) {
-  //   // console.log('liveInfo', liveInfo)
-  //   await dispatch('fetchRadio')
-  //   await dispatch('fetchRadio2')
-  //   // * schedule
-  //   await dispatch('schedule/scheduleServerInit')
-  //   // * archive
-  //   await dispatch('archive/archiveServerInit')
-  // },
+  async nuxtServerInit({ dispatch }, context) {
+    // console.log('liveInfo', liveInfo)
+    await dispatch('fetchRadio')
+    await dispatch('fetchRadio2')
+    // * schedule
+    await dispatch('schedule/scheduleServerInit')
+    // * archive
+    await dispatch('archive/archiveServerInit')
+  },
   async fetchRadio({ commit }) {
     const numWeeks = 2;
     const now = new Date();
-    now.setHours(0, 0, 0, 0);
     const nowISO = now.toISOString();
     const next = new Date().getTime() + 7 * numWeeks * 24 * 60 * 60 * 1000;
     const nextISO = new Date(next).toISOString();
@@ -55,8 +54,18 @@ export const actions = {
     commit('updateReqData', reqData)
   },
   async fetchRadio2({ commit }) {
+    const numWeeks = 2;
+    const now = new Date();
+    const nowISO = now.toISOString();
+    const next = new Date().getTime() + 7 * numWeeks * 24 * 60 * 60 * 1000;
+    const nextISO = new Date(next).toISOString();
+
     const reqData = await this.$axios
-      .$get('https://aaja2.airtime.pro/api/live-info-v2')
+      .$get(`https://api.radiocult.fm/api/station/aaja-2/schedule?startDate=${nowISO}&endDate=${nextISO}&timezone=europe/london`, {
+        headers: {
+          'x-api-key': "pk_723cdd9183004e34bb7da0125dfedf16",
+        }
+      })
       .then((data) => {
         return data
       })
@@ -133,6 +142,6 @@ export const getters = {
     return 'https://aaja.radiocult.fm/stream'
   },
   s2Stream: (state) => {
-    return 'https://aaja2.out.airtime.pro/aaja2_a'
+    return 'https://aaja-2.radiocult.fm/stream'
   },
 }
