@@ -22,10 +22,8 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'preload', href: 'https://aajamusic.out.airtime.pro/aajamusic_a', as: 'audio' },
-      { rel: 'preload', href: 'https://aajamusic.out.airtime.pro/aajamusic_b', as: 'audio' },
-      { rel: 'preload', href: 'https://aaja2.out.airtime.pro/aaja2_a', as: 'audio' },
-      { rel: 'preload', href: 'https://aaja2.out.airtime.pro/aaja2_b', as: 'audio' },
+      { rel: 'preload', href: 'https://aaja.radiocult.fm/stream', as: 'audio' },
+      { rel: 'preload', href: 'https://aaja-2.radiocult.fm/stream', as: 'audio' }
     ],
   },
   // router: {
