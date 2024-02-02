@@ -1,10 +1,6 @@
 <template>
-  <slider-container
-    class="schedule-slider-container"
-    :sliderOptions="scheduleSliderOptions"
-    :initalSlide="startingIndex"
-    v-if="schduleFetched && selected"
-  >
+  <slider-container class="schedule-slider-container" :sliderOptions="scheduleSliderOptions" :initalSlide="startingIndex"
+    v-if="schduleFetched && selected">
     <template v-slot:sliderButtons>
       <div class="slider-btns-wrap">
         <div class="slider-button-prev schedule-prev">
@@ -51,7 +47,7 @@ export default {
       return this.$store.getters['schedule/schedule2']
     },
     startingIndex() {
-      return this.schedule.findIndex((item) => item.label == 'Today')
+      return this.schedule?.findIndex((item) => item.label == 'Today')
     },
   },
   data() {
@@ -98,23 +94,28 @@ export default {
   display: flex;
   align-items: flex-start;
   justify-content: flex-end;
+
   div {
     display: block;
     width: 30px;
     height: 30px;
     cursor: pointer;
+
     &.swiper-button-disabled {
       opacity: 0.3;
     }
+
     svg {
       width: 100%;
     }
   }
+
   .slider-button-prev {
     transform: rotate(180deg);
     margin-right: 20px;
   }
 }
+
 .schedule-slider-container {
   .slider-btns-wrap {
     position: absolute;
@@ -124,17 +125,21 @@ export default {
     padding: 0;
   }
 }
+
 .radio__schedule {
   background: var(--white);
   color: var(--black);
   padding: var(--globalPadding) 0;
 }
+
 .title-bar {
   margin-bottom: 20px;
+
   span {
     height: var(--h2Size);
     display: inline-block;
     vertical-align: middle;
+
     svg {
       height: 100%;
       margin-left: 10px;
@@ -142,6 +147,7 @@ export default {
     }
   }
 }
+
 .schedule-title-bar {
   span {
     svg {
@@ -149,6 +155,7 @@ export default {
     }
   }
 }
+
 .schedule-slide-wrap {
   h3 {
     -webkit-text-stroke: 1px var(--black);
@@ -160,6 +167,7 @@ export default {
     padding-bottom: 20px;
   }
 }
+
 .schedule-item {
   width: 100%;
   margin-top: 20px;
@@ -172,11 +180,13 @@ export default {
   border-bottom: var(--borderAtts);
   box-sizing: border-box;
   border-color: var(--black);
+
   .schedule-img {
     width: 100%;
     grid-column: 1 / 2;
     grid-row: 1 / 3;
   }
+
   p {
     width: 100%;
     grid-column: 2 / 3;
@@ -186,18 +196,20 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     span {
       display: block;
       width: 60px;
+
       svg {
         width: 100%;
       }
     }
   }
+
   h5 {
     grid-column: 2 / 3;
     grid-row: 2 / 3;
     text-transform: uppercase;
   }
-}
-</style>
+}</style>

@@ -63,7 +63,7 @@ export default {
       return this.$store.getters['schedule/schedule']
     },
     startingIndex() {
-      return this.schedule.findIndex((item) => item.label == 'Today')
+      return this.schedule?.findIndex((item) => item.label == 'Today')
     },
   },
   data() {
@@ -228,4 +228,5 @@ export default {
     grid-row: 2 / 3;
     text-transform: uppercase;
   }
-}</style>
+}
+</style>
