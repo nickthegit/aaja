@@ -1,25 +1,42 @@
 <template>
-  <main class="dark-theme">
-    <section class="bar__hero-img">
-      <aaja-hero-img class="live-event__hero-image" v-if="eventsPage.feature_image" altText="Aaja Events Hero image"
-        :landscapeBg="heroImage.landscapeBlur" :portraitBg="heroImage.portraitBlur" :landscapeImgs="heroImage.landscape"
-        :portraitImgs="heroImage.portrait" />
-    </section>
-    <aaja-standard-hero>
-
-      <template v-slot:heading>
-        <aaja-heading>Live Events</aaja-heading>
-      </template>
-      <SanityContent v-if="eventsPage.intro" :blocks="eventsPage.intro" />
-      <div v-for="event in events">
-        <nuxt-link :to="`/live-events/${event.slug.current}`">
-          {{ formatDate(event) + event.name }}
-        </nuxt-link>
-      </div>
-    </aaja-standard-hero>
-    <article>
-      <aaja-container class="channel2__content">
-
+  <main >
+    <section class="live-event__hero">
+      <section class="live-event__hero-img">
+        <aaja-hero-img class="live-event__hero-image" v-if="eventsPage.feature_image" altText="Aaja Events Hero image"
+          :landscapeBg="heroImage.landscapeBlur" :portraitBg="heroImage.portraitBlur" :landscapeImgs="heroImage.landscape"
+          :portraitImgs="heroImage.portrait" />
+      </section>
+      <aaja-container class="live-event__hero-header">
+        <aaja-heading-block>
+          <SanityContent :blocks="eventsPage.heading" />
+        </aaja-heading-block>
+      </aaja-container>
+  </section>
+    <article class="live-event__content-wrapper">
+        <aaja-container class="live-event__intro">
+          <SanityContent  v-if="eventsPage.intro" :blocks="eventsPage.intro" />
+        </aaja-container>
+        <aaja-container class="live-event__cards-wrapper">
+          <nuxt-link
+            class="live-event__cards-wrapper--card"
+            v-for="event in eventCards"
+            :key="event._id"
+            :to="`live-events/${event.slug.current}`"
+            v-if="isFutureEvent(event)"
+          >
+          <h4 v-if="event.name">{{ event.name }}</h4>
+          <p class="event-date" v-if="event.eventDateText">{{ event?.eventDateText }}</p>
+          <p class="event-location" v-if="event.eventLocation">{{ '@' + event.eventLocation }}</p>
+            <aaja-img
+              :altText="`Aaja event - ${event.name}`"
+              :desktopBg="event.img.desktopBlur"
+              :mobileBg="event.img.mobileBlur"
+              :desktopImgs="event.img.desktop"
+              :mobileImgs="event.img.mobile"
+              :ratio="[1, 1]"
+              :percentageOfViewportWidth="33"
+            />
+          </nuxt-link>
       </aaja-container>
     </article>
   </main>
@@ -27,7 +44,7 @@
 
 <script>
 import getVideoId from 'get-video-id'
-import { format } from 'date-fns';
+import { isAfter } from 'date-fns';
 import { cloudinaryHeroParser } from '~/utils/images'
 
 export default {
@@ -48,20 +65,27 @@ export default {
       const image = this.$urlForSquare(this.eventsPage.feature_image);
       return cloudinaryHeroParser(image.desktop['1200']);
     },
+    eventCards() {
+      return this.events.map((event) => {
+        let img = this.$urlForSquare(event.feature_image, false, true)
+        return { ...event, img }
+      })
+    },
   },
   watch: { // Like useEffect
     // firstName: (value, oldValue) => { /* ... */ }
   },
   methods: {
+    isFutureEvent(event) {
+      const date = event.eventDateText.split('@')[0]
+        return isAfter(new Date(date),new Date());
+    },
+
     // helper functions
     formatDate(event) {
       if (event?.eventDateText) {
-        return event?.eventDateText + ' - '
-      } else if (event?.eventDateTime)
-        return format(new Date(event?.eventDateTime), "d MMMM yyyy @ HH:mm") + ' - '
-      else if (event?.eventDate)
-        return format(new Date(event?.eventDate), "d MMMM yyyy") + ' - '
-      else return ''
+        return event?.eventDateText + ' - ' + event?.name;
+      }
     },
   },
   mounted() {
@@ -69,21 +93,120 @@ export default {
   },
   head: {
     htmlAttrs: {
-      class: 'light',
+      // class: 'light',
     },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-main {
-  width: 100%;
-  overflow: scroll;
-}
+.live-event {
+  &__hero {
+    &-img {
+      width: 100%;
+      height: 100vh;
+      position: relative;
+      z-index: 1;
+      filter: grayscale(1) brightness(0.7);
+    }
 
-.subheading {
-  li {
-    list-style-type: disc;
+    &-header {
+      position: absolute;
+      flex: 1 0 auto;
+      top: 0;
+      left: 0;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding-top: 80px;
+      padding-bottom: 40px;
+      color: var(--white);
+      --headerColor: var(--white);
+    }
+
+    &-opening {
+      p {
+        text-transform: uppercase;
+        margin-bottom: 20px;
+      }
+
+      strong {
+        font-weight: 600;
+        font-size: 20px;
+
+        @include breakpoint(mobile) {
+          font-size: 16px;
+        }
+      }
+
+      .button-wrap {
+        display: flex;
+        gap: 20px;
+        margin-top: 30px;
+      }
+
+      a {
+        width: 140px;
+        height: 40px;
+        display: flex;
+        font-size: 14px;
+        align-items: center;
+        justify-content: center;
+        background: var(--white);
+        color: var(--dark);
+        text-decoration: none;
+        cursor: pointer;
+
+        &:hover {
+          opacity: 0.75;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+  &__content-wrapper{
+    min-height: 50vh;
+    padding: var(--globalPadding) 0;
+  }
+  &__intro {
+    padding: var(--globalPadding);
+    padding-bottom: calc(var(--globalPadding) / 2);
+  }
+
+  &__cards-wrapper {
+    width: 100%;
+    display: grid;
+    grid-template: auto / 1fr 1fr 1fr;
+    gap: calc(var(--globalPadding) / 2);
+    grid-gap: calc(var(--globalPadding) / 2);
+    @include breakpoint(mobile) {
+     grid-template: auto / 100%;
+    }
+    &--card{
+      width: 100%;
+      display: block;
+      text-decoration: none;
+      color: var(--white);
+      padding-bottom: var(--globalPadding);
+
+      &:hover {
+        opacity: 0.7;
+      }
+      h3 {
+        padding: 20px;
+      }
+      p{
+        margin-bottom: 13px;
+      }
+      p:not(.event-location) {
+        margin-bottom: 0;
+      }
+    }
   }
 }
+
+
+
 </style>

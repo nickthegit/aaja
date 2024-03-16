@@ -4,9 +4,10 @@ export default {
   type: 'document',
   fields: [
     {
-      name: 'intro',
-      title: 'Intro Text',
-      type: 'blockContent',
+      title: 'Header content',
+      name: 'heading',
+      type: 'array',
+      of: [{ type: 'block' }]
     },
     {
       name: 'feature_image',
@@ -24,5 +25,12 @@ export default {
         },
       ]
     },
+    {
+      title: 'Text area above event list',
+      name: 'intro',
+      type: 'array',
+      of: [{ type: 'block' }]
+    },
+
   ],
 }
