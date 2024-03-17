@@ -4,6 +4,7 @@ export const state = () => ({
   stationMeta: null,
   reqData2: null,
   stationMeta2: null,
+  popupButtonSettings: null,
 })
 
 export const mutations = {
@@ -19,6 +20,9 @@ export const mutations = {
   updateReqData2(state, payload) {
     state.reqData2 = payload
   },
+  popupButtonSettings(state, payload) {
+    state.popupButtonSettings = payload
+  }
 }
 
 export const actions = {
@@ -31,6 +35,13 @@ export const actions = {
     // * archive
     await dispatch('archive/archiveServerInit')
   },
+  async fetchButtonSettings({ commit }) {
+    console.log('gone here')
+    const buttonSettings = await this.$axios.fetch(buttonPopupQuery)
+
+    commit('popButtonSettings', buttonSettings)
+  },
+
   async fetchRadio({ commit }) {
     const numWeeks = 2;
     const now = new Date();

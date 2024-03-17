@@ -6,6 +6,7 @@ import { BiDrink } from 'react-icons/bi'
 import { GrChannel } from 'react-icons/gr'
 import { RiContactsLine, RiHome4Line } from 'react-icons/ri'
 import { GiPartyPopper } from 'react-icons/gi'
+import { PiRadioButtonDuotone } from "react-icons/pi";
 
 export default () =>
   S.list()
@@ -101,6 +102,16 @@ export default () =>
                     .schemaType('contactPage')
                     .documentId('contactPage')
                 ),
+              S.listItem()
+                .title('Popup Button')
+                .icon(PiRadioButtonDuotone)
+                .child(
+                  S.editor()
+                    .title('Popup Button')
+                    .id('popupButton')
+                    .schemaType('popupButton')
+                    .documentId('popupButton')
+                ),
             ])
         ),
       // Add a visual divider (optional)
@@ -117,6 +128,7 @@ export default () =>
             'labelPage',
             'liveEventsLandingPage',
             'contactPage',
+            'popupButton'
           ].includes(listItem.getId())
       ),
     ])
