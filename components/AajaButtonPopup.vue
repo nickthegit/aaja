@@ -33,7 +33,7 @@ export default {
     window.open(
       this.settings.buttonLink,
       "AAJA popout",
-      `width=${this.settings.popupWidth},height=${this.settings.popupHeight}`
+      this.settings?.shouldPopup ? `width=${this.settings.popupWidth},height=${this.settings.popupHeight}` : null
     )
   }
   },
@@ -46,7 +46,8 @@ export default {
         isLinkPopup: this.settings?.shouldPopup,
         popupHeight: this.settings?.popupHeight,
         popupWidth:this.settings?.popupWidth,
-        link: this.settings?.buttonLink
+        link: this.settings?.buttonLink,
+        shouldPopup: this.settings?.shouldPopup,
      }
     },
     logo() {
