@@ -166,7 +166,7 @@ export default {
       }
     }
   }
-  &__content-wrapper{
+  &__content-wrapper {
     min-height: 50vh;
     padding: var(--globalPadding) 0;
   }
@@ -184,7 +184,7 @@ export default {
     @include breakpoint(mobile) {
      grid-template: auto / 100%;
     }
-    &--card{
+    &--card {
       width: 100%;
       display: block;
       text-decoration: none;
@@ -194,12 +194,15 @@ export default {
       &:hover {
         opacity: 0.7;
       }
+
       h3 {
         padding: 20px;
       }
-      p{
+
+      p {
         margin-bottom: 13px;
       }
+
       p:not(.event-location) {
         margin-bottom: 0;
       }

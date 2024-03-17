@@ -3,13 +3,14 @@
     <AajaHeader />
     <AajaMenu />
     <Nuxt />
-    <!-- TODO: link this to the CRM for temporary events -->
-    <!-- <AajaButtonPopup /> -->
+    <AajaButtonPopup/>
     <AajaFooter />
-    <!-- <main-footer /> -->
   </div>
 </template>
 
-<script></script>
+<script>
+// const { default: AajaButtonPopup } = require('~/components/AajaButtonPopup.vue');
+
+</script>
 
 <style lang="scss" scoped></style>

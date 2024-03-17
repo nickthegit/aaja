@@ -96,6 +96,17 @@ export const festivalPageQuery = `*[_type == "festivalPage"] {
   images
 }`
 
+export const buttonPopupQuery = `*[_type == "popupButton"] {
+  isEnabled,
+  shouldShake,
+  shouldSpin,
+  shouldPopup,
+  popupWidth,
+  popupHeight,
+  buttonLink,
+  logo
+}`
+
 
 export const labelPageQuery = `*[_type == "labelPage"] {
   "heading": coalesce(heading, "Aaja Bar", false),
