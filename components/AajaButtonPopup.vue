@@ -33,7 +33,7 @@ export default {
     window.open(
       this.settings.buttonLink,
       "AAJA popout",
-      this.settings.shouldPopup ? `width=${this.settings.popupWidth},height=${this.settings.popupHeight}` : null
+      this.settings?.shouldPopup ? `width=${this.settings.popupWidth},height=${this.settings.popupHeight}` : null
     )
   }
   },
