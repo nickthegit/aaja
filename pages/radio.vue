@@ -4,7 +4,7 @@
       <aaja-container class="radio__hero-container">
         <a
           class="chat-icon"
-          href="https://rumbletalk.com/client/chat.php?!oT!EN9:"
+          href="https://app.radiocult.fm/embed/chat/aaja?theme=midnight&primaryColor=%2384D8F9&corners=rounded"
           target="_blank"
           rel="noopener noreferrer"
           ><svg

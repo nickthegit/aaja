@@ -99,7 +99,7 @@ export default {
       // https://docs.sentry.io/platforms/javascript/guides/vue/configuration/options/
     },
   },
-  redirect: [{ from: '^/chat', to: 'https://rumbletalk.com/client/chat.php?!oT!EN9:' }],
+  redirect: [{ from: '^/chat', to: 'https://app.radiocult.fm/embed/chat/aaja?theme=midnight&primaryColor=%2384D8F9&corners=rounded' }],
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
