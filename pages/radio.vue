@@ -15,23 +15,13 @@
       <aaja-container>
         <h3>{{ radioData.spotlightHeading }}</h3>
         <p>{{ radioData.spotlightSubHeading }}</p>
-        <slider-container
-          class="spotlight-slider-container"
-          :sliderOptions="spotlightSliderOptions"
-        >
+        <slider-container class="spotlight-slider-container" :sliderOptions="spotlightSliderOptions">
           <div class="swiper-slide" v-for="slide in spotlights" :key="slide._id">
             <nuxt-link :to="`/residents/${slide.slug.current}`">
               <div class="spotlight-slide-wrap">
-                <aaja-img
-                  :altText="`Aaja Resident - ${slide.slug.current}`"
-                  :desktopBg="slide.img.desktopBlur"
-                  :mobileBg="slide.img.mobileBlur"
-                  :desktopImgs="slide.img.desktop"
-                  :mobileImgs="slide.img.mobile"
-                  :ratio="[1, 1]"
-                  :percentageOfViewportWidth="15"
-                  :percentageOfViewportWidthMobile="49"
-                />
+                <aaja-img :altText="`Aaja Resident - ${slide.slug.current}`" :desktopBg="slide.img.desktopBlur"
+                  :mobileBg="slide.img.mobileBlur" :desktopImgs="slide.img.desktop" :mobileImgs="slide.img.mobile"
+                  :ratio="[1, 1]" :percentageOfViewportWidth="15" :percentageOfViewportWidthMobile="49" />
               </div>
             </nuxt-link>
           </div>
@@ -52,7 +42,9 @@
         <div class="featured-container">
           <section class="featured-title-bar title-bar">
             <h2>
-              {{ radioData.communityHeading }}<span><Logo /></span>
+              {{ radioData.communityHeading }}<span>
+                <Logo />
+              </span>
             </h2>
           </section>
           <section class="featured-copy">
@@ -60,10 +52,7 @@
             <SanityContent :blocks="radioData.communityText" />
           </section>
           <section class="featured-artist-card-wrap">
-            <slider-container
-              class="featured-slider-container"
-              :sliderOptions="featuredSliderOptions"
-            >
+            <slider-container class="featured-slider-container" :sliderOptions="featuredSliderOptions">
               <template v-slot:sliderButtonsTop>
                 <div class="slider-btns-wrap">
                   <div class="slider-button-prev featured-prev">
@@ -80,21 +69,14 @@
                     <h5>Featured</h5>
                     <h3>{{ slide.name }}</h3>
                     <p v-if="slide.short_bio">{{ slide.short_bio }}</p>
-                    <nuxt-link :to="`/residents/${slide.slug.current}`"
-                      >Listen to a show <span><arrow /></span
-                    ></nuxt-link>
+                    <nuxt-link :to="`/residents/${slide.slug.current}`">Listen to a show <span>
+                        <arrow />
+                      </span></nuxt-link>
                   </div>
-                  <aaja-img
-                    class="featured-img"
-                    :altText="`Aaja Resident - ${slide.name}`"
-                    :desktopBg="slide.img.desktopBlur"
-                    :mobileBg="slide.img.mobileBlur"
-                    :desktopImgs="slide.img.desktop"
-                    :mobileImgs="slide.img.mobile"
-                    :ratio="[1, 1]"
-                    :percentageOfViewportWidth="60"
-                    :percentageOfViewportWidthMobile="100"
-                  />
+                  <aaja-img class="featured-img" :altText="`Aaja Resident - ${slide.name}`"
+                    :desktopBg="slide.img.desktopBlur" :mobileBg="slide.img.mobileBlur" :desktopImgs="slide.img.desktop"
+                    :mobileImgs="slide.img.mobile" :ratio="[1, 1]" :percentageOfViewportWidth="60"
+                    :percentageOfViewportWidthMobile="100" />
                 </div>
               </div>
             </slider-container>
@@ -1240,7 +1222,7 @@ export default {
       return value.slice(0, 118) + '...'
     },
   },
-  mounted() {},
+  mounted() { },
 }
 </script>
 
@@ -1251,6 +1233,7 @@ export default {
   overflow: hidden;
   // background: salmon;
 }
+
 .radio__hero-container {
   height: 100%;
   display: grid;
@@ -1259,55 +1242,45 @@ export default {
   align-items: center;
   justify-items: start;
   padding-top: var(--headerHeight) !important;
+
   @include breakpoint(mobile) {
     grid-template: auto / 45% 1fr;
     padding-top: 0 !important;
   }
+
   svg {
     width: 100%;
+
     .st0 {
       fill: #fff;
     }
   }
+
   p {
     width: 100%;
     max-width: 500px;
     font-size: 20px;
     line-height: 24px;
     text-transform: uppercase;
+
     @include breakpoint(mobile) {
       width: 60%;
       padding-top: 10px;
     }
   }
 }
-.chat-icon {
-  width: 100px;
-  height: 100px;
-  position: absolute;
-  top: 110px;
-  right: 50px;
-  z-index: 10;
-  @include breakpoint(tablet-mobile) {
-    right: unset;
-    top: unset;
-    bottom: var(--globalPadding);
-    left: var(--globalPadding);
-  }
-  @include breakpoint(mobile) {
-    width: 80px;
-    height: 80px;
-  }
-}
+
 .radio__heading {
   p {
     margin-top: 20px;
   }
+
   @include breakpoint(mobile) {
     grid-row: 1 / 2;
     grid-column: 1 / 3;
   }
 }
+
 #snake_roundel {
   @include breakpoint(mobile) {
     grid-row: 1 / 2;
@@ -1319,43 +1292,53 @@ export default {
     position: relative;
   }
 }
+
 .radio__spotlight {
   background: #dcdcdc;
   color: var(--black);
   padding: var(--globalPadding) 0;
+
   h2 {
     margin-bottom: 20px;
   }
 }
+
 .spotlight-slide-wrap {
   width: 100%;
+
   img {
     width: 100%;
   }
 }
+
 .slider-btns-wrap {
   position: relative;
   padding: 20px 0;
   display: flex;
   align-items: flex-start;
   justify-content: flex-end;
+
   div {
     display: block;
     width: 30px;
     height: 30px;
     cursor: pointer;
+
     &.swiper-button-disabled {
       opacity: 0.3;
     }
+
     svg {
       width: 100%;
     }
   }
+
   .slider-button-prev {
     transform: rotate(180deg);
     margin-right: 20px;
   }
 }
+
 .schedule-slider-container {
   .slider-btns-wrap {
     position: absolute;
@@ -1365,17 +1348,21 @@ export default {
     padding: 0;
   }
 }
+
 .radio__schedule {
   background: var(--white);
   color: var(--black);
   padding: var(--globalPadding) 0;
 }
+
 .title-bar {
   margin-bottom: 20px;
+
   span {
     height: var(--h2Size);
     display: inline-block;
     vertical-align: middle;
+
     svg {
       height: 100%;
       margin-left: 10px;
@@ -1383,6 +1370,7 @@ export default {
     }
   }
 }
+
 .schedule-title-bar {
   span {
     svg {
@@ -1390,6 +1378,7 @@ export default {
     }
   }
 }
+
 .schedule-slide-wrap {
   h3 {
     -webkit-text-stroke: 1px var(--black);
@@ -1401,6 +1390,7 @@ export default {
     padding-bottom: 20px;
   }
 }
+
 .schedule-item {
   width: 100%;
   margin-top: 20px;
@@ -1413,11 +1403,13 @@ export default {
   border-bottom: var(--borderAtts);
   box-sizing: border-box;
   border-color: var(--black);
+
   .schedule-img {
     width: 100%;
     grid-column: 1 / 2;
     grid-row: 1 / 3;
   }
+
   p {
     width: 100%;
     grid-column: 2 / 3;
@@ -1427,30 +1419,37 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     span {
       display: block;
       width: 60px;
+
       svg {
         width: 100%;
       }
     }
   }
+
   h5 {
     grid-column: 2 / 3;
     grid-row: 2 / 3;
     text-transform: uppercase;
   }
 }
+
 .featured {
   padding: var(--globalPadding) 0;
   background: var(--dark);
+
   .slider-btns-wrap {
+
     path,
     circle {
       stroke: var(--white);
     }
   }
 }
+
 .featured-container {
   width: 100%;
   overflow: hidden;
@@ -1458,39 +1457,48 @@ export default {
   grid-template: auto 1fr / 1fr 57.5%;
   gap: var(--globalPadding);
   row-gap: 0;
+
   @include breakpoint(mobile) {
     grid-template: auto auto auto / 100%;
   }
 }
+
 .featured-title-bar {
   grid-column: 1 / 3;
   grid-row: 1 / 2;
+
   @include breakpoint(mobile) {
     grid-column: 1 / 2;
     grid-row: 1 / 2;
   }
 }
+
 .featured-copy {
   grid-column: 1 / 2;
   grid-row: 2 / 3;
   align-self: end;
+
   h3 {
     text-transform: uppercase;
     margin-bottom: 10px;
   }
+
   @include breakpoint(mobile) {
     grid-column: 1 / 2;
     grid-row: 2 / 3;
   }
 }
+
 .featured-artist-card-wrap {
   grid-column: 2 / 3;
   grid-row: 2 / 3;
+
   @include breakpoint(mobile) {
     grid-column: 1 / 2;
     grid-row: 3 / 4;
   }
 }
+
 .featured-artist-card {
   background: var(--white);
   color: var(--black);
@@ -1499,13 +1507,16 @@ export default {
   grid-template: auto / 40% 1fr;
   gap: 20px;
   grid-gap: 20px;
+
   @include breakpoint(mobile) {
     grid-template: auto auto / 100%;
   }
+
   .featured-img {
     grid-column: 1 / 2;
     grid-row: 1 / 2;
   }
+
   .featured-artist-card-copy-warp {
     grid-column: 2 / 3;
     grid-row: 1 / 2;
@@ -1514,34 +1525,42 @@ export default {
     justify-content: flex-start;
     flex-direction: column;
     position: relative;
+
     @include breakpoint(mobile) {
       grid-column: 1 / 2;
       grid-row: 2 / 3;
     }
   }
+
   h5 {
     text-transform: uppercase;
     padding: 5px 0;
   }
+
   h3 {
     margin-bottom: 20px;
   }
+
   a {
     color: var(--black);
     position: absolute;
     bottom: 0;
     font-weight: 600;
+
     &:hover {
       opacity: 0.7;
     }
+
     span {
       margin-left: 20px;
       display: inline-block;
       width: 18px;
       vertical-align: middle;
       transform: rotate(180deg);
+
       svg {
         width: 100%;
+
         path,
         g {
           fill: var(--black);
@@ -1550,11 +1569,13 @@ export default {
     }
   }
 }
+
 .archive {
   background: transparent;
   color: var(--white);
   padding: var(--globalPadding) 0;
 }
+
 .archive-title-bar {
   span {
     svg {
@@ -1562,18 +1583,22 @@ export default {
     }
   }
 }
+
 .archive-artist-card-wrap {
   width: 100%;
   display: grid;
   grid-template: auto / 1fr 1fr 1fr 1fr;
   gap: 40px;
   grid-gap: 40px;
+
   @media screen and (max-width: 1024px) {
     grid-template: auto / 1fr 1fr 1fr;
   }
+
   @include breakpoint(tablet) {
     grid-template: auto / 1fr 1fr;
   }
+
   @include breakpoint(mobile) {
     grid-template: auto / 1fr;
     gap: 20px;
