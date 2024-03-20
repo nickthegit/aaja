@@ -1,42 +1,31 @@
 <template>
-  <main >
+  <main>
     <section class="live-event__hero">
       <section class="live-event__hero-img">
         <aaja-hero-img class="live-event__hero-image" v-if="eventsPage.feature_image" altText="Aaja Events Hero image"
-          :landscapeBg="heroImage.landscapeBlur" :portraitBg="heroImage.portraitBlur" :landscapeImgs="heroImage.landscape"
-          :portraitImgs="heroImage.portrait" />
+          :landscapeBg="heroImage.landscapeBlur" :portraitBg="heroImage.portraitBlur"
+          :landscapeImgs="heroImage.landscape" :portraitImgs="heroImage.portrait" />
       </section>
       <aaja-container class="live-event__hero-header">
         <aaja-heading-block>
           <SanityContent :blocks="eventsPage.heading" />
         </aaja-heading-block>
       </aaja-container>
-  </section>
+    </section>
     <article class="live-event__content-wrapper">
-        <aaja-container class="live-event__intro">
-          <SanityContent  v-if="eventsPage.intro" :blocks="eventsPage.intro" />
-        </aaja-container>
-        <aaja-container class="live-event__cards-wrapper">
-          <nuxt-link
-            class="live-event__cards-wrapper--card"
-            v-for="event in eventCards"
-            :key="event._id"
-            :to="`live-events/${event.slug.current}`"
-            v-if="isFutureEvent(event)"
-          >
+      <aaja-container class="live-event__intro">
+        <SanityContent v-if="eventsPage.intro" :blocks="eventsPage.intro" />
+      </aaja-container>
+      <aaja-container class="live-event__cards-wrapper">
+        <nuxt-link class="live-event__cards-wrapper--card" v-for="event in eventCards" :key="event._id"
+          :to="`${event.slug.current}`" v-if="isFutureEvent(event)">
           <h4 v-if="event.name">{{ event.name }}</h4>
           <p class="event-date" v-if="event.eventDateText">{{ event?.eventDateText }}</p>
           <p class="event-location" v-if="event.eventLocation">{{ '@' + event.eventLocation }}</p>
-            <aaja-img
-              :altText="`Aaja event - ${event.name}`"
-              :desktopBg="event.img.desktopBlur"
-              :mobileBg="event.img.mobileBlur"
-              :desktopImgs="event.img.desktop"
-              :mobileImgs="event.img.mobile"
-              :ratio="[1, 1]"
-              :percentageOfViewportWidth="33"
-            />
-          </nuxt-link>
+          <aaja-img :altText="`Aaja event - ${event.name}`" :desktopBg="event.img.desktopBlur"
+            :mobileBg="event.img.mobileBlur" :desktopImgs="event.img.desktop" :mobileImgs="event.img.mobile"
+            :ratio="[1, 1]" :percentageOfViewportWidth="33" />
+        </nuxt-link>
       </aaja-container>
     </article>
   </main>
@@ -78,7 +67,7 @@ export default {
   methods: {
     isFutureEvent(event) {
       const date = event.eventDateText.split('@')[0]
-        return isAfter(new Date(date),new Date());
+      return isAfter(new Date(date), new Date());
     },
 
     // helper functions
@@ -166,10 +155,12 @@ export default {
       }
     }
   }
+
   &__content-wrapper {
     min-height: 50vh;
     padding: var(--globalPadding) 0;
   }
+
   &__intro {
     padding: var(--globalPadding);
     padding-bottom: calc(var(--globalPadding) / 2);
@@ -181,9 +172,11 @@ export default {
     grid-template: auto / 1fr 1fr 1fr;
     gap: calc(var(--globalPadding) / 2);
     grid-gap: calc(var(--globalPadding) / 2);
+
     @include breakpoint(mobile) {
-     grid-template: auto / 100%;
+      grid-template: auto / 100%;
     }
+
     &--card {
       width: 100%;
       display: block;
@@ -209,7 +202,4 @@ export default {
     }
   }
 }
-
-
-
 </style>
