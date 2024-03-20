@@ -25,8 +25,9 @@ export default {
     {
       name: 'eventDateText',
       title: 'Event Date & time (with end time)',
-      description: "Manually add dates with an end time like so: 8 DECEMBER 2023 @ 14:00-20:00",
+      description: "IMPORTANT: If adding a time, remember to add a @ between the event date & time like so: like so: 8 December 2023 @ 14:00-20:00",
       type: 'string',
+      validation: (Rule => Rule.regex(/@/).warning('If adding an event time, a @ must be added between the date and time like so: 8 December 2023 @ 14:00-20:00'))
     },
     {
       name: 'eventLocation',
