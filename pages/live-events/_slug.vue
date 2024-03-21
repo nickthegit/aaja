@@ -24,9 +24,9 @@
           <SanityContent v-if="eventData.intro" :blocks="eventData.intro" />
 
         </section>
-        <aside v-if="eventData.eventLink">
-          <a :href="eventData.eventLink" target="_blank" rel="noopener noreferrer">{{ eventLinkCtaLabel }} </a>
-          <audio id="audio" :src="eventData.audioStreamingLink" preload="auto"></audio>
+        <aside v-if="eventData.eventLink || eventData.audioStreamingLink">
+          <a :href="eventData.eventLink" v-if="eventData.eventLink" target="_blank" rel="noopener noreferrer">{{ eventLinkCtaLabel }} </a>
+          <audio id="audio" :src="eventData.audioStreamingLink" v-if="eventData.audioStreamingLink" preload="auto"></audio>
           <button class="playBtn" @click="playPause" v-if="eventData.audioStreamingLink">
             {{ audioCtaLabel }}
             <svg v-if="!playing" class="playIcon" width="13" height="20" viewBox="0 0 13 20" fill="none"
