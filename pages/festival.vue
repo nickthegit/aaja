@@ -166,13 +166,8 @@ export default {
       padding-bottom: 40px;
       @include breakpoint(mobile) {
         padding-top: 160px;
-
-        }
-      &-wrapper {
-        .festival-logo {
-          display: none;
-        }
       }
+
       &-intro {
         width: 60%;
         margin-top: 20px;

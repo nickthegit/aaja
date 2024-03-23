@@ -27,6 +27,9 @@ export default {
 <style lang="scss" scoped>
 .festival-logo {
   margin-top: 25px;
+  @include breakpoint(mobile) {
+    display: none;
+  }
   &__image {
       width:calc(var(--h1Size) - 20px);
       margin: auto;
