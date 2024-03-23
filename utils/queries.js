@@ -102,6 +102,7 @@ export const buttonPopupQuery = `*[_type == "popupButton"] {
   shouldShake,
   shouldSpin,
   shouldPopup,
+  shouldBlendWithBackground,
   popupWidth,
   popupHeight,
   buttonLink,
