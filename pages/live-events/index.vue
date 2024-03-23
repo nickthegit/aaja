@@ -184,7 +184,7 @@ export default {
   }
 
   &__intro {
-    padding: var(--globalPadding);
+    padding-top: 0;
     padding-bottom: calc(var(--globalPadding) / 2);
   }
 
