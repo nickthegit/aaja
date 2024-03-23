@@ -9,6 +9,11 @@ export default {
       type: 'blockContentBare',
     },
     {
+      title: 'Page Header Intro',
+      name: 'headingIntro',
+      type: 'text',
+    },
+    {
       title: 'Page Header hero image',
       name: 'festivalHero',
       type: 'image'

@@ -7,9 +7,12 @@
           :portraitBg="hero.portraitBlur" :landscapeImgs="hero.landscape" :portraitImgs="hero.portrait" />
       </section>
       <aaja-container class="festival__hero-header">
-        <aaja-heading-block :isFestival=true>
-          <SanityContent :blocks="festivalData.heading" />
-        </aaja-heading-block>
+        <div class="festival__hero-header-wrapper">
+          <aaja-heading-block :isFestival=true>
+            <SanityContent :blocks="festivalData.heading" />
+          </aaja-heading-block>
+          <p v-if="festivalData.headingIntro" class="festival__hero-header-intro">{{ festivalData.headingIntro }}</p>
+        </div>
       </aaja-container>
     </section>
     <article>
@@ -144,7 +147,7 @@ export default {
       height: 100vh;
       position: relative;
       z-index: 1;
-      opacity: 0.2;
+      opacity: 0.5;
     }
 
     &-header {
@@ -154,11 +157,25 @@ export default {
       left: 0;
       z-index: 2;
       height: 100%;
+
       display: flex;
       flex-direction: column;
       align-items: flex-start;
+      justify-content: center;
       padding-top: 80px;
       padding-bottom: 40px;
+      @include breakpoint(mobile) {
+        padding-top: 160px;
+      }
+
+      &-intro {
+        width: 60%;
+        margin-top: 20px;
+        @include breakpoint(tablet-mobile) {
+          width: 100%;
+          margin-top: 13px;
+        }
+      }
     }
 
     &-opening {

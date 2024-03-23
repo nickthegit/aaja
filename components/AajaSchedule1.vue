@@ -16,28 +16,6 @@
         <h3>{{ slide.label }}</h3>
         <div class="schedule-table">
           <div class="schedule-item" v-for="item in slide.schedule" :key="item._id">
-            <!-- <aaja-img
-                    v-if="!item.onAir"
-                    class="schedule-img"
-                    :altText="`Aaja resident - ${item.name}`"
-                    :desktopBg="item.img.desktopBlur"
-                    :mobileBg="item.img.mobileBlur"
-                    :desktopImgs="item.img.desktop"
-                    :mobileImgs="item.img.mobile"
-                    :ratio="[1, 1]"
-                    :percentageOfViewportWidth="20"
-                  />
-                  <aaja-img
-                    v-else
-                    class="schedule-img"
-                    :altText="`Aaja resident - ${item.name}`"
-                    :desktopBg="item.imgLive.desktopBlur"
-                    :mobileBg="item.imgLive.mobileBlur"
-                    :desktopImgs="item.imgLive.desktop"
-                    :mobileImgs="item.imgLive.mobile"
-                    :ratio="[1, 1]"
-                    :percentageOfViewportWidth="20"
-                  /> -->
             <p>
               {{ item.time.from }} - {{ item.time.to }}<span v-if="item.onAir"><live-now /></span>
             </p>
