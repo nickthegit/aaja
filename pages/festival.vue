@@ -168,13 +168,17 @@ export default {
         padding-top: 160px;
 
         }
-
+      &-wrapper {
+        .festival-logo {
+          display: none;
+        }
+      }
       &-intro {
         width: 60%;
         margin-top: 20px;
         @include breakpoint(tablet-mobile) {
           width: 100%;
-          margin-top: 5px;
+          margin-top: 13px;
         }
       }
     }
