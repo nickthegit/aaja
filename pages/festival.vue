@@ -164,10 +164,15 @@ export default {
       justify-content: center;
       padding-top: 80px;
       padding-bottom: 40px;
+      @include breakpoint(mobile) {
+        padding-top: 160px;
+
+        }
+
       &-intro {
         width: 60%;
         margin-top: 20px;
-        @include breakpoint(mobile) {
+        @include breakpoint(tablet-mobile) {
           width: 100%;
           margin-top: 5px;
         }
