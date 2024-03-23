@@ -21,6 +21,13 @@ export default {
       hidden: ({ document }) => !document?.isEnabled
     },
     {
+      name: 'shouldBlendWithBackground',
+      title: 'Add Contrast on Background color',
+      description:'For example, a black logo on black background becomes white',
+      type: 'boolean',
+      hidden: ({ document }) => !document?.isEnabled
+    },
+    {
       name: 'shouldPopup',
       type: 'boolean',
       title: 'Should popup in new window',

@@ -3,7 +3,7 @@
       class="button-popup"
       target="_blank"
       @click="handleClick"
-      :class="{ spin: buttonSettings?.spin, shake: buttonSettings?.shake }"
+      :class="{ spin: buttonSettings?.spin, shake: buttonSettings?.shake, blend: buttonSettings?.shouldBlendWithBackground }"
       v-if="!isLoading && buttonSettings?.isEnabled"
     >
         <img v-bind:src="logo?.desktop['400']"  class="button-popup__image"/>
@@ -48,6 +48,7 @@ export default {
         popupWidth:this.settings?.popupWidth,
         link: this.settings?.buttonLink,
         shouldPopup: this.settings?.shouldPopup,
+        shouldBlendWithBackground: this.settings?.shouldBlendWithBackground
      }
     },
     logo() {
@@ -75,6 +76,10 @@ export default {
 
     &.spin .button-popup__image:hover {
         animation: spin 10s linear infinite running;
+    }
+
+    &.blend {
+      mix-blend-mode: difference;
     }
 
     &:hover {
