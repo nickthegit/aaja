@@ -147,7 +147,7 @@ export default {
       height: 100vh;
       position: relative;
       z-index: 1;
-      opacity: 0.2;
+      opacity: 0.5;
     }
 
     &-header {
