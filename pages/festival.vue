@@ -175,7 +175,9 @@ export default {
       @include breakpoint(mobile) {
         padding-top: 160px;
       }
-
+      &-wrapper {
+        width: 100%;
+      }
       &-intro {
         width: 60%;
         margin-top: 20px;
