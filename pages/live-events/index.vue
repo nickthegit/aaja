@@ -7,9 +7,12 @@
           :landscapeImgs="heroImage.landscape" :portraitImgs="heroImage.portrait" />
       </section>
       <aaja-container class="live-event__hero-header">
-        <aaja-heading-block>
-          <SanityContent :blocks="eventsPage.heading" />
-        </aaja-heading-block>
+        <div class="live-event__hero-header-wrapper">
+          <aaja-heading-block>
+            <SanityContent :blocks="eventsPage.heading" />
+          </aaja-heading-block>
+          <p v-if="eventsPage.headingIntro" class="live-event__hero-header-intro">{{ eventsPage.headingIntro }}</p>
+        </div>
       </aaja-container>
     </section>
     <article class="live-event__content-wrapper">
@@ -109,10 +112,29 @@ export default {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
+      justify-content: center;
       padding-top: 80px;
       padding-bottom: 40px;
       color: var(--white);
       --headerColor: var(--white);
+
+      @include breakpoint(mobile) {
+        padding-top: 160px;
+      }
+
+      &-wrapper {
+        width: 100%;
+      }
+
+      &-intro {
+        width: 60%;
+        margin-top: 20px;
+
+        @include breakpoint(tablet-mobile) {
+          width: 100%;
+          margin-top: 13px;
+        }
+      }
     }
 
     &-opening {
