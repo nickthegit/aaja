@@ -1,13 +1,9 @@
 <template>
-    <a
-      class="button-popup"
-      target="_blank"
-      @click="handleClick"
-      :class="{ spin: buttonSettings?.spin, shake: buttonSettings?.shake, blend: buttonSettings?.shouldBlendWithBackground }"
-      v-if="!isLoading && buttonSettings?.isEnabled"
-    >
-        <img v-bind:src="logo?.desktop['400']"  class="button-popup__image"/>
-    </a>
+  <a class="button-popup" target="_blank" @click="handleClick"
+    :class="{ spin: buttonSettings?.spin, shake: buttonSettings?.shake, blend: buttonSettings?.shouldBlendWithBackground }"
+    v-if="!isLoading && buttonSettings?.isEnabled">
+    <img v-bind:src="logo?.desktop['400']" class="button-popup__image" />
+  </a>
 </template>
 
 <script>
@@ -18,7 +14,6 @@ export default {
   async fetch() {
     this.data = await this.$sanity.fetch(buttonPopupQuery);
     this.settings = this.data?.[0];
-    console.log(this.data?.[0])
     this.isLoading = false
   },
 
@@ -30,30 +25,30 @@ export default {
   },
   methods: {
     handleClick() {
-    window.open(
-      this.settings.buttonLink,
-      "AAJA popout",
-      this.settings?.shouldPopup ? `width=${this.settings.popupWidth},height=${this.settings.popupHeight}` : null
-    )
-  }
+      window.open(
+        this.settings.buttonLink,
+        "AAJA popout",
+        this.settings?.shouldPopup ? `width=${this.settings.popupWidth},height=${this.settings.popupHeight}` : null
+      )
+    }
   },
   computed: {
-    buttonSettings(){
+    buttonSettings() {
       return {
         isEnabled: this.settings?.isEnabled,
         spin: this.settings?.shouldSpin,
         shake: this.settings?.shouldShake,
         isLinkPopup: this.settings?.shouldPopup,
         popupHeight: this.settings?.popupHeight,
-        popupWidth:this.settings?.popupWidth,
+        popupWidth: this.settings?.popupWidth,
         link: this.settings?.buttonLink,
         shouldPopup: this.settings?.shouldPopup,
         shouldBlendWithBackground: this.settings?.shouldBlendWithBackground
-     }
+      }
     },
     logo() {
       const image = this.$urlForSquare(this.settings.logo, false, false);
-      return {...image}
+      return { ...image }
     }
   }
 }
@@ -61,43 +56,44 @@ export default {
 
 <style lang="scss" scoped>
 .button-popup {
-    display: block;
-    position: fixed;
-    z-index: 2;
-    width: auto;
+  display: block;
+  position: fixed;
+  z-index: 2;
+  width: auto;
+  height: auto;
+
+  bottom: 5%;
+  right: 5%;
+
+  &.shake {
+    animation: 5s shake 2s linear 3 running;
+  }
+
+  &.spin .button-popup__image:hover {
+    animation: spin 10s linear infinite running;
+  }
+
+  &.blend {
+    mix-blend-mode: difference;
+  }
+
+  &:hover {
+    animation: none;
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+
+  &__image {
+    width: 150px;
+
+    @include breakpoint(tablet-mobile) {
+      width: 100px;
+    }
+
     height: auto;
-
-    bottom: 5%;
-    right: 5%;
-
-    &.shake {
-      animation: 5s shake 2s linear 3 running;
-    }
-
-    &.spin .button-popup__image:hover {
-        animation: spin 10s linear infinite running;
-    }
-
-    &.blend {
-      mix-blend-mode: difference;
-    }
-
-    &:hover {
-      animation: none;
-      transform: scale(1.1);
-      cursor: pointer;
-    }
-
-    &__image {
-      width: 150px;
-      @include breakpoint(tablet-mobile) {
-        width: 100px;
-      }
-
-      height: auto;
-      // animation: spin 10s linear infinite paused;
-      animation: none;
-    }
+    // animation: spin 10s linear infinite paused;
+    animation: none;
+  }
 
 
 }
