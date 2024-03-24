@@ -71,6 +71,7 @@ export default {
         description,
         image: 'https://aajamusic.com/_nuxt/img/creekside-transparent.55a5c78.png',
         url: 'https://aajamusic.com/festival',
+        themeColor: 'black'
       }),
     }
   },

@@ -40,5 +40,11 @@ export const createSEOMeta = (data) => [
     hid: 'twitter:card',
     name: 'twitter:card',
     content: data.cardType || 'summary_large_image',
-  }
+  },
+  // Others
+  ...(data?.themeColor && {
+    hid: 'theme-color',
+    name: 'theme-color',
+    content: 'black',
+  })
 ]
