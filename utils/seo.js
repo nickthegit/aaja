@@ -42,7 +42,7 @@ export const createSEOMeta = (data) => [
     content: data.cardType || 'summary_large_image',
   },
   // Others
-  ...(data?.themeColor && {
+  (data?.themeColor && {
     hid: 'theme-color',
     name: 'theme-color',
     content: 'black',
