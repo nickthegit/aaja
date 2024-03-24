@@ -75,7 +75,7 @@ export default {
         title: 'Aaja Music',
         site_name: 'Aaja Music',
         description:
-          'Aaja is a full spectrum music bar, record label, live streaming and event space located in an old railway arch in the heart of Deptford, London.',
+          'Aaja is a full spectrum music bar, record label, live streaming and event space located in an old railway arch in the heart of Deptford, London. ',
         img: 'https://aajamusic.com/Aaja-hero.jpg',
         img_size: { width: '1200', height: '671' },
         locale: 'en_GB',
