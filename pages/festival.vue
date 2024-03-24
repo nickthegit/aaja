@@ -49,6 +49,7 @@ import { FrameGrid } from "@egjs/vue-grid";
 import VueEasyLightbox from 'vue-easy-lightbox/dist/vue-easy-lightbox.esm.min.js'
 
 import { cloudinaryHeroParser } from '~/utils/images'
+import { createSEOMeta } from '~/utils/seo.js'
 import { festivalPageQuery } from '~/utils/queries.js'
 import AajaContainer from '~/components/AajaContainer.vue'
 import AajaHeroImg from '~/components/AajaHeroImg.vue'
@@ -59,6 +60,20 @@ import AajaHeading from '~/components/AajaHeading.vue'
 
 export default {
   components: { AajaContainer, AajaHeroImg, Logo, AajaImg, AajaHeading, FrameGrid, VueEasyLightbox },
+  head() {
+    const title = 'Aaja - Creekside Festival';
+    const description = this.festivalData?.headingIntro || 'Championing neighbourhood crews, DIY radio, local businesses & the unique spaces of Deptford, Creekside Festival is intimate multi-venue electronic music festival.';
+
+    return {
+      title,
+      meta: createSEOMeta({
+        title,
+        description,
+        image: 'https://aajamusic.com/_nuxt/img/creekside-transparent.55a5c78.png',
+        url: 'https://aajamusic.com/festival',
+      }),
+    }
+  },
   async asyncData({ $sanity }) {
     const festivalData = await $sanity.fetch(festivalPageQuery)
 
