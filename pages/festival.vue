@@ -15,7 +15,15 @@
         </div>
       </aaja-container>
     </section>
-    <article>
+    <article class="festival__content-wrapper">
+      <aaja-container class="festival__content-button">
+        <!-- <button  :class="'disabled'">
+        <h2>2024</h2>
+      </button> -->
+        <button :class="'active'">
+          <h2>2023</h2>
+        </button>
+      </aaja-container>
       <aaja-container class="festival__content-header">
         <div>
           <p>{{ festivalData.subHeading }}</p>
@@ -164,15 +172,19 @@ export default {
       justify-content: center;
       padding-top: 80px;
       padding-bottom: 40px;
+
       @include breakpoint(mobile) {
         padding-top: 160px;
       }
+
       &-wrapper {
         width: 100%;
       }
+
       &-intro {
         width: 60%;
         margin-top: 20px;
+
         @include breakpoint(tablet-mobile) {
           width: 100%;
           margin-top: 13px;
@@ -224,9 +236,27 @@ export default {
   &content {
     display: block;
 
-    &-header {
-      padding-top: var(--globalPadding);
+    &-wrapper {
+      padding-top: calc(var(--globalPadding) / 2);
+
+      button {
+        background-color: transparent;
+        color: var(--white);
+        border: none;
+
+        &.active {
+          text-decoration: underline;
+        }
+
+        &.disabled {
+          color: grey;
+        }
+      }
     }
+
+    /* &-header {
+
+    } */
 
     &-images {
       padding-top: var(--globalPadding);

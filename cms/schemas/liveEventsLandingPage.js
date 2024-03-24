@@ -10,6 +10,11 @@ export default {
       of: [{ type: 'block' }]
     },
     {
+      title: 'Header Intro',
+      name: 'headingIntro',
+      type: 'text',
+    },
+    {
       name: 'feature_image',
       title: 'Background Image',
       type: 'image',
