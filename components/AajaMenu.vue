@@ -7,8 +7,9 @@
       <nav @click.stop>
         <ul id="navMenu">
           <li v-for="link in links" :key="link._id" @click="navClose">
-            <a v-if="link.external_link" :href="link.external_link" target="_blank" rel="noopener noreferrer">{{ link.name
-            }}</a>
+            <a v-if="link.external_link" :href="link.external_link" target="_blank" rel="noopener noreferrer">{{
+      link.name
+    }}</a>
             <nuxt-link v-else :to="`/${link.slug}`">{{ link.name }}</nuxt-link>
           </li>
         </ul>
@@ -92,6 +93,12 @@ export default {
           slug: 'festival',
           external_link: null,
           _id: '148965131',
+        },
+        {
+          name: 'Events',
+          slug: 'live-events',
+          external_link: null,
+          _id: '59547020',
         },
         // {
         //   name: 'Shop',
