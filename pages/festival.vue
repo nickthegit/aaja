@@ -158,11 +158,6 @@ export default {
 </script>
 
 
-<!-- <style lang="scss">
-
-
- </style> -->
-
 <style lang="scss" scoped>
 .festival__ {
   &hero {

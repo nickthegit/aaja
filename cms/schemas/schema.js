@@ -13,6 +13,7 @@ import homePage from './homePage'
 import radioPage from './radioPage'
 import barPage from './barPage'
 import festivalPage from './festivalPage'
+import studioPage from './studioPage'
 import labelPage from './labelPage'
 import liveEventsLandingPage from './liveEventsLandingPage'
 import contactPage from './contactPage'
@@ -35,6 +36,7 @@ export default createSchema({
     radioPage,
     barPage,
     festivalPage,
+    studioPage,
     labelPage,
     contactPage,
     siteSettings,
