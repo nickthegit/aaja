@@ -20,6 +20,9 @@ export default {
           'Aaja is a full spectrum music bar, record label, live streaming and event space located in an old railway arch in the heart of Deptford, London.',
       },
     ],
+    script: [
+      { src: 'https://cdn.anny.co/widget/annyComponents.umd.latest.min.js', async: true, defer: true }
+    ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: 'preload', href: 'https://aaja.radiocult.fm/stream', as: 'audio' },

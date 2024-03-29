@@ -7,6 +7,7 @@ import { GrChannel } from 'react-icons/gr'
 import { RiContactsLine, RiHome4Line } from 'react-icons/ri'
 import { GiPartyPopper } from 'react-icons/gi'
 import { PiRadioButtonDuotone } from "react-icons/pi";
+import { MdOutlineMeetingRoom } from "react-icons/md";
 
 export default () =>
   S.list()
@@ -71,6 +72,16 @@ export default () =>
                     .id('festivalPage')
                     .schemaType('festivalPage')
                     .documentId('festivalPage')
+                ),
+              S.listItem()
+                .title('Studios Page')
+                .icon(MdOutlineMeetingRoom)
+                .child(
+                  S.editor()
+                    .title('Studios Page')
+                    .id('studioPage')
+                    .schemaType('studioPage')
+                    .documentId('studioPage')
                 ),
               S.listItem()
                 .title('Label Page')
