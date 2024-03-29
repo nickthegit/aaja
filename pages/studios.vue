@@ -95,7 +95,11 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+.button-popup {
+  display: none !important;
+}
+
 .studio__ {
   &hero {
     &-img {
