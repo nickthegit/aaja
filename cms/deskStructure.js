@@ -137,6 +137,7 @@ export default () =>
             'barPage',
             'festivalPage',
             'labelPage',
+            'studioPage',
             'liveEventsLandingPage',
             'contactPage',
             'popupButton'
