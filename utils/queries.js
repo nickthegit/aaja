@@ -93,7 +93,8 @@ export const festivalPageQuery = `*[_type == "festivalPage"] {
   "heading": coalesce(heading, "Creekside Festival!", false),
   subHeading,
   headingIntro,
-  festivalHero
+  festivalHero,
+  images
 }`
 
 export const studioPageQuery = `*[_type == "studioPage"] {
