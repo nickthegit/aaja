@@ -34,7 +34,7 @@
           v-bind:frame="isMobile ? mobileGrid : desktopGrid" v-bind:rectSize="rectSize"
           v-bind:useFrameFill="useFrameFill">
           <div v-for="(image, index) in gallery" :key="image._key" :class="`item`">
-            <img :src="image.desktop['1800']" @click="showMultiple(gallery, index)">
+            <img :src="image.desktop[isMobile ? '400' : '800']" @click="showMultiple(gallery, index)">
           </div>
         </frame-grid>
         <vue-easy-lightbox :visible="visibleRef" :imgs="imgsRef" :index="indexRef" @hide="onHide" />
