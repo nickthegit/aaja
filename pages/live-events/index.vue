@@ -36,7 +36,7 @@
 
 <script>
 import getVideoId from 'get-video-id'
-import { isAfter } from 'date-fns';
+import { isAfter, isToday } from 'date-fns';
 import { cloudinaryHeroParser } from '~/utils/images'
 
 export default {
@@ -70,7 +70,7 @@ export default {
   methods: {
     isFutureEvent(event) {
       const date = event.eventDateText.split('@')[0]
-      return isAfter(new Date(date), new Date());
+      return isToday(new Date(date), new Date()) || isAfter(new Date(date), new Date());
     },
 
     // helper functions
