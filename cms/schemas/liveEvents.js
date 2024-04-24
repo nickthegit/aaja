@@ -51,11 +51,6 @@ export default {
       type: 'blockContent',
     },
     {
-      name: "ctaTitle",
-      title: 'Button Title',
-      type: 'string',
-    },
-    {
       name: 'backgroundColor',
       title: 'Background color (if no image)',
       type: 'string',
@@ -84,10 +79,20 @@ export default {
       ]
     },
     {
+      name: "ctaTitle",
+      title: 'Event Link Button Title',
+      type: 'string',
+    },
+    {
       name: 'eventLink',
       title: 'Event Link',
       type: 'string',
       description: 'eg. https://ra.com/event/1531',
+    },
+    {
+      name: "ctaAudioTitle",
+      title: 'Audio Link Button Title',
+      type: 'string',
     },
     {
       name: 'audioStreamingLink',

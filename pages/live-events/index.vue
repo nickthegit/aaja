@@ -35,6 +35,7 @@
 </template>
 
 <script>
+
 import getVideoId from 'get-video-id'
 import { isAfter, isToday } from 'date-fns';
 import { cloudinaryHeroParser } from '~/utils/images'
