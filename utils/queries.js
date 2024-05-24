@@ -105,7 +105,19 @@ export const studioPageQuery = `*[_type == "studioPage"] {
   images
 }`
 
-export const buttonPopupQuery = `*[_type == "popupButton"] {
+export const buttonPopupQueryRight = `*[_type == "popupButton"] {
+  isEnabled,
+  shouldShake,
+  shouldSpin,
+  shouldPopup,
+  shouldBlendWithBackground,
+  popupWidth,
+  popupHeight,
+  buttonLink,
+  logo
+}`
+
+export const buttonPopupQueryLeft = `*[_type == "popupButtonLeft"] {
   isEnabled,
   shouldShake,
   shouldSpin,

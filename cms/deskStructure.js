@@ -114,14 +114,24 @@ export default () =>
                     .documentId('contactPage')
                 ),
               S.listItem()
-                .title('Popup Button')
+                .title('Popup Button Right')
                 .icon(PiRadioButtonDuotone)
                 .child(
                   S.editor()
-                    .title('Popup Button')
+                    .title('Popup Button Right')
                     .id('popupButton')
                     .schemaType('popupButton')
                     .documentId('popupButton')
+                ),
+                S.listItem()
+                .title('Popup Button Left')
+                .icon(PiRadioButtonDuotone)
+                .child(
+                  S.editor()
+                    .title('Popup Button Left')
+                    .id('popupButtonLeft')
+                    .schemaType('popupButtonLeft')
+                    .documentId('popupButtonLeft')
                 ),
             ])
         ),

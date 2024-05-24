@@ -1,6 +1,6 @@
 export default {
   name: 'popupButton',
-  title: 'Popup Button',
+  title: 'Popup Button Right',
   type: 'document',
   fields: [
     {
