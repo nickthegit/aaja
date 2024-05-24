@@ -31,6 +31,11 @@ export default {
       ]
     },
     {
+      title: 'Text area if no upcoming event scheduled',
+      name: 'introNoEvents',
+      type: 'text',
+    },
+    {
       title: 'Text area above event list',
       name: 'intro',
       type: 'array',

@@ -18,7 +18,7 @@
     <article class="live-event__content-wrapper" >
       <aaja-container class="live-event__intro">
         <SanityContent v-if="eventsPage.intro && hasFutureEvents" :blocks="eventsPage.intro" />
-        <p v-else>No upcoming streamed events at the moment.</p>
+        <p v-else="eventsPage.introNoEvents">{{ eventsPage.introNoEvents || "No upcoming streamed events at the moment." }}</p>
       </aaja-container>
       <aaja-container class="live-event__cards-wrapper" v-if="hasFutureEvents">
         <nuxt-link class="live-event__cards-wrapper--card" v-for="event in eventCards" :key="event._id"
