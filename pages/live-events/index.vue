@@ -15,11 +15,12 @@
         </div>
       </aaja-container>
     </section>
-    <article class="live-event__content-wrapper">
+    <article class="live-event__content-wrapper" >
       <aaja-container class="live-event__intro">
-        <SanityContent v-if="eventsPage.intro" :blocks="eventsPage.intro" />
+        <SanityContent v-if="eventsPage.intro && hasFutureEvents" :blocks="eventsPage.intro" />
+        <p v-else>No upcoming streamed events at the moment.</p>
       </aaja-container>
-      <aaja-container class="live-event__cards-wrapper">
+      <aaja-container class="live-event__cards-wrapper" v-if="hasFutureEvents">
         <nuxt-link class="live-event__cards-wrapper--card" v-for="event in eventCards" :key="event._id"
           :to="`live-events/${event.slug.current}`" v-if="isFutureEvent(event)">
           <h4 v-if="event.name">{{ event.name }}</h4>
@@ -64,6 +65,10 @@ export default {
         return { ...event, img }
       })
     },
+    hasFutureEvents() {
+      return this.events.some(this.isFutureEvent)
+    },
+
   },
   watch: { // Like useEffect
     // firstName: (value, oldValue) => { /* ... */ }
@@ -73,7 +78,6 @@ export default {
       const date = event.eventDateText.split('@')[0]
       return isToday(new Date(date), new Date()) || isAfter(new Date(date), new Date());
     },
-
     // helper functions
     formatDate(event) {
       if (event?.eventDateText) {
