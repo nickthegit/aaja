@@ -80,12 +80,12 @@ export default {
           external_link: null,
           _id: '1489651315',
         },
-        {
-          name: 'Studios',
-          slug: 'studios',
-          external_link: null,
-          _id: '148965131',
-        },
+        // {
+        //   name: 'Studios',
+        //   slug: 'studios',
+        //   external_link: null,
+        //   _id: '148965131',
+        // },
         {
           name: 'Live Events',
           slug: 'live-events',
