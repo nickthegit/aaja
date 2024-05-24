@@ -1,5 +1,5 @@
 <template>
-  <a class="button-popup" target="_blank" @click="handleClick"
+  <a class="button-popup button-popup__left" target="_blank" @click="handleClick"
     :class="{ spin: buttonSettings?.spin, shake: buttonSettings?.shake, blend: buttonSettings?.shouldBlendWithBackground }"
     v-if="!isLoading && buttonSettings?.isEnabled">
     <img v-bind:src="logo?.desktop['400']" class="button-popup__image" />
@@ -8,11 +8,11 @@
 
 <script>
 import '~/assets/scss/_mixins.scss';
-import { buttonPopupQuery } from '~/utils/queries';
+import { buttonPopupQueryLeft } from '~/utils/queries';
 
 export default {
   async fetch() {
-    this.data = await this.$sanity.fetch(buttonPopupQuery);
+    this.data = await this.$sanity.fetch(buttonPopupQueryLeft);
     this.settings = this.data?.[0];
     this.isLoading = false
   },
@@ -62,8 +62,14 @@ export default {
   width: auto;
   height: auto;
 
-  bottom: 5%;
-  right: 5%;
+  &__right{
+    bottom: 5%;
+    right: 5%;
+  }
+  &__left {
+    bottom: 5%;
+    left: 5%;
+  }
 
   &.shake {
     animation: 5s shake 2s linear 3 running;

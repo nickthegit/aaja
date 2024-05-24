@@ -19,7 +19,8 @@ import liveEventsLandingPage from './liveEventsLandingPage'
 import contactPage from './contactPage'
 import siteSettings from './siteSettings'
 import liveEvents from './liveEvents'
-import popupButton from './popupButton'
+import popupButtonRight from './popupButtonRight'
+import popupButtonLeft from './popupButtonLeft'
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -46,6 +47,7 @@ export default createSchema({
     blockContentBare,
     liveEvents,
     liveEventsLandingPage,
-    popupButton
+    popupButtonRight,
+    popupButtonLeft
   ]),
 })

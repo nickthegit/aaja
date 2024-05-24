@@ -3,13 +3,13 @@
     <AajaHeader />
     <AajaMenu />
     <Nuxt />
-    <AajaButtonPopup/>
+    <AajaButtonPopupLeft/>
+    <AajaButtonPopupRight/>
     <AajaFooter />
   </div>
 </template>
 
 <script>
-// const { default: AajaButtonPopup } = require('~/components/AajaButtonPopup.vue');
 
 </script>
 
