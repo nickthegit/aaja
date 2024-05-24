@@ -20,7 +20,7 @@
         <div>
           <SanityContent :blocks="studioData.subHeading" />
           <br>
-          <a-organization-page base-url="https://anny.co/b" organization="aaja" placeholder-title="Aaja"
+          <!-- <a-organization-page base-url="https://anny.co/b" organization="aaja" placeholder-title="Aaja"
             hide-resource-header="true" hide-organization-header="true" should-login="false" entity-id="" locale="en"
             default-list="resources" primary-color="#ff2600" secondary-color="#ffffff" input-background="#5b5c5a"
             panel-background="#000000" primary-color-rgb="255, 38, 0" light-border-color="#ffffff"
@@ -29,16 +29,29 @@
             text-secondary-color="#e6e6e6" panel-background-dark="#000000"
             primary-color-overlay="rgba(255, 38, 0, 0.14)" panel-background-light="#141414"
             primary-background-rgb="0, 0, 0" panel-background-overlay="rgba(0, 0, 0, 0.25)"
-            panel-background-overlay-dense="rgba(0, 0, 0, 0.85)" />
+            panel-background-overlay-dense="rgba(0, 0, 0, 0.85)" /> -->
+
         </div>
       </aaja-container>
-
+      <aaja-container class="studio__content-images">
+        <frame-grid class="grid-container container " v-bind:gap="gap" v-bind:defaultDirection="defaultDirection"
+          v-bind:frame="isMobile ? mobileGrid : desktopGrid" v-bind:rectSize="rectSize"
+          v-bind:useFrameFill="useFrameFill">
+          <div v-for="(image, index) in gallery" :key="image._key" :class="`item`">
+            <img :src="image.desktop[isMobile ? '400' : '800']" @click="showMultiple(gallery, index)">
+          </div>
+        </frame-grid>
+        <vue-easy-lightbox :visible="visibleRef" :imgs="imgsRef" :index="indexRef" @hide="onHide" />
+      </aaja-container>
     </article>
   </main>
 </template>
 
 <script>
 import { ref } from 'vue';
+import { FrameGrid } from "@egjs/vue-grid";
+import VueEasyLightbox from 'vue-easy-lightbox/dist/vue-easy-lightbox.esm.min.js'
+
 import { cloudinaryHeroParser } from '~/utils/images'
 import { createSEOMeta } from '~/utils/seo.js'
 import { studioPageQuery } from '~/utils/queries.js'
@@ -50,7 +63,7 @@ import AajaHeading from '~/components/AajaHeading.vue'
 
 
 export default {
-  components: { AajaContainer, AajaHeroImg, Logo, AajaImg, AajaHeading },
+  components: { AajaContainer, AajaHeroImg, Logo, AajaImg, AajaHeading,FrameGrid, VueEasyLightbox },
   head() {
     const title = 'Aaja Basement - Studios';
     const description = this.studioData?.headingIntro || 'Championing neighbourhood crews, DIY radio, local businesses & the unique spaces of Deptford, Creekside studio is intimate multi-venue electronic music studio.';
@@ -72,8 +85,39 @@ export default {
     return { studioData: studioData[0] }
   },
   data() {
+    return {
+      isMobile: false,
+      gap: 5,
+      defaultDirection: "end",
+      rectSize: 0,
+      useFrameFill: true,
+      autoResize: true,
+      useRoundedSize: true,
+      desktopGrid: [[1, 1, 2, 3], [1, 1, 4, 5], [6, 7, 8, 8], [9, 10, 8, 8]],
+      mobileGrid: [[1, 1, 2, 2], [1, 1, 2, 2]]
+    }
   },
   setup() {
+    const visibleRef = ref(false)
+    const indexRef = ref(0);
+    const imgsRef = ref([])
+
+    const showMultiple = (images, index) => {
+      imgsRef.value = images.map(image => image.desktop['1800']);
+      indexRef.value = index;
+      onShow();
+    }
+    const onHide = () => visibleRef.value = false;
+    const onShow = () => visibleRef.value = true;
+
+    return {
+      visibleRef,
+      indexRef,
+      imgsRef,
+      // showSingle,
+      showMultiple,
+      onHide
+    }
   },
   computed: {
     hero() {
@@ -89,16 +133,34 @@ export default {
     },
   },
   created() {
+    if (process.client) {
+      let vm = this
+      const mediaQuery = window.matchMedia('(max-width: 480px)')
+      function handleTabletChange(e) {
+        vm.isMobile = e.matches
+      }
+      mediaQuery.addListener(handleTabletChange)
+      handleTabletChange(mediaQuery)
+    }
   },
   mounted() {
+    if (process.client) {
+      let vm = this
+      const mediaQuery = window.matchMedia('(max-width: 480px)')
+      function handleTabletChange(e) {
+        vm.isMobile = e.matches
+      }
+      mediaQuery.addListener(handleTabletChange)
+      handleTabletChange(mediaQuery)
+    }
   },
 }
 </script>
 
 <style lang="scss">
-.button-popup {
+/* .button-popup {
   display: none !important;
-}
+} */
 
 .studio__ {
   &hero {
@@ -205,7 +267,18 @@ export default {
         }
       }
     }
+    &-images {
+      padding-top: var(--globalPadding);
 
+      .grid-container .item img {
+        height: 100%;
+        width: 100%;
+      }
+
+      .vel-img-modal.vel-img-modal {
+        background: rgba(0, 0, 0, 0.95);
+      }
+    }
   }
 }
 </style>

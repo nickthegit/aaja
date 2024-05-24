@@ -101,7 +101,8 @@ export const studioPageQuery = `*[_type == "studioPage"] {
   "heading": coalesce(heading, "Studios", false),
   subHeading,
   headingIntro,
-  studioHero
+  studioHero,
+  images
 }`
 
 export const buttonPopupQuery = `*[_type == "popupButton"] {
