@@ -1,23 +1,32 @@
 <template>
   <main class="light-theme" :style="styleObject">
-    <aaja-hero-img class="live-event__hero-image" v-if="eventData.feature_image" altText="Aaja Bar Hero image"
-      :landscapeBg="heroImage.landscapeBlur" :portraitBg="heroImage.portraitBlur" :landscapeImgs="heroImage.landscape"
-      :portraitImgs="heroImage.portrait" />
+    <aaja-container class="breadcrumb-container" >
+      <nuxt-link :to="`/live-events`" class="breadcrumb" :style="{color: textColor.color}"><span>
+          <arrow :style="{fill: textColor.color}"/>
+        </span>Back to Events</nuxt-link>
+    </aaja-container>
     <section class="slug__live-event">
-      <aaja-container class="breadcrumb-container">
-        <nuxt-link :to="`/live-events`" class="breadcrumb"><span>
-            <arrow />
-          </span>Back to Events</nuxt-link>
-      </aaja-container>
-      <aaja-standard-hero>
-        <template v-slot:heading :style="textColor.color">
-          <aaja-heading>{{ eventData.name }}
-          </aaja-heading>
+      <aaja-standard-hero  class="live-event__header" :style="{backgroundColor: backgroundColor, color: textColor.color}">
+        <template v-slot:heading>
+          <aaja-heading :showLogo="false">{{ eventData.name }}</aaja-heading>
         </template>
         <h2 v-if="eventData.eventDateText">{{ eventData.eventDateText }}</h2>
         <!-- <h2 v-else-if="eventData.eventDateTime">{{ formatDateTime }}</h2>
         <h2 v-else-if="eventData.eventDate">{{ formatDate }}</h2> -->
         <h4 v-if="eventData.eventLocation"> {{ eventData.eventLocation }}</h4>
+        <template #headerSide >
+          <a :href="eventData.eventLink">
+          <aaja-img v-if="eventData.feature_image"
+            :altText="eventData.name"
+            :desktopBg="heroImage.desktopBlur"
+            :mobileBg="heroImage.mobileBlur"
+            :desktopImgs="heroImage.desktop"
+            :mobileImgs="heroImage.mobile"
+            :ratio="[1, 1]"
+            :percentageOfViewportWidth="33"
+          />
+        </a>
+        </template>
       </aaja-standard-hero>
       <aaja-container class="live-event__container">
         <section>
@@ -55,19 +64,17 @@
 import { format } from 'date-fns';
 import { liveEventSlugPageQuery } from '~/utils/queries.js';
 import Arrow from '~/assets/img/icons/arrow.svg?inline';
-import { cloudinaryHeroParser } from '~/utils/images'
-
 
 export default {
   components: { Arrow },
   async asyncData({ $sanity, params, app }) {
     const data = await $sanity.fetch(liveEventSlugPageQuery(params.slug))
     if (!data.slug?.current) app.router.push({ path: '/live-events' })
-    const backgroundColor = !data.feature_image && data?.backgroundColor ? data.backgroundColor : '';
-    const color = !data.feature_image && data?.textColor ? data?.textColor : '';
+    const backgroundColor = !!data?.backgroundColor ? data.backgroundColor : '';
+    const color = data?.textColor ? data?.textColor : '';
     return {
       eventData: data,
-      styleObject: { backgroundColor },
+      backgroundColor,
       textColor: { color }
     }
   },
@@ -78,9 +85,7 @@ export default {
   },
   computed: {
     heroImage() {
-      const image = this.$urlForSquare(this.eventData.feature_image);
-      const parsedImage = cloudinaryHeroParser(image.desktop['1200']);
-      return parsedImage
+      return this.$urlForSquare(this.eventData.feature_image);
     },
     formatDate() {
       return format(new Date(this.eventData.eventDate), "d MMMM yyyy")
@@ -107,9 +112,6 @@ export default {
         this.playing = true;
       };
     },
-    // setTheme() {
-    //   this.styleObject.backgroundColor = this.eventData.backgroundColor
-    // }
   },
   mounted() {
 
@@ -123,25 +125,53 @@ export default {
 </script>
 
 <style lang="scss">
+header {
+  position:relative !important;
+}
 .slug__live-event {
-  .standard__hero {
-    .subheading {
+  .live-event__header {
+    padding: 60px 0;
+    /* background: red; */
+    max-height: 80dvh;
+    .standard__hero-container {
       display: flex;
+      flex-direction: row;
       flex-wrap: wrap;
-      max-width: unset;
-      width: 100% !important;
+      flex: 1 1 auto;
+      gap: 5px;
 
-      h2 {
-        flex: 1 0 100%;
-        margin-bottom: 13px;
-        font-size: calc(var(--h2Size) - 1vw);
+      .subheading {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: unset;
+        width: 100% !important;
 
-        @include breakpoint(mobile) {
-          font-size: calc(var(--h2Size) - 3vw);
+        h2 {
+          flex: 1 0 100%;
+          margin-bottom: 13px;
+          font-size: calc(var(--h2Size) - 1vw);
+
+          @include breakpoint(mobile) {
+            font-size: calc(var(--h2Size) - 3vw);
+          }
+        }
+      }
+      .standard__hero {
+        &--header {
+          flex: 1 0 50%;
+          align-content: center;
+        }
+        &--side {
+          flex: 1 0 20%;
+          min-width: 30vw;
+          align-content: center;
+          /* margin-top: 20px; */
         }
       }
     }
+
   }
+
 }
 </style>
 
@@ -149,6 +179,7 @@ export default {
 main {
   width: 100%;
   overflow: scroll;
+  margin-top: 0px !important;
 }
 
 .live-event__hero-image {
@@ -170,17 +201,14 @@ main {
   width: 100%;
   height: auto;
   min-height: 50vh;
-  padding: calc(var(--headerHeight) + var(--subHeaderHeight)) 0 var(--headerHeight) 0;
+  padding-top: 0;
   position: relative;
-
-  @include breakpoint(tablet-mobile) {
-    padding: calc(var(--headerHeight) * 1.5 + var(--subHeaderHeight)) 0 var(--headerHeight) 0;
-  }
 }
 
 .live-event__container {
   display: flex;
   gap: 4vw;
+  margin-top: calc(var(--globalPadding)/2);
 
   @include breakpoint(mobile) {
     flex-wrap: wrap;
@@ -261,6 +289,8 @@ main {
 }
 
 .breadcrumb-container {
+  position:absolute;
+  z-index: 1;
   padding-top: 20px;
 
   .breadcrumb {
@@ -290,10 +320,6 @@ main {
 
       svg {
         width: 100%;
-
-        path {
-          fill: var(--mainColor);
-        }
       }
     }
   }

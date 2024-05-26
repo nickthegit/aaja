@@ -11,17 +11,6 @@ export default {
       title: 'Name',
       type: 'string',
     },
-    // {
-    //   name: 'eventDate',
-    //   title: 'Event Date',
-    //   type: 'date',
-    // },
-    // {
-    //   name: 'eventDateTime',
-    //   title: 'Event Date & time',
-    //   description: 'NOTE: fill in this one if you have a confirmed time for the event, otherwise just use the date one above. Both are optional.',
-    //   type: 'datetime',
-    // },
     {
       name: 'eventDateText',
       title: 'Event Date & time (with end time)',
@@ -52,19 +41,19 @@ export default {
     },
     {
       name: 'backgroundColor',
-      title: 'Background color (if no image)',
+      title: 'Header Background color',
       type: 'string',
       description: 'colors there: https://www.w3.org/wiki/CSS/Properties/color/keywords - its usually 1 word, i.e. blue',
     },
     {
       name: 'textColor',
-      title: 'Text color',
+      title: 'Header Text color',
       type: 'string',
       description: 'colors there: https://www.w3.org/wiki/CSS/Properties/color/keywords - its usually 1 word, i.e. blue',
     },
     {
       name: 'feature_image',
-      title: 'Feature Image (the bigger the better as its a splash, always compress before uploading though)',
+      title: 'Event Image',
       type: 'image',
       options: {
         hotspot: true,
