@@ -86,7 +86,8 @@ export const barPageQuery = `*[_type == "barPage"] {
   images,
   intro,
   "menu": menu.asset->url,
-  opening
+  opening,
+  heroImage
 }`
 
 export const festivalPageQuery = `*[_type == "festivalPage"] {

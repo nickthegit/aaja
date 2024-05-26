@@ -1,13 +1,13 @@
 <template>
   <main>
     <section class="bar__hero">
-      <section class="bar__hero-img">
+      <section class="bar__hero-img" v-if="barData.heroImage">
         <aaja-hero-img
           altText="Aaja Bar Hero image"
-          :landscapeBg="heroImage.landscapeBlur"
-          :portraitBg="heroImage.portraitBlur"
-          :landscapeImgs="heroImage.landscape"
-          :portraitImgs="heroImage.portrait"
+          :landscapeBg="hero.landscapeBlur"
+          :portraitBg="hero.portraitBlur"
+          :landscapeImgs="hero.landscape"
+          :portraitImgs="hero.portrait"
         />
       </section>
       <aaja-container class="bar__hero-container">
@@ -74,9 +74,6 @@ export default {
   },
   data() {
     return {
-      heroImage: cloudinaryHeroParser(
-        'https://res.cloudinary.com/nickjohn/image/upload/v1620508041/Aaja/Hero_1.png'
-      ),
       introText:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
       img1: cloudinaryImgParser(
@@ -97,6 +94,11 @@ export default {
     }
   },
   computed: {
+    hero() {
+      const image = this.$urlForSquare(this.barData.heroImage, false, false);
+      const parsedImage = cloudinaryHeroParser(image.desktop['1200']);
+      return parsedImage
+    },
     gallery() {
       return this.barData.images.map((img) => {
         return { ...this.$urlForSquare(img, false, false), _key: img._key }

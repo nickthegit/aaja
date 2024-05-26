@@ -9,6 +9,11 @@ export default {
       type: 'blockContentBare',
     },
     {
+      name: 'heroImage',
+      title: 'Bar header image',
+      type: 'image'
+    },
+    {
       name: 'opening',
       title: 'Opening Hours',
       type: 'blockContent',
