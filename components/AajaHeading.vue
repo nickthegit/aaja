@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>
-      <slot></slot><span><Logo /></span>
+      <slot></slot><span v-if="showLogo"><Logo /></span>
     </h1>
   </div>
 </template>
@@ -10,6 +10,9 @@
 import Logo from '~/assets/img/icons/logo.svg?inline'
 export default {
   components: { Logo },
+  props: {
+    showLogo: true
+  }
 }
 </script>
 
