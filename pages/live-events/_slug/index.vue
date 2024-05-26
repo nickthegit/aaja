@@ -1,5 +1,5 @@
 <template>
-  <main class="light-theme" :style="styleObject">
+  <main class="light-theme">
     <aaja-container class="breadcrumb-container" >
       <nuxt-link :to="`/live-events`" class="breadcrumb" :style="{color: textColor.color}"><span>
           <arrow :style="{fill: textColor.color}"/>
@@ -28,10 +28,15 @@
         </a>
         </template>
       </aaja-standard-hero>
+      <aaja-divider :fillColor="backgroundColor"></aaja-divider>
+      <!-- <div class="hero-section-divider">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 100" preserveAspectRatio="none">
+            <path d="M1800 120L0 50 0 0 1200 0 1200 120z" class="shape-fill"></path>
+        </svg>
+      </div> -->
       <aaja-container class="live-event__container">
         <section>
           <SanityContent v-if="eventData.intro" :blocks="eventData.intro" />
-
         </section>
         <aside v-if="eventData.eventLink || eventData.audioStreamingLink">
           <a :href="eventData.eventLink" v-if="eventData.eventLink" target="_blank" rel="noopener noreferrer">{{ eventLinkCtaLabel }} </a>
@@ -130,15 +135,14 @@ header {
 }
 .slug__live-event {
   .live-event__header {
-    padding: 60px 0;
-    /* background: red; */
-    max-height: 80dvh;
+    padding: 60px 0 10px 0;
+
     .standard__hero-container {
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
       flex: 1 1 auto;
-      gap: 5px;
+      gap: 10px;
 
       .subheading {
         display: flex;
@@ -200,7 +204,7 @@ main {
 .slug__live-event {
   width: 100%;
   height: auto;
-  min-height: 50vh;
+  min-height: 40vh;
   padding-top: 0;
   position: relative;
 }
@@ -208,7 +212,7 @@ main {
 .live-event__container {
   display: flex;
   gap: 4vw;
-  margin-top: calc(var(--globalPadding)/2);
+  margin-top: calc(var(--globalPadding)/3);
 
   @include breakpoint(mobile) {
     flex-wrap: wrap;
@@ -324,4 +328,5 @@ main {
     }
   }
 }
+
 </style>
