@@ -7,9 +7,6 @@
 </template>
 
 <script>
-import Logo from '~/assets/img/icons/logo.svg?inline'
-import AajaContainer from './AajaContainer.vue'
-
 
 export default {
   components: {  },
@@ -21,15 +18,10 @@ export default {
   data() {
   },
   methods: {
-    navClose() {
-      this.$store.dispatch('setNavPayload', false)
-    },
   },
   created() {
-    // this.fetch()
   },
   mounted() {
-    // console.log('FOOTER QUERY: ', this.data[0])
   },
 }
 </script>
