@@ -119,6 +119,7 @@ export default {
       height: 100vh;
       position: relative;
       z-index: 1;
+      opacity: 0.5;
     }
     &-container {
       position: absolute;
