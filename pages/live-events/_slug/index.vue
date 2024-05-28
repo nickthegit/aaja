@@ -1,10 +1,10 @@
 <template>
   <main class="light-theme">
-    <aaja-container class="breadcrumb-container" >
+    <!-- <aaja-container class="breadcrumb-container" >
       <nuxt-link :to="`/live-events`" class="breadcrumb" :style="{color: textColor.color}"><span>
           <arrow :style="{fill: textColor.color}"/>
         </span>Back to Events</nuxt-link>
-    </aaja-container>
+    </aaja-container> -->
     <section class="slug__live-event">
       <aaja-standard-hero  class="live-event__header" :style="{backgroundColor: backgroundColor, color: textColor.color}">
         <template v-slot:heading>
@@ -102,14 +102,18 @@ export default {
 
   },
   methods: {
-    playPause() {
+    async playPause() {
       const audio = this.$el.querySelector('#audio')
       if (this.playing) {
         audio.pause()
         this.playing = false;
       } else {
-        audio.play();
+        try{
+        await audio.play();
         this.playing = true;
+       } catch (err){
+        console.log(err)
+       }
       };
     },
   },
@@ -130,7 +134,7 @@ header {
 }
 .slug__live-event {
   .live-event__header {
-    padding: 60px 0 10px 0;
+    padding: 40px 0 10px 0 !important;
 
     .standard__hero-container {
       display: flex;
