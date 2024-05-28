@@ -6,7 +6,7 @@
         </span>Back to Events</nuxt-link>
     </aaja-container> -->
     <section class="slug__live-event">
-      <aaja-standard-hero  class="live-event__header" :style="{backgroundColor: backgroundColor, color: textColor.color}">
+      <aaja-standard-hero  class="live-event__header" :style="{backgroundColor: backgroundColor, color: textColor}">
         <template v-slot:heading>
           <aaja-heading :showLogo="false">{{ eventData.name }}</aaja-heading>
         </template>
@@ -163,6 +163,9 @@ header {
         &--header {
           flex: 1 0 50%;
           align-content: center;
+          @include breakpoint(mobile) {
+            flex: 1 0 100%;
+          }
         }
         &--side {
           flex: 1 0 20%;
