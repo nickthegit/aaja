@@ -155,6 +155,7 @@ header {
           font-size: calc(var(--h2Size) - 1vw);
 
           @include breakpoint(mobile) {
+            margin-bottom: 0;
             font-size: calc(var(--h2Size) - 3vw);
           }
         }
@@ -218,6 +219,7 @@ main {
 
   @include breakpoint(mobile) {
     flex-wrap: wrap;
+    margin-top: var(--globalPadding);
 
     section,
     aside {
