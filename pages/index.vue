@@ -3,10 +3,10 @@
     <article class="home-hero">
       <div>
         <h1>
-          <nuxt-link to="radio">Radio Station</nuxt-link><br /><nuxt-link to="bar">
-            Bar</nuxt-link>&nbsp;
-          <nuxt-link to="label">Record Label</nuxt-link>
-          <br>and&nbsp;<nuxt-link to="festival">Festival</nuxt-link>
+          <nuxt-link to="radio">Radio Station</nuxt-link>
+          <br /><nuxt-link to="bar"> Bars</nuxt-link>&nbsp;<nuxt-link to="label">Label</nuxt-link>
+          <br /><nuxt-link to="studio">Studio</nuxt-link>
+          <br />and&nbsp;<nuxt-link to="festival">Festival</nuxt-link>
         </h1>
         <FullLogo id="home-logo" />
       </div>

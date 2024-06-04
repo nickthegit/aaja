@@ -74,11 +74,11 @@ export default () =>
                     .documentId('festivalPage')
                 ),
               S.listItem()
-                .title('Studios Page')
+                .title('Studio Page')
                 .icon(MdOutlineMeetingRoom)
                 .child(
                   S.editor()
-                    .title('Studios Page')
+                    .title('Studio Page')
                     .id('studioPage')
                     .schemaType('studioPage')
                     .documentId('studioPage')

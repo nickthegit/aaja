@@ -12,6 +12,15 @@
             <SanityContent :blocks="studioData.heading" />
           </aaja-heading-block>
           <p v-if="studioData.headingIntro" class="studio__hero-header-intro">{{ studioData.headingIntro }}</p>
+          <div class="button-wrap">
+            <a
+              v-if="studioData.booking"
+              :href="'mailto:' + studioData.booking"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Book Studio</a
+            >
+          </div>
         </div>
       </aaja-container>
     </section>
@@ -65,7 +74,7 @@ import AajaHeading from '~/components/AajaHeading.vue'
 export default {
   components: { AajaContainer, AajaHeroImg, Logo, AajaImg, AajaHeading,FrameGrid, VueEasyLightbox },
   head() {
-    const title = 'Aaja Basement - Studios';
+    const title = 'Aaja Basement - Studio';
     const description = this.studioData?.headingIntro || 'Championing neighbourhood crews, DIY radio, local businesses & the unique spaces of Deptford, Creekside studio is intimate multi-venue electronic music studio.';
 
     return {
@@ -74,7 +83,7 @@ export default {
         title,
         description,
         image: 'https://aajamusic.com/_nuxt/img/creekside-transparent.55a5c78.png',
-        url: 'https://aajamusic.com/studios',
+        url: 'https://aajamusic.com/studio',
         themeColor: 'black'
       }),
     }
@@ -158,9 +167,9 @@ export default {
 </script>
 
 <style lang="scss">
-/* .button-popup {
+.button-popup {
   display: none !important;
-} */
+}
 
 .studio__ {
   &hero {
@@ -170,6 +179,9 @@ export default {
       position: relative;
       z-index: 1;
       opacity: 0.5;
+      .img_wrap {
+        opacity: 0.5;
+      }
     }
 
     &-header {
@@ -220,30 +232,6 @@ export default {
           font-size: 16px;
         }
       }
-
-      .button-wrap {
-        display: flex;
-        gap: 20px;
-        margin-top: 30px;
-      }
-
-      a {
-        width: 140px;
-        height: 40px;
-        display: flex;
-        font-size: 14px;
-        align-items: center;
-        justify-content: center;
-        background: var(--white);
-        color: var(--dark);
-        text-decoration: none;
-        cursor: pointer;
-
-        &:hover {
-          opacity: 0.75;
-          text-decoration: underline;
-        }
-      }
     }
   }
 
@@ -280,5 +268,27 @@ export default {
       }
     }
   }
+}
+.button-wrap {
+  display: flex;
+  gap: 20px;
+  margin-top: 30px;
+
+  a {
+  width: 140px;
+  height: 40px;
+  display: flex;
+  font-size: 14px;
+  align-items: center;
+  justify-content: center;
+  background: var(--white);
+  color: var(--dark);
+  text-decoration: none;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.75;
+    text-decoration: underline;
+  }
+}
 }
 </style>

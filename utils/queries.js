@@ -99,11 +99,12 @@ export const festivalPageQuery = `*[_type == "festivalPage"] {
 }`
 
 export const studioPageQuery = `*[_type == "studioPage"] {
-  "heading": coalesce(heading, "Studios", false),
+  "heading": coalesce(heading, "Studio", false),
   subHeading,
   headingIntro,
   studioHero,
-  images
+  images,
+  booking
 }`
 
 export const buttonPopupQueryRight = `*[_type == "popupButton"] {
