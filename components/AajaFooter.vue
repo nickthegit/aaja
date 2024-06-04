@@ -81,8 +81,8 @@ export default {
           _id: '1489651315',
         },
         {
-          name: 'Studios',
-          slug: 'studios',
+          name: 'Studio',
+          slug: 'studio',
           external_link: null,
           _id: '148965131',
         },

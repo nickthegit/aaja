@@ -1,6 +1,6 @@
 export default {
   name: 'studioPage',
-  title: 'Studios Page',
+  title: 'Studio Page',
   type: 'document',
   fields: [
     {
@@ -11,7 +11,12 @@ export default {
     {
       title: 'Page Header Intro',
       name: 'headingIntro',
-      type: 'text',
+      type: 'blockContent',
+    },
+    {
+      name: 'booking',
+      title: 'Booking URL',
+      type: 'string',
     },
     {
       title: 'Page Header hero image',
