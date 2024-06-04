@@ -11,7 +11,7 @@
           <aaja-heading-block :isstudio=true>
             <SanityContent :blocks="studioData.heading" />
           </aaja-heading-block>
-          <p v-if="studioData.headingIntro" class="studio__hero-header-intro">{{ studioData.headingIntro }}</p>
+          <div v-if="studioData.headingIntro" class="studio__hero-header-intro"><SanityContent :blocks="studioData.headingIntro" /></div>
           <div class="button-wrap">
             <a
               v-if="studioData.booking"
