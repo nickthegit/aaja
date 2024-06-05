@@ -71,11 +71,11 @@ export default {
     const data = await $sanity.fetch(liveEventSlugPageQuery(params.slug))
     if (!data.slug?.current) app.router.push({ path: '/live-events' })
     const backgroundColor = !!data?.backgroundColor ? data.backgroundColor : '';
-    const color = data?.textColor ? data?.textColor : '';
+    const textColor = data?.textColor ? data?.textColor : '';
     return {
       eventData: data,
       backgroundColor,
-      textColor: { color }
+      textColor
     }
   },
   data() {
@@ -129,12 +129,14 @@ export default {
 </script>
 
 <style lang="scss">
-header {
-  position:relative !important;
-}
+
 .slug__live-event {
+
   .live-event__header {
     padding: 40px 0 10px 0 !important;
+    @include breakpoint(mobile) {
+      padding-top: 180px !important;
+    }
 
     .standard__hero-container {
       display: flex;
@@ -186,7 +188,6 @@ header {
 main {
   width: 100%;
   overflow: scroll;
-  margin-top: 0px !important;
 }
 
 .live-event__hero-image {

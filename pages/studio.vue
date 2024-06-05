@@ -278,10 +278,10 @@ export default {
   color: var(--dark);
   text-decoration: none;
   cursor: pointer;
-  &:hover {
-    opacity: 0.75;
-    text-decoration: underline;
+    &:hover {
+      opacity: 0.75;
+      text-decoration: underline;
+    }
   }
-}
 }
 </style>
