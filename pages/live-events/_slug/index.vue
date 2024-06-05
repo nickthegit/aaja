@@ -133,7 +133,7 @@ export default {
 .slug__live-event {
 
   .live-event__header {
-    padding: 40px 0 10px 0 !important;
+    padding: 80px 0 10px 0 !important;
     @include breakpoint(mobile) {
       padding-top: 180px !important;
     }
