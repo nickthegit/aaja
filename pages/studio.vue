@@ -167,10 +167,6 @@ export default {
 </script>
 
 <style lang="scss">
-.button-popup {
-  display: none !important;
-}
-
 .studio__ {
   &hero {
     &-img {
@@ -196,12 +192,9 @@ export default {
       flex-direction: column;
       align-items: flex-start;
       justify-content: center;
-      padding-top: 80px;
+      padding-top: 80px !important;
       padding-bottom: 40px;
 
-      @include breakpoint(mobile) {
-        padding-top: 160px;
-      }
 
       &-wrapper {
         width: 100%;
