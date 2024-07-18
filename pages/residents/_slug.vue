@@ -117,8 +117,8 @@ export default {
     },
     getSocials() {
       return this.residentData.socials
-        .filter((social) => social.link)
-        .map((social) => {
+        ?.filter((social) => social.link)
+        ?.map((social) => {
           return { ...social, icon: this.socialIcons[social.slug] }
         })
     },

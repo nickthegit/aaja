@@ -98,7 +98,7 @@ export default {
           name: 'Studio',
           slug: 'studio',
           external_link: null,
-          _id: '148965131',
+          _id: '148965132',
         },
         {
           name: 'Live Events',
@@ -142,8 +142,8 @@ export default {
   computed: {
     getSocials() {
       return this.data.socials
-        .filter((social) => social.link)
-        .map((social) => {
+        ?.filter((social) => social.link)
+        ?.map((social) => {
           return { ...social, icon: this.socialIcons[social.slug] }
         })
     },

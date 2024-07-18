@@ -9,19 +9,8 @@
 <script>
 
 export default {
-  components: {  },
   props: {
     fillColor: ''
-  },
-  async fetch() {
-  },
-  data() {
-  },
-  methods: {
-  },
-  created() {
-  },
-  mounted() {
   },
 }
 </script>
