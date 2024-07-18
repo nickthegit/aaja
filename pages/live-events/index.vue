@@ -22,7 +22,7 @@
       </aaja-container>
       <aaja-container class="live-event__cards-wrapper" v-if="hasFutureEvents">
         <nuxt-link class="live-event__cards-wrapper--card" v-for="event in eventCards" :key="event._id"
-          :to="`live-events/${event.slug.current}`" v-if="isFutureEvent(event)">
+          :to="`/live-events/${event.slug.current}`" v-if="isFutureEvent(event)">
           <h4 v-if="event.name">{{ event.name }}</h4>
           <p class="event-date" v-if="event.eventDateText">{{ event?.eventDateText }}</p>
           <p class="event-location" v-if="event.eventLocation">{{ '@' + event.eventLocation }}</p>
