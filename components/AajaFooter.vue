@@ -30,6 +30,7 @@
       <section class="footer__contact">
         <p><strong>Get in touch</strong></p>
         <a :href="`mailto:${data[0].email}`">{{ data[0].email }}</a>
+        <img class="footer__contact__image" src="~/assets/img/arts_council.png"/>
       </section>
     </aaja-container>
   </footer>
