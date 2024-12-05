@@ -221,7 +221,7 @@ ul {
   }
 
   a {
-    height: 75px;
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
