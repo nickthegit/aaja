@@ -1,10 +1,15 @@
 <template>
   <section>
     <div class="on_air">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 954 414" style="enable-background: new 0 0 954 414"
-        xml:space="preserve">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 954 414"
+        style="enable-background: new 0 0 954 414"
+        xml:space="preserve"
+      >
         <path
-          d="M4.1 254.3c0 109.4 41.4 159.6 103.5 159.6S211 363.7 211 254.3v-94.6C211 50.4 172.6.1 107.6.1 45.5.1 4.1 50.4 4.1 159.7v94.6zM89.8 71.1c0-11.8 5.9-17.7 14.8-17.7s14.8 5.9 14.8 17.7v269c0 11.8-3 17.7-14.8 17.7-8.9 0-14.8-5.9-14.8-17.7v-269zM222.9 6v402h70.9l-5.9-204h5.9l38.4 204h73.9V6h-70.9l5.9 204h-5.9L296.8 6h-73.9zm283.7 0-35.5 396.1v5.9h65l5.9-97.5h29.6l5.9 97.5h76.9v-5.9L618.9 6H506.6zM548 248.4l8.9-141.9h5.9l8.9 141.9H548zM669.2 6v402H749V6h-79.8zm97.5 0v402h76.9V245.5c14.8 0 20.7 11.8 20.7 32.5l3 68c0 26.6 3 47.3 8.9 62.1H950v-5.9c-5.9-11.8-8.9-26.6-8.9-62.1v-38.4c0-44.3-8.9-65-38.4-82.8V213c29.6-17.7 47.3-47.3 47.3-94.6v-8.9C950 44.5 908.6 6 843.6 6h-76.9zm76.9 50.3h5.9c11.8 0 20.7 8.9 20.7 35.5v65c0 26.6-8.9 38.4-20.7 38.4h-5.9V56.3z" />
+          d="M4.1 254.3c0 109.4 41.4 159.6 103.5 159.6S211 363.7 211 254.3v-94.6C211 50.4 172.6.1 107.6.1 45.5.1 4.1 50.4 4.1 159.7v94.6zM89.8 71.1c0-11.8 5.9-17.7 14.8-17.7s14.8 5.9 14.8 17.7v269c0 11.8-3 17.7-14.8 17.7-8.9 0-14.8-5.9-14.8-17.7v-269zM222.9 6v402h70.9l-5.9-204h5.9l38.4 204h73.9V6h-70.9l5.9 204h-5.9L296.8 6h-73.9zm283.7 0-35.5 396.1v5.9h65l5.9-97.5h29.6l5.9 97.5h76.9v-5.9L618.9 6H506.6zM548 248.4l8.9-141.9h5.9l8.9 141.9H548zM669.2 6v402H749V6h-79.8zm97.5 0v402h76.9V245.5c14.8 0 20.7 11.8 20.7 32.5l3 68c0 26.6 3 47.3 8.9 62.1H950v-5.9c-5.9-11.8-8.9-26.6-8.9-62.1v-38.4c0-44.3-8.9-65-38.4-82.8V213c29.6-17.7 47.3-47.3 47.3-94.6v-8.9C950 44.5 908.6 6 843.6 6h-76.9zm76.9 50.3h5.9c11.8 0 20.7 8.9 20.7 35.5v65c0 26.6-8.9 38.4-20.7 38.4h-5.9V56.3z"
+        />
       </svg>
     </div>
     <span class="separator end"></span>
@@ -12,25 +17,54 @@
       <audio id="radio" :src="s1Stream" preload="auto"></audio>
       <h2>CH 1</h2>
       <button class="playBtn" @click="playPause(1)">
-        <svg v-if="!playing" class="playIcon" width="13" height="20" viewBox="0 0 13 20" fill="none"
-          xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" clip-rule="evenodd"
+        <svg
+          v-if="!playing"
+          class="playIcon"
+          width="13"
+          height="20"
+          viewBox="0 0 13 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
             d="M12.0313 9.54242C12.4727 9.93966 12.4727 10.6318 12.0313 11.029L3.09757 19.0694C2.45405 19.6485 1.42861 19.1918 1.42861 18.3261L1.42861 2.24536C1.42861 1.37959 2.45405 0.922898 3.09757 1.50207L12.0313 9.54242Z"
-            fill="white" stroke="#262626" stroke-linejoin="round" />
+            fill="white"
+            stroke="#262626"
+            stroke-linejoin="round"
+          />
         </svg>
         <svg v-else class="pauseIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 531 824">
           <path
             d="M119 824H67c-37 0-67-30-67-67V67C0 30 30 0 67 0h52c37 0 68 30 68 67v690c0 37-31 67-68 67zm345 0h-53c-37 0-67-30-67-67V67c0-37 30-67 67-67h53c37 0 67 30 67 67v690c0 37-30 67-67 67z"
-            fill-rule="evenodd" clip-rule="evenodd" />
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+          />
         </svg>
       </button>
+      <template v-if="videoCh1Enabled">
+        <a
+          class="mixcloud-video-channel-link"
+          :href="data?.mixcloudVideoCh2.url"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <CameraIcon />
+        </a>
+      </template>
       <div class="now-wrapper">
-        <p class="now" v-if="nowRadioInfo.current" v-html="nowRadioInfo.current.title +
-          ' - ' +
-          formatTime(nowRadioInfo.current.start) +
-          ' - ' +
-          formatTime(nowRadioInfo.current.end)
-          "></p>
+        <p
+          class="now"
+          v-if="nowRadioInfo.current"
+          v-html="
+            nowRadioInfo.current.title +
+            ' - ' +
+            formatTime(nowRadioInfo.current.start) +
+            ' - ' +
+            formatTime(nowRadioInfo.current.end)
+          "
+        ></p>
         <p v-else-if="nowRadioInfo.next">
           Coming up: {{ nowRadioInfo.next.title }} - {{ formatTime(nowRadioInfo.next.start) }}
         </p>
@@ -42,25 +76,54 @@
       <audio id="radio2" :src="s2Stream" preload="auto"></audio>
       <h2>CH 2</h2>
       <button class="playBtn" @click="playPause(2)">
-        <svg v-if="!playing2" class="playIcon" width="13" height="20" viewBox="0 0 13 20" fill="none"
-          xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" clip-rule="evenodd"
+        <svg
+          v-if="!playing2"
+          class="playIcon"
+          width="13"
+          height="20"
+          viewBox="0 0 13 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
             d="M12.0313 9.54242C12.4727 9.93966 12.4727 10.6318 12.0313 11.029L3.09757 19.0694C2.45405 19.6485 1.42861 19.1918 1.42861 18.3261L1.42861 2.24536C1.42861 1.37959 2.45405 0.922898 3.09757 1.50207L12.0313 9.54242Z"
-            fill="white" stroke="#262626" stroke-linejoin="round" />
+            fill="white"
+            stroke="#262626"
+            stroke-linejoin="round"
+          />
         </svg>
         <svg v-else class="pauseIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 531 824">
           <path
             d="M119 824H67c-37 0-67-30-67-67V67C0 30 30 0 67 0h52c37 0 68 30 68 67v690c0 37-31 67-68 67zm345 0h-53c-37 0-67-30-67-67V67c0-37 30-67 67-67h53c37 0 67 30 67 67v690c0 37-30 67-67 67z"
-            fill-rule="evenodd" clip-rule="evenodd" />
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+          />
         </svg>
       </button>
+      <template v-if="videoCh2Enabled">
+        <a
+          class="mixcloud-video-channel-link"
+          :href="data?.mixcloudVideoCh2.url"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <CameraIcon />
+        </a>
+      </template>
       <div class="now-wrapper">
-        <p class="now" v-if="nowRadioInfo2.current" v-html="nowRadioInfo2.current.title +
-          ' - ' +
-          formatTime(nowRadioInfo2.current.start) +
-          ' - ' +
-          formatTime(nowRadioInfo2.current.end)
-          "></p>
+        <p
+          class="now"
+          v-if="nowRadioInfo2.current"
+          v-html="
+            nowRadioInfo2.current.title +
+            ' - ' +
+            formatTime(nowRadioInfo2.current.start) +
+            ' - ' +
+            formatTime(nowRadioInfo2.current.end)
+          "
+        ></p>
         <p v-else-if="nowRadioInfo2.next">
           Coming up: {{ nowRadioInfo2.next.title }} - {{ formatTime(nowRadioInfo2.next.start) }}
         </p>
@@ -73,14 +136,34 @@
 
 <script>
 import { format, toDate, parseISO } from 'date-fns'
+import CameraIcon from '~/assets/img/icons/camera.svg?inline'
+
+import { headerQuery } from '~/utils/queries'
+
 export default {
+  components: { CameraIcon },
+
+  async fetch() {
+    const fetchedData = await this.$sanity.fetch(headerQuery)
+    this.mixcloudVideoCh1 = fetchedData.mixcloudVideoCh1 || {}
+    this.mixcloudVideoCh2 = fetchedData.mixcloudVideoCh2 || {}
+  },
   data() {
     return {
       playing: false,
       playing2: false,
+      mixcloudVideoCh1: {}, // Reactive placeholder for channel 1
+      mixcloudVideoCh2: {}, // Reactive placeholder for channel 2
     }
   },
   computed: {
+    videoCh1Enabled() {
+      console.log(!!this.mixcloudVideoCh1.enabled)
+      return !!this.mixcloudVideoCh1.enabled
+    },
+    videoCh2Enabled() {
+      return !!this.mixcloudVideoCh2.enabled
+    },
     nowRadioInfo() {
       return this.$store.getters.nowRadioInfo
     },
@@ -217,13 +300,16 @@ section {
     white-space: nowrap;
   }
 }
+.mixcloud-video-channel-link {
+  margin-left: 5px;
+}
 
 .playBtn {
   background: none;
   border: none;
   height: calc(var(--headerHeight) / 3);
   box-sizing: border-box;
-  margin: 0 10px;
+  margin-left: 10px;
 
   svg {
     height: 100%;
@@ -244,6 +330,7 @@ section {
 .now-wrapper {
   display: flex;
   align-items: center;
+  margin-left: 10px;
 
   p {
     display: inline-block;
@@ -254,7 +341,6 @@ section {
 }
 
 @media only screen and (max-width: 1000px) {
-
   .separator.end,
   .on_air {
     display: none;
