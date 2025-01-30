@@ -3,49 +3,85 @@
     <section class="festival__hero">
       <section class="festival__hero-img">
         <!-- <img :src="hero" altText="Aaja festival Hero image"> -->
-        <aaja-hero-img altText="Aaja festival Hero image" :landscapeBg="hero.landscapeBlur"
-          :portraitBg="hero.portraitBlur" :landscapeImgs="hero.landscape" :portraitImgs="hero.portrait" />
+        <aaja-hero-img
+          altText="Aaja festival Hero image"
+          :landscapeBg="hero.landscapeBlur"
+          :portraitBg="hero.portraitBlur"
+          :landscapeImgs="hero.landscape"
+          :portraitImgs="hero.portrait"
+        />
       </section>
       <aaja-container class="festival__hero-header">
         <div class="festival__hero-header-wrapper">
-          <aaja-heading-block :isFestival=true>
+          <aaja-heading-block :isFestival="true">
             <SanityContent :blocks="festivalData.heading" />
           </aaja-heading-block>
-          <p v-if="festivalData.headingIntro" class="festival__hero-header-intro">{{ festivalData.headingIntro }}</p>
+          <p v-if="festivalData.headingIntro" class="festival__hero-header-intro">
+            {{ festivalData.headingIntro }}
+          </p>
         </div>
       </aaja-container>
     </section>
-    <article class="festival__content-wrapper">
-      <aaja-container class="festival__content-button">
-        <!-- <button  :class="'disabled'">
-        <h2>2024</h2>
-      </button> -->
-        <button :class="'active'">
-          <h2>2023</h2>
-        </button>
-      </aaja-container>
-      <aaja-container class="festival__content-header">
-        <div>
-          <p>{{ festivalData.subHeading }}</p>
-        </div>
-      </aaja-container>
-      <aaja-container class="festival__content-images">
-        <frame-grid class="grid-container container " v-bind:gap="gap" v-bind:defaultDirection="defaultDirection"
-          v-bind:frame="isMobile ? mobileGrid : desktopGrid" v-bind:rectSize="rectSize"
-          v-bind:useFrameFill="useFrameFill">
-          <div v-for="(image, index) in gallery" :key="image._key" :class="`item`">
-            <img :src="image.desktop[isMobile ? '400' : '800']" @click="showMultiple(gallery, index)">
-          </div>
-        </frame-grid>
-        <vue-easy-lightbox :visible="visibleRef" :imgs="imgsRef" :index="indexRef" @hide="onHide" />
-      </aaja-container>
-    </article>
+    <template v-if="festivalData?.years?.length">
+      <article class="festival__content-wrapper">
+        <aaja-container class="festival__content-years-button">
+          <button
+            v-for="festival in festivalData.years"
+            :class="{ active: selectedYear === festival.year }"
+            @click="selectedYear = festival.year"
+          >
+            <h2>{{ festival.year }}</h2>
+          </button>
+        </aaja-container>
+        <aaja-container class="festival__content-display">
+          <template v-for="festival in tabContent">
+            <div class="festival__content-header">
+              <div>
+                {{ festival }}
+                <p>{{ festival.headerText }}</p>
+              </div>
+              <div class="festival__content-images">
+                <frame-grid
+                  class="grid-container container"
+                  v-bind:gap="gap"
+                  v-bind:defaultDirection="defaultDirection"
+                  v-bind:frame="isMobile ? mobileGrid : desktopGrid"
+                  v-bind:rectSize="rectSize"
+                  v-bind:useFrameFill="useFrameFill"
+                >
+                  <div v-for="(image, index) in festival.media" :key="image._key" :class="`item`">
+                    <template v-if="image._type === 'file'">
+                      <video controls muted>
+                        <source :src="image" type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    </template>
+                    <template v-else>
+                      <img
+                        :src="image.desktop[isMobile ? '400' : '800']"
+                        @click="showMultiple(gallery, index)"
+                      />
+                    </template>
+                  </div>
+                </frame-grid>
+                <vue-easy-lightbox
+                  :visible="visibleRef"
+                  :imgs="imgsRef"
+                  :index="indexRef"
+                  @hide="onHide"
+                />
+              </div>
+            </div>
+          </template>
+        </aaja-container>
+      </article>
+    </template>
   </main>
 </template>
 
 <script>
-import { ref } from 'vue';
-import { FrameGrid } from "@egjs/vue-grid";
+import { ref } from 'vue'
+import { FrameGrid } from '@egjs/vue-grid'
 import VueEasyLightbox from 'vue-easy-lightbox/dist/vue-easy-lightbox.esm.min.js'
 
 import { cloudinaryHeroParser } from '~/utils/images'
@@ -57,12 +93,21 @@ import Logo from '~/assets/img/icons/logo.svg?inline'
 import AajaImg from '~/components/AajaImg.vue'
 import AajaHeading from '~/components/AajaHeading.vue'
 
-
 export default {
-  components: { AajaContainer, AajaHeroImg, Logo, AajaImg, AajaHeading, FrameGrid, VueEasyLightbox },
+  components: {
+    AajaContainer,
+    AajaHeroImg,
+    Logo,
+    AajaImg,
+    AajaHeading,
+    FrameGrid,
+    VueEasyLightbox,
+  },
   head() {
-    const title = 'Aaja - Creekside Festival';
-    const description = this.festivalData?.headingIntro || 'Championing neighbourhood crews, DIY radio, local businesses & the unique spaces of Deptford, Creekside Festival is intimate multi-venue electronic music festival.';
+    const title = 'Aaja - Creekside Festival'
+    const description =
+      this.festivalData?.headingIntro ||
+      'Championing neighbourhood crews, DIY radio, local businesses & the unique spaces of Deptford, Creekside Festival is intimate multi-venue electronic music festival.'
 
     return {
       title,
@@ -71,7 +116,7 @@ export default {
         description,
         image: 'https://aajamusic.com/_nuxt/img/creekside-transparent.55a5c78.png',
         url: 'https://aajamusic.com/festival',
-        themeColor: 'black'
+        themeColor: 'black',
       }),
     }
   },
@@ -82,33 +127,38 @@ export default {
   },
   data() {
     return {
+      selectedYear: 2023,
       isMobile: false,
-
-      // heroImage: cloudinaryHeroParser(
-      //   'https://cdn.sanity.io/images/ycpbe8x2/production/d5c60da420f671deaaf2ea796374a58bc26d1263-1440x1080.jpg'
-      // ),
       gap: 5,
-      defaultDirection: "end",
+      defaultDirection: 'end',
       rectSize: 0,
       useFrameFill: true,
       autoResize: true,
       useRoundedSize: true,
-      desktopGrid: [[1, 1, 2, 3], [1, 1, 4, 5], [6, 7, 8, 8], [9, 10, 8, 8]],
-      mobileGrid: [[1, 1, 2, 2], [1, 1, 2, 2]]
+      desktopGrid: [
+        [1, 1, 2, 3],
+        [1, 1, 4, 5],
+        [6, 7, 8, 8],
+        [9, 10, 8, 8],
+      ],
+      mobileGrid: [
+        [1, 1, 2, 2],
+        [1, 1, 2, 2],
+      ],
     }
   },
   setup() {
     const visibleRef = ref(false)
-    const indexRef = ref(0);
+    const indexRef = ref(0)
     const imgsRef = ref([])
 
     const showMultiple = (images, index) => {
-      imgsRef.value = images.map(image => image.desktop['1800']);
-      indexRef.value = index;
-      onShow();
+      imgsRef.value = images.map((image) => image.desktop['1800'])
+      indexRef.value = index
+      onShow()
     }
-    const onHide = () => visibleRef.value = false;
-    const onShow = () => visibleRef.value = true;
+    const onHide = () => (visibleRef.value = false)
+    const onShow = () => (visibleRef.value = true)
 
     return {
       visibleRef,
@@ -116,21 +166,31 @@ export default {
       imgsRef,
       // showSingle,
       showMultiple,
-      onHide
+      onHide,
     }
   },
   computed: {
     hero() {
-      const image = this.$urlForSquare(this.festivalData.festivalHero, false, false);
-      const parsedImage = cloudinaryHeroParser(image.desktop['1200']);
+      const image = this.$urlForSquare(this.festivalData.festivalHero, false, false)
+      const parsedImage = cloudinaryHeroParser(image.desktop['1200'])
       return parsedImage
     },
     gallery() {
-      return this.festivalData.images?.map((img) => {
-        const parsedImage = this.$urlForSquare(img, false, true)
-        return { ...parsedImage, _key: img._key }
+      const images =
+        this.selectedYear === 2023
+          ? this.festivalData.images
+          : this.festivalData.years.find((festival) => festival.year === this.selectedYear)
+      const formattedMedia = images?.map((media) => {
+        const parsedMedia =
+          media._type === 'image'
+            ? this.$urlForSquare(media, false, true)
+            : this.$getFileAsset(media)
+        return { ...parsedMedia, _key: media._key }
       })
+      return formattedMedia
     },
+  tabContent() {
+    return this.festivalData.years.filter((festival) => festival.year === this.selectedYear)
   },
   created() {
     if (process.client) {
@@ -157,10 +217,40 @@ export default {
 }
 </script>
 
-
 <style lang="scss" scoped>
-.festival__ {
-  &hero {
+.festival__content-display {
+  video {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.festival__content-years-button {
+  display: flex;
+  gap: 20px;
+  justify-content: flex-start;
+  button {
+    background-color: transparent;
+    color: var(--white);
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+
+    &.active {
+      text-decoration: underline;
+      font-weight: bold;
+    }
+
+    &:hover:not(.active) {
+      color: var(--light-grey);
+    }
+  }
+}
+
+.festival {
+  &__hero {
     &-img {
       width: 100%;
       height: 100vh;
@@ -202,49 +292,9 @@ export default {
         }
       }
     }
-
-    &-opening {
-      p {
-        text-transform: uppercase;
-        margin-bottom: 20px;
-      }
-
-      strong {
-        font-weight: 600;
-        font-size: 20px;
-
-        @include breakpoint(mobile) {
-          font-size: 16px;
-        }
-      }
-
-      .button-wrap {
-        display: flex;
-        gap: 20px;
-        margin-top: 30px;
-      }
-
-      a {
-        width: 140px;
-        height: 40px;
-        display: flex;
-        font-size: 14px;
-        align-items: center;
-        justify-content: center;
-        background: var(--white);
-        color: var(--dark);
-        text-decoration: none;
-        cursor: pointer;
-
-        &:hover {
-          opacity: 0.75;
-          text-decoration: underline;
-        }
-      }
-    }
   }
 
-  &content {
+  &__content {
     display: block;
 
     &-wrapper {
@@ -264,10 +314,6 @@ export default {
         }
       }
     }
-
-    /* &-header {
-
-    } */
 
     &-images {
       padding-top: var(--globalPadding);

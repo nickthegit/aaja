@@ -92,10 +92,11 @@ export const barPageQuery = `*[_type == "barPage"] {
 
 export const festivalPageQuery = `*[_type == "festivalPage"] {
   "heading": coalesce(heading, "Creekside Festival!", false),
-  subHeading,
   headingIntro,
   festivalHero,
-  images
+  subHeading,
+  images,
+  years
 }`
 
 export const studioPageQuery = `*[_type == "studioPage"] {
@@ -131,7 +132,6 @@ export const buttonPopupQueryLeft = `*[_type == "popupButtonLeft"] {
   logo
 }`
 
-
 export const labelPageQuery = `*[_type == "labelPage"] {
   "heading": coalesce(heading, "Aaja Bar", false),
   intro,
@@ -150,7 +150,9 @@ export const homePageQuery = `*[_type == "homePage"] {
   }
 }`
 
-export const liveEventSlugPageQuery = (slug) => `*[_type == "liveEvents" && slug.current == "${slug}"][0] {
+export const liveEventSlugPageQuery = (
+  slug
+) => `*[_type == "liveEvents" && slug.current == "${slug}"][0] {
     _id,
     _rev,
     "feature_image": coalesce(feature_image, false),
@@ -169,7 +171,6 @@ export const liveEventSlugPageQuery = (slug) => `*[_type == "liveEvents" && slug
     eventDateText,
     eventLocation
   }`
-
 
 export const residentSlugPageQuery = (
   slug
