@@ -1,36 +1,14 @@
 export const headerQuery = `*[_type == "siteSettings"][0] {
-  "socials": [
-    {
-    	"icon": "Facebook",
-      "slug": 'facebook',
-			"link": coalesce(facebook, false),
-      "_id" : _rev + 'facebook'
+    'mixcloudVideoCh1': {
+      "enabled":coalesce(mixcloudVideoCh1.enabled, false),
+			"url": coalesce(mixcloudVideoCh1.url, ''),
+      "_id" : _rev + 'mixcloudVideoCh1'
   	},
-    {
-    	"icon": "Instagram",
-      "slug": 'instagram',
-			"link": coalesce(instagram, false),
-      "_id" : _rev + 'instagram'
-  	},
-    {
-    	"icon": "Mixcloud",
-      "slug": 'mixcloud',
-			"link": coalesce(mixcloud, false),
-      "_id" : _rev + 'mixcloud'
-  	},
-    {
-    	"icon": "Twitter",
-      "slug": 'twitter',
-			"link": coalesce(twitter, false),
-      "_id" : _rev + 'twitter'
-  	},
-    {
-    	"name": "Soundcloud",
-      "slug": 'soundcloud',
-			"link": coalesce(soundcloud, false),
-      "_id" : _rev + 'soundcloud'
+    'mixcloudVideoCh2':{
+      "enabled":coalesce(mixcloudVideoCh2.enabled, false),
+			"url": coalesce(mixcloudVideoCh2.url, ''),
+      "_id" : _rev + 'mixcloudVideoCh2'
   	}
-  ],
 }`
 
 export const footerQuery = `*[_type == "siteSettings"] {
@@ -131,7 +109,6 @@ export const buttonPopupQueryLeft = `*[_type == "popupButtonLeft"] {
   logo
 }`
 
-
 export const labelPageQuery = `*[_type == "labelPage"] {
   "heading": coalesce(heading, "Aaja Bar", false),
   intro,
@@ -150,7 +127,9 @@ export const homePageQuery = `*[_type == "homePage"] {
   }
 }`
 
-export const liveEventSlugPageQuery = (slug) => `*[_type == "liveEvents" && slug.current == "${slug}"][0] {
+export const liveEventSlugPageQuery = (
+  slug
+) => `*[_type == "liveEvents" && slug.current == "${slug}"][0] {
     _id,
     _rev,
     "feature_image": coalesce(feature_image, false),
@@ -169,7 +148,6 @@ export const liveEventSlugPageQuery = (slug) => `*[_type == "liveEvents" && slug
     eventDateText,
     eventLocation
   }`
-
 
 export const residentSlugPageQuery = (
   slug
