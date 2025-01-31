@@ -46,9 +46,10 @@
       <template v-if="videoCh1Enabled">
         <a
           class="mixcloud-video-channel-link"
-          :href="data?.mixcloudVideoCh2.url"
+          :href="mixcloudVideoCh1?.url"
           target="_blank"
           rel="noopener noreferrer"
+          @click="handleBtnClick('btn_mixcloud_ch1')"
         >
           <CameraIcon />
         </a>
@@ -105,9 +106,10 @@
       <template v-if="videoCh2Enabled">
         <a
           class="mixcloud-video-channel-link"
-          :href="data?.mixcloudVideoCh2.url"
+          :href="mixcloudVideoCh2?.url"
           target="_blank"
           rel="noopener noreferrer"
+          @click="handleBtnClick('btn_mixcloud_ch2')"
         >
           <CameraIcon />
         </a>
@@ -158,7 +160,6 @@ export default {
   },
   computed: {
     videoCh1Enabled() {
-      console.log(!!this.mixcloudVideoCh1.enabled)
       return !!this.mixcloudVideoCh1.enabled
     },
     videoCh2Enabled() {
@@ -178,6 +179,9 @@ export default {
     },
   },
   methods: {
+    handleBtnClick(type){
+      this.$trackEvent(type);
+    },
     playPause(val) {
       const radio = this.$el.querySelector('#radio')
       const radio2 = this.$el.querySelector('#radio2')
