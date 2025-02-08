@@ -43,7 +43,7 @@
           />
         </svg>
       </button>
-      <template v-if="videoCh1Enabled">
+      <template v-if="videoCh1Enabled && !videoCh1isNotLive">
         <a
           class="mixcloud-video-channel-link"
           :href="mixcloudVideoCh1?.url"
@@ -51,7 +51,7 @@
           rel="noopener noreferrer"
           @click="handleBtnClick('btn_mixcloud_ch1')"
         >
-          <CameraIcon />
+          <CameraIcon :fill="videoCh1isLive ? '#c1121f' : 'white'" />
         </a>
       </template>
       <div class="now-wrapper">
@@ -138,7 +138,7 @@
 
 <script>
 import { format, toDate, parseISO } from 'date-fns'
-import CameraIcon from '~/assets/img/icons/camera.svg?inline'
+import CameraIcon from '~/assets/img/icons/camera.vue'
 
 import { headerQuery } from '~/utils/queries'
 
@@ -147,23 +147,63 @@ export default {
 
   async fetch() {
     const fetchedData = await this.$sanity.fetch(headerQuery)
-    this.mixcloudVideoCh1 = fetchedData.mixcloudVideoCh1 || {}
-    this.mixcloudVideoCh2 = fetchedData.mixcloudVideoCh2 || {}
+
+    let mixcloudVideoCh1 = fetchedData.mixcloudVideoCh1 || {}
+    let mixcloudVideoCh2 = fetchedData.mixcloudVideoCh2 || {}
+
+    if (mixcloudVideoCh1?.dynamic) {
+      try {
+        const liveStatusResponse = await this.$axios.get(
+          'https://kailhus-checkmixcloudislive.web.val.run/get-latest-status?channel=aajamusic'
+        )
+
+        mixcloudVideoCh1 = {
+          ...mixcloudVideoCh1,
+          isLive: liveStatusResponse.data.status,
+        }
+      } catch (liveCheckError) {
+        console.error('Error checking live status:', liveCheckError)
+        mixcloudVideoCh1 = {
+          ...mixcloudVideoCh1,
+          isLive: 'UNKNOWN',
+        }
+      }
+    } else {
+      mixcloudVideoCh1 = {
+        ...mixcloudVideoCh1,
+        isLive: 'UNKNOWN',
+      }
+    }
+
+    this.mixcloudVideoCh1 = mixcloudVideoCh1
+    this.mixcloudVideoCh2 = mixcloudVideoCh2
   },
   data() {
     return {
       playing: false,
       playing2: false,
-      mixcloudVideoCh1: {}, // Reactive placeholder for channel 1
-      mixcloudVideoCh2: {}, // Reactive placeholder for channel 2
+      mixcloudVideoCh1: {},
+      mixcloudVideoCh2: {},
     }
   },
   computed: {
     videoCh1Enabled() {
-      return !!this.mixcloudVideoCh1.enabled
+      return (
+        (this.mixcloudVideoCh1.enabled &&
+          this.mixcloudVideoCh1.dynamic &&
+          (this.mixcloudVideoCh1.isLive === 'LIVE' ||
+            this.mixcloudVideoCh1.isLive === 'UNKNOWN')) ||
+        this.mixcloudVideoCh1.enabled
+      )
+    },
+    videoCh1isNotLive() {
+      return this.mixcloudVideoCh1.dynamic && this.mixcloudVideoCh1.isLive === 'NOT_LIVE'
+    },
+    videoCh1isLive() {
+      return this.mixcloudVideoCh1.isLive === 'LIVE'
     },
     videoCh2Enabled() {
-      return !!this.mixcloudVideoCh2.enabled
+      return this.mixcloudVideoCh2.enabled
     },
     nowRadioInfo() {
       return this.$store.getters.nowRadioInfo
@@ -179,8 +219,8 @@ export default {
     },
   },
   methods: {
-    handleBtnClick(type){
-      this.$trackEvent(type);
+    handleBtnClick(type) {
+      this.$trackEvent(type)
     },
     playPause(val) {
       const radio = this.$el.querySelector('#radio')

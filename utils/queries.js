@@ -1,6 +1,7 @@
 export const headerQuery = `*[_type == "siteSettings"][0] {
     'mixcloudVideoCh1': {
       "enabled":coalesce(mixcloudVideoCh1.enabled, false),
+      "dynamic":coalesce(mixcloudVideoCh1.dynamic, false),
 			"url": coalesce(mixcloudVideoCh1.url, ''),
       "_id" : _rev + 'mixcloudVideoCh1'
   	},

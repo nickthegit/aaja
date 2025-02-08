@@ -65,6 +65,13 @@ export default {
           type: 'boolean',
           description: 'Toggle to enable or disable this link',
         },
+        {
+          name: 'dynamic',
+          title: 'Use Dynamic link?',
+          type: 'boolean',
+          description:
+            'Uses an API to show/hide it (experimental) - only available for Channel 1 for now',
+        },
       ],
     },
     {
