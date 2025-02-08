@@ -148,11 +148,9 @@ export default {
   async fetch() {
     const fetchedData = await this.$sanity.fetch(headerQuery)
 
-    // Initialize base objects
     let mixcloudVideoCh1 = fetchedData.mixcloudVideoCh1 || {}
     let mixcloudVideoCh2 = fetchedData.mixcloudVideoCh2 || {}
 
-    // Check if we need to fetch live status
     if (mixcloudVideoCh1?.dynamic) {
       try {
         const liveStatusResponse = await this.$axios.get(
@@ -171,14 +169,12 @@ export default {
         }
       }
     } else {
-      // If not dynamic, set as "UNKNOWN"
       mixcloudVideoCh1 = {
         ...mixcloudVideoCh1,
         isLive: 'UNKNOWN',
       }
     }
 
-    // Update component data
     this.mixcloudVideoCh1 = mixcloudVideoCh1
     this.mixcloudVideoCh2 = mixcloudVideoCh2
   },
@@ -186,8 +182,8 @@ export default {
     return {
       playing: false,
       playing2: false,
-      mixcloudVideoCh1: {}, // Reactive placeholder for channel 1
-      mixcloudVideoCh2: {}, // Reactive placeholder for channel 2
+      mixcloudVideoCh1: {},
+      mixcloudVideoCh2: {},
     }
   },
   computed: {
