@@ -1,41 +1,33 @@
 <template>
-  <main class="light-theme">
-    <!-- <aaja-container class="breadcrumb-container" >
-      <nuxt-link :to="`/live-events`" class="breadcrumb" :style="{color: textColor.color}"><span>
-          <arrow :style="{fill: textColor.color}"/>
-        </span>Back to Events</nuxt-link>
-    </aaja-container> -->
+  <main class="light-theme" :style="styleObject">
     <section class="slug__live-event">
-      <aaja-standard-hero  class="live-event__header" :style="{backgroundColor: backgroundColor, color: textColor}">
-        <template v-slot:heading>
-          <aaja-heading :showLogo="false">{{ eventData.name }}</aaja-heading>
-        </template>
-        <h2 v-if="eventData.eventDateText">{{ eventData.eventDateText }}</h2>
-        <!-- <h2 v-else-if="eventData.eventDateTime">{{ formatDateTime }}</h2>
-        <h2 v-else-if="eventData.eventDate">{{ formatDate }}</h2> -->
-        <h4 v-if="eventData.eventLocation"> {{ eventData.eventLocation }}</h4>
-        <template #headerSide >
-          <a :href="eventData.eventLink">
-          <aaja-img v-if="eventData.feature_image"
-            :altText="eventData.name"
-            :desktopBg="heroImage.desktopBlur"
-            :mobileBg="heroImage.mobileBlur"
-            :desktopImgs="heroImage.desktop"
-            :mobileImgs="heroImage.mobile"
-            :ratio="[1, 1]"
-            :percentageOfViewportWidth="33"
-          />
-        </a>
-        </template>
-      </aaja-standard-hero>
-      <aaja-divider :fillColor="backgroundColor"></aaja-divider>
+      <aaja-container class="breadcrumb-container">
+        <nuxt-link :to="`/live-events`" class="breadcrumb"><span>
+            <arrow />
+          </span>Back to Events</nuxt-link>
+      </aaja-container>
+      <aaja-container>
+        <div :style="textColor.color">
+          <aaja-heading class="live-event__header--event-name">{{ eventData.name }}
+          </aaja-heading>
+        </div>
+        <div class="live-event__header--description">
+          <h2 v-if="eventData.eventDateText">{{ eventData.eventDateText }}</h2>
+          <h4 v-if="eventData.eventLocation"> {{ eventData.eventLocation }}</h4>
+        </div>
+        <!-- <aaja-hero-img class="live-event__header--image" v-if="eventData.feature_image" altText="Aaja Bar Hero image"
+          :landscapeBg="heroImage.landscapeBlur" :portraitBg="heroImage.portraitBlur"
+          :landscapeImgs="heroImage.landscape" :portraitImgs="heroImage.portrait" /> -->
+      </aaja-container>
       <aaja-container class="live-event__container">
         <section>
           <SanityContent v-if="eventData.intro" :blocks="eventData.intro" />
         </section>
         <aside v-if="eventData.eventLink || eventData.audioStreamingLink">
-          <a :href="eventData.eventLink" v-if="eventData.eventLink" target="_blank" rel="noopener noreferrer">{{ eventLinkCtaLabel }} </a>
-          <audio id="audio" :src="eventData.audioStreamingLink" v-if="eventData.audioStreamingLink" preload="auto"></audio>
+          <a :href="eventData.eventLink" v-if="eventData.eventLink" target="_blank" rel="noopener noreferrer">{{
+    eventLinkCtaLabel }} </a>
+          <audio id="audio" :src="eventData.audioStreamingLink" v-if="eventData.audioStreamingLink"
+            preload="auto"></audio>
           <button class="playBtn" @click="playPause" v-if="eventData.audioStreamingLink">
             {{ audioCtaLabel }}
             <svg v-if="!playing" class="playIcon" width="13" height="20" viewBox="0 0 13 20" fill="none"
@@ -188,6 +180,24 @@ export default {
 main {
   width: 100%;
   overflow: scroll;
+}
+
+.live-event__header {
+  display: flex;
+
+  h1 {
+    flex: 1 0 auto;
+  }
+
+  &--description {
+    color: red
+  }
+
+  &--image {
+    picture {
+      position: relative;
+    }
+  }
 }
 
 .live-event__hero-image {
