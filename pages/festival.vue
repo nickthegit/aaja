@@ -287,6 +287,7 @@ export default {
       left: 0;
       z-index: 2;
       height: 100%;
+      pointer-events: none;
 
       display: flex;
       flex-direction: column;
@@ -301,6 +302,7 @@ export default {
 
       &-wrapper {
         width: 100%;
+        pointer-events: auto;
       }
 
       &-intro {
