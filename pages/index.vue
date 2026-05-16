@@ -65,7 +65,7 @@ export default {
   async asyncData({ $sanity }) {
     const data = await $sanity.fetch(homePageQuery)
 
-    return { homeData: data[1].homeNewsBanner }
+    return { homeData: data[1].homeNewsBanner || [] }
   },
   components: { FullLogo },
   data() {
