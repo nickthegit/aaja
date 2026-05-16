@@ -40,7 +40,7 @@
         <aaja-container class="festival__content-display">
           <div v-if="activeFestival" class="festival__content-header" :key="activeFestival.year">
             <div v-if="activeFestival.headerText" class="festival__content-header-text">
-              <p>{{ activeFestival.headerText }}</p>
+              <SanityContent :blocks="activeFestival.headerText" />
             </div>
             
             <div class="festival__content-images">

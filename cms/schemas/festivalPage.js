@@ -42,9 +42,9 @@ export default {
             },
             {
               name: 'headerText',
-              type: 'string',
-              title: 'Header Text',
-              description: 'Brief header text for this year.',
+              type: 'blockContent',
+              title: 'Description',
+              description: 'Text, links, or video embeds for this year.',
             },
             {
               name: 'media',
