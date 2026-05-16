@@ -29,7 +29,7 @@
             v-for="festival in sortedYears"
             :key="festival._key || festival.year"
             :class="{ active: selectedYear === festival.year }"
-            @click="selectedYear = festival.year"
+            @click="selectYear(festival.year)"
           >
             <h2>{{ festival.year }}</h2>
           </button>
@@ -228,6 +228,11 @@ export default {
       }
       mediaQuery.addListener(handleTabletChange)
       handleTabletChange(mediaQuery)
+    }
+  },
+  methods: {
+    selectYear(year) {
+      this.selectedYear = year
     }
   },
 }
