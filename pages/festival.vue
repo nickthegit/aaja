@@ -15,7 +15,8 @@
         <div class="festival__hero-header-wrapper">
           <aaja-heading-block :is-festival="true">
             <AajaRichText :blocks="festivalData.heading" />
-          </aaja-heading-block>          <p v-if="festivalData.headingIntro" class="festival__hero-header-intro">
+          </aaja-heading-block>
+          <p v-if="festivalData.headingIntro" class="festival__hero-header-intro">
             {{ festivalData.headingIntro }}
           </p>
         </div>
@@ -39,23 +40,23 @@
         <aaja-container class="festival__content-display">
           <div v-if="activeFestival" :key="activeFestival.year" class="festival__content-header">
             <div v-if="activeFestival.headerText || activeFestival.description" class="festival__content-header-text">
-              <p v-if="activeFestival.headerText">{{ activeFestival.headerText }}</p>
+              <p v-if="activeFestival.headerText">
+                {{ activeFestival.headerText }}
+              </p>
               <AajaRichText v-if="activeFestival.description" :blocks="activeFestival.description" />
             </div>
             
             <div class="festival__content-images">
               <div class="festival__content-images-inner">
-                <!-- Actual Grid -->
+                <!-- Actual Grid (Always mounted) -->
                 <frame-grid
                   ref="grid"
                   class="grid-container container"
-                  :class="{ 'is-ready': gridReady }"
                   :gap="gap"
                   :default-direction="defaultDirection"
                   :frame="isMobile ? mobileGrid : desktopGrid"
                   :rect-size="rectSize"
                   :use-frame-fill="useFrameFill"
-                  @render-complete="onRenderComplete"
                 >
                   <div v-for="(item, index) in gallery" :key="item._key" class="item">
                     <aaja-skeleton-media
@@ -91,8 +92,6 @@ import { createSEOMeta } from '~/utils/seo.js'
 import { festivalPageQuery } from '~/utils/queries.js'
 import AajaContainer from '~/components/AajaContainer.vue'
 import AajaHeroImg from '~/components/AajaHeroImg.vue'
-import AajaImg from '~/components/AajaImg.vue'
-import AajaHeading from '~/components/AajaHeading.vue'
 import AajaSkeletonMedia from '~/components/AajaSkeletonMedia.vue'
 import AajaRichText from '~/components/AajaRichText.vue'
 
@@ -100,8 +99,6 @@ export default {
   components: {
     AajaContainer,
     AajaHeroImg,
-    AajaImg,
-    AajaHeading,
     FrameGrid,
     VueEasyLightbox,
     AajaSkeletonMedia,
@@ -118,7 +115,6 @@ export default {
   },
   data() {
     return {
-      gridReady: false,
       gap: 5,
       defaultDirection: 'end',
       rectSize: 0,
@@ -195,12 +191,7 @@ export default {
   },
   methods: {
     selectYear(year) {
-      if (this.selectedYear === year) return
-      this.gridReady = false
       this.selectedYear = year
-    },
-    onRenderComplete() {
-      this.gridReady = true
     },
     showMultiple(images, index) {
       const onlyImages = images.filter((img) => img._type === 'image' && img.desktop)
@@ -339,13 +330,6 @@ export default {
       }
 
       .grid-container {
-        opacity: 0;
-        transition: opacity 0.5s ease;
-
-        &.is-ready {
-          opacity: 1;
-        }
-
         .item {
           overflow: hidden;
           aspect-ratio: 1 / 1;

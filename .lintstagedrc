@@ -1,0 +1,8 @@
+{
+  "*.{js,vue}": [
+    "eslint --fix"
+  ],
+  "*.scss": [
+    "sass --no-source-map"
+  ]
+}
