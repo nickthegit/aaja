@@ -52,11 +52,13 @@
                 <frame-grid
                   ref="grid"
                   class="grid-container container"
+                  :class="{ 'is-ready': gridReady }"
                   :gap="gap"
                   :default-direction="defaultDirection"
                   :frame="isMobile ? mobileGrid : desktopGrid"
                   :rect-size="rectSize"
                   :use-frame-fill="useFrameFill"
+                  @render-complete="onRenderComplete"
                 >
                   <div v-for="(item, index) in gallery" :key="item._key" class="item">
                     <aaja-skeleton-media
@@ -115,6 +117,7 @@ export default {
   },
   data() {
     return {
+      gridReady: false,
       gap: 5,
       defaultDirection: 'end',
       rectSize: 0,
@@ -191,7 +194,12 @@ export default {
   },
   methods: {
     selectYear(year) {
+      if (this.selectedYear === year) return
+      this.gridReady = false
       this.selectedYear = year
+    },
+    onRenderComplete() {
+      this.gridReady = true
     },
     showMultiple(images, index) {
       const onlyImages = images.filter((img) => img._type === 'image' && img.desktop)
@@ -330,6 +338,13 @@ export default {
       }
 
       .grid-container {
+        opacity: 0;
+        transition: opacity 0.5s ease;
+
+        &.is-ready {
+          opacity: 1;
+        }
+
         .item {
           overflow: hidden;
           aspect-ratio: 1 / 1;
