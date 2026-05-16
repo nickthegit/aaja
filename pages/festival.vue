@@ -294,7 +294,7 @@ export default {
       top: 0;
       left: 0;
       z-index: 2;
-      height: 100%;
+      height: 100vh;
       pointer-events: none;
 
       display: flex;
@@ -306,6 +306,7 @@ export default {
 
       @include breakpoint(mobile) {
         padding-top: 160px;
+        height: 100vh;
       }
 
       &-wrapper {
@@ -331,7 +332,7 @@ export default {
     &-wrapper {
       padding-top: calc(var(--globalPadding) / 2);
       position: relative;
-      z-index: 5;
+      z-index: 20;
 
       button {
         background-color: transparent;
