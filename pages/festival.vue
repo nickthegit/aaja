@@ -247,6 +247,9 @@ export default {
   display: flex;
   gap: 20px;
   justify-content: flex-start;
+  position: relative;
+  z-index: 10;
+  
   button {
     background-color: transparent;
     color: var(--white);
@@ -267,6 +270,8 @@ export default {
 
 .festival {
   &__hero {
+    position: relative;
+
     &-img {
       width: 100%;
       height: 100vh;
