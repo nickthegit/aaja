@@ -277,6 +277,7 @@ export default {
 
 .festival {
   &__hero {
+    display: none;
     position: relative;
 
     &-img {
@@ -330,7 +331,7 @@ export default {
     display: block;
 
     &-wrapper {
-      padding-top: calc(var(--globalPadding) / 2);
+      padding-top: 200px;
       position: relative;
       z-index: 20;
 
