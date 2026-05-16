@@ -44,39 +44,28 @@
             </div>
             
             <div class="festival__content-images">
-              <transition name="fade" mode="out-in">
-                <div :key="selectedYear" class="festival__content-images-inner">
-                  <!-- Skeleton Loader (Shown while isSwitching is true) -->
-                  <div v-if="isSwitching" class="skeleton-grid">
-                    <div v-for="n in 8" :key="n" class="skeleton-item shimmer"></div>
+              <div class="festival__content-images-inner">
+                <!-- Actual Grid (Always mounted to avoid layout restart) -->
+                <frame-grid
+                  ref="grid"
+                  class="grid-container container"
+                  :gap="gap"
+                  :defaultDirection="defaultDirection"
+                  :frame="isMobile ? mobileGrid : desktopGrid"
+                  :rectSize="rectSize"
+                  :useFrameFill="useFrameFill"
+                >
+                  <div v-for="(item, index) in gallery" :key="item._key" class="item">
+                    <aaja-skeleton-media
+                      :type="item._type"
+                      :src="item.desktop ? item.desktop[isMobile ? '400' : '800'] : ''"
+                      :url="item.url || ''"
+                      :alt="`Aaja festival image ${index}`"
+                      @click="showMultiple(gallery, index)"
+                    />
                   </div>
-
-                  <!-- Actual Grid -->
-                  <frame-grid
-                    v-else
-                    class="grid-container container"
-                    :gap="gap"
-                    :defaultDirection="defaultDirection"
-                    :frame="isMobile ? mobileGrid : desktopGrid"
-                    :rectSize="rectSize"
-                    :useFrameFill="useFrameFill"
-                  >
-                    <div v-for="(item, index) in gallery" :key="item._key" class="item">
-                      <template v-if="item._type === 'file'">
-                        <video :key="item.url" controls muted preload="metadata" playsinline>
-                          <source :src="item.url" type="video/mp4" />
-                        </video>
-                      </template>
-                      <template v-else-if="item.desktop">
-                        <img
-                          :src="item.desktop[isMobile ? '400' : '800']"
-                          @click="showMultiple(gallery, index)"
-                        />
-                      </template>
-                    </div>
-                  </frame-grid>
-                </div>
-              </transition>
+                </frame-grid>
+              </div>
 
               <vue-easy-lightbox
                 :visible="visibleRef"
@@ -102,6 +91,7 @@ import AajaContainer from '~/components/AajaContainer.vue'
 import AajaHeroImg from '~/components/AajaHeroImg.vue'
 import AajaImg from '~/components/AajaImg.vue'
 import AajaHeading from '~/components/AajaHeading.vue'
+import AajaSkeletonMedia from '~/components/AajaSkeletonMedia.vue'
 
 export default {
   components: {
@@ -111,6 +101,7 @@ export default {
     AajaHeading,
     FrameGrid,
     VueEasyLightbox,
+    AajaSkeletonMedia
   },
   head() {
     const title = 'Aaja - Creekside Festival'
@@ -137,8 +128,6 @@ export default {
   },
   data() {
     return {
-      isMobile: false,
-      isSwitching: false,
       gap: 5,
       defaultDirection: 'end',
       rectSize: 0,
@@ -152,8 +141,8 @@ export default {
         [9, 10, 8, 8],
       ],
       mobileGrid: [
-        [1, 1, 2, 2],
-        [1, 1, 2, 2],
+        [1, 2],
+        [3, 4],
       ],
       visibleRef: false,
       indexRef: 0,
@@ -161,6 +150,9 @@ export default {
     }
   },
   computed: {
+    isMobile() {
+      return this.$store.state.isMobile
+    },
     hero() {
       if (!this.festivalData?.festivalHero) return null
       const image = this.$urlForSquare(this.festivalData.festivalHero, false, false)
@@ -172,7 +164,8 @@ export default {
     },
     activeFestival() {
       if (!this.sortedYears.length) return null
-      return this.sortedYears.find(f => String(f.year) === String(this.selectedYear))
+      const currentYear = this.selectedYear || (this.sortedYears[0] ? this.sortedYears[0].year : null)
+      return this.sortedYears.find(f => String(f.year) === String(currentYear))
     },
     gallery() {
       let images = this.activeFestival?.media || []
@@ -196,22 +189,9 @@ export default {
       }).filter(item => item !== null)
     },
   },
-  mounted() {
-    if (process.client) {
-      const handleTabletChange = (e) => { this.isMobile = e.matches }
-      const mediaQuery = window.matchMedia('(max-width: 480px)')
-      mediaQuery.addListener(handleTabletChange)
-      handleTabletChange(mediaQuery)
-    }
-  },
   methods: {
     selectYear(year) {
-      if (this.selectedYear === year) return
-      this.isSwitching = true
       this.selectedYear = year
-      setTimeout(() => {
-        this.isSwitching = false
-      }, 500)
     },
     showMultiple(images, index) {
       const onlyImages = images.filter((img) => img._type === 'image' && img.desktop)
@@ -342,17 +322,16 @@ export default {
     &-images {
       padding-top: var(--globalPadding);
       min-height: 600px;
+      position: relative;
+
+      &-inner {
+        position: relative;
+        width: 100%;
+      }
 
       .grid-container .item {
-        background-color: rgba(255, 255, 255, 0.05);
         overflow: hidden;
-        
-        img, video {
-          display: block;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
+        aspect-ratio: 1 / 1;
       }
 
       ::v-deep .vel-img-modal.vel-img-modal {
@@ -360,46 +339,5 @@ export default {
       }
     }
   }
-}
-
-.skeleton-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 5px;
-  width: 100%;
-  
-  @include breakpoint(mobile) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.skeleton-item {
-  width: 100%;
-  aspect-ratio: 1/1;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
-}
-
-.shimmer {
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.05) 25%,
-    rgba(255, 255, 255, 0.1) 50%,
-    rgba(255, 255, 255, 0.05) 75%
-  );
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-}
-
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 0.5s ease;
-}
-.fade-enter, .fade-leave-to {
-  opacity: 0;
 }
 </style>
