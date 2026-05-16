@@ -44,29 +44,32 @@
             </div>
             
             <div class="festival__content-images">
-              <frame-grid
-                class="grid-container container"
-                :gap="gap"
-                :defaultDirection="defaultDirection"
-                :frame="isMobile ? mobileGrid : desktopGrid"
-                :rectSize="rectSize"
-                :useFrameFill="useFrameFill"
-              >
-                <div v-for="(item, index) in gallery" :key="item._key" class="item">
-                  <template v-if="item._type === 'file'">
-                    <video :key="item.url" controls muted preload="metadata" playsinline>
-                      <source :src="item.url" type="video/mp4" />
-                      Your browser does not support the video tag.
-                    </video>
-                  </template>
-                  <template v-else-if="item.desktop">
-                    <img
-                      :src="item.desktop[isMobile ? '400' : '800']"
-                      @click="showMultiple(gallery, index)"
-                    />
-                  </template>
-                </div>
-              </frame-grid>
+              <transition name="fade" mode="out-in">
+                <frame-grid
+                  :key="selectedYear"
+                  class="grid-container container"
+                  :gap="gap"
+                  :defaultDirection="defaultDirection"
+                  :frame="isMobile ? mobileGrid : desktopGrid"
+                  :rectSize="rectSize"
+                  :useFrameFill="useFrameFill"
+                >
+                  <div v-for="(item, index) in gallery" :key="item._key" class="item">
+                    <template v-if="item._type === 'file'">
+                      <video :key="item.url" controls muted preload="metadata" playsinline>
+                        <source :src="item.url" type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    </template>
+                    <template v-else-if="item.desktop">
+                      <img
+                        :src="item.desktop[isMobile ? '400' : '800']"
+                        @click="showMultiple(gallery, index)"
+                      />
+                    </template>
+                  </div>
+                </frame-grid>
+              </transition>
 
               <vue-easy-lightbox
                 :visible="visibleRef"
@@ -327,15 +330,34 @@ export default {
     &-images {
       padding-top: var(--globalPadding);
 
-      .grid-container .item img {
-        height: 100%;
-        width: 100%;
+      .grid-container .item {
+        background-color: rgba(255, 255, 255, 0.05);
+        aspect-ratio: 1 / 1;
+        overflow: hidden;
+
+        img {
+          height: 100%;
+          width: 100%;
+          object-fit: cover;
+        }
+
+        video {
+          object-fit: cover;
+          height: 100%;
+        }
       }
 
-      .vel-img-modal.vel-img-modal {
+      ::v-deep .vel-img-modal.vel-img-modal {
         background: rgba(0, 0, 0, 0.95);
       }
     }
   }
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>
