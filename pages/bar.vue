@@ -1,13 +1,13 @@
 <template>
   <main>
     <section class="bar__hero">
-      <section class="bar__hero-img" v-if="barData.heroImage">
+      <section v-if="barData.heroImage" class="bar__hero-img">
         <aaja-hero-img
-          altText="Aaja Bar Hero image"
-          :landscapeBg="hero.landscapeBlur"
-          :portraitBg="hero.portraitBlur"
-          :landscapeImgs="hero.landscape"
-          :portraitImgs="hero.portrait"
+          alt-text="Aaja Bar Hero image"
+          :landscape-bg="hero.landscapeBlur"
+          :portrait-bg="hero.portraitBlur"
+          :landscape-imgs="hero.landscape"
+          :portrait-imgs="hero.portrait"
         />
       </section>
       <aaja-container class="bar__hero-container">
@@ -22,11 +22,13 @@
               :href="'mailto:' + barData.booking"
               target="_blank"
               rel="noopener noreferrer"
-              >Book a table</a
-            >
-            <a v-if="barData.menu" :href="barData.menu" target="_blank" rel="noopener noreferrer"
-              >View menu</a
-            >
+            >Book a table</a>
+            <a
+              v-if="barData.menu"
+              :href="barData.menu"
+              target="_blank"
+              rel="noopener noreferrer"
+            >View menu</a>
           </div>
         </section>
       </aaja-container>
@@ -40,14 +42,14 @@
           v-for="(image, index) in gallery"
           :key="image._key"
           :class="`bar__content-img-${index + 1}`"
-          altText="Aaja Bar"
-          :desktopBg="image.desktopBlur"
-          :mobileBg="image.mobileBlur"
-          :desktopImgs="image.desktop"
-          :mobileImgs="image.mobile"
+          alt-text="Aaja Bar"
+          :desktop-bg="image.desktopBlur"
+          :mobile-bg="image.mobileBlur"
+          :desktop-imgs="image.desktop"
+          :mobile-imgs="image.mobile"
           :ratio="index === 0 ? [31, 15] : [4, 3]"
-          :ratioMobile="[111, 80]"
-          :percentageOfViewportWidth="index != 0 ? 50 : 100"
+          :ratio-mobile="[111, 80]"
+          :percentage-of-viewport-width="index != 0 ? 50 : 100"
         />
       </aaja-container>
     </article>

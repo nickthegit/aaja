@@ -1,7 +1,11 @@
 <template>
   <footer>
-    <p v-if="$fetchState.pending">Fetching footer...</p>
-    <p v-else-if="$fetchState.error">An error occurred getting footer data</p>
+    <p v-if="$fetchState.pending">
+      Fetching footer...
+    </p>
+    <p v-else-if="$fetchState.error">
+      An error occurred getting footer data
+    </p>
 
     <aaja-container v-else class="footer__container">
       <section class="footer__logo">
@@ -13,8 +17,10 @@
           <ul class="footer__navigate-menu footer-list">
             <li v-for="link in links" :key="link._id" @click="navClose">
               <a v-if="link.external_link" :href="link.external_link" target="_blank" rel="noopener noreferrer">{{
-      link.name }}</a>
-              <nuxt-link v-else :to="`/${link.slug}`">{{ link.name }}</nuxt-link>
+                link.name }}</a>
+              <nuxt-link v-else :to="`/${link.slug}`">
+                {{ link.name }}
+              </nuxt-link>
             </li>
           </ul>
         </nav>
@@ -30,23 +36,20 @@
       <section class="footer__contact">
         <p><strong>Get in touch</strong></p>
         <a :href="`mailto:${data[0].email}`">{{ data[0].email }}</a>
-        <img class="footer__contact image" src="~/assets/img/arts_council.png"/>
+        <img class="footer__contact image" src="~/assets/img/arts_council.png">
       </section>
     </aaja-container>
   </footer>
 </template>
 
 <script>
-import Logo from '~/assets/img/icons/logo.svg?inline'
 import AajaContainer from './AajaContainer.vue'
+import Logo from '~/assets/img/icons/logo.svg?inline'
 
 import { footerQuery } from '~/utils/queries.js'
 
 export default {
   components: { Logo, AajaContainer },
-  async fetch() {
-    this.data = await this.$sanity.fetch(footerQuery)
-  },
   data() {
     return {
       data: '',
@@ -114,16 +117,19 @@ export default {
       ],
     }
   },
-  methods: {
-    navClose() {
-      this.$store.dispatch('setNavPayload', false)
-    },
+  async fetch() {
+    this.data = await this.$sanity.fetch(footerQuery)
   },
   created() {
     // this.fetch()
   },
   mounted() {
     // console.log('FOOTER QUERY: ', this.data[0])
+  },
+  methods: {
+    navClose() {
+      this.$store.dispatch('setNavPayload', false)
+    },
   },
 }
 </script>

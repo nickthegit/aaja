@@ -16,8 +16,7 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content:
-          'Aaja is a full spectrum music bar, record label, live streaming and event space located in an old railway arch in the heart of Deptford, London.',
+        content: 'Aaja is a multi-purpose community radio station, event space and bar. Situated along Deptford High street, the local cultural hub hosts an eclectic mix of radio hosts, DJs and events. Open since 2018, Aaja has provided a space that has nurtured and aided the growth of creative minds and groups within South-East London and beyond.',
       },
     ],
     script: [
@@ -82,8 +81,7 @@ export default {
         url: 'https://aajamusic.com/',
         title: 'Aaja Music',
         site_name: 'Aaja Music',
-        description:
-          'Aaja is a full spectrum music bar, record label, live streaming and event space located in an old railway arch in the heart of Deptford, London. ',
+        description: 'Aaja is a multi-purpose community radio station, event space and bar. Situated along Deptford High street, the local cultural hub hosts an eclectic mix of radio hosts, DJs and events. Open since 2018, Aaja has provided a space that has nurtured and aided the growth of creative minds and groups within South-East London and beyond.',
         img: 'https://aajamusic.com/Aaja-hero.jpg',
         img_size: { width: '1200', height: '671' },
         locale: 'en_GB',

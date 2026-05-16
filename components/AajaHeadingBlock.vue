@@ -1,8 +1,8 @@
 <template>
   <div>
-    <slot></slot>
+    <slot />
     <span v-if="isFestival" class="festival-logo">
-       <img class="festival-logo__image" src="~/assets/img/creekside-transparent.png"/>
+      <img class="festival-logo__image" src="~/assets/img/creekside-transparent.png">
     </span>
     <span v-else> <Logo /> </span>
   </div>
@@ -12,10 +12,10 @@
 import Logo from '~/assets/img/icons/logo.svg?inline';
 
 export default {
+  components: { Logo },
   props: {
     isFestival: Boolean,
   },
-  components: { Logo },
   mounted() {
     const el = this.$el
     const svg = el.querySelector('span')

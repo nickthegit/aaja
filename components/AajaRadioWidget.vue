@@ -12,9 +12,9 @@
         />
       </svg>
     </div>
-    <span class="separator end"></span>
+    <span class="separator end" />
     <div class="channel channel-1">
-      <audio id="radio" :src="s1Stream" preload="auto"></audio>
+      <audio id="radio" :src="s1Stream" preload="auto" />
       <h2>CH 1</h2>
       <button class="playBtn" @click="playPause(1)">
         <svg
@@ -56,25 +56,27 @@
       </template>
       <div class="now-wrapper">
         <p
-          class="now"
           v-if="nowRadioInfo.current"
+          class="now"
           v-html="
             nowRadioInfo.current.title +
-            ' - ' +
-            formatTime(nowRadioInfo.current.start) +
-            ' - ' +
-            formatTime(nowRadioInfo.current.end)
+              ' - ' +
+              formatTime(nowRadioInfo.current.start) +
+              ' - ' +
+              formatTime(nowRadioInfo.current.end)
           "
-        ></p>
+        />
         <p v-else-if="nowRadioInfo.next">
           Coming up: {{ nowRadioInfo.next.title }} - {{ formatTime(nowRadioInfo.next.start) }}
         </p>
-        <p v-else>-</p>
+        <p v-else>
+          -
+        </p>
       </div>
     </div>
-    <span class="separator"></span>
+    <span class="separator" />
     <div class="channel channel-2">
-      <audio id="radio2" :src="s2Stream" preload="auto"></audio>
+      <audio id="radio2" :src="s2Stream" preload="auto" />
       <h2>CH 2</h2>
       <button class="playBtn" @click="playPause(2)">
         <svg
@@ -116,23 +118,25 @@
       </template>
       <div class="now-wrapper">
         <p
-          class="now"
           v-if="nowRadioInfo2.current"
+          class="now"
           v-html="
             nowRadioInfo2.current.title +
-            ' - ' +
-            formatTime(nowRadioInfo2.current.start) +
-            ' - ' +
-            formatTime(nowRadioInfo2.current.end)
+              ' - ' +
+              formatTime(nowRadioInfo2.current.start) +
+              ' - ' +
+              formatTime(nowRadioInfo2.current.end)
           "
-        ></p>
+        />
         <p v-else-if="nowRadioInfo2.next">
           Coming up: {{ nowRadioInfo2.next.title }} - {{ formatTime(nowRadioInfo2.next.start) }}
         </p>
-        <p v-else>-</p>
+        <p v-else>
+          -
+        </p>
       </div>
     </div>
-    <span class="separator end"></span>
+    <span class="separator end" />
   </section>
 </template>
 
@@ -144,12 +148,20 @@ import { headerQuery } from '~/utils/queries'
 
 export default {
   components: { CameraIcon },
+  data() {
+    return {
+      playing: false,
+      playing2: false,
+      mixcloudVideoCh1: {},
+      mixcloudVideoCh2: {},
+    }
+  },
 
   async fetch() {
     const fetchedData = await this.$sanity.fetch(headerQuery)
 
     let mixcloudVideoCh1 = fetchedData.mixcloudVideoCh1 || {}
-    let mixcloudVideoCh2 = fetchedData.mixcloudVideoCh2 || {}
+    const mixcloudVideoCh2 = fetchedData.mixcloudVideoCh2 || {}
 
     if (mixcloudVideoCh1?.dynamic) {
       try {
@@ -177,14 +189,6 @@ export default {
 
     this.mixcloudVideoCh1 = mixcloudVideoCh1
     this.mixcloudVideoCh2 = mixcloudVideoCh2
-  },
-  data() {
-    return {
-      playing: false,
-      playing2: false,
-      mixcloudVideoCh1: {},
-      mixcloudVideoCh2: {},
-    }
   },
   computed: {
     videoCh1Enabled() {
@@ -217,6 +221,18 @@ export default {
     s2Stream() {
       return this.$store.getters.s2Stream
     },
+  },
+  mounted() {
+    setInterval(() => {
+      this.$store.dispatch('fetchRadio')
+      this.$store.dispatch('fetchRadio2')
+    }, 60 * 1000)
+    this.$nextTick(() => {
+      this.listenerPlayPause()
+      this.$store.dispatch('fetchRadio')
+      this.$store.dispatch('fetchRadio2')
+    })
+    // console.log(this.$store.state.stationMeta)
   },
   methods: {
     handleBtnClick(type) {
@@ -278,21 +294,9 @@ export default {
       if (!val) {
         return
       }
-      let formattedDate = format(toDate(parseISO(val)), 'HH:mm')
+      const formattedDate = format(toDate(parseISO(val)), 'HH:mm')
       return formattedDate
     },
-  },
-  mounted() {
-    setInterval(() => {
-      this.$store.dispatch('fetchRadio')
-      this.$store.dispatch('fetchRadio2')
-    }, 60 * 1000)
-    this.$nextTick(() => {
-      this.listenerPlayPause()
-      this.$store.dispatch('fetchRadio')
-      this.$store.dispatch('fetchRadio2')
-    })
-    // console.log(this.$store.state.stationMeta)
   },
 }
 </script>

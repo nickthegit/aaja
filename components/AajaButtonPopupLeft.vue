@@ -1,8 +1,12 @@
 <template>
-  <a class="button-popup button-popup__left" target="_blank" @click="handleClick"
+  <a
+    v-if="!isLoading && buttonSettings?.isEnabled"
+    class="button-popup button-popup__left"
+    target="_blank"
     :class="{ spin: buttonSettings?.spin, shake: buttonSettings?.shake, blend: buttonSettings?.shouldBlendWithBackground }"
-    v-if="!isLoading && buttonSettings?.isEnabled">
-    <img v-bind:src="logo?.desktop['400']" class="button-popup__image" />
+    @click="handleClick"
+  >
+    <img :src="logo?.desktop['400']" class="button-popup__image">
   </a>
 </template>
 
@@ -11,11 +15,6 @@ import '~/assets/scss/_mixins.scss';
 import { buttonPopupQueryLeft } from '~/utils/queries';
 
 export default {
-  async fetch() {
-    this.data = await this.$sanity.fetch(buttonPopupQueryLeft);
-    this.settings = this.data?.[0];
-    this.isLoading = false
-  },
 
   data() {
     return {
@@ -23,14 +22,10 @@ export default {
       isLoading: true,
     }
   },
-  methods: {
-    handleClick() {
-      window.open(
-        this.settings.buttonLink,
-        "AAJA popout",
-        this.settings?.shouldPopup ? `width=${this.settings.popupWidth},height=${this.settings.popupHeight}` : null
-      )
-    }
+  async fetch() {
+    this.data = await this.$sanity.fetch(buttonPopupQueryLeft);
+    this.settings = this.data?.[0];
+    this.isLoading = false
   },
   computed: {
     buttonSettings() {
@@ -49,6 +44,15 @@ export default {
     logo() {
       const image = this.$urlForSquare(this.settings.logo, false, false);
       return { ...image }
+    }
+  },
+  methods: {
+    handleClick() {
+      window.open(
+        this.settings.buttonLink,
+        "AAJA popout",
+        this.settings?.shouldPopup ? `width=${this.settings.popupWidth},height=${this.settings.popupHeight}` : null
+      )
     }
   }
 }

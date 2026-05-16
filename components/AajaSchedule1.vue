@@ -1,7 +1,11 @@
 <template>
-  <slider-container class="schedule-slider-container" :sliderOptions="scheduleSliderOptions" :initalSlide="startingIndex"
-    v-if="schduleFetched">
-    <template v-slot:sliderButtons>
+  <slider-container
+    v-if="schduleFetched"
+    class="schedule-slider-container"
+    :slider-options="scheduleSliderOptions"
+    :inital-slide="startingIndex"
+  >
+    <template #sliderButtons>
       <div class="slider-btns-wrap">
         <div class="slider-button-prev schedule-prev">
           <slider-arrow />
@@ -11,11 +15,11 @@
         </div>
       </div>
     </template>
-    <div class="swiper-slide" v-for="slide in schedule" :key="slide._id">
+    <div v-for="slide in schedule" :key="slide._id" class="swiper-slide">
       <div class="schedule-slide-wrap">
         <h3>{{ slide.label }}</h3>
         <div class="schedule-table">
-          <div class="schedule-item" v-for="item in slide.schedule" :key="item._id">
+          <div v-for="item in slide.schedule" :key="item._id" class="schedule-item">
             <p>
               {{ item.time.from }} - {{ item.time.to }}<span v-if="item.onAir"><live-now /></span>
             </p>
@@ -36,14 +40,6 @@ export default {
     sliderArrow,
     liveNow,
   },
-  computed: {
-    schedule() {
-      return this.$store.getters['schedule/schedule']
-    },
-    startingIndex() {
-      return this.schedule?.findIndex((item) => item.label == 'Today')
-    },
-  },
   data() {
     return {
       scheduleSliderOptions: {
@@ -53,7 +49,7 @@ export default {
         grabCursor: true,
         spaceBetween: 0,
         initialSlide: this.startingIndex || 0,
-        autoHeight: true, //enable auto height
+        autoHeight: true, // enable auto height
         breakpoints: {
           // when window width is >= 480px
           481: {
@@ -70,6 +66,14 @@ export default {
       },
       schduleFetched: false,
     }
+  },
+  computed: {
+    schedule() {
+      return this.$store.getters['schedule/schedule']
+    },
+    startingIndex() {
+      return this.schedule?.findIndex((item) => item.label == 'Today')
+    },
   },
   async created() {
     await this.$store.dispatch('schedule/fetchSchedule')

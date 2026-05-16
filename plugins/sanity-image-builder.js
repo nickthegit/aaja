@@ -9,15 +9,15 @@ export default ({ $sanity }, inject) => {
     percentageOfViewportWidth,
     percentageOfViewportWidthMobile
   ) {
-    let desktopSizes = [400, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000, 2400, 2800, 3000]
-    let mobileSizes = [400, 600, 800, 1000, 1200, 1400, 1600, 1800]
-    let desktop = {},
-      mobile = {},
-      desktopBlur,
-      mobileBlur,
-      v_width = percentageOfViewportWidth ? percentageOfViewportWidth : 100,
-      v_width_mobile = percentageOfViewportWidthMobile ? percentageOfViewportWidthMobile : v_width,
-      gs = grayscale ? -100 : 0
+    const desktopSizes = [400, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000, 2400, 2800, 3000]
+    const mobileSizes = [400, 600, 800, 1000, 1200, 1400, 1600, 1800]
+    const desktop = {};
+      const mobile = {};
+      let desktopBlur;
+      let mobileBlur;
+      const v_width = percentageOfViewportWidth || 100;
+      const v_width_mobile = percentageOfViewportWidthMobile || v_width;
+      const gs = grayscale ? -100 : 0
     // return builder.image(source).auto('format')
     desktopSizes.map((size) => {
       let img = builder

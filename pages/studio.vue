@@ -3,23 +3,29 @@
     <section class="studio__hero">
       <section class="studio__hero-img">
         <!-- <img :src="hero" altText="Aaja studio Hero image"> -->
-        <aaja-hero-img altText="Aaja studio Hero image" :landscapeBg="hero.landscapeBlur"
-          :portraitBg="hero.portraitBlur" :landscapeImgs="hero.landscape" :portraitImgs="hero.portrait" />
+        <aaja-hero-img
+          alt-text="Aaja studio Hero image"
+          :landscape-bg="hero.landscapeBlur"
+          :portrait-bg="hero.portraitBlur"
+          :landscape-imgs="hero.landscape"
+          :portrait-imgs="hero.portrait"
+        />
       </section>
       <aaja-container class="studio__hero-header">
         <div class="studio__hero-header-wrapper">
-          <aaja-heading-block :isstudio=true>
+          <aaja-heading-block :isstudio="true">
             <SanityContent :blocks="studioData.heading" />
           </aaja-heading-block>
-          <div v-if="studioData.headingIntro" class="studio__hero-header-intro"><SanityContent :blocks="studioData.headingIntro" /></div>
+          <div v-if="studioData.headingIntro" class="studio__hero-header-intro">
+            <SanityContent :blocks="studioData.headingIntro" />
+          </div>
           <div class="button-wrap">
             <a
               v-if="studioData.booking"
               :href="'mailto:' + studioData.booking"
               target="_blank"
               rel="noopener noreferrer"
-              >Book Studio</a
-            >
+            >Book Studio</a>
           </div>
         </div>
       </aaja-container>
@@ -39,13 +45,17 @@
             primary-color-overlay="rgba(255, 38, 0, 0.14)" panel-background-light="#141414"
             primary-background-rgb="0, 0, 0" panel-background-overlay="rgba(0, 0, 0, 0.25)"
             panel-background-overlay-dense="rgba(0, 0, 0, 0.85)" /> -->
-
         </div>
       </aaja-container>
       <aaja-container class="studio__content-images">
-        <frame-grid class="grid-container container " v-bind:gap="gap" v-bind:defaultDirection="defaultDirection"
-          v-bind:frame="isMobile ? mobileGrid : desktopGrid" v-bind:rectSize="rectSize"
-          v-bind:useFrameFill="useFrameFill">
+        <frame-grid
+          class="grid-container container "
+          :gap="gap"
+          :default-direction="defaultDirection"
+          :frame="isMobile ? mobileGrid : desktopGrid"
+          :rect-size="rectSize"
+          :use-frame-fill="useFrameFill"
+        >
           <div v-for="(image, index) in gallery" :key="image._key" :class="`item`">
             <img :src="image.desktop[isMobile ? '400' : '800']" @click="showMultiple(gallery, index)">
           </div>
@@ -73,39 +83,6 @@ import AajaHeading from '~/components/AajaHeading.vue'
 
 export default {
   components: { AajaContainer, AajaHeroImg, Logo, AajaImg, AajaHeading,FrameGrid, VueEasyLightbox },
-  head() {
-    const title = 'Aaja Basement - Studio';
-    const description = this.studioData?.headingIntro || 'Championing neighbourhood crews, DIY radio, local businesses & the unique spaces of Deptford, Creekside studio is intimate multi-venue electronic music studio.';
-
-    return {
-      title,
-      meta: createSEOMeta({
-        title,
-        description,
-        image: 'https://aajamusic.com/_nuxt/img/creekside-transparent.55a5c78.png',
-        url: 'https://aajamusic.com/studio',
-        themeColor: 'black'
-      }),
-    }
-  },
-  async asyncData({ $sanity }) {
-    const studioData = await $sanity.fetch(studioPageQuery)
-
-    return { studioData: studioData[0] }
-  },
-  data() {
-    return {
-      isMobile: false,
-      gap: 5,
-      defaultDirection: "end",
-      rectSize: 0,
-      useFrameFill: true,
-      autoResize: true,
-      useRoundedSize: true,
-      desktopGrid: [[1, 1, 2, 3], [1, 1, 4, 5], [6, 7, 8, 8], [9, 10, 8, 8]],
-      mobileGrid: [[1, 1, 2, 2], [1, 1, 2, 2]]
-    }
-  },
   setup() {
     const visibleRef = ref(false)
     const indexRef = ref(0);
@@ -128,6 +105,39 @@ export default {
       onHide
     }
   },
+  async asyncData({ $sanity }) {
+    const studioData = await $sanity.fetch(studioPageQuery)
+
+    return { studioData: studioData[0] }
+  },
+  data() {
+    return {
+      isMobile: false,
+      gap: 5,
+      defaultDirection: "end",
+      rectSize: 0,
+      useFrameFill: true,
+      autoResize: true,
+      useRoundedSize: true,
+      desktopGrid: [[1, 1, 2, 3], [1, 1, 4, 5], [6, 7, 8, 8], [9, 10, 8, 8]],
+      mobileGrid: [[1, 1, 2, 2], [1, 1, 2, 2]]
+    }
+  },
+  head() {
+    const title = 'Aaja Basement - Studio';
+    const description = this.studioData?.headingIntro || 'Championing neighbourhood crews, DIY radio, local businesses & the unique spaces of Deptford, Creekside studio is intimate multi-venue electronic music studio.';
+
+    return {
+      title,
+      meta: createSEOMeta({
+        title,
+        description,
+        image: 'https://aajamusic.com/_nuxt/img/creekside-transparent.55a5c78.png',
+        url: 'https://aajamusic.com/studio',
+        themeColor: 'black'
+      }),
+    }
+  },
   computed: {
     hero() {
       const image = this.$urlForSquare(this.studioData.studioHero, false, false);
@@ -143,7 +153,7 @@ export default {
   },
   created() {
     if (process.client) {
-      let vm = this
+      const vm = this
       const mediaQuery = window.matchMedia('(max-width: 480px)')
       function handleTabletChange(e) {
         vm.isMobile = e.matches
@@ -154,7 +164,7 @@ export default {
   },
   mounted() {
     if (process.client) {
-      let vm = this
+      const vm = this
       const mediaQuery = window.matchMedia('(max-width: 480px)')
       function handleTabletChange(e) {
         vm.isMobile = e.matches
