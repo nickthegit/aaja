@@ -39,7 +39,7 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: ['plugins/sanity-image-builder.js', 'plugins/track-events.js'],
+  plugins: ['plugins/sanity-image-builder.js', 'plugins/track-events.js', 'plugins/sanity-files-builder.js'],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components

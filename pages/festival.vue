@@ -22,11 +22,12 @@
         </div>
       </aaja-container>
     </section>
-    <template v-if="festivalData?.years?.length">
+    <template v-if="sortedYears.length">
       <article class="festival__content-wrapper">
         <aaja-container class="festival__content-years-button">
           <button
-            v-for="festival in festivalData.years"
+            v-for="festival in sortedYears"
+            :key="festival._key || festival.year"
             :class="{ active: selectedYear === festival.year }"
             @click="selectedYear = festival.year"
           >
@@ -127,7 +128,7 @@ export default {
   },
   data() {
     return {
-      selectedYear: 2023,
+      selectedYear: null,
       isMobile: false,
       gap: 5,
       defaultDirection: 'end',
@@ -175,24 +176,33 @@ export default {
       const parsedImage = cloudinaryHeroParser(image.desktop['1200'])
       return parsedImage
     },
+    sortedYears() {
+      if (!this.festivalData || !this.festivalData.years) return [];
+      return [...this.festivalData.years].sort((a, b) => b.year - a.year);
+    },
     gallery() {
-      const images =
-        this.selectedYear === 2023
-          ? this.festivalData.images
-          : this.festivalData.years.find((festival) => festival.year === this.selectedYear)
-      const formattedMedia = images?.map((media) => {
-        const parsedMedia =
-          media._type === 'image'
-            ? this.$urlForSquare(media, false, true)
-            : this.$getFileAsset(media)
-        return { ...parsedMedia, _key: media._key }
+      if (!this.festivalData || !this.festivalData.years) return [];
+      const currentYearData = this.festivalData.years.find((festival) => festival.year === this.selectedYear) || this.festivalData.years[0];
+      const images = currentYearData?.media || [];
+      const formattedMedia = images.map((media) => {
+        let parsedMedia = {}
+        if (media._type === 'image') {
+          parsedMedia = this.$urlForSquare(media, false, true)
+        } else if (media._type === 'file') {
+          parsedMedia = { url: this.$getFileAsset(media) }
+        }
+        return { ...parsedMedia, _key: media._key, _type: media._type }
       })
       return formattedMedia
     },
   tabContent() {
     return this.festivalData.years.filter((festival) => festival.year === this.selectedYear)
   },
+  },
   created() {
+    if (this.sortedYears.length > 0) {
+      this.selectedYear = this.sortedYears[0].year;
+    }
     if (process.client) {
       let vm = this
       const mediaQuery = window.matchMedia('(max-width: 480px)')
