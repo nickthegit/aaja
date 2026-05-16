@@ -20,13 +20,30 @@
         <SanityContent v-if="eventsPage.intro && hasFutureEvents" :blocks="eventsPage.intro" />
         <p v-else="eventsPage.introNoEvents">{{ eventsPage.introNoEvents || "No upcoming streamed events at the moment." }}</p>
       </aaja-container>
+
       <aaja-container class="live-event__cards-wrapper" v-if="hasFutureEvents">
-        <nuxt-link class="live-event__cards-wrapper--card" v-for="event in eventCards" :key="event._id"
-          :to="`/live-events/${event.slug.current}`" v-if="isFutureEvent(event)">
+        <nuxt-link class="live-event__cards-wrapper--card" v-for="event in futureEventCards" :key="event._id"
+          :to="`/live-events/${event.slug.current}`">
           <h4 v-if="event.name">{{ event.name }}</h4>
           <p class="event-date" v-if="event.eventDateText">{{ event?.eventDateText }}</p>
           <p class="event-location" v-if="event.eventLocation">{{ '@' + event.eventLocation }}</p>
-          <aaja-img :altText="`Aaja event - ${event.name}`" :desktopBg="event.img.desktopBlur"
+          <aaja-img v-if="event.img" :altText="`Aaja event - ${event.name}`" :desktopBg="event.img.desktopBlur"
+            :mobileBg="event.img.mobileBlur" :desktopImgs="event.img.desktop" :mobileImgs="event.img.mobile"
+            :ratio="[1, 1]" :percentageOfViewportWidth="33" />
+        </nuxt-link>
+      </aaja-container>
+
+      <aaja-container v-if="hasPastEvents" class="live-event__archive-intro">
+        <h2 class="live-event__archive-title">Archive</h2>
+      </aaja-container>
+
+      <aaja-container class="live-event__cards-wrapper live-event__cards-wrapper--archive" v-if="hasPastEvents">
+        <nuxt-link class="live-event__cards-wrapper--card live-event__cards-wrapper--card-archive" v-for="event in pastEventCards" :key="event._id"
+          :to="`/live-events/${event.slug.current}`">
+          <h4 v-if="event.name">{{ event.name }}</h4>
+          <p class="event-date" v-if="event.eventDateText">{{ event?.eventDateText }}</p>
+          <p class="event-location" v-if="event.eventLocation">{{ '@' + event.eventLocation }}</p>
+          <aaja-img v-if="event.img" :altText="`Aaja event - ${event.name}`" :desktopBg="event.img.desktopBlur"
             :mobileBg="event.img.mobileBlur" :desktopImgs="event.img.desktop" :mobileImgs="event.img.mobile"
             :ratio="[1, 1]" :percentageOfViewportWidth="33" />
         </nuxt-link>
@@ -61,12 +78,36 @@ export default {
     },
     eventCards() {
       return this.events.map((event) => {
-        let img = this.$urlForSquare(event.feature_image, false, true)
+        let img = null;
+        if (event.feature_image) {
+          img = this.$urlForSquare(event.feature_image, false, true)
+        }
         return { ...event, img }
       })
     },
+    futureEventCards() {
+      return this.eventCards
+        .filter(this.isFutureEvent)
+        .sort((a, b) => {
+          const dateA = a.eventDateText ? new Date(a.eventDateText.split('@')[0]).getTime() : Infinity;
+          const dateB = b.eventDateText ? new Date(b.eventDateText.split('@')[0]).getTime() : Infinity;
+          return dateA - dateB;
+        })
+    },
+    pastEventCards() {
+      return this.eventCards
+        .filter(event => !this.isFutureEvent(event))
+        .sort((a, b) => {
+          const dateA = a.eventDateText ? new Date(a.eventDateText.split('@')[0]).getTime() : 0;
+          const dateB = b.eventDateText ? new Date(b.eventDateText.split('@')[0]).getTime() : 0;
+          return dateB - dateA;
+        })
+    },
     hasFutureEvents() {
-      return this.events.some(this.isFutureEvent)
+      return this.futureEventCards.length > 0
+    },
+    hasPastEvents() {
+      return this.pastEventCards.length > 0
     },
 
   },
@@ -75,6 +116,7 @@ export default {
   },
   methods: {
     isFutureEvent(event) {
+      if (!event || !event.eventDateText) return false;
       const date = event.eventDateText.split('@')[0]
       return isToday(new Date(date), new Date()) || isAfter(new Date(date), new Date());
     },
@@ -193,6 +235,17 @@ export default {
     padding-bottom: calc(var(--globalPadding) / 2);
   }
 
+  &__archive-intro {
+    padding-top: calc(var(--globalPadding) * 1.5);
+    padding-bottom: calc(var(--globalPadding) / 2);
+  }
+
+  &__archive-title {
+    font-size: 32px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+
   &__cards-wrapper {
     width: 100%;
     display: grid;
@@ -202,6 +255,14 @@ export default {
 
     @include breakpoint(mobile) {
       grid-template: auto / 100%;
+    }
+
+    &--archive {
+      grid-template: auto / 1fr 1fr 1fr 1fr;
+      
+      @include breakpoint(mobile) {
+        grid-template: auto / 1fr 1fr;
+      }
     }
 
     &--card {
@@ -215,7 +276,34 @@ export default {
         opacity: 0.7;
       }
 
-      h3 {
+      &-archive {
+        opacity: 0.6;
+        transition: opacity 0.3s ease;
+        
+        &:hover {
+          opacity: 1;
+        }
+
+        h4 {
+          padding: 15px;
+          font-size: 16px;
+        }
+
+        p {
+          font-size: 14px;
+        }
+
+        ::v-deep .aaja-img {
+          filter: grayscale(1);
+          transition: filter 0.3s ease;
+        }
+
+        &:hover ::v-deep .aaja-img {
+          filter: grayscale(0);
+        }
+      }
+
+      h4 {
         padding: 20px;
       }
 
