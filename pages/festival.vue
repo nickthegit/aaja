@@ -47,6 +47,7 @@
               <transition name="fade" mode="out-in">
                 <div :key="selectedYear" class="festival__content-images-inner">
                   <frame-grid
+                    v-if="!isSwitching"
                     class="grid-container container"
                     :gap="gap"
                     :defaultDirection="defaultDirection"
@@ -68,6 +69,11 @@
                       </template>
                     </div>
                   </frame-grid>
+                  
+                  <!-- Skeleton Loader Grid -->
+                  <div v-else class="skeleton-grid">
+                    <div v-for="n in 6" :key="n" class="skeleton-item shimmer"></div>
+                  </div>
                 </div>
               </transition>
 
@@ -130,6 +136,7 @@ export default {
   data() {
     return {
       isMobile: false,
+      isSwitching: false,
       gap: 5,
       defaultDirection: 'end',
       rectSize: 0,
@@ -168,7 +175,6 @@ export default {
     gallery() {
       let images = this.activeFestival?.media || []
       
-      // Merge legacy root images if year is 2023
       if (Number(this.selectedYear) === 2023 && this.festivalData?.images) {
         images = [...images, ...this.festivalData.images]
       }
@@ -176,7 +182,6 @@ export default {
       return images.map((media) => {
         let parsedMedia = { _key: media._key, _type: media._type }
         if (media._type === 'image') {
-          // Only process if asset reference exists to prevent crash
           if (media.asset) {
             parsedMedia = { ...parsedMedia, ...this.$urlForSquare(media, false, true) }
           } else {
@@ -199,7 +204,13 @@ export default {
   },
   methods: {
     selectYear(year) {
+      if (this.selectedYear === year) return
+      this.isSwitching = true
       this.selectedYear = year
+      // Brief timeout to let the grid unmount and show skeleton
+      setTimeout(() => {
+        this.isSwitching = false
+      }, 300)
     },
     showMultiple(images, index) {
       const onlyImages = images.filter((img) => img._type === 'image' && img.desktop)
@@ -328,44 +339,73 @@ export default {
     }
 
     &-images {
-      &-images {
-        padding-top: var(--globalPadding);
-        min-height: 400px; /* Reduce vertical jump */
+      padding-top: var(--globalPadding);
+      min-height: 400px;
 
-        .grid-container .item {
-          background-color: rgba(255, 255, 255, 0.05);
-          overflow: hidden;
-          width: 33.33%; /* Fallback for desktop */
-
-          @include breakpoint(mobile) {
-            width: 50%; /* Fallback for mobile 2-col */
-          }
-
-          img {
-            height: 100%;
-            width: 100%;
-            object-fit: cover;
-            display: block;
-          }
-
-          video {
-            object-fit: cover;
-            width: 100%;
-            height: 100%;
-            display: block;
-          }
+      .grid-container .item {
+        background-color: rgba(255, 255, 255, 0.05);
+        overflow: hidden;
+        
+        img {
+          height: 100%;
+          width: 100%;
+          object-fit: cover;
+          display: block;
         }
 
-        ::v-deep .vel-img-modal.vel-img-modal {
-      ...
+        video {
+          object-fit: cover;
+          width: 100%;
+          height: 100%;
+          display: block;
+        }
       }
 
-      .fade-enter-active, .fade-leave-active {
-      transition: opacity 0.5s ease;
+      ::v-deep .vel-img-modal.vel-img-modal {
+        background: rgba(0, 0, 0, 0.95);
       }
-      .fade-enter, .fade-leave-to {
-      opacity: 0;
-      }
-      </style>
+    }
+  }
+}
+
+/* Skeleton & Shimmer */
+.skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+  
+  @include breakpoint(mobile) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.skeleton-item {
+  width: 100%;
+  aspect-ratio: 1/1;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.05) 25%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.05) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>
