@@ -14,9 +14,8 @@
       <aaja-container class="festival__hero-header">
         <div class="festival__hero-header-wrapper">
           <aaja-heading-block :isFestival="true">
-            <SanityContent :blocks="festivalData.heading" />
-          </aaja-heading-block>
-          <p v-if="festivalData.headingIntro" class="festival__hero-header-intro">
+          <AajaRichText :blocks="festivalData.heading" />
+          </aaja-heading-block>          <p v-if="festivalData.headingIntro" class="festival__hero-header-intro">
             {{ festivalData.headingIntro }}
           </p>
         </div>
@@ -40,7 +39,7 @@
         <aaja-container class="festival__content-display">
           <div v-if="activeFestival" class="festival__content-header" :key="activeFestival.year">
             <div v-if="activeFestival.headerText" class="festival__content-header-text">
-              <SanityContent :blocks="activeFestival.headerText" />
+              <AajaRichText :blocks="activeFestival.headerText" />
             </div>
             
             <div class="festival__content-images">
@@ -94,6 +93,7 @@ import AajaHeroImg from '~/components/AajaHeroImg.vue'
 import AajaImg from '~/components/AajaImg.vue'
 import AajaHeading from '~/components/AajaHeading.vue'
 import AajaSkeletonMedia from '~/components/AajaSkeletonMedia.vue'
+import AajaRichText from '~/components/AajaRichText.vue'
 
 export default {
   components: {
@@ -103,7 +103,8 @@ export default {
     AajaHeading,
     FrameGrid,
     VueEasyLightbox,
-    AajaSkeletonMedia
+    AajaSkeletonMedia,
+    AajaRichText
   },
   head() {
     const title = 'Aaja - Creekside Festival'
