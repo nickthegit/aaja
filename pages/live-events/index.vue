@@ -24,9 +24,11 @@
       <aaja-container class="live-event__cards-wrapper" v-if="hasFutureEvents">
         <nuxt-link class="live-event__cards-wrapper--card" v-for="event in futureEventCards" :key="event._id"
           :to="`/live-events/${event.slug.current}`">
-          <h4 v-if="event.name">{{ event.name }}</h4>
-          <p class="event-date" v-if="event.eventDateText">{{ event?.eventDateText }}</p>
-          <p class="event-location" v-if="event.eventLocation">{{ '@' + event.eventLocation }}</p>
+          <div class="live-event__cards-wrapper--card-info">
+            <h4 v-if="event.name">{{ event.name }}</h4>
+            <p class="event-date" v-if="event.eventDateText">{{ event?.eventDateText }}</p>
+            <p class="event-location" v-if="event.eventLocation">{{ '@' + event.eventLocation }}</p>
+          </div>
           <aaja-img v-if="event.img" :altText="`Aaja event - ${event.name}`" :desktopBg="event.img.desktopBlur"
             :mobileBg="event.img.mobileBlur" :desktopImgs="event.img.desktop" :mobileImgs="event.img.mobile"
             :ratio="[1, 1]" :percentageOfViewportWidth="33" />
@@ -40,9 +42,11 @@
       <aaja-container class="live-event__cards-wrapper live-event__cards-wrapper--archive" v-if="hasPastEvents">
         <nuxt-link class="live-event__cards-wrapper--card live-event__cards-wrapper--card-archive" v-for="event in pastEventCards" :key="event._id"
           :to="`/live-events/${event.slug.current}`">
-          <h4 v-if="event.name">{{ event.name }}</h4>
-          <p class="event-date" v-if="event.eventDateText">{{ event?.eventDateText }}</p>
-          <p class="event-location" v-if="event.eventLocation">{{ '@' + event.eventLocation }}</p>
+          <div class="live-event__cards-wrapper--card-info">
+            <h4 v-if="event.name">{{ event.name }}</h4>
+            <p class="event-date" v-if="event.eventDateText">{{ event?.eventDateText }}</p>
+            <p class="event-location" v-if="event.eventLocation">{{ '@' + event.eventLocation }}</p>
+          </div>
           <aaja-img v-if="event.img" :altText="`Aaja event - ${event.name}`" :desktopBg="event.img.desktopBlur"
             :mobileBg="event.img.mobileBlur" :desktopImgs="event.img.desktop" :mobileImgs="event.img.mobile"
             :ratio="[1, 1]" :percentageOfViewportWidth="33" />
@@ -262,10 +266,16 @@ export default {
 
     &--card {
       width: 100%;
-      display: block;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
       text-decoration: none;
       color: var(--white);
       padding-bottom: var(--globalPadding);
+
+      &-info {
+        flex-grow: 1;
+      }
 
       &:hover {
         opacity: 0.7;
