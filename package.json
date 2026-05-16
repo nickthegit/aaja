@@ -1,8 +1,8 @@
 {
   "scripts": {
-    "dev": "nuxt --hostname 0.0.0.0",
+    "dev": "nuxt",
     "build": "nuxt build",
-    "start": "nuxt start --hostname 0.0.0.0",
+    "start": "nuxt start",
     "generate": "nuxt generate"
   },
   "name": "aaja",
@@ -16,7 +16,6 @@
     "@nuxtjs/sentry": "^5.1.3",
     "http2": "^3.3.7",
     "nuxt-social-meta": "^1.0.0",
-    "playwright": "^1.60.0",
     "vue-easy-lightbox": "^0.17.0"
   },
   "devDependencies": {
