@@ -96,3 +96,4 @@ sw.*
 
 # TODO: temporary fix as it currently breaks CI
 .yarn.lock
+\n.playwright-mcp/\ntest-results/
