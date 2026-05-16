@@ -45,30 +45,30 @@
             
             <div class="festival__content-images">
               <transition name="fade" mode="out-in">
-                <frame-grid
-                  :key="selectedYear"
-                  class="grid-container container"
-                  :gap="gap"
-                  :defaultDirection="defaultDirection"
-                  :frame="isMobile ? mobileGrid : desktopGrid"
-                  :rectSize="rectSize"
-                  :useFrameFill="useFrameFill"
-                >
-                  <div v-for="(item, index) in gallery" :key="item._key" class="item">
-                    <template v-if="item._type === 'file'">
-                      <video :key="item.url" controls muted preload="metadata" playsinline>
-                        <source :src="item.url" type="video/mp4" />
-                        Your browser does not support the video tag.
-                      </video>
-                    </template>
-                    <template v-else-if="item.desktop">
-                      <img
-                        :src="item.desktop[isMobile ? '400' : '800']"
-                        @click="showMultiple(gallery, index)"
-                      />
-                    </template>
-                  </div>
-                </frame-grid>
+                <div :key="selectedYear" class="festival__content-images-inner">
+                  <frame-grid
+                    class="grid-container container"
+                    :gap="gap"
+                    :defaultDirection="defaultDirection"
+                    :frame="isMobile ? mobileGrid : desktopGrid"
+                    :rectSize="rectSize"
+                    :useFrameFill="useFrameFill"
+                  >
+                    <div v-for="(item, index) in gallery" :key="item._key" class="item">
+                      <template v-if="item._type === 'file'">
+                        <video :key="item.url" controls muted preload="metadata" playsinline>
+                          <source :src="item.url" type="video/mp4" />
+                        </video>
+                      </template>
+                      <template v-else-if="item.desktop">
+                        <img
+                          :src="item.desktop[isMobile ? '400' : '800']"
+                          @click="showMultiple(gallery, index)"
+                        />
+                      </template>
+                    </div>
+                  </frame-grid>
+                </div>
               </transition>
 
               <vue-easy-lightbox
@@ -328,36 +328,44 @@ export default {
     }
 
     &-images {
-      padding-top: var(--globalPadding);
+      &-images {
+        padding-top: var(--globalPadding);
+        min-height: 400px; /* Reduce vertical jump */
 
-      .grid-container .item {
-        background-color: rgba(255, 255, 255, 0.05);
-        aspect-ratio: 1 / 1;
-        overflow: hidden;
+        .grid-container .item {
+          background-color: rgba(255, 255, 255, 0.05);
+          overflow: hidden;
+          width: 33.33%; /* Fallback for desktop */
 
-        img {
-          height: 100%;
-          width: 100%;
-          object-fit: cover;
+          @include breakpoint(mobile) {
+            width: 50%; /* Fallback for mobile 2-col */
+          }
+
+          img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            display: block;
+          }
+
+          video {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+            display: block;
+          }
         }
 
-        video {
-          object-fit: cover;
-          height: 100%;
-        }
+        ::v-deep .vel-img-modal.vel-img-modal {
+      ...
       }
 
-      ::v-deep .vel-img-modal.vel-img-modal {
-        background: rgba(0, 0, 0, 0.95);
+      .fade-enter-active, .fade-leave-active {
+      transition: opacity 0.5s ease;
       }
-    }
-  }
-}
-
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 0.3s ease;
-}
-.fade-enter, .fade-leave-to {
-  opacity: 0;
+      .fade-enter, .fade-leave-to {
+      opacity: 0;
+      }
+      </style>
 }
 </style>
