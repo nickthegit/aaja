@@ -6,7 +6,7 @@
     @error="onError"
     @success="onSuccess"
   >
-    <template #default="{ subscribe, setEmail, error, success, loading }">
+    <template v-slot="{ subscribe, setEmail, error, success, loading }">
       <section class="newsletter">
         <div v-if="success" class="newsletter__success newsletter_section">
           <h2>Thanks!</h2>
@@ -18,7 +18,7 @@
         <div
           v-if="loading"
           class="newsletter__loading newsletter_section"
-        />
+        ></div>
         <div class="newsletter__main-form newsletter_section">
           <h2>Get the latest offers & updates</h2>
           <h3>Subscribe to our Newsletter below.</h3>
@@ -27,12 +27,10 @@
               type="email"
               placeholder="Enter your email"
               @input="setEmail($event.target.value)"
-            >
-            <button type="submit">
-              Subscribe
-            </button>
+            />
+            <button type="submit">Subscribe</button>
           </form>
-          <em v-show="error" v-html="error" />
+          <em v-show="error" v-html="error"></em>
         </div>
       </section>
     </template>

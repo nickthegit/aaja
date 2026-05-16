@@ -3,8 +3,8 @@
     <AajaHeader />
     <AajaMenu />
     <Nuxt />
-    <AajaButtonPopupLeft />
-    <AajaButtonPopupRight />
+    <AajaButtonPopupLeft/>
+    <AajaButtonPopupRight/>
     <AajaFooter />
   </div>
 </template>

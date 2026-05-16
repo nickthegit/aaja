@@ -2,20 +2,12 @@
   <div>
     <h1>Example Page</h1>
     <slider-container>
-      <div class="swiper-slide">
-        Slide a
-      </div>
-      <div class="swiper-slide">
-        Slide b
-      </div>
-      <div class="swiper-slide">
-        Slide 3
-      </div>
+      <div class="swiper-slide">Slide a</div>
+      <div class="swiper-slide">Slide b</div>
+      <div class="swiper-slide">Slide 3</div>
     </slider-container>
 
-    <h2 id="gsaptest">
-      fdkghfaksjhkraejghkejragh
-    </h2>
+    <h2 id="gsaptest">fdkghfaksjhkraejghkejragh</h2>
     <section id="newsletter-mc-form">
       <mc-newsletter />
     </section>
@@ -24,15 +16,20 @@
 </template>
 
 <script>
+  import { createSEOMeta } from '~/utils/seo.js'
   import { gsap } from 'gsap'
   import { SplitText } from 'gsap/SplitText'
-  import { createSEOMeta } from '~/utils/seo.js'
   // * greensock.com/docs/v3/Installation?checked=core,scrollTrigger,splitText#ZIP
 
   // if (process.client) {
   https: gsap.registerPlugin(SplitText)
   // }
   export default {
+    mounted() {
+      setTimeout(() => {
+        gsap.fromTo('#gsaptest', { opacity: 0 }, { opacity: 1, duration: 1 })
+      }, 1000)
+    },
     head() {
       const title = 'get title from data source'
       return {
@@ -44,11 +41,6 @@
           url: 'the slug of the page',
         }),
       }
-    },
-    mounted() {
-      setTimeout(() => {
-        gsap.fromTo('#gsaptest', { opacity: 0 }, { opacity: 1, duration: 1 })
-      }, 1000)
     },
   }
 </script>

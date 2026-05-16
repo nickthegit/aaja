@@ -2,60 +2,33 @@
   <main>
     <section class="live-event__hero">
       <section class="live-event__hero-img">
-        <aaja-hero-img
-          v-if="eventsPage.feature_image"
-          class="live-event__hero-image"
-          alt-text="Aaja Events Hero image"
-          :landscape-bg="heroImage.landscapeBlur"
-          :portrait-bg="heroImage.portraitBlur"
-          :landscape-imgs="heroImage.landscape"
-          :portrait-imgs="heroImage.portrait"
-        />
+        <aaja-hero-img class="live-event__hero-image" v-if="eventsPage.feature_image" altText="Aaja Events Hero image"
+          :landscapeBg="heroImage.landscapeBlur" :portraitBg="heroImage.portraitBlur"
+          :landscapeImgs="heroImage.landscape" :portraitImgs="heroImage.portrait" />
       </section>
       <aaja-container class="live-event__hero-header">
         <div class="live-event__hero-header-wrapper">
           <aaja-heading-block>
             <SanityContent :blocks="eventsPage.heading" />
           </aaja-heading-block>
-          <p v-if="eventsPage.headingIntro" class="live-event__hero-header-intro">
-            {{ eventsPage.headingIntro }}
-          </p>
+          <p v-if="eventsPage.headingIntro" class="live-event__hero-header-intro">{{ eventsPage.headingIntro }}</p>
         </div>
       </aaja-container>
     </section>
-    <article class="live-event__content-wrapper">
+    <article class="live-event__content-wrapper" >
       <aaja-container class="live-event__intro">
         <SanityContent v-if="eventsPage.intro && hasFutureEvents" :blocks="eventsPage.intro" />
-        <p v-else="eventsPage.introNoEvents">
-          {{ eventsPage.introNoEvents || "No upcoming streamed events at the moment." }}
-        </p>
+        <p v-else="eventsPage.introNoEvents">{{ eventsPage.introNoEvents || "No upcoming streamed events at the moment." }}</p>
       </aaja-container>
-      <aaja-container v-if="hasFutureEvents" class="live-event__cards-wrapper">
-        <nuxt-link
-          v-for="event in eventCards"
-          v-if="isFutureEvent(event)"
-          :key="event._id"
-          class="live-event__cards-wrapper--card"
-          :to="`/live-events/${event.slug.current}`"
-        >
-          <h4 v-if="event.name">
-            {{ event.name }}
-          </h4>
-          <p v-if="event.eventDateText" class="event-date">
-            {{ event?.eventDateText }}
-          </p>
-          <p v-if="event.eventLocation" class="event-location">
-            {{ '@' + event.eventLocation }}
-          </p>
-          <aaja-img
-            :alt-text="`Aaja event - ${event.name}`"
-            :desktop-bg="event.img.desktopBlur"
-            :mobile-bg="event.img.mobileBlur"
-            :desktop-imgs="event.img.desktop"
-            :mobile-imgs="event.img.mobile"
-            :ratio="[1, 1]"
-            :percentage-of-viewport-width="33"
-          />
+      <aaja-container class="live-event__cards-wrapper" v-if="hasFutureEvents">
+        <nuxt-link class="live-event__cards-wrapper--card" v-for="event in eventCards" :key="event._id"
+          :to="`/live-events/${event.slug.current}`" v-if="isFutureEvent(event)">
+          <h4 v-if="event.name">{{ event.name }}</h4>
+          <p class="event-date" v-if="event.eventDateText">{{ event?.eventDateText }}</p>
+          <p class="event-location" v-if="event.eventLocation">{{ '@' + event.eventLocation }}</p>
+          <aaja-img :altText="`Aaja event - ${event.name}`" :desktopBg="event.img.desktopBlur"
+            :mobileBg="event.img.mobileBlur" :desktopImgs="event.img.desktop" :mobileImgs="event.img.mobile"
+            :ratio="[1, 1]" :percentageOfViewportWidth="33" />
         </nuxt-link>
       </aaja-container>
     </article>
@@ -75,11 +48,6 @@ export default {
     const events = await $sanity.fetch(`*[_type == "liveEvents"]`)
     return { eventsPage: data, events }
   },
-  head: {
-    htmlAttrs: {
-      // class: 'light',
-    },
-  },
   computed: {
     // Like useMemo
     // Return cached values until dependencies change (i.e. this.fooBar)
@@ -93,7 +61,7 @@ export default {
     },
     eventCards() {
       return this.events.map((event) => {
-        const img = this.$urlForSquare(event.feature_image, false, true)
+        let img = this.$urlForSquare(event.feature_image, false, true)
         return { ...event, img }
       })
     },
@@ -105,9 +73,6 @@ export default {
   watch: { // Like useEffect
     // firstName: (value, oldValue) => { /* ... */ }
   },
-  mounted() {
-    // console.log(`channel2Data`, this.channel2Data)
-  },
   methods: {
     isFutureEvent(event) {
       const date = event.eventDateText.split('@')[0]
@@ -118,6 +83,14 @@ export default {
       if (event?.eventDateText) {
         return event?.eventDateText + ' - ' + event?.name;
       }
+    },
+  },
+  mounted() {
+    // console.log(`channel2Data`, this.channel2Data)
+  },
+  head: {
+    htmlAttrs: {
+      // class: 'light',
     },
   },
 }

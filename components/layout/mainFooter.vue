@@ -1,9 +1,7 @@
 <template>
   <footer>
     <section>
-      <nuxt-link to="/">
-        brand here
-      </nuxt-link>
+      <nuxt-link to="/">brand here</nuxt-link>
     </section>
     <section>
       <!-- <main-nav /> -->

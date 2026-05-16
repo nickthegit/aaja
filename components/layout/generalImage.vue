@@ -3,23 +3,23 @@
     class="general-img"
     :style="{ paddingBottom: padding + '%', borderRadius: borderRadius }"
   >
-    <source :srcset="imgPaths.img480" media="(max-width: 480px)">
-    <source :srcset="imgPaths.img600" media="(max-width: 600px)">
-    <source :srcset="imgPaths.img800" media="(max-width: 800px)">
-    <source :srcset="imgPaths.img960" media="(max-width: 960px)">
-    <source :srcset="imgPaths.img1200" media="(max-width: 1200px)">
-    <source :srcset="imgPaths.img1400" media="(max-width: 1400px)">
-    <source :srcset="imgPaths.img1600" media="(max-width: 1600px)">
-    <source :srcset="imgPaths.img1800" media="(max-width: 1800px)">
-    <source :srcset="imgPaths.img2000" media="(min-width: 1801px)">
+    <source :srcset="imgPaths.img480" media="(max-width: 480px)" />
+    <source :srcset="imgPaths.img600" media="(max-width: 600px)" />
+    <source :srcset="imgPaths.img800" media="(max-width: 800px)" />
+    <source :srcset="imgPaths.img960" media="(max-width: 960px)" />
+    <source :srcset="imgPaths.img1200" media="(max-width: 1200px)" />
+    <source :srcset="imgPaths.img1400" media="(max-width: 1400px)" />
+    <source :srcset="imgPaths.img1600" media="(max-width: 1600px)" />
+    <source :srcset="imgPaths.img1800" media="(max-width: 1800px)" />
+    <source :srcset="imgPaths.img2000" media="(min-width: 1801px)" />
     <transition
-      :css="false"
       @before-enter="set"
       @enter="enter"
       @leave="set"
       @leave-cancelled="set"
+      :css="false"
     >
-      <img v-if="imgIn" :src="imgPaths.img1400" :alt="imgAlt">
+      <img v-if="imgIn" :src="imgPaths.img1400" :alt="imgAlt" />
     </transition>
   </picture>
 </template>
@@ -27,11 +27,11 @@
 <script>
   import { gsap } from 'gsap'
   import { ScrollTrigger } from 'gsap/ScrollTrigger'
-  // import VueTypes from 'vue-types'
-  import { number, string, objectOf, array, bool } from 'vue-types'
   if (process.client) {
     gsap.registerPlugin(ScrollTrigger)
   }
+  // import VueTypes from 'vue-types'
+  import { number, string, objectOf, array, bool } from 'vue-types'
   export default {
     props: {
       imgSide: string().def('right'),
@@ -66,9 +66,9 @@
         return (Number(this.imgRatio[1]) / Number(this.imgRatio[0])) * 100
       },
       borderRadius() {
-        const num1 = Number(this.imgRatio[0]);
-          const num2 = Number(this.imgRatio[1]);
-          const borderPercentage = 20
+        const num1 = Number(this.imgRatio[0]),
+          num2 = Number(this.imgRatio[1]),
+          borderPercentage = 20
         if (num1 === num2) {
           return borderPercentage + '%'
         } else {
@@ -82,10 +82,6 @@
           return final
         }
       },
-    },
-    mounted() {
-      this.inTransition()
-      this.showImg()
     },
     methods: {
       inTransition() {
@@ -129,6 +125,10 @@
           }
         )
       },
+    },
+    mounted() {
+      this.inTransition()
+      this.showImg()
     },
   }
 </script>

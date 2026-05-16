@@ -1,7 +1,7 @@
 <template>
   <main class="light-theme">
     <aaja-standard-hero>
-      <template #heading>
+      <template v-slot:heading>
         <aaja-heading-block>
           <SanityContent :blocks="labelData.heading" />
         </aaja-heading-block>
@@ -11,19 +11,19 @@
     <article>
       <aaja-container class="record__content">
         <nuxt-link
+          class="record__card"
           v-for="record in eps_records"
           :key="record._id"
-          class="record__card"
           :to="`label/${record.slug.current}`"
         >
           <aaja-img
-            :alt-text="`Aaja Record - ${record.title}`"
-            :desktop-bg="record.img.desktopBlur"
-            :mobile-bg="record.img.mobileBlur"
-            :desktop-imgs="record.img.desktop"
-            :mobile-imgs="record.img.mobile"
+            :altText="`Aaja Record - ${record.title}`"
+            :desktopBg="record.img.desktopBlur"
+            :mobileBg="record.img.mobileBlur"
+            :desktopImgs="record.img.desktop"
+            :mobileImgs="record.img.mobile"
             :ratio="[1, 1]"
-            :percentage-of-viewport-width="33"
+            :percentageOfViewportWidth="33"
           />
           <h4>{{ record.title }}</h4>
         </nuxt-link>
@@ -75,15 +75,10 @@ export default {
       ],
     }
   },
-  head: {
-    htmlAttrs: {
-      class: 'light',
-    },
-  },
   computed: {
     eps_records() {
       return this.labelData.eps.map((record) => {
-        const img = this.$urlForSquare(record.feature_image, false, true)
+        let img = this.$urlForSquare(record.feature_image, false, true)
         return { ...record, img }
       })
     },
@@ -92,6 +87,11 @@ export default {
     // console.log(this.labelData)
     // console.log(this.eps_records)
     // console.log('is mobile?', this.$isMobile)
+  },
+  head: {
+    htmlAttrs: {
+      class: 'light',
+    },
   },
 }
 </script>

@@ -6,12 +6,10 @@
           <img
             :src="artistImage ? artistImage : 'https://placehold.co/600x400'"
             :alt="imageAltText"
-          >
+          />
         </div>
         <h2>{{ artistName }}</h2>
-        <p v-if="sortBio">
-          {{ sortBio }}
-        </p>
+        <p v-if="sortBio">{{ sortBio }}</p>
         <button>
           Listen to a show <span><arrow /></span>
         </button>

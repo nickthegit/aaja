@@ -6,9 +6,9 @@
         target="_blank"
         rel="noopener noreferrer"
         :class="['social-icon', facebook.slug]"
-        :style="{background: `#${facebook.hex}`}"
         v-html="facebook.svg"
-      />
+        :style="{background: `#${facebook.hex}`}"
+      ></a>
     </li>
     <li>
       <a
@@ -16,9 +16,9 @@
         target="_blank"
         rel="noopener noreferrer"
         :class="['social-icon', twitter.slug]"
-        :style="{background: `#${twitter.hex}`}"
         v-html="twitter.svg"
-      />
+        :style="{background: `#${twitter.hex}`}"
+      ></a>
     </li>
     <li>
       <a
@@ -26,9 +26,9 @@
         target="_blank"
         rel="noopener noreferrer"
         :class="['social-icon', instagram.slug]"
-        :style="{background: `#${instagram.hex}`}"
         v-html="instagram.svg"
-      />
+        :style="{background: `#${instagram.hex}`}"
+      ></a>
     </li>
     <li>
       <a
@@ -36,9 +36,9 @@
         target="_blank"
         rel="noopener noreferrer"
         :class="['social-icon', linkedin.slug]"
-        :style="{background: `#${linkedin.hex}`}"
         v-html="linkedin.svg"
-      />
+        :style="{background: `#${linkedin.hex}`}"
+      ></a>
     </li>
     <li>
       <a
@@ -46,9 +46,9 @@
         target="_blank"
         rel="noopener noreferrer"
         :class="['social-icon', spotify.slug]"
-        :style="{background: `#${spotify.hex}`}"
         v-html="spotify.svg"
-      />
+        :style="{background: `#${spotify.hex}`}"
+      ></a>
     </li>
     <li>
       <a
@@ -56,9 +56,9 @@
         target="_blank"
         rel="noopener noreferrer"
         :class="['social-icon', vimeo.slug]"
-        :style="{background: `#${vimeo.hex}`}"
         v-html="vimeo.svg"
-      />
+        :style="{background: `#${vimeo.hex}`}"
+      ></a>
     </li>
     <li>
       <a
@@ -66,9 +66,9 @@
         target="_blank"
         rel="noopener noreferrer"
         :class="['social-icon', youtube.slug]"
-        :style="{background: `#${youtube.hex}`}"
         v-html="youtube.svg"
-      />
+        :style="{background: `#${youtube.hex}`}"
+      ></a>
     </li>
   </ul>
 </template>
