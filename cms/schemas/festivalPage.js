@@ -9,92 +9,31 @@ export default {
       type: 'blockContentBare',
     },
     {
-      title: 'Page Header hero image',
-      name: 'festivalHero',
-      type: 'image',
-    },
-    {
       title: 'Page Header Intro',
       name: 'headingIntro',
       type: 'text',
     },
     {
-      title: 'Festival Images header',
-      name: 'subHeading',
-      hidden: true,
-      type: 'text',
-      rows: 4,
+      title: 'Page Header hero image',
+      name: 'festivalHero',
+      type: 'image'
     },
     {
-      name: 'years',
-      type: 'array',
-      title: 'Festival Years',
-      of: [
-        {
-          type: 'object',
-          title: 'Year',
-          fields: [
-            {
-              name: 'year',
-              type: 'number',
-              title: 'Year',
-              validation: (Rule) => Rule.required().integer().min(2000).max(2100),
-            },
-            {
-              name: 'headerText',
-              type: 'string',
-              title: 'Header Text (Simple)',
-              description: 'Plain text description.',
-            },
-            {
-              name: 'description',
-              type: 'blockContent',
-              title: 'Rich Text Description',
-              description: 'Formatted text, links, or video embeds for this year.',
-            },
-            {
-              name: 'media',
-              type: 'array',
-              title: 'Media',
-              description: 'Add photos or videos for this year.',
-              of: [
-                {
-                  type: 'image',
-                  title: 'Photo',
-                  options: {
-                    hotspot: true,
-                  },
-                },
-                {
-                  type: 'file',
-                  title: 'Video',
-                  options: {
-                    accept: 'video/*',
-                  },
-                },
-              ],
-            },
-          ],
-
-          preview: {
-            select: {
-              title: 'year',
-            },
-          },
-        },
-      ],
+      title: 'Festival Images header',
+      name: 'subHeading',
+      type: 'text',
+      rows: 4,
     },
     {
       title: 'Images',
       description: 'Drag and drop images from folder to add several at once.',
       name: 'images',
-      hidden: true,
       type: 'array',
       of: [
         {
           type: 'image',
           options: {
-            hotspot: true,
+            hotspot: true, // <-- Defaults to false
           },
           fields: [
             {
@@ -102,12 +41,13 @@ export default {
               type: 'string',
               title: 'Alt Text',
               options: {
-                isHighlighted: true,
+                isHighlighted: true, // <-- make this field easily accessible
               },
             },
           ],
         },
       ],
+      // validation: (Rule) => Rule.min(3).max(3),
     },
   ],
 }

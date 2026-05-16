@@ -5,7 +5,6 @@ export const state = () => ({
   reqData2: null,
   stationMeta2: null,
   popupButtonSettings: null,
-  isMobile: true,
 })
 
 export const mutations = {
@@ -23,9 +22,6 @@ export const mutations = {
   },
   popupButtonSettings(state, payload) {
     state.popupButtonSettings = payload
-  },
-  updateIsMobile(state, payload) {
-    state.isMobile = payload
   }
 }
 
