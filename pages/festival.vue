@@ -193,16 +193,27 @@ export default {
     },
   },
   mounted() {
-    // Relying solely on onRenderComplete
+    // Initial reveal fallback in case grid library fails to emit
+    this.revealGridFallback()
   },
   methods: {
+    revealGridFallback() {
+      if (this.revealTimer) clearTimeout(this.revealTimer)
+      this.revealTimer = setTimeout(() => {
+        if (!this.gridReady) {
+          this.gridReady = true
+        }
+      }, 1500)
+    },
     selectYear(year) {
       if (this.selectedYear === year) return
       this.gridReady = false
       this.selectedYear = year
+      this.revealGridFallback()
     },
     onRenderComplete() {
       this.gridReady = true
+      if (this.revealTimer) clearTimeout(this.revealTimer)
     },
     showMultiple(images, index) {
       const onlyImages = images.filter((img) => img._type === 'image' && img.desktop)

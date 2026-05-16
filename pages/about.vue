@@ -1,7 +1,7 @@
 <template>
   <main class="light-theme">
     <aaja-standard-hero>
-      <template v-slot:heading>
+      <template #heading>
         <aaja-heading-block>
           <SanityContent :blocks="contactData.about.heading" />
         </aaja-heading-block>
@@ -20,9 +20,9 @@
           <address>
             <SanityContent :blocks="contactData.contact.address" />
           </address>
-          <br />
+          <br>
           <p>
-            <strong>Show applications</strong> <br />
+            <strong>Show applications</strong> <br>
             <a :href="`mailto:${contactData.contact.showEmail}`">{{
               contactData.contact.showEmail
             }}</a>
@@ -30,13 +30,13 @@
         </section>
         <aaja-img
           class="about-img"
-          altText="Aaja DJ booth"
-          :desktopBg="contactImg.desktopBlur"
-          :mobileBg="contactImg.mobileBlur"
-          :desktopImgs="contactImg.desktop"
-          :mobileImgs="contactImg.mobile"
+          alt-text="Aaja DJ booth"
+          :desktop-bg="contactImg.desktopBlur"
+          :mobile-bg="contactImg.mobileBlur"
+          :desktop-imgs="contactImg.desktop"
+          :mobile-imgs="contactImg.mobile"
           :ratio="[3, 2]"
-          :percentageOfViewportWidth="70"
+          :percentage-of-viewport-width="70"
         />
       </aaja-container>
     </article>
@@ -64,6 +64,11 @@ export default {
       ),
     }
   },
+  head: {
+    htmlAttrs: {
+      class: 'light',
+    },
+  },
   computed: {
     contactImg() {
       return this.$urlForSquare(this.contactData.about.feature_image, false, false)
@@ -71,11 +76,6 @@ export default {
   },
   mounted() {
     // console.log(this.contactData)
-  },
-  head: {
-    htmlAttrs: {
-      class: 'light',
-    },
   },
 }
 </script>

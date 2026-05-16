@@ -15,20 +15,31 @@
       <aaja-container>
         <h3>{{ radioData.spotlightHeading }}</h3>
         <p>{{ radioData.spotlightSubHeading }}</p>
-        <slider-container class="spotlight-slider-container" :sliderOptions="spotlightSliderOptions">
-          <div class="swiper-slide" v-for="slide in spotlights" :key="slide._id">
+        <slider-container class="spotlight-slider-container" :slider-options="spotlightSliderOptions">
+          <div v-for="slide in spotlights" :key="slide._id" class="swiper-slide">
             <nuxt-link :to="`/residents/${slide.slug.current}`">
               <div class="spotlight-slide-wrap">
-                <aaja-img :altText="`Aaja Resident - ${slide.slug.current}`" :desktopBg="slide.img.desktopBlur"
-                  :mobileBg="slide.img.mobileBlur" :desktopImgs="slide.img.desktop" :mobileImgs="slide.img.mobile"
-                  :ratio="[1, 1]" :percentageOfViewportWidth="15" :percentageOfViewportWidthMobile="49" />
+                <aaja-img
+                  :alt-text="`Aaja Resident - ${slide.slug.current}`"
+                  :desktop-bg="slide.img.desktopBlur"
+                  :mobile-bg="slide.img.mobileBlur"
+                  :desktop-imgs="slide.img.desktop"
+                  :mobile-imgs="slide.img.mobile"
+                  :ratio="[1, 1]"
+                  :percentage-of-viewport-width="15"
+                  :percentage-of-viewport-width-mobile="49"
+                />
               </div>
             </nuxt-link>
           </div>
-          <template v-slot:sliderButtons>
+          <template #sliderButtons>
             <div class="slider-btns-wrap">
-              <div class="slider-button-prev"><slider-arrow /></div>
-              <div class="slider-button-next"><slider-arrow /></div>
+              <div class="slider-button-prev">
+                <slider-arrow />
+              </div>
+              <div class="slider-button-next">
+                <slider-arrow />
+              </div>
             </div>
           </template>
         </slider-container>
@@ -52,8 +63,8 @@
             <SanityContent :blocks="radioData.communityText" />
           </section>
           <section class="featured-artist-card-wrap">
-            <slider-container class="featured-slider-container" :sliderOptions="featuredSliderOptions">
-              <template v-slot:sliderButtonsTop>
+            <slider-container class="featured-slider-container" :slider-options="featuredSliderOptions">
+              <template #sliderButtonsTop>
                 <div class="slider-btns-wrap">
                   <div class="slider-button-prev featured-prev">
                     <slider-arrow />
@@ -63,20 +74,31 @@
                   </div>
                 </div>
               </template>
-              <div class="swiper-slide" v-for="slide in community" :key="slide._id">
+              <div v-for="slide in community" :key="slide._id" class="swiper-slide">
                 <div class="featured-artist-card">
                   <div class="featured-artist-card-copy-warp">
                     <h5>Featured</h5>
                     <h3>{{ slide.name }}</h3>
-                    <p v-if="slide.short_bio">{{ slide.short_bio }}</p>
-                    <nuxt-link :to="`/residents/${slide.slug.current}`">Listen to a show <span>
+                    <p v-if="slide.short_bio">
+                      {{ slide.short_bio }}
+                    </p>
+                    <nuxt-link :to="`/residents/${slide.slug.current}`">
+                      Listen to a show <span>
                         <arrow />
-                      </span></nuxt-link>
+                      </span>
+                    </nuxt-link>
                   </div>
-                  <aaja-img class="featured-img" :altText="`Aaja Resident - ${slide.name}`"
-                    :desktopBg="slide.img.desktopBlur" :mobileBg="slide.img.mobileBlur" :desktopImgs="slide.img.desktop"
-                    :mobileImgs="slide.img.mobile" :ratio="[1, 1]" :percentageOfViewportWidth="60"
-                    :percentageOfViewportWidthMobile="100" />
+                  <aaja-img
+                    class="featured-img"
+                    :alt-text="`Aaja Resident - ${slide.name}`"
+                    :desktop-bg="slide.img.desktopBlur"
+                    :mobile-bg="slide.img.mobileBlur"
+                    :desktop-imgs="slide.img.desktop"
+                    :mobile-imgs="slide.img.mobile"
+                    :ratio="[1, 1]"
+                    :percentage-of-viewport-width="60"
+                    :percentage-of-viewport-width-mobile="100"
+                  />
                 </div>
               </div>
             </slider-container>
@@ -113,6 +135,14 @@ export default {
     AajaSchedule,
     AajaArtistCard,
     AajaArchive,
+  },
+  filters: {
+    cutBio: function (value) {
+      if (!value) return false
+      value = value.toString()
+      if (value.length < 114) return value
+      return value.slice(0, 118) + '...'
+    },
   },
   async asyncData({ $sanity, $axios }) {
     const data = await $sanity.fetch(radioPageQuery)
@@ -1198,28 +1228,20 @@ export default {
   },
   computed: {
     spotlights() {
-      let spotlight = this.radioData.spotlight.map((slide) => {
-        let imgSource = slide.spotlight_image ? slide.spotlight_image : slide.feature_image
-        let img = this.$urlForSquare(imgSource, false, true)
+      const spotlight = this.radioData.spotlight.map((slide) => {
+        const imgSource = slide.spotlight_image ? slide.spotlight_image : slide.feature_image
+        const img = this.$urlForSquare(imgSource, false, true)
         return { ...slide, img }
       })
       return spotlight
     },
     community() {
-      let community = this.radioData.community.map((slide) => {
-        let imgSource = slide.community_image ? slide.community_image : slide.feature_image
-        let img = this.$urlForSquare(imgSource, false, true)
+      const community = this.radioData.community.map((slide) => {
+        const imgSource = slide.community_image ? slide.community_image : slide.feature_image
+        const img = this.$urlForSquare(imgSource, false, true)
         return { ...slide, img }
       })
       return community
-    },
-  },
-  filters: {
-    cutBio: function (value) {
-      if (!value) return false
-      value = value.toString()
-      if (value.length < 114) return value
-      return value.slice(0, 118) + '...'
     },
   },
   mounted() { },

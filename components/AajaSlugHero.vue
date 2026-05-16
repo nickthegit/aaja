@@ -1,28 +1,37 @@
 <template>
   <section class="slug__hero">
     <aaja-container class="breadcrumb-container">
-      <nuxt-link :to="`/${breadcrumbDestination}`" class="breadcrumb"
-        ><span><arrow /></span>Back to {{ breadcrumbDestination }}</nuxt-link
+      <nuxt-link
+        :to="`/${breadcrumbDestination}`"
+        class="breadcrumb"
       >
+        <span><arrow /></span>Back to {{ breadcrumbDestination }}
+      </nuxt-link>
     </aaja-container>
     <aaja-container class="slug__hero-container">
       <div class="heading__wrap">
         <h2 class="top-subheading">
-          <slot name="subheading">Subheading</slot>
+          <slot name="subheading">
+            Subheading
+          </slot>
         </h2>
-        <aaja-heading><slot name="heading">heading</slot></aaja-heading>
+        <aaja-heading>
+          <slot name="heading">
+            heading
+          </slot>
+        </aaja-heading>
         <div class="subtext">
-          <slot></slot>
+          <slot />
         </div>
       </div>
       <aaja-img
-        altText="`Aaja hero`"
-        :desktopBg="heroImage.desktopBlur"
-        :mobileBg="heroImage.mobileBlur"
-        :desktopImgs="heroImage.desktop"
-        :mobileImgs="heroImage.mobile"
+        alt-text="`Aaja hero`"
+        :desktop-bg="heroImage.desktopBlur"
+        :mobile-bg="heroImage.mobileBlur"
+        :desktop-imgs="heroImage.desktop"
+        :mobile-imgs="heroImage.mobile"
         :ratio="[1, 1]"
-        :percentageOfViewportWidth="33"
+        :percentage-of-viewport-width="33"
       />
     </aaja-container>
   </section>

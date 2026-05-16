@@ -1,6 +1,6 @@
 <template>
   <header>
-    <nuxt-link to="/" id="brand">
+    <nuxt-link id="brand" to="/">
       <Logo id="headerlogo" />
       <FullLogo id="headerlogofull" />
     </nuxt-link>
@@ -20,11 +20,11 @@
 </template>
 
 <script>
+import AajaRadioWidget from './AajaRadioWidget.vue'
 import Logo from '~/assets/img/icons/logo.svg?inline'
 import FullLogo from '~/assets/img/icons/fullLogo.svg?inline'
 import Speaker from '~/assets/img/icons/speaker.svg?inline'
 import Hamburger from '~/assets/img/icons/hamburger.svg?inline'
-import AajaRadioWidget from './AajaRadioWidget.vue'
 export default {
   components: { Speaker, Logo, FullLogo, Hamburger, AajaRadioWidget },
   data() {

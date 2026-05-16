@@ -2,10 +2,10 @@
   <!-- Slider main container -->
   <div class="swiper-container">
     <!-- Additional required wrapper -->
-    <slot name="sliderButtonsTop"> </slot>
+    <slot name="sliderButtonsTop" />
     <div class="swiper-wrapper">
       <!-- Slides -->
-      <slot></slot>
+      <slot />
     </div>
     <slot name="sliderButtons">
       <!-- <div class="swiper-pagination"></div>
@@ -21,11 +21,11 @@
 <script>
 // core version + navigation, pagination modules:
 import Swiper, { Navigation, Pagination } from 'swiper'
-// configure Swiper to use modules
-Swiper.use([Navigation, Pagination])
 
 // import Swiper styles
 import 'swiper/swiper-bundle.css'
+// configure Swiper to use modules
+Swiper.use([Navigation, Pagination])
 export default {
   props: {
     initalSlide: {
@@ -70,9 +70,9 @@ export default {
     },
   },
   mounted() {
-    let vm = this
+    const vm = this
     this.$nextTick(() => {
-      var mySwiper = new Swiper(vm.$el, vm.sliderOptions)
+      const mySwiper = new Swiper(vm.$el, vm.sliderOptions)
       mySwiper.slideTo(vm.initalSlide, 300)
     })
   },

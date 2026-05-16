@@ -6,9 +6,9 @@
         target="_blank"
         rel="noopener noreferrer"
         :class="['social-icon', facebook.slug]"
-        v-html="facebook.svg"
         :style="{background: `#${facebook.hex}`}"
-      ></a>
+        v-html="facebook.svg"
+      />
     </li>
     <li>
       <a
@@ -16,9 +16,9 @@
         target="_blank"
         rel="noopener noreferrer"
         :class="['social-icon', twitter.slug]"
-        v-html="twitter.svg"
         :style="{background: `#${twitter.hex}`}"
-      ></a>
+        v-html="twitter.svg"
+      />
     </li>
     <li>
       <a
@@ -26,9 +26,9 @@
         target="_blank"
         rel="noopener noreferrer"
         :class="['social-icon', instagram.slug]"
-        v-html="instagram.svg"
         :style="{background: `#${instagram.hex}`}"
-      ></a>
+        v-html="instagram.svg"
+      />
     </li>
     <li>
       <a
@@ -36,9 +36,9 @@
         target="_blank"
         rel="noopener noreferrer"
         :class="['social-icon', linkedin.slug]"
-        v-html="linkedin.svg"
         :style="{background: `#${linkedin.hex}`}"
-      ></a>
+        v-html="linkedin.svg"
+      />
     </li>
     <li>
       <a
@@ -46,9 +46,9 @@
         target="_blank"
         rel="noopener noreferrer"
         :class="['social-icon', spotify.slug]"
-        v-html="spotify.svg"
         :style="{background: `#${spotify.hex}`}"
-      ></a>
+        v-html="spotify.svg"
+      />
     </li>
     <li>
       <a
@@ -56,9 +56,9 @@
         target="_blank"
         rel="noopener noreferrer"
         :class="['social-icon', vimeo.slug]"
-        v-html="vimeo.svg"
         :style="{background: `#${vimeo.hex}`}"
-      ></a>
+        v-html="vimeo.svg"
+      />
     </li>
     <li>
       <a
@@ -66,9 +66,9 @@
         target="_blank"
         rel="noopener noreferrer"
         :class="['social-icon', youtube.slug]"
-        v-html="youtube.svg"
         :style="{background: `#${youtube.hex}`}"
-      ></a>
+        v-html="youtube.svg"
+      />
     </li>
   </ul>
 </template>

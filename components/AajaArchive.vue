@@ -1,7 +1,11 @@
 <template>
   <article class="archive">
-    <p v-if="$fetchState.pending">Fetching Aechive...</p>
-    <p v-else-if="$fetchState.error">An error occurred getting archive data</p>
+    <p v-if="$fetchState.pending">
+      Fetching Aechive...
+    </p>
+    <p v-else-if="$fetchState.error">
+      An error occurred getting archive data
+    </p>
     <aaja-container v-else>
       <section class="archive-title-bar title-bar">
         <h2>
@@ -22,15 +26,15 @@
         <aaja-artist-card
           v-for="resident in residents"
           :key="resident._id"
-          :artistLink="resident.slug"
-          :artistImage="
+          :artist-link="resident.slug"
+          :artist-image="
             resident.image
               ? $urlFor(resident.image).size(600)
               : `https://placehold.co/600x400?text=${resident.slug}`
           "
-          :imageAltText="`Image of Aaja Resident ${resident.name}`"
-          :artistName="resident.name"
-          :sortBio="resident.short_bio | cutBio"
+          :image-alt-text="`Image of Aaja Resident ${resident.name}`"
+          :artist-name="resident.name"
+          :sort-bio="resident.short_bio | cutBio"
         />
       </section>
       <section class="res-filter">
@@ -54,8 +58,13 @@ export default {
   components: {
     Logo,
   },
-  async fetch() {
-    this.data = await this.$sanity.fetch(residentAllQuery)
+  filters: {
+    cutBio: function (value) {
+      if (!value) return false
+      value = value.toString()
+      if (value.length < 114) return value
+      return value.slice(0, 118) + '...'
+    },
   },
 
   data() {
@@ -93,6 +102,9 @@ export default {
       letterSelected: 'A',
     }
   },
+  async fetch() {
+    this.data = await this.$sanity.fetch(residentAllQuery)
+  },
   computed: {
     residents() {
       const residents = this.data
@@ -108,14 +120,6 @@ export default {
   methods: {
     selectLetter(val) {
       this.letterSelected = val.toUpperCase()
-    },
-  },
-  filters: {
-    cutBio: function (value) {
-      if (!value) return false
-      value = value.toString()
-      if (value.length < 114) return value
-      return value.slice(0, 118) + '...'
     },
   },
 }

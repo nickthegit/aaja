@@ -3,21 +3,32 @@
     <article class="home-hero">
       <div>
         <h1>
-          <nuxt-link to="radio">Radio Station</nuxt-link>
-          <br /><nuxt-link to="bar"> Bar</nuxt-link>&nbsp;&nbsp;<nuxt-link to="label">Label</nuxt-link>
-          <br /><nuxt-link to="studio">Studio</nuxt-link>
-          <br />and&nbsp;<nuxt-link to="festival">Festival</nuxt-link>
+          <nuxt-link to="radio">
+            Radio Station
+          </nuxt-link>
+          <br><nuxt-link to="bar">
+            Bar
+          </nuxt-link>&nbsp;&nbsp;<nuxt-link to="label">
+            Label
+          </nuxt-link>
+          <br><nuxt-link to="studio">
+            Studio
+          </nuxt-link>
+          <br>and&nbsp;<nuxt-link to="festival">
+            Festival
+          </nuxt-link>
         </h1>
         <FullLogo id="home-logo" />
       </div>
     </article>
     <aaja-container v-if="homeData.length > 0">
       <slider-home-container v-if="sliderReady" class="slider-container" :length-of-items="homeData.length">
-        <div class="swiper-slide" v-for="slide in homeData" :key="slide._key">
+        <div v-for="slide in homeData" :key="slide._key" class="swiper-slide">
           <figure class="img-wrap">
             <picture>
               <!-- DESKTOP (desktop) -->
-              <source :srcset="`
+              <source
+                :srcset="`
                 ${$urlFor(slide.feature_image).width(400).height(200).fit('crop')} 400w,
                                                                                                                                                                                                                                                                                           ${$urlFor(slide.feature_image).width(600).height(300).fit('crop')} 600w,
                                                                                                                                                                                                                                                                                           ${$urlFor(slide.feature_image).width(800).height(400).fit('crop')}  800w,
@@ -30,14 +41,21 @@
                                                                                                                                                                                                                                                                                           ${$urlFor(slide.feature_image).width(2400).height(1200).fit('crop')}  2400w,
                                                                                                                                                                                                                                                                                           ${$urlFor(slide.feature_image).width(2800).height(1400).fit('crop')}  2800w,
                                                                                                                                                                                                                                                                                           ${$urlFor(slide.feature_image).width(3000).height(1500).fit('crop')}  3000w
-            `" sizes="100vw" media="(min-width: 481px)" />
-              <source :srcset="`
+            `"
+                sizes="100vw"
+                media="(min-width: 481px)"
+              >
+              <source
+                :srcset="`
                 ${$urlFor(slide.feature_image_mobile).width(400).height(400).fit('crop')} 400w,
                                                                                                                                                                                                                                                                                           ${$urlFor(slide.feature_image_mobile).width(600).height(600).fit('crop')} 600w,
                                                                                                                                                                                                                                                                                           ${$urlFor(slide.feature_image_mobile).width(800).height(800).fit('crop')} 800w,
                                                                                                                                                                                                                                                                                           ${$urlFor(slide.feature_image_mobile).width(1000).height(1000).fit('crop')} 1000w,
-            `" sizes="100vw" media="(max-width: 480px)" />
-              <img src="https://picsum.photos/1200/600?random=2" ref="altText" />
+            `"
+                sizes="100vw"
+                media="(max-width: 480px)"
+              >
+              <img ref="altText" src="https://picsum.photos/1200/600?random=2">
             </picture>
           </figure>
           <article class="info-wrap">
@@ -62,26 +80,26 @@ import FullLogo from '~/assets/img/icons/fullLogo.svg?inline'
 import '~/assets/scss/_mixins.scss';
 
 export default {
+  components: { FullLogo },
   async asyncData({ $sanity }) {
     const data = await $sanity.fetch(homePageQuery)
 
     return { homeData: data[1].homeNewsBanner || [] }
   },
-  components: { FullLogo },
   data() {
     return {
       patreon_link: 'https://www.patreon.com/aajadeptford',
       sliderReady: false,
     }
   },
-  mounted() {
-    this.sliderReady = true
-    console.log('New', this.$store.state)
-  },
   head: {
     htmlAttrs: {
       class: 'dark',
     },
+  },
+  mounted() {
+    this.sliderReady = true
+    console.log('New', this.$store.state)
   },
 }
 </script>

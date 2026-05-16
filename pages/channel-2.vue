@@ -1,16 +1,23 @@
 <template>
   <main class="light-theme">
     <aaja-standard-hero>
-      <template v-slot:heading>
-        <aaja-heading>aaja music <br />Channel 2</aaja-heading>
+      <template #heading>
+        <aaja-heading>aaja music <br>Channel 2</aaja-heading>
       </template>
       <p>{{ channel2Data.intro }}</p>
     </aaja-standard-hero>
     <article>
       <aaja-container class="channel2__content">
         <div class="iframe-wrap">
-          <iframe id="embed_player" frameborder="0" width="350" height="396" src="https://aaja2.airtime.pro/embed/player?stream=auto&skin=2"></iframe>
-          <iframe class="schedule-widget" height="400px" width="550px" scrolling="yes" frameborder="0" src=https://aaja2.airtime.pro/embed/weekly-program></iframe>
+          <iframe id="embed_player" frameborder="0" width="350" height="396" src="https://aaja2.airtime.pro/embed/player?stream=auto&skin=2" />
+          <iframe
+            class="schedule-widget"
+            height="400px"
+            width="550px"
+            scrolling="yes"
+            frameborder="0"
+            src="https://aaja2.airtime.pro/embed/weekly-program"
+          />
 
           <!-- <iframe
             width="560"
@@ -38,6 +45,11 @@ export default {
   data() {
     return {}
   },
+  head: {
+    htmlAttrs: {
+      class: 'light',
+    },
+  },
   computed: {
     youtubeLink() {
       const { id } = getVideoId(this.channel2Data.youtubeLink)
@@ -46,11 +58,6 @@ export default {
   },
   mounted() {
     // console.log(`channel2Data`, this.channel2Data)
-  },
-  head: {
-    htmlAttrs: {
-      class: 'light',
-    },
   },
 }
 </script>
