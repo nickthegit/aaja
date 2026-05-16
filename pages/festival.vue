@@ -4,17 +4,17 @@
       <section class="festival__hero-img">
         <aaja-hero-img
           v-if="hero"
-          altText="Aaja festival Hero image"
-          :landscapeBg="hero.landscapeBlur"
-          :portraitBg="hero.portraitBlur"
-          :landscapeImgs="hero.landscape"
-          :portraitImgs="hero.portrait"
+          alt-text="Aaja festival Hero image"
+          :landscape-bg="hero.landscapeBlur"
+          :portrait-bg="hero.portraitBlur"
+          :landscape-imgs="hero.landscape"
+          :portrait-imgs="hero.portrait"
         />
       </section>
       <aaja-container class="festival__hero-header">
         <div class="festival__hero-header-wrapper">
-          <aaja-heading-block :isFestival="true">
-          <AajaRichText :blocks="festivalData.heading" />
+          <aaja-heading-block :is-festival="true">
+            <AajaRichText :blocks="festivalData.heading" />
           </aaja-heading-block>          <p v-if="festivalData.headingIntro" class="festival__hero-header-intro">
             {{ festivalData.headingIntro }}
           </p>
@@ -37,9 +37,10 @@
         </aaja-container>
 
         <aaja-container class="festival__content-display">
-          <div v-if="activeFestival" class="festival__content-header" :key="activeFestival.year">
-            <div v-if="activeFestival.headerText" class="festival__content-header-text">
-              <AajaRichText :blocks="activeFestival.headerText" />
+          <div v-if="activeFestival" :key="activeFestival.year" class="festival__content-header">
+            <div v-if="activeFestival.headerText || activeFestival.description" class="festival__content-header-text">
+              <p v-if="activeFestival.headerText">{{ activeFestival.headerText }}</p>
+              <AajaRichText v-if="activeFestival.description" :blocks="activeFestival.description" />
             </div>
             
             <div class="festival__content-images">
@@ -50,11 +51,11 @@
                   class="grid-container container"
                   :class="{ 'is-ready': gridReady }"
                   :gap="gap"
-                  :defaultDirection="defaultDirection"
+                  :default-direction="defaultDirection"
                   :frame="isMobile ? mobileGrid : desktopGrid"
-                  :rectSize="rectSize"
-                  :useFrameFill="useFrameFill"
-                  @renderComplete="onRenderComplete"
+                  :rect-size="rectSize"
+                  :use-frame-fill="useFrameFill"
+                  @render-complete="onRenderComplete"
                 >
                   <div v-for="(item, index) in gallery" :key="item._key" class="item">
                     <aaja-skeleton-media
@@ -106,19 +107,6 @@ export default {
     AajaSkeletonMedia,
     AajaRichText
   },
-  head() {
-    const title = 'Aaja - Creekside Festival'
-    return {
-      title,
-      meta: createSEOMeta({
-        title,
-        description: this.festivalData?.headingIntro || 'Creekside Festival',
-        image: 'https://aajamusic.com/_nuxt/img/creekside-transparent.55a5c78.png',
-        url: 'https://aajamusic.com/festival',
-        themeColor: 'black',
-      }),
-    }
-  },
   async asyncData({ $sanity }) {
     const festivalData = await $sanity.fetch(festivalPageQuery)
     const data = festivalData[0] || {}
@@ -150,6 +138,19 @@ export default {
       visibleRef: false,
       indexRef: 0,
       imgsRef: []
+    }
+  },
+  head() {
+    const title = 'Aaja - Creekside Festival'
+    return {
+      title,
+      meta: createSEOMeta({
+        title,
+        description: this.festivalData?.headingIntro || 'Creekside Festival',
+        image: 'https://aajamusic.com/_nuxt/img/creekside-transparent.55a5c78.png',
+        url: 'https://aajamusic.com/festival',
+        themeColor: 'black',
+      }),
     }
   },
   computed: {

@@ -29,7 +29,8 @@ export default {
     },
     videoId() {
       if (!this.url) return null
-      const match = this.url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^\"&?\/\s]{11})/)
+      // Fixed regex to avoid useless escapes
+      const match = this.url.match(/(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/)
       return match ? match[1] : null
     }
   }

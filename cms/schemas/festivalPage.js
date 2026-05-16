@@ -21,7 +21,7 @@ export default {
     {
       title: 'Festival Images header',
       name: 'subHeading',
-      hidden: true, // hiding so we use the new years selector, was only for 2023, cba doing the photos migration
+      hidden: true,
       type: 'text',
       rows: 4,
     },
@@ -42,9 +42,15 @@ export default {
             },
             {
               name: 'headerText',
+              type: 'string',
+              title: 'Header Text (Simple)',
+              description: 'Plain text description.',
+            },
+            {
+              name: 'description',
               type: 'blockContent',
-              title: 'Description',
-              description: 'Text, links, or video embeds for this year.',
+              title: 'Rich Text Description',
+              description: 'Formatted text, links, or video embeds for this year.',
             },
             {
               name: 'media',
@@ -56,7 +62,7 @@ export default {
                   type: 'image',
                   title: 'Photo',
                   options: {
-                    hotspot: true, // Enables image cropping
+                    hotspot: true,
                   },
                 },
                 {
@@ -82,7 +88,7 @@ export default {
       title: 'Images',
       description: 'Drag and drop images from folder to add several at once.',
       name: 'images',
-      hidden: true, // hiding so we use the new years selector, was only for 2023, cba doing the photos migration
+      hidden: true,
       type: 'array',
       of: [
         {
@@ -102,7 +108,6 @@ export default {
           ],
         },
       ],
-      // validation: (Rule) => Rule.min(3).max(3),
     },
   ],
 }
