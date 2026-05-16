@@ -131,8 +131,8 @@ export default {
         [9, 10, 8, 8],
       ],
       mobileGrid: [
-        [1, 2],
-        [3, 4],
+        [1, 1, 2, 2],
+        [1, 1, 2, 2],
       ],
       visibleRef: false,
       indexRef: 0,
@@ -191,6 +191,9 @@ export default {
         return parsedMedia
       }).filter(item => item !== null)
     },
+  },
+  mounted() {
+    // Relying solely on onRenderComplete
   },
   methods: {
     selectYear(year) {
