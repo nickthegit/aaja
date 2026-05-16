@@ -28,7 +28,7 @@
           <button
             v-for="festival in sortedYears"
             :key="festival._key || festival.year"
-            :class="{ active: selectedYear === festival.year }"
+            :class="{ active: Number(selectedYear) === Number(festival.year) }"
             @click="selectYear(festival.year)"
           >
             <h2>{{ festival.year }}</h2>
@@ -51,7 +51,7 @@
                 >
                   <div v-for="(image, index) in gallery" :key="image._key" :class="`item`">
                     <template v-if="image._type === 'file'">
-                      <video controls muted>
+                      <video :key="image.url" controls muted>
                         <source :src="image.url" type="video/mp4" />
                         Your browser does not support the video tag.
                       </video>
@@ -188,7 +188,7 @@ export default {
     },
     gallery() {
       if (!this.festivalData || !this.festivalData.years) return [];
-      const currentYearData = this.festivalData.years.find((festival) => festival.year === this.selectedYear) || this.festivalData.years[0];
+      const currentYearData = this.festivalData.years.find((festival) => Number(festival.year) === Number(this.selectedYear));
       const images = currentYearData?.media || [];
       const formattedMedia = images.map((media) => {
         let parsedMedia = {}
@@ -202,7 +202,8 @@ export default {
       return formattedMedia
     },
   tabContent() {
-    return this.festivalData.years.filter((festival) => festival.year === this.selectedYear)
+    if (!this.festivalData || !this.festivalData.years) return [];
+    return this.festivalData.years.filter((festival) => Number(festival.year) === Number(this.selectedYear))
   },
   },
   created() {
@@ -232,6 +233,7 @@ export default {
   },
   methods: {
     selectYear(year) {
+      console.log('SELECTING YEAR FROM CLICK:', year)
       this.selectedYear = year
     }
   },
@@ -283,6 +285,7 @@ export default {
       position: relative;
       z-index: 1;
       opacity: 0.5;
+      pointer-events: none;
     }
 
     &-header {
