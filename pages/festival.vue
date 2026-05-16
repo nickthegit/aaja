@@ -327,6 +327,8 @@ export default {
 
     &-wrapper {
       padding-top: calc(var(--globalPadding) / 2);
+      position: relative;
+      z-index: 5;
 
       button {
         background-color: transparent;
