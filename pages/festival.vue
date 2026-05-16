@@ -2,8 +2,8 @@
   <main>
     <section class="festival__hero">
       <section class="festival__hero-img">
-        <!-- <img :src="hero" altText="Aaja festival Hero image"> -->
         <aaja-hero-img
+          v-if="hero"
           altText="Aaja festival Hero image"
           :landscapeBg="hero.landscapeBlur"
           :portraitBg="hero.portraitBlur"
@@ -22,57 +22,60 @@
         </div>
       </aaja-container>
     </section>
-    <template v-if="sortedYears.length">
+
+    <template v-if="sortedYears && sortedYears.length">
       <article class="festival__content-wrapper">
         <aaja-container class="festival__content-years-button">
           <button
-            v-for="festival in sortedYears"
-            :key="festival._key || festival.year"
-            :class="{ active: Number(selectedYear) === Number(festival.year) }"
-            @click="selectYear(festival.year)"
+            v-for="yearObj in sortedYears"
+            :key="yearObj._key || yearObj.year"
+            class="festival-tab"
+            :class="{ active: String(selectedYear) === String(yearObj.year) }"
+            @click="selectYear(yearObj.year)"
           >
-            <h2>{{ festival.year }}</h2>
+            <h2>{{ yearObj.year }}</h2>
           </button>
         </aaja-container>
+
         <aaja-container class="festival__content-display">
-          <template v-for="festival in tabContent">
-            <div class="festival__content-header" :key="festival.year">
-              <div v-if="festival.headerText">
-                <p>{{ festival.headerText }}</p>
-              </div>
-              <div class="festival__content-images">
-                <frame-grid
-                  class="grid-container container"
-                  v-bind:gap="gap"
-                  v-bind:defaultDirection="defaultDirection"
-                  v-bind:frame="isMobile ? mobileGrid : desktopGrid"
-                  v-bind:rectSize="rectSize"
-                  v-bind:useFrameFill="useFrameFill"
-                >
-                  <div v-for="(image, index) in gallery" :key="image._key" :class="`item`">
-                    <template v-if="image._type === 'file'">
-                      <video :key="image.url" controls muted>
-                        <source :src="image.url" type="video/mp4" />
-                        Your browser does not support the video tag.
-                      </video>
-                    </template>
-                    <template v-else>
-                      <img
-                        :src="image.desktop[isMobile ? '400' : '800']"
-                        @click="showMultiple(gallery, index)"
-                      />
-                    </template>
-                  </div>
-                </frame-grid>
-                <vue-easy-lightbox
-                  :visible="visibleRef"
-                  :imgs="imgsRef"
-                  :index="indexRef"
-                  @hide="onHide"
-                />
-              </div>
+          <div v-if="activeFestival" class="festival__content-header" :key="activeFestival.year">
+            <div v-if="activeFestival.headerText" class="festival__content-header-text">
+              <p>{{ activeFestival.headerText }}</p>
             </div>
-          </template>
+            
+            <div class="festival__content-images">
+              <frame-grid
+                class="grid-container container"
+                :gap="gap"
+                :defaultDirection="defaultDirection"
+                :frame="isMobile ? mobileGrid : desktopGrid"
+                :rectSize="rectSize"
+                :useFrameFill="useFrameFill"
+              >
+                <div v-for="(item, index) in gallery" :key="item._key" class="item">
+                  <template v-if="item._type === 'file'">
+                    <video :key="item.url" controls muted preload="metadata" playsinline>
+                      <source :src="item.url" type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  </template>
+                  <template v-else-if="item.desktop">
+                    <img
+                      :src="item.desktop[isMobile ? '400' : '800']"
+                      @click="showMultiple(gallery, index)"
+                    />
+                  </template>
+                </div>
+              </frame-grid>
+
+              <vue-easy-lightbox
+                :visible="visibleRef"
+                :imgs="imgsRef"
+                :index="indexRef"
+                @hide="onHide"
+              />
+            </div>
+          </div>
         </aaja-container>
       </article>
     </template>
@@ -80,16 +83,13 @@
 </template>
 
 <script>
-import { ref } from 'vue'
 import { FrameGrid } from '@egjs/vue-grid'
 import VueEasyLightbox from 'vue-easy-lightbox/dist/vue-easy-lightbox.esm.min.js'
-
 import { cloudinaryHeroParser } from '~/utils/images'
 import { createSEOMeta } from '~/utils/seo.js'
 import { festivalPageQuery } from '~/utils/queries.js'
 import AajaContainer from '~/components/AajaContainer.vue'
 import AajaHeroImg from '~/components/AajaHeroImg.vue'
-import Logo from '~/assets/img/icons/logo.svg?inline'
 import AajaImg from '~/components/AajaImg.vue'
 import AajaHeading from '~/components/AajaHeading.vue'
 
@@ -97,7 +97,6 @@ export default {
   components: {
     AajaContainer,
     AajaHeroImg,
-    Logo,
     AajaImg,
     AajaHeading,
     FrameGrid,
@@ -105,15 +104,11 @@ export default {
   },
   head() {
     const title = 'Aaja - Creekside Festival'
-    const description =
-      this.festivalData?.headingIntro ||
-      'Championing neighbourhood crews, DIY radio, local businesses & the unique spaces of Deptford, Creekside Festival is intimate multi-venue electronic music festival.'
-
     return {
       title,
       meta: createSEOMeta({
         title,
-        description,
+        description: this.festivalData?.headingIntro || 'Creekside Festival',
         image: 'https://aajamusic.com/_nuxt/img/creekside-transparent.55a5c78.png',
         url: 'https://aajamusic.com/festival',
         themeColor: 'black',
@@ -122,12 +117,15 @@ export default {
   },
   async asyncData({ $sanity }) {
     const festivalData = await $sanity.fetch(festivalPageQuery)
-
-    return { festivalData: festivalData[0] }
+    const data = festivalData[0] || {}
+    const sorted = data.years ? [...data.years].sort((a, b) => b.year - a.year) : []
+    return { 
+      festivalData: data,
+      selectedYear: sorted.length > 0 ? sorted[0].year : null
+    }
   },
   data() {
     return {
-      selectedYear: null,
       isMobile: false,
       gap: 5,
       defaultDirection: 'end',
@@ -145,97 +143,71 @@ export default {
         [1, 1, 2, 2],
         [1, 1, 2, 2],
       ],
-    }
-  },
-  setup() {
-    const visibleRef = ref(false)
-    const indexRef = ref(0)
-    const imgsRef = ref([])
-
-    const showMultiple = (images, index) => {
-      // Filter to only include images and correctly calculate the index based on images only
-      const onlyImages = images.filter(img => img._type === 'image')
-      imgsRef.value = onlyImages.map((image) => image.desktop['1800'])
-      
-      // We need to adjust the index since we removed the video elements from the array
-      const clickedImage = images[index];
-      const adjustedIndex = onlyImages.findIndex(img => img._key === clickedImage._key);
-      
-      indexRef.value = adjustedIndex !== -1 ? adjustedIndex : 0;
-      onShow()
-    }
-    const onHide = () => (visibleRef.value = false)
-    const onShow = () => (visibleRef.value = true)
-
-    return {
-      visibleRef,
-      indexRef,
-      imgsRef,
-      // showSingle,
-      showMultiple,
-      onHide,
+      visibleRef: false,
+      indexRef: 0,
+      imgsRef: []
     }
   },
   computed: {
     hero() {
+      if (!this.festivalData?.festivalHero) return null
       const image = this.$urlForSquare(this.festivalData.festivalHero, false, false)
-      const parsedImage = cloudinaryHeroParser(image.desktop['1200'])
-      return parsedImage
+      return cloudinaryHeroParser(image.desktop['1200'])
     },
     sortedYears() {
-      if (!this.festivalData || !this.festivalData.years) return [];
-      return [...this.festivalData.years].sort((a, b) => b.year - a.year);
+      if (!this.festivalData?.years) return []
+      return [...this.festivalData.years].sort((a, b) => b.year - a.year)
+    },
+    activeFestival() {
+      if (!this.sortedYears.length) return null
+      return this.sortedYears.find(f => String(f.year) === String(this.selectedYear))
     },
     gallery() {
-      if (!this.festivalData || !this.festivalData.years) return [];
-      const currentYearData = this.festivalData.years.find((festival) => Number(festival.year) === Number(this.selectedYear));
-      const images = currentYearData?.media || [];
-      const formattedMedia = images.map((media) => {
-        let parsedMedia = {}
-        if (media._type === 'image') {
-          parsedMedia = this.$urlForSquare(media, false, true)
-        } else if (media._type === 'file') {
-          parsedMedia = { url: this.$getFileAsset(media) }
-        }
-        return { ...parsedMedia, _key: media._key, _type: media._type }
-      })
-      return formattedMedia
-    },
-  tabContent() {
-    if (!this.festivalData || !this.festivalData.years) return [];
-    return this.festivalData.years.filter((festival) => Number(festival.year) === Number(this.selectedYear))
-  },
-  },
-  created() {
-    if (this.sortedYears.length > 0) {
-      this.selectedYear = this.sortedYears[0].year;
-    }
-    if (process.client) {
-      let vm = this
-      const mediaQuery = window.matchMedia('(max-width: 480px)')
-      function handleTabletChange(e) {
-        vm.isMobile = e.matches
+      let images = this.activeFestival?.media || []
+      
+      // Merge legacy root images if year is 2023
+      if (Number(this.selectedYear) === 2023 && this.festivalData?.images) {
+        images = [...images, ...this.festivalData.images]
       }
-      mediaQuery.addListener(handleTabletChange)
-      handleTabletChange(mediaQuery)
-    }
+
+      return images.map((media) => {
+        let parsedMedia = { _key: media._key, _type: media._type }
+        if (media._type === 'image') {
+          // Only process if asset reference exists to prevent crash
+          if (media.asset) {
+            parsedMedia = { ...parsedMedia, ...this.$urlForSquare(media, false, true) }
+          } else {
+            return null
+          }
+        } else if (media._type === 'file') {
+          parsedMedia = { ...parsedMedia, url: this.$getFileAsset(media) }
+        }
+        return parsedMedia
+      }).filter(item => item !== null)
+    },
   },
   mounted() {
     if (process.client) {
-      let vm = this
+      const handleTabletChange = (e) => { this.isMobile = e.matches }
       const mediaQuery = window.matchMedia('(max-width: 480px)')
-      function handleTabletChange(e) {
-        vm.isMobile = e.matches
-      }
       mediaQuery.addListener(handleTabletChange)
       handleTabletChange(mediaQuery)
     }
   },
   methods: {
     selectYear(year) {
-      console.log('SELECTING YEAR FROM CLICK:', year)
       this.selectedYear = year
-    }
+    },
+    showMultiple(images, index) {
+      const onlyImages = images.filter((img) => img._type === 'image' && img.desktop)
+      this.imgsRef = onlyImages.map((image) => image.desktop['1800'])
+      const clickedImage = images[index]
+      const adjustedIndex = onlyImages.findIndex((img) => img._key === clickedImage._key)
+      this.indexRef = adjustedIndex !== -1 ? adjustedIndex : 0
+      this.onShow()
+    },
+    onHide() { this.visibleRef = false },
+    onShow() { this.visibleRef = true }
   },
 }
 </script>
@@ -255,14 +227,18 @@ export default {
   gap: 20px;
   justify-content: flex-start;
   position: relative;
-  z-index: 10;
-  
+  z-index: 100;
+
   button {
     background-color: transparent;
     color: var(--white);
     border: none;
     font-size: 16px;
     cursor: pointer;
+    padding: 10px;
+    min-width: 44px;
+    min-height: 44px;
+    touch-action: manipulation;
 
     &.active {
       text-decoration: underline;
@@ -272,13 +248,17 @@ export default {
     &:hover:not(.active) {
       color: var(--light-grey);
     }
+    
+    h2 {
+      pointer-events: none;
+    }
   }
 }
 
 .festival {
   &__hero {
-    display: none;
     position: relative;
+    z-index: 1;
 
     &-img {
       width: 100%;
@@ -286,7 +266,6 @@ export default {
       position: relative;
       z-index: 1;
       opacity: 0.5;
-      pointer-events: none;
     }
 
     &-header {
@@ -307,7 +286,6 @@ export default {
 
       @include breakpoint(mobile) {
         padding-top: 160px;
-        height: 100vh;
       }
 
       &-wrapper {
@@ -331,23 +309,19 @@ export default {
     display: block;
 
     &-wrapper {
-      padding-top: 200px;
+      padding-top: calc(var(--globalPadding) / 2);
       position: relative;
-      z-index: 20;
+      z-index: 50;
 
       button {
-        background-color: transparent;
-        color: var(--white);
-        border: none;
-
         &.active {
           text-decoration: underline;
         }
-
-        &.disabled {
-          color: grey;
-        }
       }
+    }
+
+    &-header-text {
+      margin-bottom: 30px;
     }
 
     &-images {
