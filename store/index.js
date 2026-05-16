@@ -5,7 +5,7 @@ export const state = () => ({
   reqData2: null,
   stationMeta2: null,
   popupButtonSettings: null,
-  isMobile: false,
+  isMobile: true,
 })
 
 export const mutations = {

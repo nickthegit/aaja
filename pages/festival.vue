@@ -45,15 +45,17 @@
             
             <div class="festival__content-images">
               <div class="festival__content-images-inner">
-                <!-- Actual Grid (Always mounted to avoid layout restart) -->
+                <!-- Actual Grid -->
                 <frame-grid
                   ref="grid"
                   class="grid-container container"
+                  :class="{ 'is-ready': gridReady }"
                   :gap="gap"
                   :defaultDirection="defaultDirection"
                   :frame="isMobile ? mobileGrid : desktopGrid"
                   :rectSize="rectSize"
                   :useFrameFill="useFrameFill"
+                  @renderComplete="onRenderComplete"
                 >
                   <div v-for="(item, index) in gallery" :key="item._key" class="item">
                     <aaja-skeleton-media
@@ -120,7 +122,6 @@ export default {
     const festivalData = await $sanity.fetch(festivalPageQuery)
     const data = festivalData[0] || {}
     const sorted = data.years ? [...data.years].sort((a, b) => b.year - a.year) : []
-    
     return { 
       festivalData: data,
       selectedYear: sorted.length > 0 ? sorted[0].year : null
@@ -128,6 +129,7 @@ export default {
   },
   data() {
     return {
+      gridReady: false,
       gap: 5,
       defaultDirection: 'end',
       rectSize: 0,
@@ -191,7 +193,12 @@ export default {
   },
   methods: {
     selectYear(year) {
+      if (this.selectedYear === year) return
+      this.gridReady = false
       this.selectedYear = year
+    },
+    onRenderComplete() {
+      this.gridReady = true
     },
     showMultiple(images, index) {
       const onlyImages = images.filter((img) => img._type === 'image' && img.desktop)
@@ -329,9 +336,18 @@ export default {
         width: 100%;
       }
 
-      .grid-container .item {
-        overflow: hidden;
-        aspect-ratio: 1 / 1;
+      .grid-container {
+        opacity: 0;
+        transition: opacity 0.5s ease;
+
+        &.is-ready {
+          opacity: 1;
+        }
+
+        .item {
+          overflow: hidden;
+          aspect-ratio: 1 / 1;
+        }
       }
 
       ::v-deep .vel-img-modal.vel-img-modal {
