@@ -88,20 +88,12 @@ export default {
     futureEventCards() {
       return this.eventCards
         .filter(this.isFutureEvent)
-        .sort((a, b) => {
-          const dateA = a.eventDateText ? new Date(a.eventDateText.split('@')[0]).getTime() : Infinity;
-          const dateB = b.eventDateText ? new Date(b.eventDateText.split('@')[0]).getTime() : Infinity;
-          return dateA - dateB;
-        })
+        .sort((a, b) => this.getEventTimestamp(a, Infinity) - this.getEventTimestamp(b, Infinity))
     },
     pastEventCards() {
       return this.eventCards
         .filter(event => !this.isFutureEvent(event))
-        .sort((a, b) => {
-          const dateA = a.eventDateText ? new Date(a.eventDateText.split('@')[0]).getTime() : 0;
-          const dateB = b.eventDateText ? new Date(b.eventDateText.split('@')[0]).getTime() : 0;
-          return dateB - dateA;
-        })
+        .sort((a, b) => this.getEventTimestamp(b, 0) - this.getEventTimestamp(a, 0))
     },
     hasFutureEvents() {
       return this.futureEventCards.length > 0
@@ -119,6 +111,9 @@ export default {
       if (!event || !event.eventDateText) return false;
       const date = event.eventDateText.split('@')[0]
       return isToday(new Date(date), new Date()) || isAfter(new Date(date), new Date());
+    },
+    getEventTimestamp(event, fallback) {
+      return event?.eventDateText ? new Date(event.eventDateText.split('@')[0]).getTime() : fallback;
     },
     // helper functions
     formatDate(event) {
