@@ -1,12 +1,8 @@
 <template>
   <main>
-    <aaja-slug-hero breadcrumb-destination="label" :hero-image="epData.img">
-      <template #subheading>
-        {{ epData.name }}
-      </template>
-      <template #heading>
-        {{ epData.title }}
-      </template>
+    <aaja-slug-hero breadcrumbDestination="label" :heroImage="epData.img">
+      <template v-slot:subheading>{{ epData.name }}</template>
+      <template v-slot:heading>{{ epData.title }}</template>
     </aaja-slug-hero>
     <article>
       <aaja-container class="record-item__content">
@@ -55,7 +51,7 @@ export default {
     // }
     // let url = await 'https://www.mixcloud.com/AAJAdeptford/earnshaw-mellow-music-episode-004/',
 
-    const img = await $urlForSquare(data.feature_image, false, true)
+    let img = await $urlForSquare(data.feature_image, false, true)
 
     return { epData: { ...data, img } }
   },
@@ -64,14 +60,14 @@ export default {
       record: 'https://www.mixcloud.com/AAJAdeptford/earnshaw-mellow-music-episode-004/',
     }
   },
+  computed: {},
+  mounted() {
+    // console.log('EP_DATA', this.epData)
+  },
   head: {
     htmlAttrs: {
       class: 'light',
     },
-  },
-  computed: {},
-  mounted() {
-    // console.log('EP_DATA', this.epData)
   },
 }
 </script>

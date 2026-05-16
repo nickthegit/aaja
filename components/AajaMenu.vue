@@ -8,16 +8,14 @@
         <ul id="navMenu">
           <li v-for="link in links" :key="link._id" @click="navClose">
             <a v-if="link.external_link" :href="link.external_link" target="_blank" rel="noopener noreferrer">{{
-              link.name
-            }}</a>
-            <nuxt-link v-else :to="`/${link.slug}`">
-              {{ link.name }}
-            </nuxt-link>
+      link.name
+    }}</a>
+            <nuxt-link v-else :to="`/${link.slug}`">{{ link.name }}</nuxt-link>
           </li>
         </ul>
         <ul id="navSocials">
           <li v-for="social in getSocials" :key="social._id" :class="social.icon.slug">
-            <a :href="social.link" target="_blank" rel="noopener noreferrer" v-html="social.icon.svg" />
+            <a :href="social.link" target="_blank" rel="noopener noreferrer" v-html="social.icon.svg"></a>
           </li>
         </ul>
       </nav>
@@ -38,6 +36,9 @@ const soundcloud = require('simple-icons/icons/soundcloud')
 
 export default {
   components: { Close },
+  async fetch() {
+    this.data = await this.$sanity.fetch(headerQuery)
+  },
   data() {
     return {
       data: '',
@@ -133,15 +134,10 @@ export default {
       },
     }
   },
-  async fetch() {
-    this.data = await this.$sanity.fetch(headerQuery)
-  },
-  head() {
-    return {
-      bodyAttrs: {
-        class: this.$store.state.navState ? 'navOpen' : '',
-      },
-    }
+  methods: {
+    navClose() {
+      this.$store.dispatch('setNavPayload', false)
+    },
   },
   computed: {
     getSocials() {
@@ -153,10 +149,12 @@ export default {
     },
   },
   mounted() { },
-  methods: {
-    navClose() {
-      this.$store.dispatch('setNavPayload', false)
-    },
+  head() {
+    return {
+      bodyAttrs: {
+        class: this.$store.state.navState ? 'navOpen' : '',
+      },
+    }
   },
 }
 </script>
@@ -223,7 +221,7 @@ ul {
   }
 
   a {
-    height: 50px;
+    height: 75px;
     display: flex;
     align-items: center;
     justify-content: flex-start;

@@ -2,9 +2,7 @@
   <header>
     <main-nav-btn />
     <section id="brand" @click="$store.dispatch('setNavPayload', false)">
-      <nuxt-link to="/">
-        brand here
-      </nuxt-link>
+      <nuxt-link to="/">brand here</nuxt-link>
     </section>
     <main-nav v-show="$store.state.navState" @click="$store.dispatch('setNavPayload', false)">
       <socials />
@@ -14,15 +12,15 @@
 
 <script>
   export default {
+    mounted() {
+      // console.log(this.navStatus)
+    },
     head() {
       return {
         bodyAttrs: {
           class: this.$store.state.navState ? 'navOpen' : 'navClosed',
         },
       }
-    },
-    mounted() {
-      // console.log(this.navStatus)
     },
   }
 </script>

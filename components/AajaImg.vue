@@ -26,7 +26,7 @@
             `"
           :sizes="`${percentageOfViewportWidth}vw`"
           media="(min-width: 481px)"
-        >
+        />
         <!-- TABLET & MOBILE (Protrait)-->
         <source
           :srcset="`
@@ -41,8 +41,8 @@
             `"
           :sizes="`${percentageOfViewportWidthMobile}vw`"
           media="(max-width: 480px)"
-        >
-        <img :ref="altText" :src="desktopImgs['1200']">
+        />
+        <img :src="desktopImgs['1200']" :ref="altText" />
       </picture>
     </transition>
   </div>
@@ -119,7 +119,7 @@ export default {
   },
   computed: {
     padBottom() {
-      const num =
+      let num =
         (this.isMobile
           ? this.ratioMobile
             ? this.ratioMobile[1] / this.ratioMobile[0]
@@ -128,9 +128,10 @@ export default {
       return `${num}%`
     },
   },
+  methods: {},
   created() {
     if (process.client) {
-      const vm = this
+      let vm = this
       const mediaQuery = window.matchMedia('(max-width: 480px)')
       function handleTabletChange(e) {
         vm.isMobile = e.matches
@@ -140,7 +141,6 @@ export default {
     }
   },
   mounted() {},
-  methods: {},
 }
 </script>
 

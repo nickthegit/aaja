@@ -6,8 +6,8 @@ import { BiDrink } from 'react-icons/bi'
 import { GrChannel } from 'react-icons/gr'
 import { RiContactsLine, RiHome4Line } from 'react-icons/ri'
 import { GiPartyPopper } from 'react-icons/gi'
-import { PiRadioButtonDuotone } from 'react-icons/pi'
-import { MdOutlineMeetingRoom } from 'react-icons/md'
+import { PiRadioButtonDuotone } from "react-icons/pi";
+import { MdOutlineMeetingRoom } from "react-icons/md";
 
 export default () =>
   S.list()
@@ -123,7 +123,7 @@ export default () =>
                     .schemaType('popupButton')
                     .documentId('popupButton')
                 ),
-              S.listItem()
+                S.listItem()
                 .title('Popup Button Left')
                 .icon(PiRadioButtonDuotone)
                 .child(
@@ -150,8 +150,7 @@ export default () =>
             'studioPage',
             'liveEventsLandingPage',
             'contactPage',
-            'popupButton',
-            'popupButtonLeft',
+            'popupButton'
           ].includes(listItem.getId())
       ),
     ])

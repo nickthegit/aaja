@@ -6,82 +6,54 @@
         </span>Back to Events</nuxt-link>
     </aaja-container> -->
     <section class="slug__live-event">
-      <aaja-standard-hero class="live-event__header" :style="{backgroundColor: backgroundColor, color: textColor}">
-        <template #heading>
-          <aaja-heading :show-logo="false">
-            {{ eventData.name }}
-          </aaja-heading>
+      <aaja-standard-hero  class="live-event__header" :style="{backgroundColor: backgroundColor, color: textColor}">
+        <template v-slot:heading>
+          <aaja-heading :showLogo="false">{{ eventData.name }}</aaja-heading>
         </template>
-        <h2 v-if="eventData.eventDateText">
-          {{ eventData.eventDateText }}
-        </h2>
+        <h2 v-if="eventData.eventDateText">{{ eventData.eventDateText }}</h2>
         <!-- <h2 v-else-if="eventData.eventDateTime">{{ formatDateTime }}</h2>
         <h2 v-else-if="eventData.eventDate">{{ formatDate }}</h2> -->
-        <h4 v-if="eventData.eventLocation">
-          {{ eventData.eventLocation }}
-        </h4>
-        <template #headerSide>
+        <h4 v-if="eventData.eventLocation"> {{ eventData.eventLocation }}</h4>
+        <template #headerSide >
           <a :href="eventData.eventLink">
-            <aaja-img
-              v-if="eventData.feature_image"
-              :alt-text="eventData.name"
-              :desktop-bg="heroImage.desktopBlur"
-              :mobile-bg="heroImage.mobileBlur"
-              :desktop-imgs="heroImage.desktop"
-              :mobile-imgs="heroImage.mobile"
-              :ratio="[1, 1]"
-              :percentage-of-viewport-width="33"
-            />
-          </a>
+          <aaja-img v-if="eventData.feature_image"
+            :altText="eventData.name"
+            :desktopBg="heroImage.desktopBlur"
+            :mobileBg="heroImage.mobileBlur"
+            :desktopImgs="heroImage.desktop"
+            :mobileImgs="heroImage.mobile"
+            :ratio="[1, 1]"
+            :percentageOfViewportWidth="33"
+          />
+        </a>
         </template>
       </aaja-standard-hero>
-      <aaja-divider :fill-color="backgroundColor" />
+      <aaja-divider :fillColor="backgroundColor"></aaja-divider>
       <aaja-container class="live-event__container">
         <section>
           <SanityContent v-if="eventData.intro" :blocks="eventData.intro" />
         </section>
         <aside v-if="eventData.eventLink || eventData.audioStreamingLink">
-          <a v-if="eventData.eventLink" :href="eventData.eventLink" target="_blank" rel="noopener noreferrer">{{ eventLinkCtaLabel }} </a>
-          <audio v-if="eventData.audioStreamingLink" id="audio" :src="eventData.audioStreamingLink" preload="auto" />
-          <button v-if="eventData.audioStreamingLink" class="playBtn" @click="playPause">
+          <a :href="eventData.eventLink" v-if="eventData.eventLink" target="_blank" rel="noopener noreferrer">{{ eventLinkCtaLabel }} </a>
+          <audio id="audio" :src="eventData.audioStreamingLink" v-if="eventData.audioStreamingLink" preload="auto"></audio>
+          <button class="playBtn" @click="playPause" v-if="eventData.audioStreamingLink">
             {{ audioCtaLabel }}
-            <svg
-              v-if="!playing"
-              class="playIcon"
-              width="13"
-              height="20"
-              viewBox="0 0 13 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+            <svg v-if="!playing" class="playIcon" width="13" height="20" viewBox="0 0 13 20" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd"
                 d="M12.0313 9.54242C12.4727 9.93966 12.4727 10.6318 12.0313 11.029L3.09757 19.0694C2.45405 19.6485 1.42861 19.1918 1.42861 18.3261L1.42861 2.24536C1.42861 1.37959 2.45405 0.922898 3.09757 1.50207L12.0313 9.54242Z"
-                fill="white"
-                stroke="#262626"
-                stroke-linejoin="round"
-              />
+                fill="white" stroke="#262626" stroke-linejoin="round" />
             </svg>
             <svg v-else class="pauseIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 531 824">
               <path
                 d="M119 824H67c-37 0-67-30-67-67V67C0 30 30 0 67 0h52c37 0 68 30 68 67v690c0 37-31 67-68 67zm345 0h-53c-37 0-67-30-67-67V67c0-37 30-67 67-67h53c37 0 67 30 67 67v690c0 37-30 67-67 67z"
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-              />
+                fill-rule="evenodd" clip-rule="evenodd" />
             </svg>
           </button>
-          <iframe
-            v-if="eventData.iframeLink"
-            id="myIframe"
-            :src="eventData.iframeLink"
-            title="YouTube video player"
-            frameborder="0"
-            autoplay="1"
-            start
+          <iframe v-if="eventData.iframeLink" id="myIframe" :src="eventData.iframeLink" title="YouTube video player"
+            frameborder="0" autoplay="1" start
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
-          />
+            allowfullscreen></iframe>
         </aside>
       </aaja-container>
     </section>
@@ -98,7 +70,7 @@ export default {
   async asyncData({ $sanity, params, app }) {
     const data = await $sanity.fetch(liveEventSlugPageQuery(params.slug))
     if (!data.slug?.current) app.router.push({ path: '/live-events' })
-    const backgroundColor = data?.backgroundColor ? data.backgroundColor : '';
+    const backgroundColor = !!data?.backgroundColor ? data.backgroundColor : '';
     const textColor = data?.textColor ? data?.textColor : '';
     return {
       eventData: data,
@@ -110,11 +82,6 @@ export default {
     return {
       playing: false
     }
-  },
-  head: {
-    htmlAttrs: {
-      class: 'light',
-    },
   },
   computed: {
     heroImage() {
@@ -134,9 +101,6 @@ export default {
     },
 
   },
-  mounted() {
-
-  },
   methods: {
     async playPause() {
       const audio = this.$el.querySelector('#audio')
@@ -151,6 +115,14 @@ export default {
         console.log(err)
        }
       };
+    },
+  },
+  mounted() {
+
+  },
+  head: {
+    htmlAttrs: {
+      class: 'light',
     },
   },
 }

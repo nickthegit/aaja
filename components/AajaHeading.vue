@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>
-      <slot /><span v-if="showLogo"><Logo /></span>
+      <slot></slot><span v-if="showLogo"><Logo /></span>
     </h1>
   </div>
 </template>

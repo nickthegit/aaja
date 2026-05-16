@@ -24,7 +24,7 @@
         ${landscapeImgs['3000']} 3000w
       `"
           media="(orientation: landscape)"
-        >
+        />
         <!-- TABLET & MOBILE (Protrait)-->
         <source
           :srcset="`
@@ -38,8 +38,8 @@
         ${portraitImgs['1800']} 1800w,
       `"
           media="(orientation: portrait)"
-        >
-        <img :ref="altText" :src="landscapeImgs['1200']">
+        />
+        <img :src="landscapeImgs['1200']" :ref="altText" />
       </picture>
     </transition>
   </div>
@@ -98,17 +98,6 @@ export default {
       showing: true,
     }
   },
-  created() {
-    if (process.client) {
-      const vm = this
-      const mediaQuery = window.matchMedia('(orientation: portrait)')
-      function handleTabletChange(e) {
-        vm.isPortrait = e.matches
-      }
-      mediaQuery.addListener(handleTabletChange)
-      handleTabletChange(mediaQuery)
-    }
-  },
   methods: {
     // onChange(entry, unobserve) {
     //   let vm = this
@@ -118,6 +107,17 @@ export default {
     //     vm.showing = true
     //   }
     // },
+  },
+  created() {
+    if (process.client) {
+      let vm = this
+      const mediaQuery = window.matchMedia('(orientation: portrait)')
+      function handleTabletChange(e) {
+        vm.isPortrait = e.matches
+      }
+      mediaQuery.addListener(handleTabletChange)
+      handleTabletChange(mediaQuery)
+    }
   },
 }
 </script>

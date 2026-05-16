@@ -2,26 +2,23 @@
   <main class="radio-dj">
     <AajaSlugHero
       class="resident-hero"
-      breadcrumb-destination="radio"
-      :hero-image="residentData.feature_image ? heroImage : {}"
+      breadcrumbDestination="radio"
+      :heroImage="residentData.feature_image ? heroImage : {}"
     >
-      <template #subheading>
-        Residents
-      </template>
-      <template v-if="residentData.name" #heading>
-        {{ residentData.name }}
-      </template>
-      <p v-if="residentData.slot" class="timeslot">
+      <template v-slot:subheading>Residents</template>
+      <template v-slot:heading v-if="residentData.name">{{ residentData.name }}</template>
+      <p class="timeslot" v-if="residentData.slot">
         <strong>{{ residentData.slot }}</strong>
       </p>
-      <SanityContent v-if="residentData.bio" :blocks="residentData.bio" />
+      <SanityContent :blocks="residentData.bio" v-if="residentData.bio" />
       <!-- <p v-if="residentData.bio">{{ residentData.bio }}</p> -->
       <a
         v-if="residentData.website"
         :href="residentData.website"
         target="_blank"
         rel="noopener noreferrer"
-      >{{ residentData.website }}</a>
+        >{{ residentData.website }}</a
+      >
       <ul class="resident-socials">
         <li v-for="social in getSocials" :key="social._id" :class="social.icon.slug">
           <a
@@ -29,16 +26,17 @@
             target="_blank"
             rel="noopener noreferrer"
             v-html="social.icon.svg"
-          />
+          ></a>
         </li>
       </ul>
     </AajaSlugHero>
     <article>
       <AajaContainer
-        v-if="residentData.soundcloud_embed"
         class="residents__content"
+        v-if="residentData.soundcloud_embed"
         v-html="residentData.soundcloud_embed"
-      />
+      >
+      </AajaContainer>
     </article>
   </main>
 </template>
@@ -100,9 +98,9 @@ export default {
   },
   computed: {
     mixcloudUser() {
-      const raw = this.mixcloudUserRaw
-      // www.mixcloud.com/theyesness/
-      const parseStr = raw
+      let raw = this.mixcloudUserRaw
+      //www.mixcloud.com/theyesness/
+      let parseStr = raw
         .replace('http', '')
         .replace('s://', '')
         .replace('://mixcloud', 'api.mixcloud')
@@ -110,7 +108,7 @@ export default {
         .replace('www', 'api')
         .trim()
 
-      const str = parseStr.charAt(parseStr.length - 1) === '/' ? parseStr : parseStr + '/'
+      let str = parseStr.charAt(parseStr.length - 1) === '/' ? parseStr : parseStr + '/'
 
       return 'https://' + str
     },

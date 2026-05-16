@@ -4,13 +4,13 @@
     <!-- Additional required wrapper -->
     <div class="swiper-wrapper">
       <!-- Slides -->
-      <slot />
+      <slot></slot>
     </div>
-    <div v-if="lengthOfItems > 1" class="control-wrapper" :style="`top: ${fromTopLength}px`">
+    <div class="control-wrapper" :style="`top: ${fromTopLength}px`" v-if="lengthOfItems > 1">
       <div class="swiper-button-prev">
         <sliderArrow />
       </div>
-      <div class="swiper-pagination" />
+      <div class="swiper-pagination"></div>
       <div class="swiper-button-next">
         <sliderArrow />
       </div>
@@ -19,14 +19,14 @@
 </template>
 
 <script>
-import Swiper, { Navigation, Pagination } from 'swiper'
 import sliderArrow from '~/assets/img/icons/sliderArrow.svg?inline'
 // core version + navigation, pagination modules:
+import Swiper, { Navigation, Pagination } from 'swiper'
+// configure Swiper to use modules
+Swiper.use([Navigation, Pagination])
 
 // import Swiper styles
 import 'swiper/swiper-bundle.css'
-// configure Swiper to use modules
-Swiper.use([Navigation, Pagination])
 export default {
   components: { sliderArrow },
   props: {
@@ -87,16 +87,16 @@ export default {
   },
   computed: {},
   mounted() {
-    const vm = this
+    let vm = this
     this.matchMedia()
     this.$nextTick(() => {
-      const mySwiper = new Swiper(vm.$el, vm.sliderOptions)
+      var mySwiper = new Swiper(vm.$el, vm.sliderOptions)
       this.ready = true
     })
   },
   methods: {
     matchMedia() {
-      const vm = this
+      let vm = this
       const el = this.$el
       const mediaQuery = window.matchMedia('(max-width: 480px)')
       function handleTabletChange(e) {
