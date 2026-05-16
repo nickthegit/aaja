@@ -36,9 +36,8 @@
         </aaja-container>
         <aaja-container class="festival__content-display">
           <template v-for="festival in tabContent">
-            <div class="festival__content-header">
-              <div>
-                {{ festival }}
+            <div class="festival__content-header" :key="festival.year">
+              <div v-if="festival.headerText">
                 <p>{{ festival.headerText }}</p>
               </div>
               <div class="festival__content-images">
@@ -50,10 +49,10 @@
                   v-bind:rectSize="rectSize"
                   v-bind:useFrameFill="useFrameFill"
                 >
-                  <div v-for="(image, index) in festival.media" :key="image._key" :class="`item`">
+                  <div v-for="(image, index) in gallery" :key="image._key" :class="`item`">
                     <template v-if="image._type === 'file'">
                       <video controls muted>
-                        <source :src="image" type="video/mp4" />
+                        <source :src="image.url" type="video/mp4" />
                         Your browser does not support the video tag.
                       </video>
                     </template>
@@ -154,8 +153,15 @@ export default {
     const imgsRef = ref([])
 
     const showMultiple = (images, index) => {
-      imgsRef.value = images.map((image) => image.desktop['1800'])
-      indexRef.value = index
+      // Filter to only include images and correctly calculate the index based on images only
+      const onlyImages = images.filter(img => img._type === 'image')
+      imgsRef.value = onlyImages.map((image) => image.desktop['1800'])
+      
+      // We need to adjust the index since we removed the video elements from the array
+      const clickedImage = images[index];
+      const adjustedIndex = onlyImages.findIndex(img => img._key === clickedImage._key);
+      
+      indexRef.value = adjustedIndex !== -1 ? adjustedIndex : 0;
       onShow()
     }
     const onHide = () => (visibleRef.value = false)
