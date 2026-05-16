@@ -2,7 +2,7 @@ const { test, expect, devices } = require('@playwright/test');
 
 test.describe('Festival Page Tabs', () => {
   test('Desktop: can switch year tabs', async ({ page }) => {
-    await page.goto('http://100.87.225.5:3000/festival');
+    await page.goto('http://localhost:3000/festival');
     await page.waitForTimeout(2000);
     
     // Find the 2023 button
@@ -26,7 +26,7 @@ test.describe('Festival Page Tabs', () => {
   test('Mobile: can switch year tabs', async ({ browser }) => {
     const context = await browser.newContext(devices['iPhone 12']);
     const page = await context.newPage();
-    await page.goto('http://100.87.225.5:3000/festival');
+    await page.goto('http://localhost:3000/festival');
     await page.waitForTimeout(2000);
     
     const btn2023 = page.locator('button:has-text("2023")');

@@ -1,7 +1,7 @@
 const { test, expect } = require('@playwright/test');
 
 test('Tabs can switch state', async ({ page }) => {
-  await page.goto('http://100.87.225.5:3000/festival');
+  await page.goto('http://localhost:3000/festival');
   await page.waitForTimeout(3000); 
   
   // Verify initial active tab is 2024
