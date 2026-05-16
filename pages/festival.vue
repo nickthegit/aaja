@@ -46,8 +46,14 @@
             <div class="festival__content-images">
               <transition name="fade" mode="out-in">
                 <div :key="selectedYear" class="festival__content-images-inner">
+                  <!-- Skeleton Loader (Shown while isSwitching is true) -->
+                  <div v-if="isSwitching" class="skeleton-grid">
+                    <div v-for="n in 8" :key="n" class="skeleton-item shimmer"></div>
+                  </div>
+
+                  <!-- Actual Grid -->
                   <frame-grid
-                    v-if="!isSwitching"
+                    v-else
                     class="grid-container container"
                     :gap="gap"
                     :defaultDirection="defaultDirection"
@@ -69,11 +75,6 @@
                       </template>
                     </div>
                   </frame-grid>
-                  
-                  <!-- Skeleton Loader Grid -->
-                  <div v-else class="skeleton-grid">
-                    <div v-for="n in 6" :key="n" class="skeleton-item shimmer"></div>
-                  </div>
                 </div>
               </transition>
 
@@ -128,6 +129,7 @@ export default {
     const festivalData = await $sanity.fetch(festivalPageQuery)
     const data = festivalData[0] || {}
     const sorted = data.years ? [...data.years].sort((a, b) => b.year - a.year) : []
+    
     return { 
       festivalData: data,
       selectedYear: sorted.length > 0 ? sorted[0].year : null
@@ -207,10 +209,9 @@ export default {
       if (this.selectedYear === year) return
       this.isSwitching = true
       this.selectedYear = year
-      // Brief timeout to let the grid unmount and show skeleton
       setTimeout(() => {
         this.isSwitching = false
-      }, 300)
+      }, 500)
     },
     showMultiple(images, index) {
       const onlyImages = images.filter((img) => img._type === 'image' && img.desktop)
@@ -340,24 +341,17 @@ export default {
 
     &-images {
       padding-top: var(--globalPadding);
-      min-height: 400px;
+      min-height: 600px;
 
       .grid-container .item {
         background-color: rgba(255, 255, 255, 0.05);
         overflow: hidden;
         
-        img {
-          height: 100%;
-          width: 100%;
-          object-fit: cover;
+        img, video {
           display: block;
-        }
-
-        video {
-          object-fit: cover;
           width: 100%;
           height: 100%;
-          display: block;
+          object-fit: cover;
         }
       }
 
@@ -368,11 +362,11 @@ export default {
   }
 }
 
-/* Skeleton & Shimmer */
 .skeleton-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 5px;
+  width: 100%;
   
   @include breakpoint(mobile) {
     grid-template-columns: repeat(2, 1fr);
