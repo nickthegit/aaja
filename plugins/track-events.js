@@ -13,5 +13,4 @@ export default ({ $sanity }, inject) => {
       return console.error('Analytics error:', error);
     }
   };
-  inject('trackEvent', trackEvent)
 }

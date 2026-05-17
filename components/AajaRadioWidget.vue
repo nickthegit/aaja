@@ -220,7 +220,6 @@ export default {
   },
   methods: {
     handleBtnClick(type) {
-      this.$trackEvent(type)
     },
     playPause(val) {
       const radio = this.$el.querySelector('#radio')

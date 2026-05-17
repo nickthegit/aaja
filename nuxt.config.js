@@ -28,14 +28,14 @@ export default {
       },
     ],
     script: [
-      { src: 'https://cdn.anny.co/widget/annyComponents.umd.latest.min.js', async: true, defer: true }
+      // { src: 'https://cdn.anny.co/widget/annyComponents.umd.latest.min.js', async: true, defer: true }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: 'preload', href: 'https://aaja.radiocult.fm/stream', as: 'audio' },
       { rel: 'preload', href: 'https://aaja-2.radiocult.fm/stream', as: 'audio' },
       { rel: 'preconnect', href: 'https://cdn.sanity.io' },
-      { rel: 'preconnect', href: 'https://cdn.anny.co' },
+      // { rel: 'preconnect', href: 'https://cdn.anny.co' },
       { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
       { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'anonymous' },
     ],
