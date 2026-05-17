@@ -32,8 +32,6 @@ export const actions = {
     await dispatch('fetchRadio2')
     // * schedule
     await dispatch('schedule/scheduleServerInit')
-    // * archive
-    await dispatch('archive/archiveServerInit')
   },
   async fetchButtonSettings({ commit }) {
     console.log('gone here')
