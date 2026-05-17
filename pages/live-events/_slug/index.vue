@@ -62,11 +62,26 @@
 
 <script>
 import { format } from 'date-fns';
-import { liveEventSlugPageQuery } from '~/utils/queries.js';
+import { liveEventSlugPageQuery } from '~/utils/queries.js'
+import { createSEOMeta } from '~/utils/seo.js'
 import Arrow from '~/assets/img/icons/arrow.svg?inline';
 
 export default {
   components: { Arrow },
+  head() {
+    const name = this.eventData?.name || 'Aaja Live Event'
+    const title = `${name} · Aaja Music`
+    const parts = [this.eventData?.eventDateText, this.eventData?.eventLocation].filter(Boolean)
+    const description = parts.join(' · ') || name
+    const image = this.eventData?.feature_image
+      ? this.$urlFor(this.eventData.feature_image).width(1200).url()
+      : 'https://aajamusic.com/Aaja-hero.jpg'
+    return {
+      title,
+      meta: createSEOMeta({ title, description, image, url: `https://aajamusic.com/live-events/${this.$route.params.slug}` }),
+      htmlAttrs: { class: 'light' },
+    }
+  },
   async asyncData({ $sanity, params, app }) {
     const data = await $sanity.fetch(liveEventSlugPageQuery(params.slug))
     if (!data.slug?.current) app.router.push({ path: '/live-events' })

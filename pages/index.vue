@@ -58,6 +58,7 @@
 
 <script>
 import { homePageQuery } from '~/utils/queries.js'
+import { createSEOMeta } from '~/utils/seo.js'
 import FullLogo from '~/assets/img/icons/fullLogo.svg?inline'
 import '~/assets/scss/_mixins.scss';
 
@@ -78,10 +79,14 @@ export default {
     this.sliderReady = true
     console.log('New', this.$store.state)
   },
-  head: {
-    htmlAttrs: {
-      class: 'dark',
-    },
+  head() {
+    const title = 'Aaja Music — Radio, Bar, Label & Festival'
+    const description = 'Community radio station, bar, record label and festival based in Deptford, London.'
+    return {
+      title,
+      meta: createSEOMeta({ title, description, image: 'https://aajamusic.com/Aaja-hero.jpg', url: 'https://aajamusic.com/' }),
+      htmlAttrs: { class: 'dark' },
+    }
   },
 }
 </script>

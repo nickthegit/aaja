@@ -45,6 +45,8 @@
 
 <script>
 import { cloudinaryImgParser } from '~/utils/images'
+import { createSEOMeta } from '~/utils/seo.js'
+import { blockToText } from '~/utils/blockToText.js'
 import AajaStandardHero from '~/components/AajaStandardHero.vue'
 export default {
   components: { AajaStandardHero },
@@ -69,13 +71,17 @@ export default {
       return this.$urlForSquare(this.contactData.about.feature_image, false, false)
     },
   },
+  head() {
+    const title = this.contactData?.about?.title ? `${this.contactData.about.title} · Aaja Music` : 'About Aaja Music'
+    const description = blockToText(this.contactData?.about?.intro) || 'Aaja is a multi-purpose community radio station, event space and bar in Deptford, London.'
+    return {
+      title,
+      meta: createSEOMeta({ title, description, image: 'https://aajamusic.com/Aaja-hero.jpg', url: 'https://aajamusic.com/about' }),
+      htmlAttrs: { class: 'light' },
+    }
+  },
   mounted() {
     // console.log(this.contactData)
-  },
-  head: {
-    htmlAttrs: {
-      class: 'light',
-    },
   },
 }
 </script>

@@ -20,9 +20,20 @@
 
 <script>
 import { cloudinaryImgParser } from '~/utils/images'
+import { createSEOMeta } from '~/utils/seo.js'
 import AajaSlugHero from '~/components/AajaSlugHero.vue'
 export default {
   components: { AajaSlugHero },
+  head() {
+    const title = this.epData?.title ? `${this.epData.title} · Aaja Label` : 'Aaja Label'
+    const description = this.epData?.name ? `${this.epData.name} on the Aaja Music label.` : 'Music releases on the Aaja Music label.'
+    const image = this.epData?.img?.desktop?.['1200'] || 'https://aajamusic.com/Aaja-hero.jpg'
+    return {
+      title,
+      meta: createSEOMeta({ title, description, image, url: `https://aajamusic.com/label/${this.$route.params.slug}` }),
+      htmlAttrs: { class: 'light' },
+    }
+  },
   async asyncData({ $urlForSquare, $sanity, params, $axios }) {
     const data = await $sanity.fetch(`*[_type == "ep" && slug.current == "${params.slug}"][0]`)
 
@@ -63,11 +74,6 @@ export default {
   computed: {},
   mounted() {
     // console.log('EP_DATA', this.epData)
-  },
-  head: {
-    htmlAttrs: {
-      class: 'light',
-    },
   },
 }
 </script>
