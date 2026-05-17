@@ -89,7 +89,7 @@ export default {
       else clearInterval(this.interval)
     }, 500)
   },
-  beforeUnmount() {
+  beforeDestroy() {
     if (this.interval) clearInterval(this.interval)
   },
   methods: {

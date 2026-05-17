@@ -14,7 +14,8 @@
       <aaja-container class="festival__hero-header">
         <div class="festival__hero-header-wrapper">
           <aaja-heading-block :is-festival="true">
-            <AajaRichText :blocks="festivalData.heading" />
+            <AajaRichText v-if="Array.isArray(festivalData.heading)" :blocks="festivalData.heading" />
+            <span v-else>{{ festivalData.heading }}</span>
           </aaja-heading-block>
           <p v-if="festivalData.headingIntro" class="festival__hero-header-intro">
             {{ festivalData.headingIntro }}
