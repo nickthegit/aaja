@@ -51,7 +51,7 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: ['plugins/sanity-image-builder.js', 'plugins/track-events.js', 'plugins/swiper.client.js', 'plugins/vue-easy-lightbox.client.js'],
+  plugins: ['plugins/sanity-image-builder.js', 'plugins/swiper.client.js', 'plugins/vue-easy-lightbox.client.js'],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components

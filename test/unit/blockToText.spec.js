@@ -1,4 +1,4 @@
-const { blockToText } = require('~/utils/blockToText')
+import { blockToText } from '~/utils/blockToText'
 
 describe('blockToText', () => {
   it('returns empty string for null/undefined input', () => {

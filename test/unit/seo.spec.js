@@ -1,4 +1,4 @@
-const { createSEOMeta } = require('~/utils/seo')
+import { createSEOMeta } from '../../utils/seo.js'
 
 const BASE = {
   title: 'Test Page · Aaja Music',
@@ -32,6 +32,14 @@ describe('createSEOMeta', () => {
     const themeEntry = meta.find((m) => m.hid === 'theme-color')
     expect(themeEntry).toBeDefined()
     expect(themeEntry.content).toBe('black')
+  })
+
+  it('uses data.themeColor, not hardcoded "black"', () => {
+    const meta = createSEOMeta({ ...BASE, themeColor: '#1a1a1a' })
+    const themeEntry = meta.find((m) => m.hid === 'theme-color')
+    expect(themeEntry).toBeDefined()
+    expect(themeEntry.content).toBe('#1a1a1a')
+    expect(themeEntry.content).not.toBe('black')
   })
 
   it('does not include theme-color when themeColor is absent', () => {
