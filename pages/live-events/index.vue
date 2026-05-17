@@ -91,11 +91,13 @@ export default {
     },
     futureEventCards() {
       return this.eventCards
+        .filter(event => !!event.eventDateText)
         .filter(this.isFutureEvent)
         .sort((a, b) => this.getEventTimestamp(a, Infinity) - this.getEventTimestamp(b, Infinity))
     },
     pastEventCards() {
       return this.eventCards
+        .filter(event => !!event.eventDateText)
         .filter(event => !this.isFutureEvent(event))
         .sort((a, b) => this.getEventTimestamp(b, 0) - this.getEventTimestamp(a, 0))
     },
