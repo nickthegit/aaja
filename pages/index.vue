@@ -77,7 +77,6 @@ export default {
   },
   mounted() {
     this.sliderReady = true
-    console.log('New', this.$store.state)
   },
   head() {
     const title = 'Aaja Music — Radio, Bar, Label & Festival'
