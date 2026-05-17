@@ -93,5 +93,44 @@ export default {
         },
       ],
     },
+    {
+      name: 'navLinks',
+      title: 'Navigation Links',
+      type: 'array',
+      description: 'Ordered list of links shown in the slide-out menu.',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            {
+              name: 'name',
+              title: 'Label',
+              type: 'string',
+            },
+            {
+              name: 'slug',
+              title: 'Internal path',
+              type: 'string',
+              description: 'e.g. "radio" or "live-events". Leave blank if using an external link.',
+            },
+            {
+              name: 'externalLink',
+              title: 'External URL',
+              type: 'url',
+              description: 'Full URL for external links. Leave blank for internal routes.',
+            },
+            {
+              name: 'openInNewTab',
+              title: 'Open in new tab',
+              type: 'boolean',
+              initialValue: false,
+            },
+          ],
+          preview: {
+            select: { title: 'name', subtitle: 'slug' },
+          },
+        },
+      ],
+    },
   ],
 }

@@ -6,10 +6,11 @@
       </button>
       <nav @click.stop>
         <ul id="navMenu">
-          <li v-for="link in links" :key="link._id" @click="navClose">
-            <a v-if="link.external_link" :href="link.external_link" target="_blank" rel="noopener noreferrer">{{
-      link.name
-    }}</a>
+          <li v-for="link in navLinks" :key="link._id || link.name" @click="navClose">
+            <a v-if="link.externalLink || link.external_link"
+               :href="link.externalLink || link.external_link"
+               :target="link.openInNewTab !== false ? '_blank' : undefined"
+               rel="noopener noreferrer">{{ link.name }}</a>
             <nuxt-link v-else :to="`/${link.slug}`">{{ link.name }}</nuxt-link>
           </li>
         </ul>
@@ -69,7 +70,7 @@ export default {
           _id: 'cp52vCk7JPBnfIM3dMb',
         },
       ],
-      links: [
+      fallbackLinks: [
         {
           name: 'Radio',
           slug: 'radio',
@@ -140,6 +141,11 @@ export default {
     },
   },
   computed: {
+    navLinks() {
+      const fromSanity = this.data?.navLinks
+      if (fromSanity?.length) return fromSanity
+      return this.fallbackLinks
+    },
     getSocials() {
       return this.data.socials
         ?.filter((social) => social.link)
