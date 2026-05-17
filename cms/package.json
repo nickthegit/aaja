@@ -7,8 +7,10 @@
   "author": "Nick <nick@rosielee.co.uk>",
   "license": "UNLICENSED",
   "scripts": {
+    "postinstall": "rm -f node_modules/fsevents/fsevents.node",
     "start": "sanity start",
-    "build": "sanity build"
+    "build": "sanity build",
+    "dev": "sanity start"
   },
   "keywords": [
     "sanity"
