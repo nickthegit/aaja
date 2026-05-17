@@ -6,7 +6,7 @@
       </button>
       <nav @click.stop>
         <ul id="navMenu">
-          <li v-for="link in navLinks" :key="link._id || link.name" @click="navClose">
+          <li v-for="link in navLinks" :key="link._key || link._id || link.name" @click="navClose">
             <a v-if="link.externalLink || link.external_link"
                :href="link.externalLink || link.external_link"
                :target="link.openInNewTab !== false ? '_blank' : undefined"

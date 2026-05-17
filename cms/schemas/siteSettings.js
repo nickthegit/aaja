@@ -101,11 +101,18 @@ export default {
       of: [
         {
           type: 'object',
+          validation: Rule => Rule.custom(fields => {
+            if (!fields.slug && !fields.externalLink) {
+              return 'Each navigation item must have either an internal path or an external URL.'
+            }
+            return true
+          }),
           fields: [
             {
               name: 'name',
               title: 'Label',
               type: 'string',
+              validation: Rule => Rule.required(),
             },
             {
               name: 'slug',
@@ -123,7 +130,7 @@ export default {
               name: 'openInNewTab',
               title: 'Open in new tab',
               type: 'boolean',
-              initialValue: false,
+              initialValue: true,
             },
           ],
           preview: {
