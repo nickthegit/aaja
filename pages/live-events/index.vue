@@ -97,11 +97,6 @@ export default {
   mounted() {
     // console.log(`channel2Data`, this.channel2Data)
   },
-  head: {
-    htmlAttrs: {
-      // class: 'light',
-    },
-  },
 }
 </script>
 

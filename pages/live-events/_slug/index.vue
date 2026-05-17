@@ -135,11 +135,6 @@ export default {
   mounted() {
 
   },
-  head: {
-    htmlAttrs: {
-      class: 'light',
-    },
-  },
 }
 </script>
 
