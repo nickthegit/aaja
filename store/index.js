@@ -26,13 +26,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async nuxtServerInit({ dispatch }, context) {
-    // console.log('liveInfo', liveInfo)
-    await dispatch('fetchRadio')
-    await dispatch('fetchRadio2')
-    // * schedule
-    await dispatch('schedule/scheduleServerInit')
-  },
+  nuxtServerInit() {},
   async fetchButtonSettings({ commit }) {
     console.log('gone here')
     const buttonSettings = await this.$axios.fetch(buttonPopupQuery)
