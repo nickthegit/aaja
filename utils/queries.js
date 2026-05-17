@@ -70,7 +70,7 @@ export const barPageQuery = `*[_type == "barPage"] {
 }`
 
 export const festivalPageQuery = `*[_type == "festivalPage"] {
-  "heading": coalesce(heading, "Creekside Festival!", false),
+  "heading": coalesce(heading, null),
   headingIntro,
   festivalHero,
   subHeading,

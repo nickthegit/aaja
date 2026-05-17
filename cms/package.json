@@ -7,7 +7,7 @@
   "author": "Nick <nick@rosielee.co.uk>",
   "license": "UNLICENSED",
   "scripts": {
-    "postinstall": "rm -f node_modules/fsevents/fsevents.node",
+    "postinstall": "node -e \"require('fs').rmSync('node_modules/fsevents/fsevents.node', {force: true})\"",
     "start": "sanity start",
     "build": "sanity build",
     "dev": "sanity start"

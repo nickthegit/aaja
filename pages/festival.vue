@@ -187,6 +187,7 @@ export default {
             return null
           }
         } else if (media._type === 'file') {
+          if (!media?.asset?._ref) return null
           parsedMedia = { ...parsedMedia, url: this.$getFileAsset(media) }
         }
         return parsedMedia
@@ -196,6 +197,9 @@ export default {
   mounted() {
     // Initial reveal fallback in case grid library fails to emit
     this.revealGridFallback()
+  },
+  beforeDestroy() {
+    if (this.revealTimer) clearTimeout(this.revealTimer)
   },
   methods: {
     revealGridFallback() {
