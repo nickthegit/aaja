@@ -58,6 +58,7 @@
 import { cloudinaryHeroParser, cloudinaryImgParser } from '~/utils/images'
 
 import { barPageQuery } from '~/utils/queries.js'
+import { createSEOMeta } from '~/utils/seo.js'
 
 import AajaContainer from '~/components/AajaContainer.vue'
 import AajaHeroImg from '~/components/AajaHeroImg.vue'
@@ -67,6 +68,14 @@ import AajaHeading from '~/components/AajaHeading.vue'
 
 export default {
   components: { AajaContainer, AajaHeroImg, Logo, AajaImg, AajaHeading },
+  head() {
+    const title = 'Aaja Bar · Deptford, London'
+    const description = this.barData?.intro || 'Aaja is a multi-purpose bar and event space located in Deptford, London.'
+    return {
+      title,
+      meta: createSEOMeta({ title, description, image: 'https://aajamusic.com/Aaja-hero.jpg', url: 'https://aajamusic.com/bar' }),
+    }
+  },
   async asyncData({ $sanity }) {
     const data = await $sanity.fetch(barPageQuery)
 
