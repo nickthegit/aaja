@@ -203,13 +203,14 @@ nav {
   right: 0;
   top: 0;
   background: var(--primary);
-  padding: 50px;
+  padding: 80px 50px 40px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
+  overflow: hidden;
 
   @include breakpoint(mobile) {
-    padding-left: 20px;
+    padding: 70px 20px 30px;
   }
 }
 
@@ -220,10 +221,18 @@ ul {
 }
 
 #navMenu {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
   li {
     width: 100%;
     overflow: hidden;
     border-bottom: 1px solid var(--white);
+    flex-shrink: 0;
   }
 
   a {
@@ -255,11 +264,13 @@ ul {
 }
 
 #navSocials {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   gap: 20px;
   flex-gap: 20px;
-  margin-top: 40px;
+  margin-top: 20px;
+  padding-top: 10px;
 
   li {
     width: 30px;
