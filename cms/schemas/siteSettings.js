@@ -102,10 +102,11 @@ export default {
         {
           type: 'object',
           validation: Rule => Rule.custom(fields => {
-            if (!fields.slug && !fields.externalLink) {
+            const slug = fields.slug?.trim()
+            if (!slug && !fields.externalLink) {
               return 'Provide either an internal path or an external URL.'
             }
-            if (fields.slug && fields.externalLink) {
+            if (slug && fields.externalLink) {
               return 'Set either an internal path or an external URL, not both.'
             }
             return true
@@ -123,7 +124,10 @@ export default {
               type: 'string',
               description: 'e.g. "radio" or "live-events". No leading slash. Leave blank if using an external link.',
               validation: Rule => Rule.custom(val => {
-                if (val && val.startsWith('/')) return 'Do not include a leading slash — it is added automatically.'
+                if (!val) return true
+                const trimmed = val.trim()
+                if (!trimmed) return 'Path cannot be blank or whitespace only.'
+                if (trimmed.startsWith('/')) return 'Do not include a leading slash — it is added automatically.'
                 return true
               }),
             },
