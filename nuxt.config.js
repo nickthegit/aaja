@@ -1,5 +1,13 @@
+import sanityClient from '@sanity/client'
+
+const client = sanityClient({
+  projectId: process.env.SANITY_ID || 'ycpbe8x2',
+  dataset: process.env.SANITY_DATASET || 'production',
+  useCdn: false,
+})
+
 export default {
-  ssr: false,
+  ssr: true,
   /*
    ** Nuxt target
    ** See https://nuxtjs.org/api/configuration-target
@@ -20,12 +28,16 @@ export default {
       },
     ],
     script: [
-      { src: 'https://cdn.anny.co/widget/annyComponents.umd.latest.min.js', async: true, defer: true }
+      // { src: 'https://cdn.anny.co/widget/annyComponents.umd.latest.min.js', async: true, defer: true }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: 'preload', href: 'https://aaja.radiocult.fm/stream', as: 'audio' },
-      { rel: 'preload', href: 'https://aaja-2.radiocult.fm/stream', as: 'audio' }
+      { rel: 'preload', href: 'https://aaja-2.radiocult.fm/stream', as: 'audio' },
+      { rel: 'preconnect', href: 'https://cdn.sanity.io' },
+      // { rel: 'preconnect', href: 'https://cdn.anny.co' },
+      { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+      { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'anonymous' },
     ],
   },
   // router: {
@@ -41,9 +53,10 @@ export default {
    */
   plugins: [
     'plugins/sanity-image-builder.js',
-    'plugins/track-events.js',
     'plugins/sanity-files-builder.js',
     'plugins/viewport.client.js',
+    'plugins/swiper.client.js',
+    'plugins/vue-easy-lightbox.client.js',
   ],
   /*
    ** Auto import components
@@ -64,7 +77,7 @@ export default {
   sanity: {
     projectId: process.env.SANITY_ID,
     dataset: process.env.SANITY_DATASET,
-    useCdn: process.env.SANITY_CDN,
+    useCdn: process.env.SANITY_CDN === 'true',
   },
   /*
    ** Nuxt.js modules
@@ -132,15 +145,12 @@ export default {
   },
   generate: {
     fallback: true,
-    interval: 500,
-    exclude: ['/residents/**'],
-    // routes() {
-    //   return client.fetch(query).then((residents) => {
-    //     return residents.map((resident) => {
-    //       return '/residents/' + resident.slug
-    //     })
-    //   })
-    // },
+    interval: 100,
+    routes() {
+      return client
+        .fetch(`*[_type == "resident" && defined(slug.current)]{ "slug": slug.current }`)
+        .then((residents) => residents.map((r) => `/residents/${r.slug}`))
+    },
   },
   /*
    ** Build configuration

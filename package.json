@@ -4,7 +4,10 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
-    "test": "playwright test"
+    "test": "jest --testPathPatterns=test/unit",
+    "test:unit": "jest --testPathPatterns=test/unit",
+    "test:integration": "jest --testPathPatterns=test/integration",
+    "test:e2e": "playwright test"
   },
   "name": "aaja",
   "version": "0.1.0",
@@ -21,6 +24,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.29.0",
+    "@babel/preset-env": "^7.29.5",
     "@nuxtjs/axios": "^5.13.1",
     "@nuxtjs/device": "^2.1.0",
     "@nuxtjs/dotenv": "^1.4.1",
@@ -31,10 +35,12 @@
     "@playwright/test": "^1.60.0",
     "@sanity/client": "^2.14.0",
     "@sanity/image-url": "^1.0.1",
+    "babel-jest": "^30.4.1",
     "date-fns": "^2.22.1",
     "esm": "^3.2.25",
     "get-video-id": "^3.2.0",
     "gsap": "file:gsap-bonus.tgz",
+    "jest": "^30.4.2",
     "nuxt": "^2.15.4",
     "oembed-parser": "^1.4.7",
     "playwright": "^1.60.0",

@@ -1,15 +1,23 @@
 export const headerQuery = `*[_type == "siteSettings"][0] {
-    'mixcloudVideoCh1': {
-      "enabled":coalesce(mixcloudVideoCh1.enabled, false),
-      "dynamic":coalesce(mixcloudVideoCh1.dynamic, false),
-			"url": coalesce(mixcloudVideoCh1.url, ''),
-      "_id" : _rev + 'mixcloudVideoCh1'
-  	},
-    'mixcloudVideoCh2':{
-      "enabled":coalesce(mixcloudVideoCh2.enabled, false),
-			"url": coalesce(mixcloudVideoCh2.url, ''),
-      "_id" : _rev + 'mixcloudVideoCh2'
-  	}
+  'navLinks': coalesce(navLinks, []),
+  'socials': [
+    { "name": "Facebook", "slug": "facebook", "link": coalesce(facebook, false), "_id": _rev + 'facebook' },
+    { "name": "Instagram", "slug": "instagram", "link": coalesce(instagram, false), "_id": _rev + 'instagram' },
+    { "name": "Mixcloud", "slug": "mixcloud", "link": coalesce(mixcloud, false), "_id": _rev + 'mixcloud' },
+    { "name": "Twitter", "slug": "twitter", "link": coalesce(twitter, false), "_id": _rev + 'twitter' },
+    { "name": "Soundcloud", "slug": "soundcloud", "link": coalesce(soundcloud, false), "_id": _rev + 'soundcloud' }
+  ],
+  'mixcloudVideoCh1': {
+    "enabled": coalesce(mixcloudVideoCh1.enabled, false),
+    "dynamic": coalesce(mixcloudVideoCh1.dynamic, false),
+    "url": coalesce(mixcloudVideoCh1.url, ''),
+    "_id": _rev + 'mixcloudVideoCh1'
+  },
+  'mixcloudVideoCh2': {
+    "enabled": coalesce(mixcloudVideoCh2.enabled, false),
+    "url": coalesce(mixcloudVideoCh2.url, ''),
+    "_id": _rev + 'mixcloudVideoCh2'
+  }
 }`
 
 export const footerQuery = `*[_type == "siteSettings"] {

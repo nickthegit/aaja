@@ -98,3 +98,8 @@ sw.*
 .yarn.lock
 .playwright-mcp/
 test-results/
+
+package-lock.json
+
+# Metrics
+.metrics/

@@ -6,7 +6,7 @@
     </nuxt-link>
     <div id="radio-sound-wrap">
       <div id="radio-widget__wrapper">
-        <aaja-radio-widget />
+        <client-only><aaja-radio-widget /></client-only>
       </div>
       <!-- <button id="toggle-sound" @click="toggleSound" :class="muted ? 'muted' : ''">
         <Speaker />

@@ -73,12 +73,14 @@
                 </frame-grid>
               </div>
 
-              <vue-easy-lightbox
-                :visible="visibleRef"
-                :imgs="imgsRef"
-                :index="indexRef"
-                @hide="onHide"
-              />
+              <client-only>
+                <vue-easy-lightbox
+                  :visible="visibleRef"
+                  :imgs="imgsRef"
+                  :index="indexRef"
+                  @hide="onHide"
+                />
+              </client-only>
             </div>
           </div>
         </aaja-container>
@@ -89,7 +91,7 @@
 
 <script>
 import { FrameGrid } from '@egjs/vue-grid'
-import VueEasyLightbox from 'vue-easy-lightbox/dist/vue-easy-lightbox.esm.min.js'
+
 import { cloudinaryHeroParser } from '~/utils/images'
 import { createSEOMeta } from '~/utils/seo.js'
 import { festivalPageQuery } from '~/utils/queries.js'
@@ -103,7 +105,6 @@ export default {
     AajaContainer,
     AajaHeroImg,
     FrameGrid,
-    VueEasyLightbox,
     AajaSkeletonMedia,
     AajaRichText
   },

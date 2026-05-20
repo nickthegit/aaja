@@ -43,6 +43,8 @@
 
 <script>
 import { residentSlugPageQuery } from '~/utils/queries.js'
+import { createSEOMeta } from '~/utils/seo.js'
+import { blockToText } from '~/utils/blockToText.js'
 
 const instagram = require('simple-icons/icons/instagram')
 const twitter = require('simple-icons/icons/twitter')
@@ -50,6 +52,18 @@ const facebook = require('simple-icons/icons/facebook')
 const mixcloud = require('simple-icons/icons/mixcloud')
 const soundcloud = require('simple-icons/icons/soundcloud')
 export default {
+  head() {
+    const name = this.residentData?.name
+    const title = name ? `${name} · Aaja Music` : 'Aaja Music Residents'
+    const description = blockToText(this.residentData?.bio) || (name ? `${name} is a resident on Aaja Music radio.` : 'Residents on Aaja Music radio.')
+    const image = this.residentData?.feature_image
+      ? this.$urlFor(this.residentData.feature_image).width(1200).url()
+      : 'https://aajamusic.com/Aaja-hero.jpg'
+    return {
+      title,
+      meta: createSEOMeta({ title, description, image, url: `https://aajamusic.com/residents/${this.$route.params.slug}` }),
+    }
+  },
   async asyncData({ params, $sanity }) {
     const data = await $sanity.fetch(residentSlugPageQuery(params.slug))
 
