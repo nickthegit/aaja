@@ -94,8 +94,10 @@ sw.*
 # Layer0 generated build directory
 .layer0
 
-# TODO: temporary fix as it currently breaks CI
-.yarn.lock
+yarn.lock
+.yarn/
+.pnp.cjs
+.pnp.loader.mjs
 .playwright-mcp/
 test-results/
 
