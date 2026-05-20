@@ -24,7 +24,7 @@
       </template>
       <template v-else>
         <img
-          v-show="src"
+          v-if="src"
           :src="src"
           :alt="alt"
           @load="onLoaded"
@@ -59,7 +59,6 @@ export default {
       default: ''
     }
   },
-  emits: ['click'],
   data() {
     const mediaUrl = this.type === 'file' ? this.url : this.src;
     return {

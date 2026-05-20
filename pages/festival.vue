@@ -189,7 +189,9 @@ export default {
           }
         } else if (media._type === 'file') {
           if (!media?.asset?._ref) return null
-          parsedMedia = { ...parsedMedia, url: this.$getFileAsset(media) }
+          const url = this.$getFileAsset(media)
+          if (!url) return null
+          parsedMedia = { ...parsedMedia, url }
         }
         return parsedMedia
       }).filter(item => item !== null)
