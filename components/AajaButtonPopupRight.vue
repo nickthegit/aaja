@@ -25,7 +25,6 @@ export default {
   },
   methods: {
     handleClick() {
-      this.$trackEvent('btn_popup_right');
       window.open(
         this.settings.buttonLink,
         "AAJA popout",

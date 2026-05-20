@@ -96,3 +96,12 @@ sw.*
 
 # TODO: temporary fix as it currently breaks CI
 .yarn.lock
+
+package-lock.json
+
+# Playwright
+.playwright-mcp/
+test-results/
+
+# Metrics
+.metrics/

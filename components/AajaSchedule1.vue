@@ -71,12 +71,9 @@ export default {
       schduleFetched: false,
     }
   },
-  async created() {
+  async mounted() {
     await this.$store.dispatch('schedule/fetchSchedule')
-    this.schduleFetched = await true
-  },
-  mounted() {
-    // console.log(this.$store)
+    this.schduleFetched = true
   },
 }
 </script>

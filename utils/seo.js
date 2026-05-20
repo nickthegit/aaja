@@ -45,6 +45,6 @@ export const createSEOMeta = (data) => [
   (data?.themeColor && {
     hid: 'theme-color',
     name: 'theme-color',
-    content: 'black',
+    content: data.themeColor,
   })
-]
+].filter(Boolean)
