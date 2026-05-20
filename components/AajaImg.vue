@@ -42,14 +42,13 @@
           :sizes="`${percentageOfViewportWidthMobile}vw`"
           media="(max-width: 480px)"
         />
-        <img :src="desktopImgs['1200']" :ref="altText" />
+        <img :src="desktopImgs['1200']" :ref="altText" :alt="altText" loading="lazy" />
       </picture>
     </transition>
   </div>
 </template>
 
 <script>
-import LogoVue from './Logo.vue'
 export default {
   components: {},
   props: {

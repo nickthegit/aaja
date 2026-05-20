@@ -1,5 +1,13 @@
+import sanityClient from '@sanity/client'
+
+const client = sanityClient({
+  projectId: process.env.SANITY_ID || 'ycpbe8x2',
+  dataset: process.env.SANITY_DATASET || 'production',
+  useCdn: false,
+})
+
 export default {
-  ssr: false,
+  ssr: true,
   /*
    ** Nuxt target
    ** See https://nuxtjs.org/api/configuration-target
@@ -16,17 +24,20 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content:
-          'Aaja is a full spectrum music bar, record label, live streaming and event space located in an old railway arch in the heart of Deptford, London.',
+        content: 'Aaja is a multi-purpose community radio station, event space and bar. Situated along Deptford High street, the local cultural hub hosts an eclectic mix of radio hosts, DJs and events. Open since 2018, Aaja has provided a space that has nurtured and aided the growth of creative minds and groups within South-East London and beyond.',
       },
     ],
     script: [
-      { src: 'https://cdn.anny.co/widget/annyComponents.umd.latest.min.js', async: true, defer: true }
+      // { src: 'https://cdn.anny.co/widget/annyComponents.umd.latest.min.js', async: true, defer: true }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: 'preload', href: 'https://aaja.radiocult.fm/stream', as: 'audio' },
-      { rel: 'preload', href: 'https://aaja-2.radiocult.fm/stream', as: 'audio' }
+      { rel: 'preload', href: 'https://aaja-2.radiocult.fm/stream', as: 'audio' },
+      { rel: 'preconnect', href: 'https://cdn.sanity.io' },
+      // { rel: 'preconnect', href: 'https://cdn.anny.co' },
+      { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+      { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'anonymous' },
     ],
   },
   // router: {
@@ -40,7 +51,7 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: ['plugins/sanity-image-builder.js', 'plugins/track-events.js'],
+  plugins: ['plugins/sanity-image-builder.js', 'plugins/swiper.client.js', 'plugins/vue-easy-lightbox.client.js'],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
@@ -60,7 +71,7 @@ export default {
   sanity: {
     projectId: process.env.SANITY_ID,
     dataset: process.env.SANITY_DATASET,
-    useCdn: process.env.SANITY_CDN,
+    useCdn: process.env.SANITY_CDN === 'true',
   },
   /*
    ** Nuxt.js modules
@@ -77,8 +88,7 @@ export default {
         url: 'https://aajamusic.com/',
         title: 'Aaja Music',
         site_name: 'Aaja Music',
-        description:
-          'Aaja is a full spectrum music bar, record label, live streaming and event space located in an old railway arch in the heart of Deptford, London. ',
+        description: 'Aaja is a multi-purpose community radio station, event space and bar. Situated along Deptford High street, the local cultural hub hosts an eclectic mix of radio hosts, DJs and events. Open since 2018, Aaja has provided a space that has nurtured and aided the growth of creative minds and groups within South-East London and beyond.',
         img: 'https://aajamusic.com/Aaja-hero.jpg',
         img_size: { width: '1200', height: '671' },
         locale: 'en_GB',
@@ -129,15 +139,12 @@ export default {
   },
   generate: {
     fallback: true,
-    interval: 500,
-    exclude: ['/residents/**'],
-    // routes() {
-    //   return client.fetch(query).then((residents) => {
-    //     return residents.map((resident) => {
-    //       return '/residents/' + resident.slug
-    //     })
-    //   })
-    // },
+    interval: 100,
+    routes() {
+      return client
+        .fetch(`*[_type == "resident" && defined(slug.current)]{ "slug": slug.current }`)
+        .then((residents) => residents.map((r) => `/residents/${r.slug}`))
+    },
   },
   /*
    ** Build configuration

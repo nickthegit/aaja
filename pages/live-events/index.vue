@@ -61,9 +61,18 @@
 import getVideoId from 'get-video-id'
 import { isAfter, isToday } from 'date-fns';
 import { cloudinaryHeroParser } from '~/utils/images'
+import { createSEOMeta } from '~/utils/seo.js'
 
 export default {
   // Fetch
+  head() {
+    const title = 'Aaja Live Events'
+    const description = this.eventsPage?.headingIntro || 'Live events, streams and shows from Aaja Music in Deptford, London.'
+    return {
+      title,
+      meta: createSEOMeta({ title, description, image: 'https://aajamusic.com/Aaja-hero.jpg', url: 'https://aajamusic.com/live-events' }),
+    }
+  },
   async asyncData({ $sanity }) {
     const data = await $sanity.fetch(`*[_type == "liveEventsLandingPage"][0]`);
     const events = await $sanity.fetch(`*[_type == "liveEvents"]`)
@@ -130,11 +139,6 @@ export default {
   },
   mounted() {
     // console.log(`channel2Data`, this.channel2Data)
-  },
-  head: {
-    htmlAttrs: {
-      // class: 'light',
-    },
   },
 }
 </script>

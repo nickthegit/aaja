@@ -37,7 +37,7 @@
             <img :src="image.desktop[isMobile ? '400' : '800']" @click="showMultiple(gallery, index)">
           </div>
         </frame-grid>
-        <vue-easy-lightbox :visible="visibleRef" :imgs="imgsRef" :index="indexRef" @hide="onHide" />
+        <client-only><vue-easy-lightbox :visible="visibleRef" :imgs="imgsRef" :index="indexRef" @hide="onHide" /></client-only>
       </aaja-container>
     </article>
   </main>
@@ -46,7 +46,6 @@
 <script>
 import { ref } from 'vue';
 import { FrameGrid } from "@egjs/vue-grid";
-import VueEasyLightbox from 'vue-easy-lightbox/dist/vue-easy-lightbox.esm.min.js'
 
 import { cloudinaryHeroParser } from '~/utils/images'
 import { createSEOMeta } from '~/utils/seo.js'
@@ -59,7 +58,7 @@ import AajaHeading from '~/components/AajaHeading.vue'
 
 
 export default {
-  components: { AajaContainer, AajaHeroImg, Logo, AajaImg, AajaHeading, FrameGrid, VueEasyLightbox },
+  components: { AajaContainer, AajaHeroImg, Logo, AajaImg, AajaHeading, FrameGrid },
   head() {
     const title = 'Aaja - Creekside Festival';
     const description = this.festivalData?.headingIntro || 'Championing neighbourhood crews, DIY radio, local businesses & the unique spaces of Deptford, Creekside Festival is intimate multi-venue electronic music festival.';
@@ -143,17 +142,7 @@ export default {
       handleTabletChange(mediaQuery)
     }
   },
-  mounted() {
-    if (process.client) {
-      let vm = this
-      const mediaQuery = window.matchMedia('(max-width: 480px)')
-      function handleTabletChange(e) {
-        vm.isMobile = e.matches
-      }
-      mediaQuery.addListener(handleTabletChange)
-      handleTabletChange(mediaQuery)
-    }
-  },
+  mounted() {},
 }
 </script>
 

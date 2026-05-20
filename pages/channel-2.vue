@@ -29,6 +29,7 @@
 
 <script>
 import getVideoId from 'get-video-id'
+import { createSEOMeta } from '~/utils/seo.js'
 export default {
   async asyncData({ $sanity }) {
     const data = await $sanity.fetch(`*[_type == "channel2Page"]`)
@@ -47,10 +48,14 @@ export default {
   mounted() {
     // console.log(`channel2Data`, this.channel2Data)
   },
-  head: {
-    htmlAttrs: {
-      class: 'light',
-    },
+  head() {
+    const title = 'Aaja Music Channel 2'
+    const description = this.channel2Data?.intro || 'Aaja Music Channel 2 — a second stream from Aaja radio in Deptford, London.'
+    return {
+      title,
+      meta: createSEOMeta({ title, description, image: 'https://aajamusic.com/Aaja-hero.jpg', url: 'https://aajamusic.com/channel-2' }),
+      htmlAttrs: { class: 'light' },
+    }
   },
 }
 </script>

@@ -34,8 +34,8 @@
 
 <script>
 import { cloudinaryImgParser } from '~/utils/images'
-
 import { labelPageQuery } from '~/utils/queries.js'
+import { createSEOMeta } from '~/utils/seo.js'
 export default {
   async asyncData({ $sanity }) {
     const data = await $sanity.fetch(labelPageQuery)
@@ -88,10 +88,14 @@ export default {
     // console.log(this.eps_records)
     // console.log('is mobile?', this.$isMobile)
   },
-  head: {
-    htmlAttrs: {
-      class: 'light',
-    },
+  head() {
+    const title = 'Aaja Label'
+    const description = this.labelData?.intro || 'Music releases on the Aaja Music label.'
+    return {
+      title,
+      meta: createSEOMeta({ title, description, image: 'https://aajamusic.com/Aaja-hero.jpg', url: 'https://aajamusic.com/label' }),
+      htmlAttrs: { class: 'light' },
+    }
   },
 }
 </script>

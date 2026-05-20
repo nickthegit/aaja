@@ -92,6 +92,7 @@
 import { cloudinaryImgParser } from '~/utils/images'
 
 import { radioPageQuery, residentAllQuery } from '~/utils/queries.js'
+import { createSEOMeta } from '~/utils/seo.js'
 
 import Logo from '~/assets/img/icons/logo.svg?inline'
 import SnakeRoundel from '~/assets/img/radio-snake.svg?inline'
@@ -113,6 +114,14 @@ export default {
     AajaSchedule,
     AajaArtistCard,
     AajaArchive,
+  },
+  head() {
+    const title = 'Aaja Music Radio'
+    const description = this.radioData?.subHeading || 'Community radio station based in Deptford, London. Live DJs, shows and events.'
+    return {
+      title,
+      meta: createSEOMeta({ title, description, image: 'https://aajamusic.com/Aaja-hero.jpg', url: 'https://aajamusic.com/radio' }),
+    }
   },
   async asyncData({ $sanity, $axios }) {
     const data = await $sanity.fetch(radioPageQuery)
