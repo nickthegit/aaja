@@ -7,7 +7,7 @@ const client = sanityClient({
 })
 
 export default {
-  ssr: true,
+  ssr: false,
   /*
    ** Nuxt target
    ** See https://nuxtjs.org/api/configuration-target
