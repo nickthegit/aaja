@@ -7,8 +7,10 @@
   "author": "Nick <nick@rosielee.co.uk>",
   "license": "UNLICENSED",
   "scripts": {
+    "postinstall": "node -e \"require('fs').rmSync('node_modules/fsevents/fsevents.node', {force: true})\"",
     "start": "sanity start",
-    "build": "sanity build"
+    "build": "sanity build",
+    "dev": "sanity start"
   },
   "keywords": [
     "sanity"
@@ -21,6 +23,7 @@
     "@sanity/default-layout": "^2.22.5",
     "@sanity/default-login": "^2.22.3",
     "@sanity/desk-tool": "^2.22.5",
+    "@sanity/cli": "^2.22.5",
     "@sanity/vision": "^2.22.3",
     "prop-types": "^15.7",
     "react": "^17.0",

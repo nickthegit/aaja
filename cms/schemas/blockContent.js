@@ -61,5 +61,18 @@ export default {
       type: 'image',
       options: {hotspot: true},
     },
+    {
+      title: 'YouTube Embed',
+      name: 'youtube',
+      type: 'object',
+      fields: [
+        {
+          title: 'URL',
+          name: 'url',
+          type: 'url',
+          description: 'Paste your YouTube video URL here (e.g. https://www.youtube.com/watch?v=...)',
+        },
+      ],
+    },
   ],
 }

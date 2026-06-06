@@ -1,11 +1,17 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
+    "target": "ES6",
+    "module": "node16",
+    "moduleResolution": "node16",
+    "jsx": "preserve",
+    "allowJs": true,
+    "checkJs": false,
+    "noEmit": true,
+    "skipLibCheck": true,
     "paths": {
       "~/*": ["./*"],
-      "@/*": ["./*"],
-      "~~/*": ["./*"],
-      "@@/*": ["./*"]
+      "@/*": ["./*"]
     }
   },
   "exclude": ["node_modules", ".nuxt", "dist"]
