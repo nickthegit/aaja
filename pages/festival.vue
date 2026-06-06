@@ -48,7 +48,20 @@
             </div>
             
             <div class="festival__content-images">
-              <div class="festival__content-images-inner">
+              <div v-if="galleryVideos.length" class="festival__content-videos">
+                <video
+                  v-for="item in galleryVideos"
+                  :key="item._key"
+                  class="festival__video"
+                  :src="item.url"
+                  controls
+                  muted
+                  preload="metadata"
+                  playsinline
+                />
+              </div>
+
+              <div v-if="galleryImages.length" class="festival__content-images-inner">
                 <!-- Actual Grid (Always mounted) -->
                 <frame-grid
                   ref="grid"
@@ -61,13 +74,13 @@
                   :use-frame-fill="useFrameFill"
                   @render-complete="onRenderComplete"
                 >
-                  <div v-for="(item, index) in gallery" :key="item._key" class="item">
+                  <div v-for="(item, index) in galleryImages" :key="item._key" class="item">
                     <aaja-skeleton-media
                       :type="item._type"
                       :src="item.desktop ? item.desktop[isMobile ? '400' : '800'] : ''"
                       :url="item.url || ''"
                       :alt="`Aaja festival image ${index}`"
-                      @click="showMultiple(gallery, index)"
+                      @click="showMultiple(galleryImages, index)"
                     />
                   </div>
                 </frame-grid>
@@ -173,14 +186,14 @@ export default {
       return this.sortedYears.find(f => String(f.year) === String(currentYear))
     },
     gallery() {
-      let images = this.activeFestival?.media || []
-      
+      let items = this.activeFestival?.media || []
+
       // 2023 predates the years[].media schema — its photos live in the legacy top-level images field
       if (Number(this.selectedYear) === 2023 && this.festivalData?.images) {
-        images = [...images, ...this.festivalData.images]
+        items = [...items, ...this.festivalData.images]
       }
 
-      return images.map((media) => {
+      return items.map((media) => {
         let parsedMedia = { _key: media._key, _type: media._type }
         if (media._type === 'image') {
           if (media.asset) {
@@ -196,6 +209,12 @@ export default {
         }
         return parsedMedia
       }).filter(item => item !== null)
+    },
+    galleryImages() {
+      return this.gallery.filter(item => item._type === 'image')
+    },
+    galleryVideos() {
+      return this.gallery.filter(item => item._type === 'file')
     },
   },
   mounted() {
@@ -239,12 +258,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.festival__content-display {
-  ::v-deep video {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+.festival__content-videos {
+  margin-bottom: 30px;
+}
+
+.festival__video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+  & + & {
+    margin-top: 20px;
   }
 }
 
