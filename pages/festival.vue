@@ -175,6 +175,7 @@ export default {
     gallery() {
       let images = this.activeFestival?.media || []
       
+      // 2023 predates the years[].media schema — its photos live in the legacy top-level images field
       if (Number(this.selectedYear) === 2023 && this.festivalData?.images) {
         images = [...images, ...this.festivalData.images]
       }
@@ -239,7 +240,7 @@ export default {
 
 <style lang="scss" scoped>
 .festival__content-display {
-  video {
+  ::v-deep video {
     width: 100%;
     height: auto;
     border-radius: 10px;

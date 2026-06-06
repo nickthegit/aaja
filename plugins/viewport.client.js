@@ -5,8 +5,10 @@ export default ({ store }) => {
     store.commit('updateIsMobile', e.matches)
   }
 
-  // Initial check
-  handleTabletChange(mediaQuery)
+  // Defer initial check until after hydration to avoid SSR/client mismatch
+  window.onNuxtReady(() => {
+    handleTabletChange(mediaQuery)
+  })
 
   // Listen for changes
   if (mediaQuery.addEventListener) {

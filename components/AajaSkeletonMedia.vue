@@ -82,14 +82,6 @@ export default {
   },
   mounted() {
     this.checkIfLoaded()
-    // Periodic check for cache hits or late loads
-    this.interval = setInterval(() => {
-      if (this.loading) this.checkIfLoaded()
-      else clearInterval(this.interval)
-    }, 500)
-  },
-  beforeDestroy() {
-    if (this.interval) clearInterval(this.interval)
   },
   methods: {
     checkIfLoaded() {

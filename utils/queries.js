@@ -78,7 +78,7 @@ export const barPageQuery = `*[_type == "barPage"] {
 }`
 
 export const festivalPageQuery = `*[_type == "festivalPage"] {
-  "heading": coalesce(heading, null),
+  heading,
   headingIntro,
   festivalHero,
   subHeading,
